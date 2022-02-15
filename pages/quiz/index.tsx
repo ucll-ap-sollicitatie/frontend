@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import Layout from "../../components/layout/Layout";
 
-const QUIZES = [
+const QUIZZES = [
   {
     id: 1,
     name: "General",
@@ -16,21 +16,18 @@ const QUIZES = [
   {
     id: 3,
     name: "Movies",
-    questions: [
-      "What is your favorite movie?",
-      "What is your favorite TV show?",
-    ],
+    questions: ["What is your favorite movie?", "What is your favorite TV show?"],
   },
 ];
 
-const Questions: NextPage = () => {
+const Quizzes: NextPage = () => {
   return (
     <Layout>
-      <h1>Vragen</h1>
+      <h1>Quizzes</h1>
 
       <p>Kies een quiz</p>
       <ul>
-        {QUIZES.map((quiz) => (
+        {QUIZZES.map((quiz) => (
           <li key={quiz.name}>
             <Link href="/quiz/[quiz-name]" as={`/quiz/${quiz.name}`}>
               <a>{quiz.name}</a>
@@ -46,4 +43,4 @@ const Questions: NextPage = () => {
   );
 };
 
-export default Questions;
+export default Quizzes;

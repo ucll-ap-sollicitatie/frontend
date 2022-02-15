@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import React from "react";
+import { Button } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 
 const QUIZ = {
@@ -37,20 +38,12 @@ const Test: NextPage = () => {
         </h3>
 
         <div className="d-flex gap-2">
-          <button
-            onClick={() => incrementQuestionIndex(-1)}
-            disabled={questionIndex <= 0}
-            className="btn btn-primary"
-          >
+          <Button onClick={() => incrementQuestionIndex(-1)} disabled={questionIndex <= 0} variant="primary">
             Vorige vraag
-          </button>
-          <button
-            onClick={() => incrementQuestionIndex(1)}
-            disabled={questionIndex >= QUIZ.questions.length - 1}
-            className="btn btn-primary"
-          >
+          </Button>
+          <Button onClick={() => incrementQuestionIndex(1)} disabled={questionIndex >= QUIZ.questions.length - 1} variant="primary">
             Volgende vraag
-          </button>
+          </Button>
         </div>
       </div>
     </Layout>

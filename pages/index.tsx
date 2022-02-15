@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import Link from "next/link";
+import { Button } from "react-bootstrap";
 import Layout from "../components/layout/Layout";
 
 const Home: NextPage = () => {
@@ -9,11 +10,15 @@ const Home: NextPage = () => {
         <h1>Slim op sollicitatie</h1>
 
         <p>Welkom student/lector</p>
-        <Link href="/quiz">
-          <button type="button" className="btn btn-primary">
-            Quizes
-          </button>
-        </Link>
+
+        <div className="d-grid gap-2 col-2">
+          <Link href="/auth/login">
+            <Button variant="primary">Login</Button>
+          </Link>
+          <Link href="/quiz">
+            <Button variant="primary">Quizzes</Button>
+          </Link>
+        </div>
       </Layout>
     </>
   );
