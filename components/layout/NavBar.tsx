@@ -21,6 +21,9 @@ const NavBar: NextPage = () => {
               <Link href={"/quiz"}>
                 <Nav.Link href="/">Quizzes</Nav.Link>
               </Link>
+              <Link href={"/profile"}>
+                <Nav.Link href="/">Profiel</Nav.Link>
+              </Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
