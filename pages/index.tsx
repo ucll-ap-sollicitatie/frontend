@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Link from "next/link";
 import { Button } from "react-bootstrap";
 import Layout from "../components/layout/Layout";
+import UsersTable from "../components/UsersTable";
 
 const Home: NextPage = () => {
   return (
@@ -19,6 +20,11 @@ const Home: NextPage = () => {
             <Button variant="primary">Quizzes</Button>
           </Link>
         </div>
+
+        <br />
+
+        <h2>Gebruikers</h2>
+        <UsersTable />
       </Layout>
     </>
   );
