@@ -3,10 +3,13 @@
 Commands:
 
 ```bash
+# Install packages
+npm install
+
 # Start server
 npm run dev
 
-# Format project
+# Format project files
 npm run format
 ```
 
