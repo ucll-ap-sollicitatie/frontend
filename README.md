@@ -1,4 +1,4 @@
-# Frontend 'Slim op solicitatie'
+# Frontend 'Slim op sollicitatie'
 
 Commands:
 
