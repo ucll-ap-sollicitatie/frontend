@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Carousel } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 
 const QUIZ = {
@@ -29,7 +29,19 @@ const Test: NextPage = () => {
   return (
     <Layout>
       <h1>Quiz: {QUIZ.name}</h1>
-      <br />
+
+      <Carousel interval={null} variant="dark" wrap={false}>
+        {QUIZ.questions.map((question, index) => (
+          <Carousel.Item key={index}>
+            <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
+            <Carousel.Caption>
+              <h3>Vraag {index + 1}</h3>
+              <h1>{question}</h1>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
+      </Carousel>
+      {/* <br />
       <br />
 
       <div className="d-flex align-items-center flex-column">
@@ -45,7 +57,7 @@ const Test: NextPage = () => {
             Volgende vraag
           </Button>
         </div>
-      </div>
+      </div> */}
     </Layout>
   );
 };

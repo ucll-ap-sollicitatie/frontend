@@ -20,11 +20,6 @@ const Home: NextPage = () => {
             <Button variant="primary">Quizzes</Button>
           </Link>
         </div>
-
-        <br />
-
-        <h2>Gebruikers</h2>
-        <UsersTable />
       </Layout>
     </>
   );
