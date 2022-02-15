@@ -21,7 +21,10 @@ const NavBar: NextPage = () => {
               <Link href={"/quiz"}>
                 <Nav.Link href="/">Quizzes</Nav.Link>
               </Link>
-              <Link href={"/profile"}>
+              <Link href={"/users"}>
+                <Nav.Link href="/">Gebruikers</Nav.Link>
+              </Link>
+              <Link href={"#"}>
                 <Nav.Link href="/">Profiel</Nav.Link>
               </Link>
             </Nav>

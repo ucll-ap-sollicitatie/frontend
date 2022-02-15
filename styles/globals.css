@@ -22,3 +22,12 @@ h1 {
 form {
   max-width: 348px;
 }
+
+.carousel-caption {
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
