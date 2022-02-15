@@ -14,6 +14,11 @@ const Home: NextPage = () => {
             Quizes
           </button>
         </Link>
+        <Link href="/recording">
+          <button type="button" className="btn btn-primary">
+            Record a video of yourself
+          </button>
+        </Link>
       </Layout>
     </>
   );
