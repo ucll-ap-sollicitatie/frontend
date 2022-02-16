@@ -4,7 +4,7 @@ import Layout from "../../components/layout/Layout";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const res = await fetch(`http://localhost:3001/questions/categories`);
+  const res = await fetch(`http://localhost:3001/question-categories`);
   const categories = await res.json();
 
   return {
@@ -31,10 +31,6 @@ const Quizzes: NextPage<Props> = ({ categories }) => {
           </li>
         ))}
       </ul>
-
-      <Link href="/quiz/test">
-        <a>Test</a>
-      </Link>
     </Layout>
   );
 };

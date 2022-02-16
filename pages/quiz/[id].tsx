@@ -5,7 +5,7 @@ import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await fetch("http://localhost:3001/questions/categories");
+  const data = await fetch("http://localhost:3001/question-categories");
   const categories = await data.json();
 
   const paths = categories.map((category: QuestionCategory) => {
@@ -21,23 +21,49 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const res = await fetch(`http://localhost:3001/questions-by-category/${params.id}`);
-  const questions = await res.json();
+  const questions_res = await fetch(`http://localhost:3001/questions-by-category/${params.id}`);
+  const questions = await questions_res.json();
+
+  const category_res = await fetch(`http://localhost:3001/question-categories/${params.id}`);
+  const category = await category_res.json();
 
   return {
-    props: { questions: questions },
+    props: {
+      questions: questions,
+      category: category,
+    },
   };
 };
 
 interface Props {
   questions: Question[];
+  category: QuestionCategory;
 }
 
-const Quiz: NextPage<Props> = ({ questions }) => {
+const Quiz: NextPage<Props> = ({ questions, category }) => {
+  if (questions.length === 0) {
+    return (
+      <>
+        <Layout>
+          <h1>Quiz {category.category}</h1>
+
+          <Carousel interval={null} variant="dark" wrap={false}>
+            <Carousel.Item>
+              <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
+              <Carousel.Caption>
+                <h3>Deze categorie bevat geen vragen</h3>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
+        </Layout>
+      </>
+    );
+  }
+
   return (
     <>
       <Layout>
-        <h1>Quiz</h1>
+        <h1>Quiz {category.category}</h1>
 
         <Carousel interval={null} variant="dark" wrap={false}>
           {questions.map((question, index) => (
@@ -45,7 +71,7 @@ const Quiz: NextPage<Props> = ({ questions }) => {
               <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
               <Carousel.Caption>
                 <h3>Vraag {index + 1}</h3>
-                <h1>{question.qestion}</h1>
+                <h1>{question.question}</h1>
               </Carousel.Caption>
             </Carousel.Item>
           ))}

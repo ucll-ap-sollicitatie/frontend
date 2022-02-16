@@ -20,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <NextNProgress />
+      <NextNProgress options={{ showSpinner: false }} />
       <Component {...pageProps} />
     </>
   );

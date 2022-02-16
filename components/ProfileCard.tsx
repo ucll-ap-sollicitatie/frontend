@@ -14,16 +14,16 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
 
       <Card.Body>
         <Card.Title>
-          {user.voornaam} {user.familienaam}
+          {user.name} {user.surname}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted fst-italic">
-          {capitalize(user.rol)} - {user.richting}
+          {capitalize(user.role)} - {user.formation}
         </Card.Subtitle>
       </Card.Body>
 
       <Card.Body className="border-top">
-        <Card.Text>{user.r_u_nummer}</Card.Text>
-        <Card.Text>{user.e_mail}</Card.Text>
+        <Card.Text>{user.r_u_number}</Card.Text>
+        <Card.Text>{user.email}</Card.Text>
         <Button variant="primary">Update information</Button>
       </Card.Body>
     </Card>

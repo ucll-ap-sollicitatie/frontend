@@ -34,15 +34,15 @@ const UsersTable: NextPage = () => {
         </thead>
         <tbody>
           {users.map((user: User) => (
-            <tr key={user.r_u_nummer}>
-              <td>{user.r_u_nummer}</td>
-              <td>{user.voornaam}</td>
-              <td>{user.familienaam}</td>
-              <td>{user.e_mail}</td>
-              <td>{user.richting}</td>
-              <td>{capitalize(user.rol)}</td>
+            <tr key={user.r_u_number}>
+              <td>{user.r_u_number}</td>
+              <td>{user.name}</td>
+              <td>{user.surname}</td>
+              <td>{user.email}</td>
+              <td>{user.formation}</td>
+              <td>{capitalize(user.role)}</td>
               <td>
-                <Link href={`/users/${user.r_u_nummer}`}>
+                <Link href={`/users/${user.r_u_number}`}>
                   <a className="d-flex align-items-center gap-1">
                     View <BsFillArrowUpRightCircleFill />
                   </a>
