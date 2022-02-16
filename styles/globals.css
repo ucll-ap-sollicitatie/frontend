@@ -16,11 +16,7 @@ a {
 }
 
 h1 {
-  margin: 2rem 0 2rem 0;
-}
-
-form {
-  max-width: 348px;
+  margin: 3rem 0 3rem 0;
 }
 
 .carousel-caption {
@@ -30,4 +26,8 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.pointer {
+  cursor: pointer;
 }

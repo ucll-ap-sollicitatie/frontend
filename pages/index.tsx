@@ -1,25 +1,32 @@
 import type { NextPage } from "next";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import { Button } from "react-bootstrap";
+import { Button, Stack } from "react-bootstrap";
 import Layout from "../components/layout/Layout";
-import UsersTable from "../components/UsersTable";
 
 const Home: NextPage = () => {
+  const { data: session } = useSession();
+
   return (
     <>
       <Layout>
         <h1>Slim op sollicitatie</h1>
 
-        <p>Welkom student/lector</p>
-
-        <div className="d-grid gap-2 col-2">
-          <Link href="/auth/login">
-            <Button variant="primary">Login</Button>
-          </Link>
-          <Link href="/auth/register">
-            <Button variant="primary">Register</Button>
-          </Link>
-        </div>
+        {!session ? (
+          <>
+            <p>U bent momenteel niet ingelogd.</p>
+            <Link href="/auth/login">
+              <Button variant="primary">Login</Button>
+            </Link>
+          </>
+        ) : (
+          <>
+            <p>Welkom, {session.user.name || session.user.email}!</p>
+            <Button variant="primary" onClick={signOut}>
+              Logout
+            </Button>
+          </>
+        )}
       </Layout>
     </>
   );
