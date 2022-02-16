@@ -1,8 +1,7 @@
 import type { NextPage } from "next";
 import Link from "next/link";
-import { Button } from "react-bootstrap";
+import { Button, Stack } from "react-bootstrap";
 import Layout from "../components/layout/Layout";
-import UsersTable from "../components/UsersTable";
 
 const Home: NextPage = () => {
   return (
@@ -12,14 +11,14 @@ const Home: NextPage = () => {
 
         <p>Welkom student/lector</p>
 
-        <div className="d-grid gap-2 col-2">
+        <Stack gap={2} className="col-md-2">
           <Link href="/auth/login">
             <Button variant="primary">Login</Button>
           </Link>
           <Link href="/auth/register">
             <Button variant="primary">Register</Button>
           </Link>
-        </div>
+        </Stack>
       </Layout>
     </>
   );

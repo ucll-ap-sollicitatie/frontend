@@ -17,6 +17,16 @@ interface Props {
 }
 
 const Interviews: NextPage<Props> = ({ categories }) => {
+  if (categories === undefined || categories.length === 0) {
+    return (
+      <Layout>
+        <h1>Interviews</h1>
+
+        <p>Er zijn geen interviews beschikbaar.</p>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <h1>Interviews</h1>

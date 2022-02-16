@@ -19,10 +19,6 @@ h1 {
   margin: 2rem 0 2rem 0;
 }
 
-form {
-  max-width: 348px;
-}
-
 .carousel-caption {
   top: 50%;
   transform: translateY(-50%);
@@ -30,4 +26,8 @@ form {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.pointer {
+  cursor: pointer;
 }
