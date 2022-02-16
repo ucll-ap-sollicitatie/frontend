@@ -18,8 +18,8 @@ const NavBar: NextPage = () => {
 
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
             <Nav>
-              <Link href={"/quiz"}>
-                <Nav.Link href="/">Quizzes</Nav.Link>
+              <Link href={"/interviews"}>
+                <Nav.Link href="/">Interviews</Nav.Link>
               </Link>
               <Link href={"/users"}>
                 <Nav.Link href="/">Gebruikers</Nav.Link>

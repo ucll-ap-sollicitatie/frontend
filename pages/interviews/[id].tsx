@@ -21,6 +21,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (params === undefined || params.id === undefined) {
+    return { props: { questions: [], category: null } };
+  }
+
   const questions_res = await fetch(`http://localhost:3001/questions-by-category/${params.id}`);
   const questions = await questions_res.json();
 
@@ -40,12 +44,12 @@ interface Props {
   category: QuestionCategory;
 }
 
-const Quiz: NextPage<Props> = ({ questions, category }) => {
+const Interviews: NextPage<Props> = ({ questions, category }) => {
   if (questions.length === 0) {
     return (
       <>
         <Layout>
-          <h1>Quiz {category.category}</h1>
+          <h1>Interview: {category.category}</h1>
 
           <Carousel interval={null} variant="dark" wrap={false}>
             <Carousel.Item>
@@ -63,7 +67,7 @@ const Quiz: NextPage<Props> = ({ questions, category }) => {
   return (
     <>
       <Layout>
-        <h1>Quiz {category.category}</h1>
+        <h1>Interview: {category.category}</h1>
 
         <Carousel interval={null} variant="dark" wrap={false}>
           {questions.map((question, index) => (
@@ -81,4 +85,4 @@ const Quiz: NextPage<Props> = ({ questions, category }) => {
   );
 };
 
-export default Quiz;
+export default Interviews;
