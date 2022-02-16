@@ -1,44 +1,36 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 import Layout from "../../components/layout/Layout";
+import { QuestionCategory } from "../../interfaces/QuestionCategory";
 
-const QUIZZES = [
-  {
-    id: 1,
-    name: "General",
-    questions: ["What is your name?", "What is your favorite color?"],
-  },
-  {
-    id: 2,
-    name: "Food",
-    questions: ["What is your favorite food?", "What is your favorite drink?"],
-  },
-  {
-    id: 3,
-    name: "Movies",
-    questions: ["What is your favorite movie?", "What is your favorite TV show?"],
-  },
-];
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const res = await fetch(`http://localhost:3001/question-categories`);
+  const categories = await res.json();
 
-const Quizzes: NextPage = () => {
+  return {
+    props: { categories: categories },
+  };
+};
+
+interface Props {
+  categories: QuestionCategory[];
+}
+
+const Quizzes: NextPage<Props> = ({ categories }) => {
   return (
     <Layout>
       <h1>Quizzes</h1>
 
       <p>Kies een quiz</p>
       <ul>
-        {QUIZZES.map((quiz) => (
-          <li key={quiz.name}>
-            <Link href="/quiz/[quiz-name]" as={`/quiz/${quiz.name}`}>
-              <a>{quiz.name}</a>
+        {categories.map((category) => (
+          <li key={category.category}>
+            <Link href={`/quiz/${category.question_category_id}`}>
+              <a>{category.category}</a>
             </Link>
           </li>
         ))}
       </ul>
-
-      <Link href="/quiz/test">
-        <a>Test</a>
-      </Link>
     </Layout>
   );
 };

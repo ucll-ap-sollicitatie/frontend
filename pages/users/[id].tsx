@@ -9,7 +9,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths = users.map((user: User) => {
     return {
-      params: { id: user.r_u_nummer.toString() },
+      params: { id: user.r_u_number.toString() },
     };
   });
 
@@ -21,10 +21,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = await fetch(`http://localhost:3001/users/${params.id}`);
-  const users = await res.json();
+  const user = await res.json();
 
   return {
-    props: { user: users[0] },
+    props: { user: user },
   };
 };
 
