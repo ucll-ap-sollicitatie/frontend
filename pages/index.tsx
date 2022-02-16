@@ -16,8 +16,8 @@ const Home: NextPage = () => {
           <Link href="/auth/login">
             <Button variant="primary">Login</Button>
           </Link>
-          <Link href="/quiz">
-            <Button variant="primary">Quizzes</Button>
+          <Link href="/auth/register">
+            <Button variant="primary">Register</Button>
           </Link>
         </div>
       </Layout>
