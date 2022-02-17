@@ -5,9 +5,11 @@ import NavBar from "./NavBar";
 const Layout: NextPage = ({ children }) => {
   return (
     <>
-      <NavBar />
-      <main className="container">{children}</main>
+      <div id="document-flex-wrapper" className="d-flex flex-column justify-content-between">
+<div><NavBar />
+      <main className="container">{children}</main></div>
       <Footer />
+      </div>
     </>
   );
 };
