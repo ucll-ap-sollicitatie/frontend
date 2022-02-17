@@ -6,21 +6,22 @@ import User from "../../interfaces/User";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
-let user: User | undefined = undefined
+  let user: User | undefined = undefined;
+
+  console.log(session);
 
   if (session && session !== undefined) {
-      user = {
-          r_u_number: "Test r u number",
-          name: session.user.name,
-          surname: "",
-          email: session.user.email,
-          photo_url: session.user.image,
-          hashed_password: "",
-          role: "Test role",
-          formation: "Test formation",
-      }
+    user = {
+      r_u_number: "Test r u number",
+      name: session.user.name,
+      surname: "",
+      email: session.user.email,
+      photo_url: session.user.image,
+      hashed_password: "",
+      role: "Test role",
+      formation: "Test formation",
+    };
   }
-  
 
   return (
     <>
