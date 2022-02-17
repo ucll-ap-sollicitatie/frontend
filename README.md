@@ -5,6 +5,7 @@ Frontend repository of 'Slim op sollicitatie'.
 ## Prerequisites
 
 Create a `.env.local` file in the root of the project with following content:
+
 ```
 GITHUB_CLIENT_ID="your_github_client_id"
 GITHUB_CLIENT_SECRET="your_github_client_secret"
@@ -15,6 +16,7 @@ JWT_SECRET="your_random_jwt_secret"
 ```
 
 ## Commands
+
 ```bash
 # Install packages
 npm install

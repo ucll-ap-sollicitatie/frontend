@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
-import { useSession, signOut } from "next-auth/react";
+import { useSession, signOut, signIn } from "next-auth/react";
 import Link from "next/link";
-import { Button, Stack } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Layout from "../components/layout/Layout";
 
 const Home: NextPage = () => {
@@ -16,12 +16,12 @@ const Home: NextPage = () => {
           <>
             <p>U bent momenteel niet ingelogd.</p>
             <div className="d-flex gap-2 flex-column col-md-2">
-            <Link href="/auth/login">
-              <Button variant="primary">Login</Button>
-            </Link>
-            <Link href="/auth/register">
-              <Button variant="primary">Register</Button>
-            </Link>
+              <Button variant="primary" onClick={() => signIn()}>
+                Inloggen
+              </Button>
+              <Link href="/auth/register">
+                <Button variant="primary">Registreren</Button>
+              </Link>
             </div>
           </>
         ) : (
