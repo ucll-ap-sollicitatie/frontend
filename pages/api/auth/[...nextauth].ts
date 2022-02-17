@@ -26,7 +26,7 @@ export default NextAuth({
           }),
         });
         const user = await res.json();
-        
+
         if (user.error) return null;
         return user;
       },
@@ -53,6 +53,6 @@ export default NextAuth({
   theme: {
     colorScheme: "light",
     brandColor: "#e30147",
-    logo: "/ucll.svg"
-  }
+    logo: "/ucll.svg",
+  },
 });
