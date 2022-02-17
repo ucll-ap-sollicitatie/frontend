@@ -3,7 +3,7 @@ export default interface User {
   name: string;
   surname: string;
   email: string;
-  photo_url: string;
+  image: string;
   hashed_password: string;
   role: string;
   formation: string;

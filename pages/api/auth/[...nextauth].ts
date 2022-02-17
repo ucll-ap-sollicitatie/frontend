@@ -50,4 +50,9 @@ export default NextAuth({
       return "/";
     },
   },
+  theme: {
+    colorScheme: "light",
+    brandColor: "#e30147",
+    logo: "/ucll.svg",
+  },
 });
