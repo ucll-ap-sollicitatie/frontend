@@ -10,7 +10,7 @@ interface Props {
 const ProfileCard: NextPage<Props> = ({ user }) => {
   return (
     <Card style={{ maxWidth: "22rem" }}>
-      <Card.Img variant="top" src="/johan.png" />
+      <Card.Img variant="top" src={user.photo_url} />
 
       <Card.Body>
         <Card.Title>
