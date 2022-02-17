@@ -16,12 +16,12 @@ const Home: NextPage = () => {
           <>
             <p>U bent momenteel niet ingelogd.</p>
             <div className="d-flex gap-2 flex-column col-md-2">
-            <Link href="/auth/login">
-              <Button variant="primary">Login</Button>
-            </Link>
-            <Link href="/auth/register">
-              <Button variant="primary">Register</Button>
-            </Link>
+              <Link href="/auth/login">
+                <Button variant="primary">Login</Button>
+              </Link>
+              <Link href="/auth/register">
+                <Button variant="primary">Register</Button>
+              </Link>
             </div>
           </>
         ) : (
