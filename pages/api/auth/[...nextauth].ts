@@ -13,17 +13,12 @@ export default NextAuth({
         password: { label: "Password", type: "password", placeholder: "Password" },
       },
       async authorize(credentials, req) {
-        const { email, password } = credentials;
-
         const res = await fetch("http://localhost:3001/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            email,
-            password,
-          }),
+          body: JSON.stringify(credentials),
         });
         const user = await res.json();
 
@@ -46,6 +41,14 @@ export default NextAuth({
     secret: process.env.JWT_SECRET,
   },
   callbacks: {
+    jwt: async ({ token, user }) => {
+      user && (token.user = user);
+      return token;
+    },
+    session: async ({ session, token }) => {
+      session.user = token.user;
+      return session;
+    },
     async redirect(url, baseUrl) {
       return "/";
     },
