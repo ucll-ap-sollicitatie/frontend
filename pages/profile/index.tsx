@@ -16,7 +16,7 @@ const Home: NextPage = () => {
       name: session.user.name,
       surname: "",
       email: session.user.email,
-      photo_url: session.user.image,
+      image: session.user.image,
       hashed_password: "",
       role: "Test role",
       formation: "Test formation",
