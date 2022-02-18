@@ -38,3 +38,9 @@ h1 {
 .pointer {
   cursor: pointer;
 }
+
+.toast {
+  position: absolute;
+  top: 6rem;
+  z-index: 9999;
+}

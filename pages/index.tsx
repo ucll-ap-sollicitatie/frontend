@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "react-bootstrap";
+import LogoutButton from "../components/layout/auth/LogoutButton";
 import Layout from "../components/layout/Layout";
 import Unauthenticated from "../components/Unauthenticated";
 
@@ -13,9 +14,7 @@ const Home: NextPage = () => {
       <h1>Slim op sollicitatie</h1>
 
       <p>Welkom, {session.user.name || session.user.email}!</p>
-      <Button variant="primary" onClick={signOut}>
-        Logout
-      </Button>
+      <LogoutButton />
     </Layout>
   );
 };

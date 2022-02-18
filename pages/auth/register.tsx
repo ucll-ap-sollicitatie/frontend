@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
-import { FormEvent } from "react";
-import { Button, Form, Stack } from "react-bootstrap";
+import { useRouter } from "next/router";
+import { FormEvent, useState } from "react";
+import { Alert, Button, Form, Stack } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import { Formation } from "../../interfaces/Formation";
 import { Role } from "../../interfaces/Role";
@@ -23,6 +24,10 @@ interface Props {
 }
 
 const Register: NextPage<Props> = ({ roles, formations }) => {
+  const router = useRouter();
+  const [show, setShow] = useState(false);
+  const [error, setError] = useState("");
+
   const registerUser = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -42,13 +47,30 @@ const Register: NextPage<Props> = ({ roles, formations }) => {
       method: "POST",
     });
 
-    const result = await res.json();
+    if (res.status === 400) {
+      const response = await res.json();
+      setError(response.messages);
+      setShow(true);
+    } else {
+      router.push(
+        {
+          pathname: "/",
+          query: { toast: "Gebruiker toegevoegd" },
+        },
+        "/"
+      );
+    }
   };
 
   return (
     <>
       <Layout>
         <h1>Register a new account</h1>
+
+        <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
+          <Alert.Heading>Slim op sollicitatie</Alert.Heading>
+          <span>{error}</span>
+        </Alert>
 
         <Form onSubmit={registerUser} className="col-md-12 col-lg-10 col-xl-8">
           <div className="d-flex gap-4 flex-wrap">
