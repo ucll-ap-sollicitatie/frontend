@@ -1,6 +1,8 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useSession } from "next-auth/react";
 import { Carousel } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
+import Unauthenticated from "../../components/Unauthenticated";
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 
@@ -48,11 +50,14 @@ interface Props {
 }
 
 const Interviews: NextPage<Props> = ({ questions, category }) => {
+  const { data: session } = useSession();
+  if (!session) return <Unauthenticated />;
+
   if (questions.length === 0) {
     return (
       <>
         <Layout>
-          <h1>Interview: {category.category}</h1>
+          <h1>Sollicitatie: {category.category}</h1>
 
           <Carousel interval={null} variant="dark" wrap={false}>
             <Carousel.Item>
@@ -70,7 +75,7 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
   return (
     <>
       <Layout>
-        <h1>Interview: {category.category}</h1>
+        <h1>Sollicitatie: {category.category}</h1>
 
         <Carousel interval={null} variant="dark" wrap={false}>
           {questions.map((question, index) => (

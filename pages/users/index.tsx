@@ -1,16 +1,19 @@
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Layout from "../../components/layout/Layout";
+import Unauthenticated from "../../components/Unauthenticated";
 import UsersTable from "../../components/UsersTable";
 
 const Profile: NextPage = () => {
-  return (
-    <>
-      <Layout>
-        <h1>Gebruikers</h1>
+  const { data: session } = useSession();
+  if (!session) return <Unauthenticated />;
 
-        <UsersTable />
-      </Layout>
-    </>
+  return (
+    <Layout>
+      <h1>Gebruikers</h1>
+
+      <UsersTable />
+    </Layout>
   );
 };
 

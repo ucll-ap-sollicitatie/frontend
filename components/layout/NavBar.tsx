@@ -1,10 +1,12 @@
 import type { NextPage } from "next";
-
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Container, Nav, Navbar } from "react-bootstrap";
 
 const NavBar: NextPage = () => {
+  const { data: session } = useSession();
+
   return (
     <header className="bg-light">
       <Navbar bg="light" expand="lg">
@@ -18,14 +20,29 @@ const NavBar: NextPage = () => {
 
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
             <Nav>
-              <Link href={"/interviews"}>
-                <Nav.Link href="/">Interviews</Nav.Link>
-              </Link>
-              <Link href={"/users"}>
-                <Nav.Link href="/">Gebruikers</Nav.Link>
-              </Link>
-              <Link href={"/profile"}>
-                <Nav.Link href="/">Profiel</Nav.Link>
+              {!session ? (
+                <>
+                  <Nav.Link onClick={signIn}>Login</Nav.Link>
+                  <Link href="/auth/register">
+                    <Nav.Link href="/">Registeren</Nav.Link>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href={"/interviews"}>
+                    <Nav.Link href="/">Sollicitaties</Nav.Link>
+                  </Link>
+                  <Link href={"/users"}>
+                    <Nav.Link href="/">Gebruikers</Nav.Link>
+                  </Link>
+                  <Link href={"/profile"}>
+                    <Nav.Link href="/">Profiel</Nav.Link>
+                  </Link>
+                  <Nav.Link onClick={signOut}>Logout</Nav.Link>
+                </>
+              )}
+              <Link href={"/contact"}>
+                <Nav.Link href="/">Contact</Nav.Link>
               </Link>
             </Nav>
           </Navbar.Collapse>
