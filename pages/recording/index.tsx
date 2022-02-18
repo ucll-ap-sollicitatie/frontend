@@ -32,14 +32,10 @@ const Recording: NextPage = () => {
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm",
     });
-<<<<<<< HEAD
-    mediaRecorderRef.current.addEventListener("dataavailable", handleDataAvailable);
-=======
     mediaRecorderRef.current.addEventListener(
       "dataavailable",
       handleDataAvailable
     );
->>>>>>> e204d9bd710075deb6392698797767403ec2003b
     mediaRecorderRef.current.start();
   }, [webcamRef, setCapturing, mediaRecorderRef]);
 
@@ -63,18 +59,14 @@ const Recording: NextPage = () => {
         type: "video/webm",
       });
       const url = URL.createObjectURL(blob);
-      // const a = document.createElement("a");
-      // document.body.appendChild(a);
-      // a.style.display = "none";
-      // a.href = url;
-      // a.download = "react-webcam-stream-capture.webm";
       const formData = new FormData();
       const fileName = "Szymon-WebDev-2022.webm";
       formData.append("newRecording", blob, fileName);
-
+      formData.set("title", fileName)
+      formData.set("r_u_number", "r0790938")
       axios({
         method: "POST",
-        url: "http://localhost:3001/video-uploading",
+        url: "http://localhost:3001/videos",
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
