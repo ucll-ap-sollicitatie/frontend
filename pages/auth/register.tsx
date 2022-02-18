@@ -1,4 +1,5 @@
 import type { GetStaticProps, NextPage } from "next";
+import { useRouter } from "next/router";
 import { FormEvent } from "react";
 import { Button, Form, Stack } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
@@ -23,6 +24,8 @@ interface Props {
 }
 
 const Register: NextPage<Props> = ({ roles, formations }) => {
+  const router = useRouter();
+
   const registerUser = async (event: FormEvent) => {
     event.preventDefault();
 
@@ -42,7 +45,7 @@ const Register: NextPage<Props> = ({ roles, formations }) => {
       method: "POST",
     });
 
-    const result = await res.json();
+    router.push("/");
   };
 
   return (
