@@ -3,13 +3,13 @@ import React from "react";
 import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
 import axios from "axios";
-import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
+import { Button } from "react-bootstrap";
 
-const videoConstraints = {
+/* const videoConstraints = {
   width: 1280,
   height: 720,
   facingMode: "user",
-};
+}; */
 
 const Recording: NextPage = () => {
   const webcamRef = React.useRef(null);
@@ -22,10 +22,7 @@ const Recording: NextPage = () => {
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm",
     });
-    mediaRecorderRef.current.addEventListener(
-      "dataavailable",
-      handleDataAvailable
-    );
+    mediaRecorderRef.current.addEventListener("dataavailable", handleDataAvailable);
     mediaRecorderRef.current.start();
   }, [webcamRef, setCapturing, mediaRecorderRef]);
 
@@ -80,18 +77,29 @@ const Recording: NextPage = () => {
       setRecordedChunks([]);
     }
   }, [recordedChunks]);
+
   return (
     <Layout>
-      <h1>Slim op sollicitatie</h1>
-      <Webcam audio={true} ref={webcamRef} muted />
-      {capturing ? (
-        <button onClick={handleStopCaptureClick}>Stop Recording</button>
-      ) : (
-        <button onClick={handleStartCaptureClick}>Start Recording</button>
-      )}
-      {recordedChunks.length > 0 && (
-        <button onClick={handleUpload}>Upload</button>
-      )}
+      <h1>Recording</h1>
+
+      <Webcam className="w-100" audio={true} ref={webcamRef} muted />
+
+      <div className="d-flex gap-2 flex-column col-md-2">
+        {capturing ? (
+          <Button variant="primary" onClick={handleStopCaptureClick}>
+            Stop recording
+          </Button>
+        ) : (
+          <Button variant="primary" onClick={handleStartCaptureClick}>
+            Start recording
+          </Button>
+        )}
+        {recordedChunks.length > 0 && (
+          <Button variant="primary" onClick={handleUpload}>
+            Upload
+          </Button>
+        )}
+      </div>
     </Layout>
   );
 };
