@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Container, Nav, Navbar } from "react-bootstrap";
@@ -31,6 +31,9 @@ const NavBar: NextPage = () => {
                 <>
                   <Link href={"/interviews"}>
                     <Nav.Link href="/">Sollicitaties</Nav.Link>
+                  </Link>
+                  <Link href="/recording">
+                    <Nav.Link href="/">Recording</Nav.Link>
                   </Link>
                   <Link href={"/users"}>
                     <Nav.Link href="/">Gebruikers</Nav.Link>

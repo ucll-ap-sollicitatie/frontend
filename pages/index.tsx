@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
-import { useSession, signOut } from "next-auth/react";
-import { Button } from "react-bootstrap";
+import { useSession } from "next-auth/react";
 import LogoutButton from "../components/layout/auth/LogoutButton";
 import Layout from "../components/layout/Layout";
 import Unauthenticated from "../components/Unauthenticated";
