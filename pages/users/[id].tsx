@@ -1,6 +1,8 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Layout from "../../components/layout/Layout";
 import ProfileCard from "../../components/ProfileCard";
+import Unauthenticated from "../../components/Unauthenticated";
 import User from "../../interfaces/User";
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -33,13 +35,14 @@ interface Props {
 }
 
 const UserDetails: NextPage<Props> = ({ user }) => {
+  const { data: session } = useSession();
+  if (!session) return <Unauthenticated />;
+
   return (
-    <>
-      <Layout>
-        <h1>User details</h1>
-        <ProfileCard user={user} />
-      </Layout>
-    </>
+    <Layout>
+      <h1>User details</h1>
+      <ProfileCard user={user} />
+    </Layout>
   );
 };
 
