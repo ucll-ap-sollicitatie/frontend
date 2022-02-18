@@ -49,7 +49,6 @@ const Register: NextPage<Props> = ({ roles, formations }) => {
 
     if (res.status === 400) {
       const response = await res.json();
-      console.log(response);
       setError(response.messages);
       setShow(true);
     } else {

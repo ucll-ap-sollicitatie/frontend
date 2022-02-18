@@ -6,10 +6,12 @@ import { useRequest } from "../helpers/useRequest";
 import { BsFillTrashFill, BsFillArrowUpRightCircleFill } from "react-icons/bs";
 import User from "../interfaces/User";
 import { useState } from "react";
+import { useSWRConfig } from "swr";
 import { useRouter } from "next/router";
 
 const UsersTable: NextPage = () => {
   const router = useRouter();
+  const { mutate } = useSWRConfig();
 
   const [r_u_number, setR_u_number] = useState("");
   const [show, setShow] = useState(false);
@@ -26,12 +28,13 @@ const UsersTable: NextPage = () => {
     });
 
     handleClose();
+    mutate("http://localhost:3001/users");
     router.push(
       {
         pathname: "/users",
         query: { toast: "Gebruiker verwijderd" },
       },
-      "/"
+      "/users"
     );
   };
 
