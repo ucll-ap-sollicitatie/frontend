@@ -1,7 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
-import { Alert, Button, Fade, Form, Stack } from "react-bootstrap";
+import { Alert, Button, Form, Stack } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import { Formation } from "../../interfaces/Formation";
 import { Role } from "../../interfaces/Role";
@@ -53,7 +53,13 @@ const Register: NextPage<Props> = ({ roles, formations }) => {
       setError(response.messages);
       setShow(true);
     } else {
-      router.push("/");
+      router.push(
+        {
+          pathname: "/",
+          query: { toast: "Gebruiker toegevoegd" },
+        },
+        "/"
+      );
     }
   };
 

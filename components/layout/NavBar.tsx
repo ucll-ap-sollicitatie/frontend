@@ -38,7 +38,6 @@ const NavBar: NextPage = () => {
                   <Link href={"/profile"}>
                     <Nav.Link href="/">Profiel</Nav.Link>
                   </Link>
-                  <Nav.Link onClick={signOut}>Logout</Nav.Link>
                 </>
               )}
               <Link href={"/contact"}>
