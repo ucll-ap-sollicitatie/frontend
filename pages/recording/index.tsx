@@ -3,6 +3,7 @@ import React from "react";
 import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
 import axios from "axios";
+<<<<<<< HEAD
 import { Button } from "react-bootstrap";
 
 /* const videoConstraints = {
@@ -10,6 +11,15 @@ import { Button } from "react-bootstrap";
   height: 720,
   facingMode: "user",
 }; */
+=======
+import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
+
+const videoConstraints = {
+  width: 1280,
+  height: 720,
+  facingMode: "user",
+};
+>>>>>>> e204d9bd710075deb6392698797767403ec2003b
 
 const Recording: NextPage = () => {
   const webcamRef = React.useRef(null);
@@ -22,7 +32,14 @@ const Recording: NextPage = () => {
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm",
     });
+<<<<<<< HEAD
     mediaRecorderRef.current.addEventListener("dataavailable", handleDataAvailable);
+=======
+    mediaRecorderRef.current.addEventListener(
+      "dataavailable",
+      handleDataAvailable
+    );
+>>>>>>> e204d9bd710075deb6392698797767403ec2003b
     mediaRecorderRef.current.start();
   }, [webcamRef, setCapturing, mediaRecorderRef]);
 
