@@ -3,6 +3,7 @@ import React from "react";
 import Webcam from "react-webcam";
 import Link from "next/link";
 import Layout from "../../components/layout/Layout";
+import { Upload } from "../../components/layout/Upload";
 
 const videoConstraints = {
     width: 1280,
@@ -72,7 +73,7 @@ const Recording: NextPage = () => {
             <button onClick={handleStartCaptureClick}>Start Recording</button>
         )}
         {recordedChunks.length > 0 && (
-            <button onClick={handleDownload}>Download</button>
+            <Upload recordedChunks={recordedChunks} />
         )}
       </Layout>
     </>
