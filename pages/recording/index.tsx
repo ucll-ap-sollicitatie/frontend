@@ -5,7 +5,7 @@ import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
 import axios from "axios";
 import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Stack } from "react-bootstrap";
 
 /* const videoConstraints = {
   width: 1280,
@@ -48,6 +48,10 @@ const Recording: NextPage = () => {
 
   const handleUploadClick = React.useCallback(() => {
     setUploading(true);
+  }, [setUploading]);
+
+  const handleBackClick = React.useCallback(() => {
+    setUploading(false);
   }, [setUploading]);
 
   const handleUpload = async (event: FormEvent) => {
@@ -99,9 +103,14 @@ const Recording: NextPage = () => {
                 <Form.Control type="text" placeholder="Titel" required />
               </Form.Group>
             </div>
-            <Button variant="primary" type="submit" className="mt-3">
-              Upload
-            </Button>
+            <Stack gap={3}>
+              <Button variant="primary" type="submit" className="mt-3">
+                Upload
+              </Button>
+              <Button className="mt-3" variant="primary" onClick={handleBackClick}>
+                Back
+              </Button>
+            </Stack>
           </Form>
         </div>
       ) : (
