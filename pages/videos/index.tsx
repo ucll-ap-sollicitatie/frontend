@@ -26,8 +26,33 @@ const Home: NextPage<Props> = ({ videos }) => {
 
   return (
     <Layout>
-      <h1>Video's</h1>
-      <Table bordered hover responsive>
+      <h1>Uw video's</h1>
+
+      <div className="container">
+        <div className="row">
+          {videos.map(
+            (video: Video) =>
+              video.email === session.user?.email && (
+                <div className="col-md-4 border" key={video.video_id}>
+                  <Link href={`/videos/${video.video_id}`}>
+                    <div className="card border-0">
+                      <img
+                        src={`https://res.cloudinary.com/dou4tgpae/video/upload/v1645438283/SOS/${video.email}/${video.title}.jpg`}
+                        alt={video.title}
+                      />
+                      <div className="card-body">
+                        <p>{video.title}</p>
+                        <p>{new Date(video.date).toDateString()}</p>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              )
+          )}
+        </div>
+      </div>
+
+      {/* <Table bordered hover responsive>
         <thead>
           <tr>
             <th>#</th>
@@ -55,7 +80,7 @@ const Home: NextPage<Props> = ({ videos }) => {
               )
           )}
         </tbody>
-      </Table>
+      </Table> */}
     </Layout>
   );
 };
