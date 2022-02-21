@@ -6,6 +6,7 @@ import Layout from "../../components/layout/Layout";
 import axios from "axios";
 import { useRef, useCallback } from "react";
 import { Button, Form, Stack } from "react-bootstrap";
+import { useSession } from "next-auth/react";
 
 /* const videoConstraints = {
   width: 1280,
@@ -18,8 +19,8 @@ const Recording: NextPage = () => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
-
   const [uploading, setUploading] = React.useState(false);
+  const { data: session } = useSession();
 
   const handleStartCaptureClick = React.useCallback(() => {
     setCapturing(true);
@@ -65,7 +66,8 @@ const Recording: NextPage = () => {
       const fileName = event.target.title.value;
       formData.append("newRecording", blob, fileName);
       formData.set("title", fileName);
-      formData.set("r_u_number", "r0790938");
+      formData.set("r_u_number", session.user.r_u_number);
+      formData.set("email", session.user.email);
       axios({
         method: "POST",
         url: "http://localhost:3001/videos",
@@ -75,7 +77,7 @@ const Recording: NextPage = () => {
         },
       })
         .then((result) => {
-          if (result.status === 200) {
+          if (result.status === 201) {
             console.log("Video uploaded.");
           } else {
             console.log("Error uploading file.");
@@ -115,7 +117,7 @@ const Recording: NextPage = () => {
         </div>
       ) : (
         <div>
-          <Webcam className="w-100" audio={true} ref={webcamRef} muted />
+          <Webcam className="w-50" audio={true} ref={webcamRef} muted />
 
           <div className="d-flex gap-2 flex-column col-md-2">
             {capturing ? (
