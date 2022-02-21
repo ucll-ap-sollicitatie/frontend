@@ -47,7 +47,6 @@ const Video: NextPage<Props> = ({ video }) => {
   const userEmail = session?.user?.email;
   const videoTitle = video.title;
 
-  console.table({ userEmail, videoTitle });
   return (
     <Layout>
       <h1>{video.title}</h1>
