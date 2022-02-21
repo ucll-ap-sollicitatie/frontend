@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
 import axios from "axios";
-import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
+import { useRef, useCallback } from "react";
 import { Button, Form, Stack } from "react-bootstrap";
 
 /* const videoConstraints = {
