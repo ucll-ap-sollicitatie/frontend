@@ -11,6 +11,8 @@ import NextNProgress from "nextjs-progressbar";
 import ToastComponent from "../components/ToastComponent";
 import { Container } from "react-bootstrap";
 import { useEffect } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
@@ -35,7 +37,10 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             <ToastComponent message={router.query.toast as string} />
           </Container>
         )}
-        <Component {...pageProps} />
+
+        <DndProvider backend={HTML5Backend}>
+          <Component {...pageProps} />
+        </DndProvider>
       </SessionProvider>
     </>
   );

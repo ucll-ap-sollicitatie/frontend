@@ -1,12 +1,18 @@
-import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
-import Router, { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
-import { Alert, Button, Form, Stack } from "react-bootstrap";
+import { FC, useState, useCallback, FormEvent } from "react";
+import update from "immutability-helper";
+import QuestionInput from "../../components/interviews/QuestionInput";
+import { NextPage } from "next";
 import Layout from "../../components/layout/Layout";
+import { Alert, Button, Form, Stack } from "react-bootstrap";
+import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
+import { useRouter } from "next/router";
 
-const InterviewsAdd: NextPage = () => {
+export interface QuestionInputType {
+  id: number;
+}
+
+const AddInterview: NextPage = () => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
@@ -14,12 +20,35 @@ const InterviewsAdd: NextPage = () => {
 
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
-  const [questions, setQuestions] = useState([""]);
+
+  const [questionInputs, setQuestionInputs] = useState<QuestionInputType[]>([{ id: 1 }]);
+
+  const moveQuestionInput = useCallback((dragIndex: number, hoverIndex: number) => {
+    setQuestionInputs((prevQuestionInputs: QuestionInputType[]) =>
+      update(prevQuestionInputs, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevQuestionInputs[dragIndex] as QuestionInputType],
+        ],
+      })
+    );
+  }, []);
+
+  const getLastQuestionInputId = () => {
+    return Math.max.apply(
+      Math,
+      questionInputs.map((questionInput: QuestionInputType) => questionInput.id)
+    );
+  };
+
+  function addQuestionInput() {
+    setQuestionInputs([...questionInputs, { id: getLastQuestionInputId() + 1 }]);
+  }
 
   const addInterview = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
-    const questions = Array.from(target.elements) as HTMLInputElement[];
+    const inputs = Array.from(target.elements) as HTMLInputElement[];
 
     // Category
     const category_res = await fetch("http://localhost:3001/question-categories", {
@@ -43,11 +72,11 @@ const InterviewsAdd: NextPage = () => {
     const category_id_res = await fetch(`http://localhost:3001/question-categories/category/${target.category.value}`);
     const { question_category_id, _ } = await category_id_res.json();
 
-    for (let i = 1; i < questions.length; i++) {
+    for (let i = 1; i <= questionInputs.length; i++) {
       const questions_res = await fetch("http://localhost:3001/questions", {
         body: JSON.stringify({
           question_category_id: question_category_id,
-          question: questions[i].value,
+          question: inputs[i].value,
         }),
         headers: {
           "Content-Type": "application/json",
@@ -89,15 +118,12 @@ const InterviewsAdd: NextPage = () => {
             <Form.Control type="text" placeholder="Categorie" required />
           </Form.Group>
 
-          {[questions].map((question, index) => (
-            <Form.Group key={index} controlId={`question${index}`}>
-              <Form.Label>Vraag {index + 1}</Form.Label>
-              <Form.Control type="text" placeholder="Vraag" value={question} required />
-            </Form.Group>
+          {questionInputs.map((questionInput: QuestionInputType, index) => (
+            <QuestionInput key={questionInput.id} id={questionInput.id} index={index} moveQuestionInput={moveQuestionInput} />
           ))}
         </Stack>
 
-        <Button variant="link" size="sm" onClick={() => setQuestions([...questions, ""])} className="d-block p-0">
+        <Button variant="link" size="sm" onClick={addQuestionInput} className="d-block p-0">
           Voeg vraag toe
         </Button>
 
@@ -109,4 +135,4 @@ const InterviewsAdd: NextPage = () => {
   );
 };
 
-export default InterviewsAdd;
+export default AddInterview;
