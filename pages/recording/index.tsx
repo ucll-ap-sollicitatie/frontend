@@ -67,13 +67,13 @@ const Recording: NextPage = () => {
       });
       const url = URL.createObjectURL(blob);
       const formData = new FormData();
-      const fileName = event.target.title?.value;
-      const description = event.target.description?.value;
+      const fileName = event.target.title.value;
+      const description = event.target.description.value;
       formData.append("newRecording", blob, fileName);
       formData.set("description", description);
       formData.set("title", fileName);
       formData.set("r_u_number", session?.user?.r_u_number);
-      formData.set("email", session?.user?.email);
+      formData.set("email", session.user?.email);
       axios({
         method: "POST",
         url: "http://localhost:3001/videos",
@@ -155,24 +155,6 @@ const Recording: NextPage = () => {
           </div>
         </div>
       )}
-      {/* <Webcam className="w-100" audio={true} ref={webcamRef} muted />
-
-      <div className="d-flex gap-2 flex-column col-md-2">
-        {capturing ? (
-          <Button variant="primary" onClick={handleStopCaptureClick}>
-            Stop recording
-          </Button>
-        ) : (
-          <Button variant="primary" onClick={handleStartCaptureClick}>
-            Start recording
-          </Button>
-        )}
-        {recordedChunks.length > 0 && (
-          <Button variant="primary" onClick={handleUpload}>
-            Upload
-          </Button>
-        )}
-      </div> */}
     </Layout>
   );
 };

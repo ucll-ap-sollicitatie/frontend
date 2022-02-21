@@ -6,7 +6,7 @@ import Unauthenticated from "../../components/Unauthenticated";
 
 const Home: NextPage = () => {
   const { data: session } = useSession();
-  if (!session || session !== undefined) return <Unauthenticated />;
+  if (!session) return <Unauthenticated />;
 
   return (
     <Layout>

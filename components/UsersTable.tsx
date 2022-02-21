@@ -38,7 +38,7 @@ const UsersTable: NextPage = () => {
     );
   };
 
-  const { data: users, error } = useRequest("usersss");
+  const { data: users, error } = useRequest("users");
 
   if (error) return <div>Er is een probleem opgetreden bij het laden van de gebruikers.</div>;
   if (!users) {

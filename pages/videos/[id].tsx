@@ -1,17 +1,9 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-<<<<<<< HEAD
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import VideoPlayer from "../../components/VideoPlayer";
 import { Video } from "../../interfaces/Video";
-=======
-import { Video } from "../../interfaces/Video";
-import { Col, Container, Row } from "react-bootstrap";
-import Layout from "../../components/layout/Layout";
-import Unauthenticated from "../../components/Unauthenticated";
-import VideoPlayer from "../../components/VideoPlayer";
->>>>>>> dev-szymon
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch("http://localhost:3001/videos/");
@@ -52,7 +44,7 @@ const Video: NextPage<Props> = ({ video }) => {
   const { data: session } = useSession();
   if (!session || session !== undefined) return <Unauthenticated />;
 
-  const userEmail = session.user.email;
+  const userEmail = session?.user?.email;
   const videoTitle = video.title;
 
   return (
