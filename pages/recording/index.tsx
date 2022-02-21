@@ -24,6 +24,7 @@ const Recording: NextPage = () => {
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [uploading, setUploading] = React.useState(false);
+  const [maxChars, setMaxChars] = React.useState(0);
 
   const handleStartCaptureClick = React.useCallback(() => {
     setCapturing(true);
@@ -66,11 +67,13 @@ const Recording: NextPage = () => {
       });
       const url = URL.createObjectURL(blob);
       const formData = new FormData();
-      const fileName = event.target.title.value;
+      const fileName = event.target.title?.value;
+      const description = event.target.description?.value;
       formData.append("newRecording", blob, fileName);
+      formData.set("description", description);
       formData.set("title", fileName);
-      formData.set("r_u_number", session.user.r_u_number);
-      formData.set("email", session.user.email);
+      formData.set("r_u_number", session?.user?.r_u_number);
+      formData.set("email", session?.user?.email);
       axios({
         method: "POST",
         url: "http://localhost:3001/videos",
@@ -105,17 +108,29 @@ const Recording: NextPage = () => {
             <div className="d-flex gap-4 flex-wrap">
               <Form.Group controlId="title">
                 <Form.Label>Titel</Form.Label>
-                <Form.Control type="text" placeholder="Titel" required />
+                <Form.Control type="text" placeholder="e.g. Mijn interviewopname" required />
               </Form.Group>
             </div>
-            <Stack gap={3}>
-              <Button variant="primary" type="submit" className="mt-3">
-                Upload
-              </Button>
-              <Button className="mt-3" variant="primary" onClick={handleBackClick}>
-                Back
-              </Button>
-            </Stack>
+            <div className="gap-4 flex-wrap">
+              <Form.Group controlId="description">
+                <Form.Label>Omschrijving</Form.Label>
+                <Form.Control
+                  onChange={(e) => setMaxChars(e.target.value.length)}
+                  as="textarea"
+                  rows={4}
+                  maxLength={255}
+                  placeholder="e.g. Mijn interview voor back-end web developer"
+                  required
+                />
+                <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
+              </Form.Group>
+            </div>
+            <Button variant="primary" type="submit" className="mt-3">
+              Upload
+            </Button>
+            <Button variant="light" className="mt-3 ms-2" onClick={handleBackClick}>
+              Back
+            </Button>
           </Form>
         </div>
       ) : (
