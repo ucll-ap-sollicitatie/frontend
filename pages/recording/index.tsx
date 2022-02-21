@@ -1,9 +1,12 @@
 import type { NextPage } from "next";
-import { useCallback, useRef, useState } from "react";
+import React from "react";
+import { FormEvent, useState } from "react";
 import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
 import axios from "axios";
-import { Button } from "react-bootstrap";
+import { useRef, useCallback } from "react";
+import { Button, Form, Stack } from "react-bootstrap";
+import { useSession } from "next-auth/react";
 
 /* const videoConstraints = {
   width: 1280,
@@ -16,16 +19,16 @@ const Recording: NextPage = () => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
+  const [uploading, setUploading] = React.useState(false);
+  const { data: session } = useSession();
 
-  const handleStartCaptureClick = useCallback(() => {
-    if (mediaRecorderRef !== null && webcamRef.current !== null && webcamRef.current.stream !== null) {
-      setCapturing(true);
-      mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-        mimeType: "video/webm",
-      });
-      mediaRecorderRef.current.addEventListener("dataavailable", handleDataAvailable);
-      mediaRecorderRef.current.start();
-    }
+  const handleStartCaptureClick = React.useCallback(() => {
+    setCapturing(true);
+    mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+      mimeType: "video/webm",
+    });
+    mediaRecorderRef.current.addEventListener("dataavailable", handleDataAvailable);
+    mediaRecorderRef.current.start();
   }, [webcamRef, setCapturing, mediaRecorderRef]);
 
   const handleDataAvailable = useCallback(
@@ -44,17 +47,27 @@ const Recording: NextPage = () => {
     }
   }, [mediaRecorderRef, webcamRef, setCapturing]);
 
-  const handleUpload = useCallback(() => {
+  const handleUploadClick = React.useCallback(() => {
+    setUploading(true);
+  }, [setUploading]);
+
+  const handleBackClick = React.useCallback(() => {
+    setUploading(false);
+  }, [setUploading]);
+
+  const handleUpload = async (event: FormEvent) => {
+    event.preventDefault();
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: "video/webm",
       });
       const url = URL.createObjectURL(blob);
       const formData = new FormData();
-      const fileName = "Szymon-WebDev-2022.webm";
+      const fileName = event.target.title.value;
       formData.append("newRecording", blob, fileName);
       formData.set("title", fileName);
-      formData.set("r_u_number", "r0790938");
+      formData.set("r_u_number", session.user.r_u_number);
+      formData.set("email", session.user.email);
       axios({
         method: "POST",
         url: "http://localhost:3001/videos",
@@ -64,7 +77,7 @@ const Recording: NextPage = () => {
         },
       })
         .then((result) => {
-          if (result.status === 200) {
+          if (result.status === 201) {
             console.log("Video uploaded.");
           } else {
             console.log("Error uploading file.");
@@ -75,14 +88,56 @@ const Recording: NextPage = () => {
         });
       window.URL.revokeObjectURL(url);
       setRecordedChunks([]);
+      setUploading(false);
     }
-  }, [recordedChunks]);
+  };
 
   return (
     <Layout>
       <h1>Recording</h1>
 
-      <Webcam className="w-100" audio={true} ref={webcamRef} muted />
+      {uploading ? (
+        <div>
+          <Form onSubmit={handleUpload} className="col-md-12 col-lg-10 col-xl-8">
+            <div className="d-flex gap-4 flex-wrap">
+              <Form.Group controlId="title">
+                <Form.Label>Titel</Form.Label>
+                <Form.Control type="text" placeholder="Titel" required />
+              </Form.Group>
+            </div>
+            <Stack gap={3}>
+              <Button variant="primary" type="submit" className="mt-3">
+                Upload
+              </Button>
+              <Button className="mt-3" variant="primary" onClick={handleBackClick}>
+                Back
+              </Button>
+            </Stack>
+          </Form>
+        </div>
+      ) : (
+        <div>
+          <Webcam className="w-50" audio={true} ref={webcamRef} muted />
+
+          <div className="d-flex gap-2 flex-column col-md-2">
+            {capturing ? (
+              <Button variant="primary" onClick={handleStopCaptureClick}>
+                Stop recording
+              </Button>
+            ) : (
+              <Button variant="primary" onClick={handleStartCaptureClick}>
+                Start recording
+              </Button>
+            )}
+            {recordedChunks.length > 0 && (
+              <Button variant="primary" onClick={handleUploadClick}>
+                Upload
+              </Button>
+            )}
+          </div>
+        </div>
+      )}
+      {/* <Webcam className="w-100" audio={true} ref={webcamRef} muted />
 
       <div className="d-flex gap-2 flex-column col-md-2">
         {capturing ? (
@@ -99,7 +154,7 @@ const Recording: NextPage = () => {
             Upload
           </Button>
         )}
-      </div>
+      </div> */}
     </Layout>
   );
 };
