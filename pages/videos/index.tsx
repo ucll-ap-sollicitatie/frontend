@@ -40,7 +40,7 @@ const Home: NextPage<Props> = ({ videos }) => {
             <div className="col-md-4" key={video.video_id}>
                 <Link href={`/videos/${video.video_id}`}>
                     <div className="card border-0">
-                        {/* <img src={`http://localhost:4000${video.poster}`} alt={video.name} /> */}
+                        <img src={`http://localhost:3001/videos/thumb/${video.video_id}`} alt={video.title} />
                         <div className="card-body">
                             <p>{video.title}</p>
                             <p>{`${new Date(video.date).toDateString()}`}</p>
