@@ -13,7 +13,7 @@ const Unauthenticated: NextPage = () => {
 
       <div className="d-flex gap-2 flex-column col-md-2">
         <LoginButton />
-        <Link href="/auth/register">
+        <Link href="/auth/register" passHref>
           <Button variant="primary">Registreren</Button>
         </Link>
       </div>
