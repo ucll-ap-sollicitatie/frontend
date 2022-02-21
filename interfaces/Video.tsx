@@ -4,4 +4,5 @@ export interface Video {
   date: Date;
   r_u_number: string;
   email: string;
+  description: string;
 }
