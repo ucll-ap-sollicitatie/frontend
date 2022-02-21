@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import AddInterviewButton from "../../components/interviews/AddInterviewButton";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
@@ -28,6 +29,7 @@ const Interviews: NextPage<Props> = ({ categories }) => {
         <h1>Sollicitaties</h1>
 
         <p>Er zijn geen sollicitatie categorieën beschikbaar.</p>
+        <AddInterviewButton />
       </Layout>
     );
   }
@@ -35,6 +37,10 @@ const Interviews: NextPage<Props> = ({ categories }) => {
   return (
     <Layout>
       <h1>Sollicitaties</h1>
+
+      <AddInterviewButton />
+      <br />
+      <br />
 
       <p>Kies een sollicitatie categorie:</p>
       <ul>

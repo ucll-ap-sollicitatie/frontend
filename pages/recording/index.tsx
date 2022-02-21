@@ -4,6 +4,8 @@ import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
 import axios from "axios";
 import { Button } from "react-bootstrap";
+import { useSession } from "next-auth/react";
+import Unauthenticated from "../../components/Unauthenticated";
 
 /* const videoConstraints = {
   width: 1280,
@@ -12,6 +14,9 @@ import { Button } from "react-bootstrap";
 }; */
 
 const Recording: NextPage = () => {
+  const { data: session } = useSession();
+  if (!session) return <Unauthenticated />;
+
   const webcamRef = useRef<Webcam | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [capturing, setCapturing] = useState(false);
