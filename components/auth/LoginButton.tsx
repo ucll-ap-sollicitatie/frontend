@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 
 const LoginButton: NextPage = () => {
   return (
-    <Button variant="primary" onClick={() => signIn(null, { callbackUrl: `/?toast=Successvol ingelogd` })}>
+    <Button variant="primary" onClick={() => signIn(undefined, { callbackUrl: `/?toast=Successvol ingelogd` })}>
       Inloggen
     </Button>
   );

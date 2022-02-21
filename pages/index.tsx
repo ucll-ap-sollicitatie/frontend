@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import LogoutButton from "../components/layout/auth/LogoutButton";
+import LogoutButton from "../components/auth/LogoutButton";
 import Layout from "../components/layout/Layout";
 import Unauthenticated from "../components/Unauthenticated";
 
@@ -11,9 +11,8 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <h1>Slim op sollicitatie</h1>
-
-      <p>Welkom, {session.user.name || session.user.email}!</p>
-      <LogoutButton />
+      {/* @ts-ignore */}
+      <p>Welkom, {session.user.name || session.user.email}!</p> <LogoutButton />
     </Layout>
   );
 };

@@ -11,6 +11,7 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <h1>Profiel</h1>
+      {/* @ts-ignore */}
       <ProfileCard user={session.user} />
     </Layout>
   );

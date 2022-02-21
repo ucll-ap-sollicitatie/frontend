@@ -22,12 +22,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const res = await fetch(`http://localhost:3001/users/${params.id}`);
-  const user = await res.json();
+  if (params !== undefined) {
+    const res = await fetch(`http://localhost:3001/users/${params.id}`);
+    const user = await res.json();
 
-  return {
-    props: { user: user },
-  };
+    return {
+      props: { user: user },
+    };
+  } else {
+    return {
+      props: { user: null },
+    };
+  }
 };
 
 interface Props {

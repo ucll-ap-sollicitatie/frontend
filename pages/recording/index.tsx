@@ -1,9 +1,8 @@
 import type { NextPage } from "next";
-import React from "react";
+import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
 import axios from "axios";
-<<<<<<< HEAD
 import { Button } from "react-bootstrap";
 
 /* const videoConstraints = {
@@ -11,35 +10,25 @@ import { Button } from "react-bootstrap";
   height: 720,
   facingMode: "user",
 }; */
-=======
-import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
-
-const videoConstraints = {
-  width: 1280,
-  height: 720,
-  facingMode: "user",
-};
->>>>>>> e204d9bd710075deb6392698797767403ec2003b
 
 const Recording: NextPage = () => {
-  const webcamRef = React.useRef(null);
-  const mediaRecorderRef = React.useRef(null);
-  const [capturing, setCapturing] = React.useState(false);
-  const [recordedChunks, setRecordedChunks] = React.useState([]);
+  const webcamRef = useRef<Webcam | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const [capturing, setCapturing] = useState(false);
+  const [recordedChunks, setRecordedChunks] = useState([]);
 
-  const handleStartCaptureClick = React.useCallback(() => {
-    setCapturing(true);
-    mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
-      mimeType: "video/webm",
-    });
-    mediaRecorderRef.current.addEventListener(
-      "dataavailable",
-      handleDataAvailable
-    );
-    mediaRecorderRef.current.start();
+  const handleStartCaptureClick = useCallback(() => {
+    if (mediaRecorderRef !== null && webcamRef.current !== null && webcamRef.current.stream !== null) {
+      setCapturing(true);
+      mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
+        mimeType: "video/webm",
+      });
+      mediaRecorderRef.current.addEventListener("dataavailable", handleDataAvailable);
+      mediaRecorderRef.current.start();
+    }
   }, [webcamRef, setCapturing, mediaRecorderRef]);
 
-  const handleDataAvailable = React.useCallback(
+  const handleDataAvailable = useCallback(
     ({ data }) => {
       if (data.size > 0) {
         setRecordedChunks((prev) => prev.concat(data));
@@ -48,12 +37,14 @@ const Recording: NextPage = () => {
     [setRecordedChunks]
   );
 
-  const handleStopCaptureClick = React.useCallback(() => {
-    mediaRecorderRef.current.stop();
-    setCapturing(false);
+  const handleStopCaptureClick = useCallback(() => {
+    if (mediaRecorderRef.current !== null) {
+      mediaRecorderRef.current.stop();
+      setCapturing(false);
+    }
   }, [mediaRecorderRef, webcamRef, setCapturing]);
 
-  const handleUpload = React.useCallback(() => {
+  const handleUpload = useCallback(() => {
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: "video/webm",
@@ -62,8 +53,8 @@ const Recording: NextPage = () => {
       const formData = new FormData();
       const fileName = "Szymon-WebDev-2022.webm";
       formData.append("newRecording", blob, fileName);
-      formData.set("title", fileName)
-      formData.set("r_u_number", "r0790938")
+      formData.set("title", fileName);
+      formData.set("r_u_number", "r0790938");
       axios({
         method: "POST",
         url: "http://localhost:3001/videos",

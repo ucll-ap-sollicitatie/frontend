@@ -1,6 +1,6 @@
 import useSwr from "swr";
 
-const fetcher = (...args) => fetch(...args).then((res) => res.json());
+const fetcher = (url: string) => fetch(url).then(r => r.json())
 
 export const useRequest = (path: String) => {
   if (!path) throw new Error("Path is required");
