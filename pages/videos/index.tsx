@@ -45,7 +45,7 @@ const Home: NextPage<Props> = ({ videos }) => {
                   <td>{video.title}</td>
                   <td>{video.date}</td>
                   <td>
-                    <Link href={`/videos/${video.video_id}`}>
+                    <Link href={`/videos/${video.video_id}`} passHref>
                       <a className="d-flex align-items-center gap-1">
                         View <BsFillArrowUpRightCircleFill />
                       </a>

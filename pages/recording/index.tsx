@@ -24,7 +24,6 @@ const Recording: NextPage = () => {
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [uploading, setUploading] = React.useState(false);
-  const { data: session } = useSession();
 
   const handleStartCaptureClick = React.useCallback(() => {
     setCapturing(true);

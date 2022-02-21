@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 const AddInterviewButton: NextPage = () => {
   return (
     <>
-      <Link href={"/interviews/add"}>
+      <Link href={"/interviews/add"} passHref>
         <Button variant="primary">Interview aanmaken</Button>
       </Link>
     </>

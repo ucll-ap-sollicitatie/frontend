@@ -11,7 +11,6 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <h1>Slim op sollicitatie</h1>
-      {/* @ts-ignore */}
       <p>Welkom, {session.user.name || session.user.email}!</p> <LogoutButton />
     </Layout>
   );

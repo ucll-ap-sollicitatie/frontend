@@ -38,9 +38,9 @@ const UsersTable: NextPage = () => {
     );
   };
 
-  const { data: users, error } = useRequest("users");
+  const { data: users, error } = useRequest("usersss");
 
-  if (error) return <div>Failed to load users</div>;
+  if (error) return <div>Er is een probleem opgetreden bij het laden van de gebruikers.</div>;
   if (!users) {
     return (
       <div>
@@ -91,7 +91,7 @@ const UsersTable: NextPage = () => {
               <td>{user.formation}</td>
               <td>{capitalize(user.role)}</td>
               <td>
-                <Link href={`/users/${user.r_u_number}`}>
+                <Link href={`/users/${user.r_u_number}`} passHref>
                   <a className="d-flex align-items-center gap-1">
                     View <BsFillArrowUpRightCircleFill />
                   </a>

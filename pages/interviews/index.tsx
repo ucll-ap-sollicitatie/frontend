@@ -46,7 +46,7 @@ const Interviews: NextPage<Props> = ({ categories }) => {
       <ul>
         {categories.map((category) => (
           <li key={category.question_category_id}>
-            <Link href={`/interviews/${category.question_category_id}`}>
+            <Link href={`/interviews/${category.question_category_id}`} passHref>
               <a>{category.category}</a>
             </Link>
           </li>

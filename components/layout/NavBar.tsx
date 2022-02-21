@@ -11,7 +11,7 @@ const NavBar: NextPage = () => {
     <header className="bg-light">
       <Navbar bg="light" expand="lg">
         <Container>
-          <Link href="/">
+          <Link href="/" passHref>
             <Navbar.Brand href="/" className="d-flex">
               <Image src="/ucll.svg" alt="UCLL logo" width="80" height="48" />
             </Navbar.Brand>
@@ -23,30 +23,30 @@ const NavBar: NextPage = () => {
               {!session ? (
                 <>
                   <Nav.Link onClick={() => signIn()}>Login</Nav.Link>
-                  <Link href="/auth/register">
+                  <Link href="/auth/register" passHref>
                     <Nav.Link href="/">Registeren</Nav.Link>
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link href={"/interviews"}>
+                  <Link href={"/interviews"} passHref>
                     <Nav.Link href="/">Sollicitaties</Nav.Link>
                   </Link>
-                  <Link href="/recording">
+                  <Link href="/recording" passHref>
                     <Nav.Link href="/">Recording</Nav.Link>
                   </Link>
-                  <Link href={"/users"}>
+                  <Link href={"/users"} passHref>
                     <Nav.Link href="/">Gebruikers</Nav.Link>
                   </Link>
-                  <Link href={"/videos"}>
+                  <Link href={"/videos"} passHref>
                     <Nav.Link href="/">Videos</Nav.Link>
                   </Link>
-                  <Link href={"/profile"}>
+                  <Link href={"/profile"} passHref>
                     <Nav.Link href="/">Profiel</Nav.Link>
                   </Link>
                 </>
               )}
-              <Link href={"/contact"}>
+              <Link href={"/contact"} passHref>
                 <Nav.Link href="/">Contact</Nav.Link>
               </Link>
             </Nav>
