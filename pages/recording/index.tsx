@@ -26,8 +26,6 @@ const Recording: NextPage = () => {
   const [uploading, setUploading] = React.useState(false);
   const { data: session } = useSession();
 
-  const [uploading, setUploading] = React.useState(false);
-
   const handleStartCaptureClick = React.useCallback(() => {
     setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {

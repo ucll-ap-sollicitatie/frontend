@@ -24,10 +24,35 @@ const Home: NextPage<Props> = ({ videos }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
+  const newDate = (dateString: Date) => {
+    const date = new Date(dateString)
+    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+  }
   return (
     <Layout>
-      <h1>Video's</h1>
-      <Table bordered hover responsive>
+      <h1>Uw Video's</h1>
+
+      <div className="container">
+        <div className="row">
+        {videos.map(
+          (video: Video) =>
+            video.email === session.user?.email && (
+            <div className="col-md-4" key={video.video_id}>
+                <Link href={`/videos/${video.video_id}`}>
+                    <div className="card border-0">
+                        {/* <img src={`http://localhost:4000${video.poster}`} alt={video.name} /> */}
+                        <div className="card-body">
+                            <p>{video.title}</p>
+                            <p>{`${new Date(video.date).toDateString()}`}</p>
+                        </div>
+                    </div>
+                </Link>
+            </div>
+        ))}
+        </div>
+    </div>
+
+      {/* <Table bordered hover responsive>
         <thead>
           <tr>
             <th>#</th>
@@ -55,7 +80,7 @@ const Home: NextPage<Props> = ({ videos }) => {
               )
           )}
         </tbody>
-      </Table>
+      </Table> */}
     </Layout>
   );
 };
