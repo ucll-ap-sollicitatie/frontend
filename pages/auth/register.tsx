@@ -25,6 +25,7 @@ interface Props {
 
 const Register: NextPage<Props> = ({ roles, formations }) => {
   const router = useRouter();
+
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
 

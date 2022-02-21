@@ -44,3 +44,7 @@ h1 {
   top: 6rem;
   z-index: 9999;
 }
+
+#addInterviewForm {
+  max-width: 36rem;
+}
