@@ -30,16 +30,17 @@ const Register: NextPage<Props> = ({ roles, formations }) => {
 
   const registerUser = async (event: FormEvent) => {
     event.preventDefault();
+    const target = event.target as HTMLFormElement;
 
     const res = await fetch("http://localhost:3001/users", {
       body: JSON.stringify({
-        name: event.target.name.value,
-        surname: event.target.surname.value,
-        r_u_number: event.target.r_u_number.value,
-        email: event.target.email.value,
-        password: event.target.password.value,
-        role_id: event.target.role_id.value,
-        formation_id: event.target.formation_id.value,
+        name: target.user_name.value,
+        surname: target.surname.value,
+        r_u_number: target.r_u_number.value,
+        email: target.email.value,
+        password: target.password.value,
+        role_id: target.role_id.value,
+        formation_id: target.formation_id.value,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -75,7 +76,7 @@ const Register: NextPage<Props> = ({ roles, formations }) => {
         <Form onSubmit={registerUser} className="col-md-12 col-lg-10 col-xl-8">
           <div className="d-flex gap-4 flex-wrap">
             <Stack gap={3}>
-              <Form.Group controlId="name">
+              <Form.Group controlId="user_name">
                 <Form.Label>Voornaam</Form.Label>
                 <Form.Control type="text" placeholder="Voornaam" required />
               </Form.Group>

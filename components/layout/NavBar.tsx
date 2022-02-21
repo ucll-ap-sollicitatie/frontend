@@ -22,7 +22,7 @@ const NavBar: NextPage = () => {
             <Nav>
               {!session ? (
                 <>
-                  <Nav.Link onClick={signIn}>Login</Nav.Link>
+                  <Nav.Link onClick={() => signIn()}>Login</Nav.Link>
                   <Link href="/auth/register">
                     <Nav.Link href="/">Registeren</Nav.Link>
                   </Link>

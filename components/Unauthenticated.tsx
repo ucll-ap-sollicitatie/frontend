@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { Button } from "react-bootstrap";
-import LoginButton from "./layout/auth/LoginButton";
+import LoginButton from "./auth/LoginButton";
 import Layout from "./layout/Layout";
 
 const Unauthenticated: NextPage = () => {
