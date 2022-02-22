@@ -7,7 +7,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
 import { useRef, useCallback } from "react";
-import { Button, Form, Stack } from "react-bootstrap";
+import { Button, Form, OverlayTrigger, Stack, Tooltip } from "react-bootstrap";
 
 /* const videoConstraints = {
   width: 1280,
@@ -129,9 +129,12 @@ const Recording: NextPage = () => {
               </Form.Group>
             </div>
             <div className="d-flex gap-4 flex-wrap">
+            <OverlayTrigger placement="top" overlay={<Tooltip id="button-tooltip-2">Privé: alleen lectoren kunnen u video zien</Tooltip>}>
               <Form.Group className="mb-3" controlId="privateCheckbox">
                 <Form.Check type="checkbox" label="Privé" />
               </Form.Group>
+            </OverlayTrigger>
+
             </div>
             <Button variant="primary" type="submit" className="mt-3">
               Upload
