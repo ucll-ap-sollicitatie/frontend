@@ -69,7 +69,8 @@ const Recording: NextPage = () => {
       const formData = new FormData();
       const fileName = event.target.title.value;
       const description = event.target.description.value;
-      const prive = event.target.privateCheckbox.value;
+      const prive = event.target.privateCheckbox.checked;
+      console.log(prive);
       formData.append("newRecording", blob, fileName);
       formData.set("description", description);
       formData.set("title", fileName);
@@ -129,7 +130,7 @@ const Recording: NextPage = () => {
             </div>
             <div className="d-flex gap-4 flex-wrap">
               <Form.Group className="mb-3" controlId="privateCheckbox">
-                <Form.Check type="checkbox" label="Privé" defaultChecked={true} />
+                <Form.Check type="checkbox" label="Privé" />
               </Form.Group>
             </div>
             <Button variant="primary" type="submit" className="mt-3">
