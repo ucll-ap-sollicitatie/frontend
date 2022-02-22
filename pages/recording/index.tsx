@@ -7,7 +7,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
 import { useRef, useCallback } from "react";
-import { Button, Form, OverlayTrigger, Stack, Tooltip } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 
 /* const videoConstraints = {
   width: 1280,
@@ -61,21 +61,25 @@ const Recording: NextPage = () => {
 
   const handleUpload = async (event: FormEvent) => {
     event.preventDefault();
+
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: "video/webm",
       });
+
       const url = URL.createObjectURL(blob);
       const formData = new FormData();
       const fileName = event.target.title.value;
       const description = event.target.description.value;
       const prive = event.target.privateCheckbox.checked;
+
       formData.append("newRecording", blob, fileName);
       formData.set("description", description);
       formData.set("title", fileName);
       formData.set("private", prive);
       formData.set("r_u_number", session?.user?.r_u_number);
       formData.set("email", session.user?.email);
+
       axios({
         method: "POST",
         url: "http://localhost:3001/videos",

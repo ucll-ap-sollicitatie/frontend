@@ -2,8 +2,9 @@ import type { NextPage } from "next";
 import { FC, useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import type { XYCoord, Identifier } from "dnd-core";
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { BsArrowsExpand } from "react-icons/bs";
+import { BsFillTrashFill } from "react-icons/bs";
 
 const style = {
   cursor: "move",
@@ -13,6 +14,7 @@ interface Props {
   id: number;
   index: number;
   moveQuestionInput: (dragIndex: number, hoverIndex: number) => void;
+  deleteQuestionInput: (id: number) => void;
 }
 
 interface DragItem {
@@ -21,7 +23,7 @@ interface DragItem {
   type: string;
 }
 
-const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput }) => {
+const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput, deleteQuestionInput }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
     accept: "test",
@@ -94,13 +96,18 @@ const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput }) => {
 
   return (
     <div id="drag" ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
-      <div className="w-100">
-        <Form.Group controlId={`question${id}`}>
-          <div className="d-flex align-items-center gap-2">
-            <BsArrowsExpand />
-            <Form.Control type="text" placeholder={`Vraag ${id}`} required />
-          </div>
-        </Form.Group>
+      <div className="d-flex gap-2">
+        <div className="w-100">
+          <Form.Group controlId={`question${id}`}>
+            <div className="d-flex align-items-center gap-2">
+              <BsArrowsExpand />
+              <Form.Control type="text" placeholder="Vraag" required />
+            </div>
+          </Form.Group>
+        </div>
+        <Button onClick={() => deleteQuestionInput(id)} variant="danger">
+          <BsFillTrashFill />
+        </Button>
       </div>
     </div>
   );

@@ -34,7 +34,15 @@ const AddInterview: NextPage = () => {
     );
   }, []);
 
+  const deleteQuestionInput = (id: number) => {
+    setQuestionInputs((prevQuestionInputs: QuestionInputType[]) =>
+      prevQuestionInputs.filter((questionInput: QuestionInputType) => questionInput.id !== id)
+    );
+  };
+
   const getLastQuestionInputId = () => {
+    if (questionInputs.length === 0) return 0;
+
     return Math.max.apply(
       Math,
       questionInputs.map((questionInput: QuestionInputType) => questionInput.id)
@@ -119,7 +127,13 @@ const AddInterview: NextPage = () => {
           </Form.Group>
 
           {questionInputs.map((questionInput: QuestionInputType, index) => (
-            <QuestionInput key={questionInput.id} id={questionInput.id} index={index} moveQuestionInput={moveQuestionInput} />
+            <QuestionInput
+              key={questionInput.id}
+              id={questionInput.id}
+              index={index}
+              moveQuestionInput={moveQuestionInput}
+              deleteQuestionInput={deleteQuestionInput}
+            />
           ))}
         </Stack>
 
