@@ -70,7 +70,6 @@ const Recording: NextPage = () => {
       const fileName = event.target.title.value;
       const description = event.target.description.value;
       const prive = event.target.privateCheckbox.checked;
-      console.log(prive);
       formData.append("newRecording", blob, fileName);
       formData.set("description", description);
       formData.set("title", fileName);
