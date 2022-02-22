@@ -69,9 +69,11 @@ const Recording: NextPage = () => {
       const formData = new FormData();
       const fileName = event.target.title.value;
       const description = event.target.description.value;
+      const prive = event.target.privateCheckbox.value;
       formData.append("newRecording", blob, fileName);
       formData.set("description", description);
       formData.set("title", fileName);
+      formData.set("private", prive);
       formData.set("r_u_number", session?.user?.r_u_number);
       formData.set("email", session.user?.email);
       axios({
@@ -126,9 +128,8 @@ const Recording: NextPage = () => {
               </Form.Group>
             </div>
             <div className="d-flex gap-4 flex-wrap">
-              <Form.Group controlId="private">
-                <Form.Label>Privé:</Form.Label>
-                <Form.Control type="checkbox" required />
+              <Form.Group className="mb-3" controlId="privateCheckbox">
+                <Form.Check type="checkbox" label="Privé" defaultChecked={true} />
               </Form.Group>
             </div>
             <Button variant="primary" type="submit" className="mt-3">
