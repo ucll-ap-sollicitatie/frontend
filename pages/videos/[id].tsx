@@ -62,14 +62,15 @@ const Video: NextPage<Props> = ({ video, comments }) => {
 
   const [maxChars, setMaxChars] = React.useState(0);
   const [error, setError] = React.useState("");
-  const [show, setShow] = React.useState(false);
+  const [showDelete, setShowDelete] = React.useState(false);
+  const [showUpdate, setShowUpdate] = React.useState(false);
   const [commentId, setCommentId] = React.useState(0);
-  const [currentComment, setCurrentComment] = React.useState("");
+  const [currentComment, setCurrentComment] = React.useState(comments[0]);
 
   const userEmail = session?.user?.email;
   const videoTitle = video.title;
 
-  const handleComment = async (event: FormEvent) => {
+  const handleAddComment = async (event: FormEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const text = target.comment.value;
@@ -90,7 +91,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
     if (request.status === 400) {
       const response = await request.json();
       setError(response.messages);
-      setShow(true);
+      setShowDelete(true);
     } else {
       router.push(
         {
@@ -118,11 +119,43 @@ const Video: NextPage<Props> = ({ video, comments }) => {
     );
   };
 
-  const handleClose = () => setShow(false);
-  const handleShow = (comment_id: number, comment: string) => {
+  const handleUpdateComment = async (event: FormEvent) => {
+    const target = event.target as HTMLFormElement;
+    const text = target.text.value;
+    console.log(text);
+    await fetch(`http://localhost:3001/comments/${commentId}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        text: text,
+      }),
+    });
+
+    handleClose();
+    mutate("http://localhost:3001/comments");
+    router.push(
+      {
+        pathname: `/videos/${video.video_id}`,
+        query: { toast: "Commentaar bijgewerkt" },
+      },
+      `/videos/${video.video_id}`
+    );
+  };
+
+  const handleClose = () => {
+    setShowDelete(false);
+    setShowUpdate(false);
+  };
+
+  const handleShowDelete = (comment_id: number, comment: Comment) => {
     setCommentId(comment_id);
     setCurrentComment(comment);
-    setShow(true);
+    setShowDelete(true);
+  };
+
+  const handleShowUpdate = (comment_id: number, comment: Comment) => {
+    setCommentId(comment_id);
+    setCurrentComment(comment);
+    setShowUpdate(true);
   };
 
   const handleSelect = (eventKey: string | null, comment_id: number) => {
@@ -139,7 +172,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={showDelete} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Commentaar verwijderen</Modal.Title>
         </Modal.Header>
@@ -147,16 +180,45 @@ const Video: NextPage<Props> = ({ video, comments }) => {
           Bent u zeker dat u dit commentaar wilt verwijderen?
           <br />
           <br />
-          {`"${currentComment}"`}
+          {`"${currentComment.text}"`}
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
-          <Button variant="primary" onClick={handleClose}>
-            Sluiten
-          </Button>
           <Button variant="danger" onClick={handleDeleteComment}>
             Verwijderen
           </Button>
+          <Button variant="outline-secondary" onClick={handleClose}>
+            Sluiten
+          </Button>
         </Modal.Footer>
+      </Modal>
+
+      <Modal show={showUpdate} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Commentaar bijwerken</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleUpdateComment} className="col-md-12 col-lg-10 col-xl-8">
+            <div className="gap-4 flex-wrap">
+              <Form.Group controlId="text">
+                <Form.Label>Commentaar bijwerken</Form.Label>
+                <Form.Control
+                  onChange={(e) => setMaxChars(e.target.value.length)}
+                  maxLength={255}
+                  as="textarea"
+                  placeholder={currentComment.text}
+                  required
+                />
+                <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
+              </Form.Group>
+              <Button variant="success" type="submit" className="mt-3">
+                Bijwerken
+              </Button>
+              <Button variant="outline-secondary" onClick={handleClose} className="mt-3 ms-2">
+                Sluiten
+              </Button>
+            </div>
+          </Form>
+        </Modal.Body>
       </Modal>
 
       <Layout>
@@ -171,7 +233,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
             <p>Geüpload op: {new Date(video.date).toLocaleString()}</p>
           </Col>
         </Row>
-        <Form onSubmit={handleComment} className="col-md-12 col-lg-10 col-xl-8">
+        <Form onSubmit={handleAddComment} className="col-md-12 col-lg-10 col-xl-8s">
           <div className="gap-4 flex-wrap">
             <Form.Group controlId="comment">
               <Form.Label>Commentaar toevoegen</Form.Label>
@@ -205,8 +267,10 @@ const Video: NextPage<Props> = ({ video, comments }) => {
                   <div className="mt-2">{timeSince(comment.date)}</div>
                 </Card.Header>
                 <Card.Body className="justify-content-around d-flex d-none" id={`commentOptions_${comment.comment_id}`}>
-                  <Button variant="primary">Bijwerken</Button>
-                  <Button variant="outline-danger" onClick={() => handleShow(comment.comment_id, comment.text)}>
+                  <Button variant="outline-success" onClick={() => handleShowUpdate(comment.comment_id, comment)}>
+                    Bijwerken
+                  </Button>
+                  <Button variant="outline-danger" onClick={() => handleShowDelete(comment.comment_id, comment)}>
                     Verwijderen
                   </Button>
                   <Button variant="light" disabled>
