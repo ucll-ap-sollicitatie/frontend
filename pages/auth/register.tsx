@@ -56,10 +56,9 @@ const Register: NextPage<Props> = ({ roles, formations }) => {
     } else {
       router.push(
         {
-          pathname: "/",
-          query: { toast: "U bent geregistreerd, gelieve via email uw account te activeren" },
+          pathname: "/preferences",
+          //query: { toast: "U bent geregistreerd, gelieve via email uw account te activeren" },
         },
-        "/"
       );
     }
   };
