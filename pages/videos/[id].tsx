@@ -51,6 +51,9 @@ const Video: NextPage<Props> = ({ video }) => {
     <Layout>
       <h1>{video.title}</h1>
       <VideoPlayer userEmail={userEmail} videoTitle={videoTitle} />
+      <h2>Beschrijving</h2>
+      <p>{video.description}</p>
+      <p>Geüpload op: {new Date(video.date).toDateString()}</p>
     </Layout>
   );
 };
