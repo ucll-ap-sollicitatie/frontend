@@ -63,6 +63,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
 
   const userEmail = session?.user?.email;
   const videoTitle = video.title;
+  const videoEmail = video.email;
 
   const handleComment = async (event: FormEvent) => {
     event.preventDefault();
@@ -102,7 +103,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
       <h1>{video.title}</h1>
       <Row>
         <Col>
-          <VideoPlayer userEmail={userEmail} videoTitle={videoTitle} />
+          <VideoPlayer userEmail={videoEmail} videoTitle={videoTitle} />
           <h2>Beschrijving</h2>
           <p>{video.description}</p>
           <p>Geüpload op: {new Date(video.date).toDateString()}</p>
