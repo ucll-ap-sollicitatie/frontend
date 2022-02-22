@@ -42,7 +42,7 @@ const Home: NextPage<Props> = ({ videos }) => {
                       />
                       <div className="card-body">
                         <p>{video.title}</p>
-                        <p>{new Date(video.date).toDateString()}</p>
+                        <p>{new Date(video.date).toLocaleString()}</p>
                       </div>
                     </div>
                   </Link>
