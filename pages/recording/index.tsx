@@ -25,8 +25,6 @@ const Recording: NextPage = () => {
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [maxChars, setMaxChars] = React.useState(0);
 
-  const [uploading, setUploading] = React.useState(false);
-
   const handleStartCaptureClick = React.useCallback(() => {
     setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
@@ -70,9 +68,12 @@ const Recording: NextPage = () => {
       const formData = new FormData();
       const fileName = event.target.title.value;
       const description = event.target.description.value;
+      const prive = event.target.privateCheckbox.checked;
+      console.log(prive);
       formData.append("newRecording", blob, fileName);
       formData.set("description", description);
       formData.set("title", fileName);
+      formData.set("private", prive);
       formData.set("r_u_number", session?.user?.r_u_number);
       formData.set("email", session.user?.email);
       axios({
@@ -108,13 +109,13 @@ const Recording: NextPage = () => {
           <Form onSubmit={handleUpload} className="col-md-12 col-lg-10 col-xl-8">
             <div className="d-flex gap-4 flex-wrap">
               <Form.Group controlId="title">
-                <Form.Label>Titel</Form.Label>
+                <Form.Label>Titel:</Form.Label>
                 <Form.Control type="text" placeholder="e.g. Mijn interviewopname" required />
               </Form.Group>
             </div>
             <div className="gap-4 flex-wrap">
               <Form.Group controlId="description">
-                <Form.Label>Omschrijving</Form.Label>
+                <Form.Label>Omschrijving:</Form.Label>
                 <Form.Control
                   onChange={(e) => setMaxChars(e.target.value.length)}
                   as="textarea"
@@ -124,6 +125,11 @@ const Recording: NextPage = () => {
                   required
                 />
                 <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
+              </Form.Group>
+            </div>
+            <div className="d-flex gap-4 flex-wrap">
+              <Form.Group className="mb-3" controlId="privateCheckbox">
+                <Form.Check type="checkbox" label="Privé" />
               </Form.Group>
             </div>
             <Button variant="primary" type="submit" className="mt-3">
