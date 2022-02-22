@@ -14,7 +14,7 @@ const VideoPlayer: NextPage<Props> = ({ userEmail, videoTitle }) => {
   return (
     <CloudinaryContext cloud_name="dou4tgpae">
       <div>
-        <Video publicId={publicId} width="50%" controls innerRef={videoRef} />
+        <Video publicId={publicId} width="100%" controls innerRef={videoRef} />
       </div>
     </CloudinaryContext>
   );
