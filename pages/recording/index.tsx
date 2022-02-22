@@ -26,8 +26,6 @@ const Recording: NextPage = () => {
   const [uploading, setUploading] = React.useState(false);
   const [maxChars, setMaxChars] = React.useState(0);
 
-  const [uploading, setUploading] = React.useState(false);
-
   const handleStartCaptureClick = React.useCallback(() => {
     setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
@@ -109,13 +107,13 @@ const Recording: NextPage = () => {
           <Form onSubmit={handleUpload} className="col-md-12 col-lg-10 col-xl-8">
             <div className="d-flex gap-4 flex-wrap">
               <Form.Group controlId="title">
-                <Form.Label>Titel</Form.Label>
+                <Form.Label>Titel:</Form.Label>
                 <Form.Control type="text" placeholder="e.g. Mijn interviewopname" required />
               </Form.Group>
             </div>
             <div className="gap-4 flex-wrap">
               <Form.Group controlId="description">
-                <Form.Label>Omschrijving</Form.Label>
+                <Form.Label>Omschrijving:</Form.Label>
                 <Form.Control
                   onChange={(e) => setMaxChars(e.target.value.length)}
                   as="textarea"
@@ -125,6 +123,12 @@ const Recording: NextPage = () => {
                   required
                 />
                 <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
+              </Form.Group>
+            </div>
+            <div className="d-flex gap-4 flex-wrap">
+              <Form.Group controlId="private">
+                <Form.Label>Privé:</Form.Label>
+                <Form.Control type="checkbox" required />
               </Form.Group>
             </div>
             <Button variant="primary" type="submit" className="mt-3">
