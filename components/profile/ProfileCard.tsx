@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { Button, Card } from "react-bootstrap";
-import { capitalize } from "../helpers/helperFunctions";
-import User from "../interfaces/User";
+import { capitalize } from "../../helpers/helperFunctions";
+import User from "../../interfaces/User";
 
 interface Props {
   user: User;

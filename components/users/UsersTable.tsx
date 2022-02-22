@@ -1,28 +1,31 @@
 import type { NextPage } from "next";
-import Link from "next/link";
 import { Button, Modal, Spinner, Table } from "react-bootstrap";
-import { capitalize } from "../helpers/helperFunctions";
-import { useRequest } from "../helpers/useRequest";
-import { BsFillTrashFill, BsFillArrowUpRightCircleFill } from "react-icons/bs";
-import User from "../interfaces/User";
+import { capitalize } from "../../helpers/helperFunctions";
+import { useRequest } from "../../helpers/useRequest";
+import User from "../../interfaces/User";
 import { useState } from "react";
 import { useSWRConfig } from "swr";
 import { useRouter } from "next/router";
+import RemoveButton from "../buttons/RemoveButton";
+import ShowButton from "../buttons/ShowButton";
+import { useSession } from "next-auth/react";
+import Unauthenticated from "../Unauthenticated";
 
 const UsersTable: NextPage = () => {
   const router = useRouter();
   const { mutate } = useSWRConfig();
 
-  const [r_u_number, setR_u_number] = useState("");
+  const [r_u_number, setR_u_number] = useState<number | string>("");
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
-  const handleShow = (r_u_number: string) => {
-    setR_u_number(r_u_number);
+
+  const handleShow = (id: number | string) => {
+    setR_u_number(id);
     setShow(true);
   };
 
-  const handeDeleteUser = async () => {
+  const handleDelete = async () => {
     const res = await fetch(`http://localhost:3001/users/${r_u_number}`, {
       method: "DELETE",
     });
@@ -62,7 +65,7 @@ const UsersTable: NextPage = () => {
           <Button variant="primary" onClick={handleClose}>
             Sluiten
           </Button>
-          <Button variant="danger" onClick={handeDeleteUser}>
+          <Button variant="danger" onClick={handleDelete}>
             Verwijderen
           </Button>
         </Modal.Footer>
@@ -77,8 +80,8 @@ const UsersTable: NextPage = () => {
             <th>E-mail</th>
             <th>Richting</th>
             <th>Rol</th>
-            <th>View</th>
-            <th>Remove</th>
+            <th>Bekijken</th>
+            <th>Verwijderen</th>
           </tr>
         </thead>
         <tbody>
@@ -91,16 +94,10 @@ const UsersTable: NextPage = () => {
               <td>{user.formation}</td>
               <td>{capitalize(user.role)}</td>
               <td>
-                <Link href={`/users/${user.r_u_number}`} passHref>
-                  <a className="d-flex align-items-center gap-1">
-                    View <BsFillArrowUpRightCircleFill />
-                  </a>
-                </Link>
+                <ShowButton url={`/users/${user.r_u_number}`} />
               </td>
               <td>
-                <a onClick={() => handleShow(user.r_u_number)} className="pointer d-flex align-items-center gap-1 pe-auto">
-                  Remove <BsFillTrashFill />
-                </a>
+                <RemoveButton handleShow={handleShow} id={user.r_u_number} />
               </td>
             </tr>
           ))}
