@@ -1,17 +1,43 @@
 import type { NextPage } from "next";
-import { Button, Modal, Spinner, Table } from "react-bootstrap";
-import { useRequest } from "../../helpers/useRequest";
-import { useState } from "react";
-import { useSWRConfig } from "swr";
+import { Button, Modal, Spinner } from "react-bootstrap";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import RemoveButton from "../buttons/RemoveButton";
-import ShowButton from "../buttons/ShowButton";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
+import ReactTable from "../ReactTable";
+
+const columns = [
+  {
+    Header: "Categorie",
+    accessor: "category",
+  },
+  {
+    Header: "Aantal vragen",
+    accessor: "amount_of_questions",
+  },
+];
 
 const InterviewsTable: NextPage = () => {
-  const router = useRouter();
-  const { mutate } = useSWRConfig();
+  const [question_categories, setQuestion_categories] = useState<QuestionCategory[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("http://localhost:3001/question-categories");
+
+      if (res.error) {
+        setError(true);
+      } else {
+        const data = await res.json();
+        setQuestion_categories(data);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const router = useRouter();
   const [id, setId] = useState<number | string>(0);
   const [show, setShow] = useState(false);
 
@@ -28,7 +54,6 @@ const InterviewsTable: NextPage = () => {
     });
 
     handleClose();
-    mutate("http://localhost:3001/question-categories");
     router.push(
       {
         pathname: "/interviews",
@@ -38,10 +63,9 @@ const InterviewsTable: NextPage = () => {
     );
   };
 
-  const { data: question_categories, error } = useRequest("question-categories");
-
   if (error) return <div>Er is een probleem opgetreden bij het laden van de sollicitaties.</div>;
-  if (!question_categories) {
+  if (question_categories.length === 0) return <div>Geen sollicitaties gevonden.</div>;
+  if (loading) {
     return (
       <div>
         <Spinner animation="border" variant="primary" />
@@ -66,30 +90,7 @@ const InterviewsTable: NextPage = () => {
         </Modal.Footer>
       </Modal>
 
-      <Table bordered hover responsive>
-        <thead>
-          <tr>
-            <th>Categorie</th>
-            <th>Aantal vragen</th>
-            <th>Bekijken</th>
-            <th>Verwijderen</th>
-          </tr>
-        </thead>
-        <tbody>
-          {question_categories.map((question_category: QuestionCategory) => (
-            <tr key={question_category.question_category_id}>
-              <td>{question_category.category}</td>
-              <td>{question_category.amount_of_questions}</td>
-              <td>
-                <ShowButton url={`/interviews/${question_category.question_category_id}`} />
-              </td>
-              <td>
-                <RemoveButton handleShow={handleShow} id={question_category.question_category_id} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <ReactTable columns={columns} data={question_categories} url={"/interviews"} id="question_category_id" handleShow={handleShow} />
     </>
   );
 };

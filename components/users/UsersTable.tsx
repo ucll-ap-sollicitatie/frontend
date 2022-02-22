@@ -1,37 +1,75 @@
 import type { NextPage } from "next";
-import { Button, Modal, Spinner, Table } from "react-bootstrap";
-import { capitalize } from "../../helpers/helperFunctions";
-import { useRequest } from "../../helpers/useRequest";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import User from "../../interfaces/User";
-import { useState } from "react";
-import { useSWRConfig } from "swr";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import RemoveButton from "../buttons/RemoveButton";
-import ShowButton from "../buttons/ShowButton";
-import { useSession } from "next-auth/react";
-import Unauthenticated from "../Unauthenticated";
+import ReactTable from "../ReactTable";
+
+const columns = [
+  {
+    Header: "R/U-nummer",
+    accessor: "r_u_number",
+  },
+  {
+    Header: "Voornaam",
+    accessor: "name",
+  },
+  {
+    Header: "Familienaam",
+    accessor: "surname",
+  },
+  {
+    Header: "E-mail",
+    accessor: "email",
+  },
+  {
+    Header: "Richting",
+    accessor: "formation",
+  },
+  {
+    Header: "Rol",
+    accessor: "role",
+  },
+];
 
 const UsersTable: NextPage = () => {
-  const router = useRouter();
-  const { mutate } = useSWRConfig();
+  const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
-  const [r_u_number, setR_u_number] = useState<number | string>("");
+  const fetchData = async () => {
+    const res = await fetch("http://localhost:3001/users");
+
+    if (res.error) {
+      setError(true);
+    } else {
+      const data = await res.json();
+      setUsers(data);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const router = useRouter();
+  const [id, setId] = useState<number | string>("");
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
 
   const handleShow = (id: number | string) => {
-    setR_u_number(id);
+    setId(id);
     setShow(true);
   };
 
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:3001/users/${r_u_number}`, {
+    const res = await fetch(`http://localhost:3001/users/${id}`, {
       method: "DELETE",
     });
 
     handleClose();
-    mutate("http://localhost:3001/users");
     router.push(
       {
         pathname: "/users",
@@ -39,12 +77,12 @@ const UsersTable: NextPage = () => {
       },
       "/users"
     );
+    fetchData();
   };
 
-  const { data: users, error } = useRequest("users");
-
   if (error) return <div>Er is een probleem opgetreden bij het laden van de gebruikers.</div>;
-  if (!users) {
+  if (users.length === 0) return <div>Geen gebruikers gevonden.</div>;
+  if (loading) {
     return (
       <div>
         <Spinner animation="border" variant="primary" />
@@ -59,7 +97,7 @@ const UsersTable: NextPage = () => {
           <Modal.Title>Gebruiker verwijderen</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Bent u zeker dat u gebruiker <span className="font-italic">{r_u_number}</span> wilt verwijderen?
+          Bent u zeker dat u gebruiker <span className="font-italic">{id}</span> wilt verwijderen?
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
           <Button variant="primary" onClick={handleClose}>
@@ -71,38 +109,7 @@ const UsersTable: NextPage = () => {
         </Modal.Footer>
       </Modal>
 
-      <Table bordered hover responsive>
-        <thead>
-          <tr>
-            <th>R/U-nummer</th>
-            <th>Voornaam</th>
-            <th>Familienaam</th>
-            <th>E-mail</th>
-            <th>Richting</th>
-            <th>Rol</th>
-            <th>Bekijken</th>
-            <th>Verwijderen</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user: User) => (
-            <tr key={user.r_u_number}>
-              <td>{user.r_u_number}</td>
-              <td>{user.name}</td>
-              <td>{user.surname}</td>
-              <td>{user.email}</td>
-              <td>{user.formation}</td>
-              <td>{capitalize(user.role)}</td>
-              <td>
-                <ShowButton url={`/users/${user.r_u_number}`} />
-              </td>
-              <td>
-                <RemoveButton handleShow={handleShow} id={user.r_u_number} />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+      <ReactTable columns={columns} data={users} url={"/users"} id="r_u_number" handleShow={handleShow} />
     </>
   );
 };
