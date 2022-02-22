@@ -42,7 +42,7 @@ interface Props {
 
 const Video: NextPage<Props> = ({ video }) => {
   const { data: session } = useSession();
-  if (!session || session !== undefined) return <Unauthenticated />;
+  if (!session) return <Unauthenticated />;
 
   const userEmail = session?.user?.email;
   const videoTitle = video.title;
