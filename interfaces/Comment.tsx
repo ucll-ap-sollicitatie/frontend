@@ -4,4 +4,5 @@ export interface Comment {
   text: string;
   name: string;
   surname: string;
+  author: string;
 }

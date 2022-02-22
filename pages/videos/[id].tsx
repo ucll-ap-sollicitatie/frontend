@@ -7,7 +7,7 @@ import React, { FormEvent } from "react";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import VideoPlayer from "../../components/VideoPlayer";
-import { Alert, Button, Card, Col, Form, Modal, Nav, Row, Tab, Tabs } from "react-bootstrap";
+import { Button, Card, Col, Form, Modal, Nav, Row } from "react-bootstrap";
 import { useSWRConfig } from "swr";
 import { timeSince } from "../../helpers/helperFunctions";
 
@@ -65,7 +65,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
   const [showDelete, setShowDelete] = React.useState(false);
   const [showUpdate, setShowUpdate] = React.useState(false);
   const [commentId, setCommentId] = React.useState(0);
-  const [currentComment, setCurrentComment] = React.useState(comments[0]);
+  const [currentComment, setCurrentComment] = React.useState(comments == null ? [] : comments[0]);
 
   const userEmail = session?.user?.email;
   const videoTitle = video.title;
@@ -120,11 +120,15 @@ const Video: NextPage<Props> = ({ video, comments }) => {
   };
 
   const handleUpdateComment = async (event: FormEvent) => {
+    event.preventDefault();
     const target = event.target as HTMLFormElement;
     const text = target.text.value;
     console.log(text);
     await fetch(`http://localhost:3001/comments/${commentId}`, {
       method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         text: text,
       }),
@@ -260,9 +264,11 @@ const Video: NextPage<Props> = ({ video, comments }) => {
                     <Nav.Item>
                       <Nav.Link eventKey="0">Commentaar</Nav.Link>
                     </Nav.Item>
-                    <Nav.Item>
-                      <Nav.Link eventKey="1">Opties</Nav.Link>
-                    </Nav.Item>
+                    {comment.author === session.user?.r_u_number && (
+                      <Nav.Item>
+                        <Nav.Link eventKey="1">Opties</Nav.Link>
+                      </Nav.Item>
+                    )}
                   </Nav>
                   <div className="mt-2">{timeSince(comment.date)}</div>
                 </Card.Header>
