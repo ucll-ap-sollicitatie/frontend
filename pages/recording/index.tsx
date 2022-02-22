@@ -23,7 +23,6 @@ const Recording: NextPage = () => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
-  const [uploading, setUploading] = React.useState(false);
   const [maxChars, setMaxChars] = React.useState(0);
 
   const [uploading, setUploading] = React.useState(false);
