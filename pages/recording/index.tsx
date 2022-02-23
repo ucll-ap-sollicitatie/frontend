@@ -7,7 +7,14 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
 import { useRef, useCallback } from "react";
-import { Breadcrumb, Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Breadcrumb, Button, Form, OverlayTrigger, Tooltip, Col, Row } from "react-bootstrap";
+import { Question } from "../../interfaces/Question";
+
+// const videoConstraints = {
+//   width: 1280,
+//   height: 720,
+//   facingMode: "user",
+// };
 
 const Recording: NextPage = () => {
   const { data: session } = useSession();
@@ -19,6 +26,11 @@ const Recording: NextPage = () => {
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [uploading, setUploading] = React.useState(false);
   const [maxChars, setMaxChars] = React.useState(0);
+
+  const [choosingQuestions, setChoosingQuestions] = React.useState(true);
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   const handleStartCaptureClick = React.useCallback(() => {
     setCapturing(true);
@@ -98,7 +110,32 @@ const Recording: NextPage = () => {
     }
   };
 
-  return (
+  const handleRandomClick = React.useCallback(async () => {
+    const res = await fetch("http://localhost:3001/questions/random/random");
+
+    if (res.status !== 200) {
+      setError(true);
+    } else {
+      const data = await res.json();
+      setQuestions(data);
+      setChoosingQuestions(false);
+    }
+  }, [setChoosingQuestions]);
+
+  const handleGoToQuestionsClick = React.useCallback(() => {
+    setChoosingQuestions(true);
+  }, [setChoosingQuestions]);
+
+  if (choosingQuestions) return (
+    <Layout>
+      <h1>Recording</h1>
+      <Button variant="primary" onClick={handleRandomClick}>
+        Random Questions 
+      </Button>
+    </Layout>
+  )
+
+  if (!choosingQuestions) return (
     <Layout>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
@@ -146,24 +183,42 @@ const Recording: NextPage = () => {
         </div>
       ) : (
         <div>
-          <Webcam className="w-50" audio={true} ref={webcamRef} muted />
+          <Row>
+            <Col>
+              <Webcam className="w-75" audio={true} ref={webcamRef} muted />
 
-          <div className="d-flex gap-2 flex-column col-md-2">
-            {capturing ? (
-              <Button variant="primary" onClick={handleStopCaptureClick}>
-                Stop recording
-              </Button>
-            ) : (
-              <Button variant="primary" onClick={handleStartCaptureClick}>
-                Start recording
-              </Button>
-            )}
-            {recordedChunks.length > 0 && (
-              <Button variant="primary" onClick={handleUploadClick}>
-                Upload
-              </Button>
-            )}
-          </div>
+              <div className="d-flex gap-2 flex-column col-md-2">
+                {capturing ? (
+                  <Button variant="primary" onClick={handleStopCaptureClick}>
+                    Stop recording
+                  </Button>
+                ) : (
+                  <div className="d-flex">
+                    <Button variant="primary" onClick={handleStartCaptureClick}>
+                      Start recording
+                    </Button>
+                    <Button variant="light" className="mt-3 ms-2" onClick={handleGoToQuestionsClick}>
+                      Back
+                    </Button>
+                  </div>
+                )}
+                {recordedChunks.length > 0 && (
+                  <Button variant="primary" onClick={handleUploadClick}>
+                    Upload
+                  </Button>
+                )}
+              </div>
+            </Col>
+            <Col>
+            <h2>Vragen:</h2>
+            {questions.map(
+            (question: Question) =>
+              <p>
+                {question.question}
+              </p>
+          )}
+            </Col>
+          </Row>
         </div>
       )}
     </Layout>
