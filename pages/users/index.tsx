@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
-import UsersTable from "../../components/UsersTable";
+import UsersTable from "../../components/users/UsersTable";
 
 const Profile: NextPage = () => {
   const { data: session } = useSession();

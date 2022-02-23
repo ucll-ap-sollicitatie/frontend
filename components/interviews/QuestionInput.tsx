@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { FC, useRef } from "react";
+import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import type { XYCoord, Identifier } from "dnd-core";
 import { Button, Form } from "react-bootstrap";

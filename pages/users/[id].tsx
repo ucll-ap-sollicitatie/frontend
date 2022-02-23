@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Layout from "../../components/layout/Layout";
-import ProfileCard from "../../components/ProfileCard";
+import ProfileCard from "../../components/profile/ProfileCard";
 import Unauthenticated from "../../components/Unauthenticated";
 import User from "../../interfaces/User";
 
