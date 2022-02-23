@@ -4,6 +4,7 @@ import User from "../../interfaces/User";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ReactTable from "../ReactTable";
+import SpinnerComponent from "../SpinnerComponent";
 
 const columns = [
   {
@@ -82,13 +83,7 @@ const UsersTable: NextPage = () => {
   };
 
   if (error) return <div>Er is een probleem opgetreden bij het laden van de gebruikers.</div>;
-  if (loading) {
-    return (
-      <div>
-        <Spinner animation="border" variant="primary" />
-      </div>
-    );
-  }
+  if (loading) return <SpinnerComponent />;
   if (users.length === 0) return <div>Geen gebruikers gevonden.</div>;
 
   return (

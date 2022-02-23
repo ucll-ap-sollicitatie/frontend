@@ -142,7 +142,7 @@ const AddInterview: NextPage = () => {
         </Button>
 
         <Button variant="primary" type="submit" className="mt-4">
-          Maak interview aan
+          Sollicitatie aanmaken
         </Button>
       </Form>
     </Layout>
