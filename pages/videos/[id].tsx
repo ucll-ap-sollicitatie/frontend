@@ -230,7 +230,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
         <h1>{video.title}</h1>
         <Row>
           <Col>
-            <VideoPlayer userEmail={userEmail} videoTitle={videoTitle} />
+            <VideoPlayer userEmail={video.email} videoTitle={videoTitle} />
           </Col>
           <Col>
             <h2>Beschrijving</h2>
