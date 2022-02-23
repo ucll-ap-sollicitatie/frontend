@@ -1,61 +1,129 @@
+// @ts-nocheck :)
 import type { NextPage } from "next";
-import { Table } from "react-bootstrap";
+import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, usePagination } from "react-table";
 import RemoveButton from "./buttons/RemoveButton";
 import ShowButton from "./buttons/ShowButton";
 
-const ReactTable: NextPage = ({ columns, data, url, id, handleShow }) => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns, data }, useSortBy);
+interface Props {
+  columns: any;
+  data: any;
+  url: string;
+  id: string | number;
+  handleShow: (id: string | number) => void;
+}
 
-  console.log(rows);
+const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: { pageIndex, pageSize },
+  } = useTable({ columns, data, initialState: { pageIndex: 0 } }, useSortBy, usePagination);
 
   return (
-    <Table {...getTableProps()} bordered hover responsive>
-      <thead>
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th {...column.getHeaderProps(column.getSortByToggleProps())}>
-                {column.render("Header")}
-                <span>
-                  {" "}
-                  {column.isSorted ? (
-                    column.isSortedDesc ? (
-                      <BsArrowBarDown color="blue" />
+    <>
+      <Table {...getTableProps()} bordered hover responsive>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())} className="no-wrap">
+                  {column.render("Header")}
+                  <span>
+                    {" "}
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <BsArrowBarDown color="blue" />
+                      ) : (
+                        <BsArrowBarUp color="blue" />
+                      )
                     ) : (
-                      <BsArrowBarUp color="blue" />
-                    )
-                  ) : (
-                    <BsArrowsExpand color="blue" />
-                  )}
-                </span>
-              </th>
-            ))}
-            <th>Bekijken</th>
-            <th>Verwijderen</th>
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return <td>{cell.render("Cell")}</td>;
-              })}
-              <td>
-                <ShowButton url={`${url}/${row.original[id]}`} />
-              </td>
-              <td>
-                <RemoveButton handleShow={handleShow} id={row.original[id]} />
-              </td>
+                      <BsArrowsExpand color="blue" />
+                    )}
+                  </span>
+                </th>
+              ))}
+              <th>Bekijken</th>
+              <th>Verwijderen</th>
             </tr>
-          );
-        })}
-      </tbody>
-    </Table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {page.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return <td>{cell.render("Cell")}</td>;
+                })}
+                <td>
+                  <ShowButton url={`${url}/${row.original[id]}`} />
+                </td>
+                <td>
+                  <RemoveButton handleShow={handleShow} id={row.original[id]} />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+
+      <div className="d-flex flex-wrap align-items-center gap-3">
+        <Pagination className="m-0">
+          <Pagination.First onClick={() => gotoPage(0)} disabled={!canPreviousPage} />
+          <Pagination.Prev onClick={() => previousPage()} disabled={!canPreviousPage} />
+          <Pagination.Next onClick={() => nextPage()} disabled={!canNextPage} />
+          <Pagination.Last onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage} />
+        </Pagination>
+
+        <span>
+          Page{" "}
+          <strong>
+            {pageIndex + 1} of {pageOptions.length}
+          </strong>
+        </span>
+
+        <span>
+          Go to page:{" "}
+          <Form.Control
+            type="number"
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const page = e.target.value ? Number(e.target.value) - 1 : 0;
+              gotoPage(page);
+            }}
+            className="d-inline-block"
+            style={{ maxWidth: "100px" }}
+          />
+        </span>
+
+        <Form.Select
+          value={pageSize}
+          onChange={(e) => {
+            setPageSize(Number(e.target.value));
+          }}
+          style={{ maxWidth: "120px" }}
+        >
+          {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+            <option key={pageSize} value={pageSize}>
+              Show {pageSize}
+            </option>
+          ))}
+        </Form.Select>
+      </div>
+    </>
   );
 };
 

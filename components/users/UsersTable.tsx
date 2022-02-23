@@ -40,7 +40,7 @@ const UsersTable: NextPage = () => {
   const fetchData = async () => {
     const res = await fetch("http://localhost:3001/users");
 
-    if (res.error) {
+    if (res.status !== 200) {
       setError(true);
     } else {
       const data = await res.json();
