@@ -64,7 +64,6 @@ const InterviewsTable: NextPage = () => {
   };
 
   if (error) return <div>Er is een probleem opgetreden bij het laden van de sollicitaties.</div>;
-  if (question_categories.length === 0) return <div>Geen sollicitaties gevonden.</div>;
   if (loading) {
     return (
       <div>
@@ -72,6 +71,7 @@ const InterviewsTable: NextPage = () => {
       </div>
     );
   }
+  if (question_categories.length === 0) return <div>Geen sollicitaties gevonden.</div>;
 
   return (
     <>

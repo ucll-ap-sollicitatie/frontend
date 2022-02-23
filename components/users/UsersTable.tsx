@@ -81,7 +81,6 @@ const UsersTable: NextPage = () => {
   };
 
   if (error) return <div>Er is een probleem opgetreden bij het laden van de gebruikers.</div>;
-  if (users.length === 0) return <div>Geen gebruikers gevonden.</div>;
   if (loading) {
     return (
       <div>
@@ -89,6 +88,7 @@ const UsersTable: NextPage = () => {
       </div>
     );
   }
+  if (users.length === 0) return <div>Geen gebruikers gevonden.</div>;
 
   return (
     <>
