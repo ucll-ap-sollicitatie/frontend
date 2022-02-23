@@ -6,4 +6,6 @@ export default interface Video {
   email: string;
   description: string;
   private: boolean;
+  name: string;
+  surname: string;
 }

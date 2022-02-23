@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { Breadcrumb } from "react-bootstrap";
 import AddInterviewButton from "../../components/interviews/AddInterviewButton";
 import InterviewsTable from "../../components/interviews/InterviewsTable";
 import Layout from "../../components/layout/Layout";
@@ -11,6 +12,10 @@ const Interviews: NextPage = () => {
 
   return (
     <Layout>
+      <Breadcrumb>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item active>Sollicitaties</Breadcrumb.Item>
+      </Breadcrumb>
       <h1>Sollicitaties</h1>
 
       <AddInterviewButton />

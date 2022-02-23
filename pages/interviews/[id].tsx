@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Carousel } from "react-bootstrap";
+import { Breadcrumb, Carousel } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import { Question } from "../../interfaces/Question";
@@ -57,6 +57,11 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
     return (
       <>
         <Layout>
+          <Breadcrumb>
+            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+            <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
+            <Breadcrumb.Item active>{category.category}</Breadcrumb.Item>
+          </Breadcrumb>
           <h1>Sollicitatie: {category.category}</h1>
 
           <Carousel interval={null} variant="dark" wrap={false}>
@@ -75,6 +80,11 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
   return (
     <>
       <Layout>
+        <Breadcrumb>
+          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+          <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
+          <Breadcrumb.Item active>{category.category}</Breadcrumb.Item>
+        </Breadcrumb>
         <h1>Sollicitatie: {category.category}</h1>
 
         <Carousel interval={null} variant="dark" wrap={false}>

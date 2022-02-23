@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Button, Card, Col, Row } from "react-bootstrap";
+import { Accordion, Badge, Breadcrumb, Button, Card, Col, ListGroup, Row } from "react-bootstrap";
 import { useSWRConfig } from "swr";
 import React, { FormEvent } from "react";
 import router from "next/router";
@@ -15,6 +15,7 @@ import FeedbackModal from "../../components/videos/FeedbackModal";
 import Video from "../../interfaces/Video";
 import Comment from "../../interfaces/Comment";
 import FeedbackList from "../../components/videos/FeedbackList";
+import Link from "next/link";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch("http://localhost:3001/videos/");
@@ -229,21 +230,56 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         handleAddFeedback={handleAddFeedback}
         setMaxChars={setMaxChars}
       />
-
       <Layout>
-        <h1>{video.title}</h1>
+        <Breadcrumb>
+          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+          <Breadcrumb.Item href="/videos">Video's</Breadcrumb.Item>
+          <Breadcrumb.Item active>{video.title}</Breadcrumb.Item>
+        </Breadcrumb>
+        <h1>
+          <span>Titel: </span>
+          {video.title}
+        </h1>
         <Row>
-          <Col>
+          <Col sm={8}>
             <VideoPlayer userEmail={video.email} videoTitle={video.title} />
           </Col>
-          <Col className>
-            <h2>Beschrijving</h2>
-            <p>{video.description}</p>
-            <p>Geüpload op: {new Date(video.date).toLocaleString()}</p>
+          <Col className="d-flex flex-column justify-content-between">
+            <Row>
+              <h2>Informatie</h2>
+            </Row>
+            <Row>
+              <h4>Titel</h4>
+            </Row>
+            <Row>
+              <p>{video.title}</p>
+            </Row>
+            <Row>
+              <h4>Beschrijving</h4>
+            </Row>
+            <Row>
+              <p>{video.description}</p>
+            </Row>
+            <Row>
+              <h4>Geüpload door</h4>
+            </Row>
+            <Row>
+              <p>
+                {video.name} {video.surname}
+              </p>
+            </Row>
+            <Row>
+              <h4>Datum</h4>
+            </Row>
+            <Row>
+              <p>{new Date(video.date).toLocaleString()}</p>
+            </Row>
             {session.user.role == "Lector" && (
-              <Button variant="outline-primary" onClick={handleShowFeedback}>
-                Feedback toevoegen
-              </Button>
+              <Row>
+                <Button variant="outline-success" onClick={handleShowFeedback}>
+                  Feedback toevoegen
+                </Button>
+              </Row>
             )}
           </Col>
         </Row>

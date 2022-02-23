@@ -4,6 +4,7 @@ import Video from "../../interfaces/Video";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import AllVideoOverview from "../../components/AllVideoOverview";
+import { Breadcrumb } from "react-bootstrap";
 
 export const getStaticProps: GetStaticProps = async () => {
   const result = await fetch("http://localhost:3001/videos");
@@ -25,6 +26,10 @@ const Home: NextPage<Props> = ({ videos }) => {
 
   return (
     <Layout>
+      <Breadcrumb>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item active>Video's</Breadcrumb.Item>
+      </Breadcrumb>
       <h1>Alle video's</h1>
       <AllVideoOverview videos={videos} user={session.user} />
     </Layout>
