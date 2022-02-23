@@ -77,6 +77,7 @@ const UsersTable: NextPage = () => {
       },
       "/users"
     );
+
     fetchData();
   };
 

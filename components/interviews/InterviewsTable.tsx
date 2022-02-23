@@ -21,19 +21,19 @@ const InterviewsTable: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
+  const fetchData = async () => {
+    const res = await fetch("http://localhost:3001/question-categories");
+
+    if (res.status !== 200) {
+      setError(true);
+    } else {
+      const data = await res.json();
+      setQuestion_categories(data);
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch("http://localhost:3001/question-categories");
-
-      if (res.status !== 200) {
-        setError(true);
-      } else {
-        const data = await res.json();
-        setQuestion_categories(data);
-        setLoading(false);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -61,6 +61,8 @@ const InterviewsTable: NextPage = () => {
       },
       "/interviews"
     );
+
+    fetchData();
   };
 
   if (error) return <div>Er is een probleem opgetreden bij het laden van de sollicitaties.</div>;
