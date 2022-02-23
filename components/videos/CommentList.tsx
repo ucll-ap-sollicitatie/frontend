@@ -1,18 +1,20 @@
 import type { NextPage } from "next";
 import { Button, Card, Nav } from "react-bootstrap";
 import { timeSince } from "../../helpers/helperFunctions";
-import { Comment } from "../../interfaces/Comment";
+import Comment from "../../interfaces/Comment";
 import User from "../../interfaces/User";
+import Video from "../../interfaces/Video";
 
 interface Props {
   comments: Comment[];
   user: User;
+  video: Video;
   handleSelect: Function;
   handleShowUpdate: Function;
   handleShowDelete: Function;
 }
 
-const CommentList: NextPage<Props> = ({ comments, user, handleSelect, handleShowUpdate, handleShowDelete }) => {
+const CommentList: NextPage<Props> = ({ comments, user, video, handleSelect, handleShowUpdate, handleShowDelete }) => {
   return comments.map((comment: Comment) => (
     <Card className="mt-2" key={comment.comment_id}>
       <Card.Header className="d-flex justify-content-between">

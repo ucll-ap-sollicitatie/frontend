@@ -1,4 +1,4 @@
-export interface Video {
+export default interface Video {
   video_id: number;
   title: string;
   date: Date;

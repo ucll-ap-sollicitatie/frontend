@@ -1,8 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Video } from "../../interfaces/Video";
-import { Comment } from "../../interfaces/Comment";
-import { Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { useSWRConfig } from "swr";
 import React, { FormEvent } from "react";
 import router from "next/router";
@@ -13,6 +11,10 @@ import DeleteCommentModal from "../../components/videos/DeleteCommentModal";
 import UpdateCommentModal from "../../components/videos/UpdateCommentModal";
 import CommentList from "../../components/videos/CommentList";
 import AddComment from "../../components/videos/AddComment";
+import FeedbackModal from "../../components/videos/FeedbackModal";
+import Video from "../../interfaces/Video";
+import Comment from "../../interfaces/Comment";
+import FeedbackList from "../../components/videos/FeedbackList";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch("http://localhost:3001/videos/");
@@ -34,6 +36,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const props = {
     video: null,
     comments: null,
+    feedback: null,
   };
 
   if (params !== undefined) {
@@ -42,10 +45,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const video = await videoRes.json();
     const commentRes = await fetch(`http://localhost:3001/comments/video/${video_id}`);
     const comments = await commentRes.json();
+    const feedbackRes = await fetch(`http://localhost:3001/comments/video/${video_id}/feedback`);
+    const feedback = await feedbackRes.json();
 
     props.video = video;
     if (commentRes.status !== 404) {
       props.comments = comments;
+    }
+    if (feedbackRes.status !== 404) {
+      props.feedback = feedback;
     }
   }
   return {
@@ -56,9 +64,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 interface Props {
   video: Video;
   comments: Comment[];
+  feedback: Comment[];
 }
 
-const Video: NextPage<Props> = ({ video, comments }) => {
+const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
   const { mutate } = useSWRConfig();
@@ -67,22 +76,38 @@ const Video: NextPage<Props> = ({ video, comments }) => {
   const [error, setError] = React.useState("");
   const [showDelete, setShowDelete] = React.useState(false);
   const [showUpdate, setShowUpdate] = React.useState(false);
+  const [showFeedback, setShowFeedback] = React.useState(false);
   const [commentId, setCommentId] = React.useState(0);
   const [currentComment, setCurrentComment] = React.useState(comments == null ? [] : comments[0]);
 
-  const handleAddComment = async (event: FormEvent) => {
+  console.log(comments);
+
+  const handleAddFeedback = async (event: FormEvent) => {
+    event.preventDefault();
+    handleAddComment(event, true);
+  };
+
+  const handleAddComment = async (event: FormEvent, feedback: boolean = false) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const text = target.comment.value;
     const author = session.user?.r_u_number;
     const video_id = video.video_id;
+    const body = {
+      text: text,
+      author: author,
+      video_id: video_id,
+    };
+
+    if (feedback) {
+      Object.assign(body, { feedback: true });
+    } else {
+      Object.assign(body, { feedback: false });
+    }
+
     const request = await fetch(`http://localhost:3001/comments`, {
       method: "POST",
-      body: JSON.stringify({
-        text: text,
-        author: author,
-        video_id: video_id,
-      }),
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
       },
@@ -93,10 +118,11 @@ const Video: NextPage<Props> = ({ video, comments }) => {
       setError(response.messages);
       setShowDelete(true);
     } else {
+      handleClose();
       router.push(
         {
           pathname: `/videos/${video.video_id}`,
-          query: { toast: "Uw commentaar is toegevoegd!" },
+          query: { toast: `Uw ${feedback ? "feedback" : "commentaar"} is toegevoegd!` },
         },
         `/videos/${video.video_id}`
       );
@@ -122,7 +148,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
   const handleUpdateComment = async (event: FormEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
-    const text = target.text.value;
+    const text = target.comment.value;
     console.log(text);
     await fetch(`http://localhost:3001/comments/${commentId}`, {
       method: "PUT",
@@ -148,6 +174,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
   const handleClose = () => {
     setShowDelete(false);
     setShowUpdate(false);
+    setShowFeedback(false);
   };
 
   const handleShowDelete = (comment_id: number, comment: Comment) => {
@@ -160,6 +187,10 @@ const Video: NextPage<Props> = ({ video, comments }) => {
     setCommentId(comment_id);
     setCurrentComment(comment);
     setShowUpdate(true);
+  };
+
+  const handleShowFeedback = () => {
+    setShowFeedback(true);
   };
 
   const handleSelect = (eventKey: string | null, comment_id: number) => {
@@ -182,6 +213,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
         handleClose={handleClose}
         handleDeleteComment={handleDeleteComment}
       />
+
       <UpdateCommentModal
         comment={currentComment}
         maxChars={maxChars}
@@ -191,39 +223,65 @@ const Video: NextPage<Props> = ({ video, comments }) => {
         setMaxChars={setMaxChars}
       />
 
+      <FeedbackModal
+        maxChars={maxChars}
+        showFeedback={showFeedback}
+        handleClose={handleClose}
+        handleAddFeedback={handleAddFeedback}
+        setMaxChars={setMaxChars}
+      />
+
       <Layout>
         <h1>{video.title}</h1>
         <Row>
           <Col>
             <VideoPlayer userEmail={video.email} videoTitle={video.title} />
           </Col>
-          <Col>
+          <Col className>
             <h2>Beschrijving</h2>
             <p>{video.description}</p>
             <p>Geüpload op: {new Date(video.date).toLocaleString()}</p>
+            {session.user.role == "Lector" && (
+              <Button variant="outline-primary" onClick={handleShowFeedback}>
+                Feedback toevoegen
+              </Button>
+            )}
           </Col>
         </Row>
-
-        <AddComment handleAddComment={handleAddComment} setMaxChars={setMaxChars} maxChars={maxChars} />
-
-        <div className="mt-3 gap-4 flex-wrap w-75">
-          {comments && (
-            <CommentList
-              comments={comments}
-              user={session.user}
-              handleSelect={handleSelect}
-              handleShowUpdate={handleShowUpdate}
-              handleShowDelete={handleShowDelete}
-            />
-          )}
-          {!comments && (
-            <Card>
-              <Card.Body>
-                <Card.Text className="text-center text-muted">Geen commentaar onder deze video!</Card.Text>
-              </Card.Body>
-            </Card>
-          )}
-        </div>
+        <Row>
+          <Col>
+            <AddComment handleAddComment={handleAddComment} setMaxChars={setMaxChars} maxChars={maxChars} />
+            <div className="mt-3 gap-4 flex-wrap">
+              {feedback && (
+                <FeedbackList
+                  feedback={feedback}
+                  user={session.user}
+                  video={video}
+                  handleSelect={handleSelect}
+                  handleShowUpdate={handleShowUpdate}
+                  handleShowDelete={handleShowDelete}
+                />
+              )}
+              {comments && (
+                <CommentList
+                  comments={comments}
+                  user={session.user}
+                  video={video}
+                  handleSelect={handleSelect}
+                  handleShowUpdate={handleShowUpdate}
+                  handleShowDelete={handleShowDelete}
+                />
+              )}
+              {!comments && (
+                <Card>
+                  <Card.Body>
+                    <Card.Text className="text-center text-muted">Geen commentaar onder deze video!</Card.Text>
+                  </Card.Body>
+                </Card>
+              )}
+            </div>
+          </Col>
+        </Row>
       </Layout>
     </>
   );

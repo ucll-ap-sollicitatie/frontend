@@ -1,38 +1,37 @@
 import type { NextPage } from "next";
 import { Modal, Button, Form } from "react-bootstrap";
-import { Comment } from "../../interfaces/Comment";
 
 interface Props {
-  comment: Comment;
   maxChars: number;
-  showUpdate: Function;
+  showFeedback: Function;
   handleClose: Function;
-  handleUpdateComment: Function;
+  handleAddFeedback: Function;
   setMaxChars: Function;
 }
 
-const UpdateCommentModal: NextPage<Props> = ({ comment, maxChars, showUpdate, handleClose, handleUpdateComment, setMaxChars }) => {
+const FeedbackModal: NextPage<Props> = ({ maxChars, showFeedback, handleClose, handleAddFeedback, setMaxChars }) => {
   return (
-    <Modal show={showUpdate} onHide={handleClose}>
+    <Modal show={showFeedback} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Commentaar bijwerken</Modal.Title>
+        <Modal.Title>Feedback geven aan Voornaam Naam</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleUpdateComment} className="col-md-12 col-lg-10 col-xl-8">
+        <Form onSubmit={handleAddFeedback} className="col-md-12 col-lg-10 col-xl-8">
           <div className="gap-4 flex-wrap">
             <Form.Group controlId="comment">
-              <Form.Label>Commentaar bijwerken</Form.Label>
+              <Form.Label>Gelieve uw feedback hieronder te typen</Form.Label>
               <Form.Control
                 onChange={(e) => setMaxChars(e.target.value.length)}
-                maxLength={255}
+                maxLength={510}
                 as="textarea"
-                placeholder={comment.text}
+                rows={3}
+                placeholder="e.g. Goed gedaan, Maarten! Probeer wel op uw formeel taalgebruik te letten."
                 required
               />
-              <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
+              <Form.Text className="text-muted">Karakters: {510 - maxChars}/510</Form.Text>
             </Form.Group>
             <Button variant="success" type="submit" className="mt-3">
-              Bijwerken
+              Toevoegen
             </Button>
             <Button variant="outline-secondary" onClick={handleClose} className="mt-3 ms-2">
               Sluiten
@@ -44,4 +43,4 @@ const UpdateCommentModal: NextPage<Props> = ({ comment, maxChars, showUpdate, ha
   );
 };
 
-export default UpdateCommentModal;
+export default FeedbackModal;

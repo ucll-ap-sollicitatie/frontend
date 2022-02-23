@@ -26,7 +26,7 @@ const Home: NextPage<Props> = ({ videos }) => {
   return (
     <Layout>
       <h1>Alle video's</h1>
-      <AllVideoOverview videos={videos} />
+      <AllVideoOverview videos={videos} user={session.user} />
     </Layout>
   );
 };
