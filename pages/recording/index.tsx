@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import React from "react";
 import { FormEvent, useState } from "react";
 import Webcam from "react-webcam";
@@ -7,16 +7,29 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
 import { useRef, useCallback } from "react";
-import { Button, Col, Form, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Button, Col, Dropdown, DropdownButton, Form, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { Question } from "../../interfaces/Question";
+import { QuestionCategory } from "../../interfaces/QuestionCategory";
 
 // const videoConstraints = {
 //   width: 1280,
 //   height: 720,
 //   facingMode: "user",
 // };
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch(`http://localhost:3001/question-categories`);
+  const categories = await res.json();
 
-const Recording: NextPage = () => {
+  return {
+    props: { categories: categories },
+  };
+};
+
+interface Props {
+  categories: QuestionCategory[];
+}
+
+const Recording: NextPage<Props> = ({ categories }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
@@ -122,6 +135,18 @@ const Recording: NextPage = () => {
     }
   }, [setChoosingQuestions]);
 
+  const handleCategoryClick = async (category: QuestionCategory) => {
+    const res = await fetch(`http://localhost:3001/questions/category/${category.question_category_id}`);
+
+    if (res.status !== 200) {
+      setError(true);
+    } else {
+      const data = await res.json();
+      setQuestions(data);
+      setChoosingQuestions(false);
+    }
+  };
+
   const handleGoToQuestionsClick = React.useCallback(() => {
     setChoosingQuestions(true);
   }, [setChoosingQuestions]);
@@ -129,9 +154,18 @@ const Recording: NextPage = () => {
   if (choosingQuestions) return (
     <Layout>
       <h1>Recording</h1>
+      <div className="d-flex">
       <Button variant="primary" onClick={handleRandomClick}>
         Random Questions 
       </Button>
+      <DropdownButton id="dropdown-basic-button" title="Kies Categorie">
+        {categories.map(
+              (category: QuestionCategory) =>
+                <Dropdown.Item onClick={()=>handleCategoryClick(category)}>{category.category}</Dropdown.Item>
+            )}
+      </DropdownButton>
+      </div>
+
     </Layout>
   )
 
