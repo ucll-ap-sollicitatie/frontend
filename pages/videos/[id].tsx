@@ -69,6 +69,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
 
   const userEmail = session?.user?.email;
   const videoTitle = video.title;
+  const videoEmail = video.email;
 
   const handleAddComment = async (event: FormEvent) => {
     event.preventDefault();

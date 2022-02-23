@@ -6,6 +6,7 @@ import { Table } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import Link from "next/link";
+import AllVideoOverview from "../../components/AllVideoOverview";
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`http://localhost:3001/videos`);
@@ -26,6 +27,7 @@ const Home: NextPage<Props> = ({ videos }) => {
 
   return (
     <Layout>
+<<<<<<< HEAD
       <h1>Uw video's</h1>
 
       <div className="container">
@@ -81,6 +83,10 @@ const Home: NextPage<Props> = ({ videos }) => {
           )}
         </tbody>
       </Table> */}
+=======
+      <h1>Alle video's</h1>
+      <AllVideoOverview videos={videos}/>
+>>>>>>> dev-maarten
     </Layout>
   );
 };

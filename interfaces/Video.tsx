@@ -5,4 +5,5 @@ export interface Video {
   r_u_number: string;
   email: string;
   description: string;
+  private: boolean;
 }
