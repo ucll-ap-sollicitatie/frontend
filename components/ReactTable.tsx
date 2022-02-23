@@ -38,8 +38,8 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps(column.getSortByToggleProps())} className="no-wrap">
+              {headerGroup.headers.map((column, index) => (
+                <th key={index} {...column.getHeaderProps(column.getSortByToggleProps())} className="no-wrap">
                   {column.render("Header")}
                   <span>
                     {" "}
@@ -61,12 +61,12 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
           ))}
         </thead>
         <tbody {...getTableBodyProps()}>
-          {page.map((row) => {
+          {page.map((row, index) => {
             prepareRow(row);
             return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return <td>{cell.render("Cell")}</td>;
+              <tr key={index} {...row.getRowProps()}>
+                {row.cells.map((cell, index) => {
+                  return <td key={index}>{cell.render("Cell")}</td>;
                 })}
                 <td>
                   <ShowButton url={`${url}/${row.original[id]}`} />
