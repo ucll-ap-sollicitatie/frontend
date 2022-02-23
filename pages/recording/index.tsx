@@ -9,11 +9,11 @@ import Unauthenticated from "../../components/Unauthenticated";
 import { useRef, useCallback } from "react";
 import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 
-/* const videoConstraints = {
-  width: 1280,
-  height: 720,
-  facingMode: "user",
-}; */
+// const videoConstraints = {
+//   width: 1280,
+//   height: 720,
+//   facingMode: "user",
+// };
 
 const Recording: NextPage = () => {
   const { data: session } = useSession();
