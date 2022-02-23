@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
-import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-import CommentList from "./CommentList";
+import { Button, Form } from "react-bootstrap";
 
 interface Props {
   handleAddComment: Function;

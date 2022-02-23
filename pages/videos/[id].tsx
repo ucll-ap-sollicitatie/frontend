@@ -213,7 +213,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         handleClose={handleClose}
         handleDeleteComment={handleDeleteComment}
       />
-
       <UpdateCommentModal
         comment={currentComment}
         maxChars={maxChars}
@@ -266,7 +265,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
                 <CommentList
                   comments={comments}
                   user={session.user}
-                  video={video}
                   handleSelect={handleSelect}
                   handleShowUpdate={handleShowUpdate}
                   handleShowDelete={handleShowDelete}

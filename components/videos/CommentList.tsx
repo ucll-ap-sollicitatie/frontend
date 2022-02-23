@@ -14,7 +14,7 @@ interface Props {
   handleShowDelete: Function;
 }
 
-const CommentList: NextPage<Props> = ({ comments, user, video, handleSelect, handleShowUpdate, handleShowDelete }) => {
+const CommentList: NextPage<Props> = ({ comments, user, handleSelect, handleShowUpdate, handleShowDelete }) => {
   return comments.map((comment: Comment) => (
     <Card className="mt-2" key={comment.comment_id}>
       <Card.Header className="d-flex justify-content-between">

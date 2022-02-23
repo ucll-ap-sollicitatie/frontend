@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Video } from "../../interfaces/Video";
+import Video from "../../interfaces/Video";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import AllVideoOverview from "../../components/AllVideoOverview";
