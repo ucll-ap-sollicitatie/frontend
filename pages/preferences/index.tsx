@@ -51,7 +51,7 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
             router.push(
               {
                 pathname: "/",
-                query: { toast: "U bent geregistreerd, gelieve via email uw account te activeren" },
+                query: { toast: "U hebt uw preferenties toegevoegd!" },
               },
             );
           }

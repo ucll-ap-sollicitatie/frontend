@@ -41,6 +41,9 @@ const NavBar: NextPage = () => {
                   <Link href={"/videos"} passHref>
                     <Nav.Link href="/">Video's</Nav.Link>
                   </Link>
+                  <Link href={"/preferences"} passHref>
+                    <Nav.Link href="/">Preferenties</Nav.Link>
+                  </Link>
                   <Link href={"/profile"} passHref>
                     <Nav.Link href="/">Profiel</Nav.Link>
                   </Link>
