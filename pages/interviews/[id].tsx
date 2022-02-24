@@ -1,8 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useState } from "react";
-import { Button, Breadcrumb, Carousel } from "react-bootstrap";
+import { Breadcrumb, Carousel } from "react-bootstrap";
+import UpdateInterviewButton from "../../components/interviews/UpdateInterviewButton";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import { Question } from "../../interfaces/Question";
@@ -55,21 +54,6 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
-  if (questions.length === 0) {
-    return (
-      <>
-        <Layout>
-          <Breadcrumb>
-            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-            <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
-            <Breadcrumb.Item active>{category.category}</Breadcrumb.Item>
-          </Breadcrumb>
-          <h1>Sollicitatie: {category.category}</h1>
-        </Layout>
-      </>
-    );
-  }
-
   return (
     <>
       <Layout>
@@ -80,9 +64,9 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
         </Breadcrumb>
         <h1>Sollicitatie: {category.category}</h1>
 
-        <Link href={`/interviews/update/?id=${category.question_category_id}`} passHref>
-          <Button variant="primary">Sollicitatie aanpassen</Button>
-        </Link>
+        <UpdateInterviewButton question_category_id={category.question_category_id} />
+        <br />
+        <br />
 
         {questions.length === 0 ? (
           <Carousel interval={null} variant="dark" wrap={false}>

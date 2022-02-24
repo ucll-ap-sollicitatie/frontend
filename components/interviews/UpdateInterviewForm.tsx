@@ -19,7 +19,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
   const router = useRouter();
 
   const [category, setCategory] = useState<QuestionCategory>();
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<Question[] | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [show, setShow] = useState(false);
@@ -40,16 +40,14 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
       fetch(`http://localhost:3001/questions/category/${id}`)
         .then((res) => res.json())
         .then((res) => {
-          setQuestions(res);
-          setLoading(false);
-        })
-        .catch((err) => {
-          setError(err);
+          if (!res.error) setQuestions(res);
+          else setQuestions([]);
         });
     };
 
     fetchCategory();
     fetchQuestions();
+    setLoading(false);
   }, []);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -101,7 +99,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
   };
 
   if (loading) return <SpinnerComponent />;
-  if (error || !category) return <div>Er is een probleem opgetreden bij het laden van de sollicitatie.</div>;
+  if (error) return <div>Er is een probleem opgetreden bij het laden van de sollicitatie.</div>;
 
   return (
     <>
@@ -110,7 +108,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
         <span>{error}</span>
       </Alert>
 
-      <InterviewForm onSubmit={onSubmit} category={category} questions={questions} />
+      {questions !== null && <InterviewForm onSubmit={onSubmit} category={category} questions={questions} />}
     </>
   );
 };
