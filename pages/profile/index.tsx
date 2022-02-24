@@ -4,7 +4,7 @@ import { Breadcrumb, Col, Row } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import ProfileCard from "../../components/profile/ProfileCard";
 import Unauthenticated from "../../components/Unauthenticated";
-import OwnVideoOverview from "../../components/OwnVideoOverview";
+import OwnVideoOverview from "../../components/videos/OwnVideoOverview";
 import { Video } from "../../interfaces/Video";
 
 export const getStaticProps: GetStaticProps = async () => {

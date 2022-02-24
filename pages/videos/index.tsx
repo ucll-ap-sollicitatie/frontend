@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import Video from "../../interfaces/Video";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
-import AllVideoOverview from "../../components/AllVideoOverview";
+import AllVideoOverview from "../../components/videos/AllVideoOverview";
 import { Breadcrumb } from "react-bootstrap";
 
 export const getStaticProps: GetStaticProps = async () => {
