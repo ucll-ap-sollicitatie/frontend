@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import User from "../interfaces/User";
-import { Video } from "../interfaces/Video";
-import Unauthenticated from "./Unauthenticated";
+import User from "../../interfaces/User";
+import Video from "../../interfaces/Video";
+import Unauthenticated from "../Unauthenticated";
 
 interface Props {
   videos: Video[];

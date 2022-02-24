@@ -1,11 +1,8 @@
-import type { GetStaticProps, NextPage } from "next";
-import { BsFillArrowUpRightCircleFill } from "react-icons/bs";
+import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Table } from "react-bootstrap";
 import Link from "next/link";
-import Layout from "./layout/Layout";
-import { Video } from "../interfaces/Video";
-import Unauthenticated from "./Unauthenticated";
+import Video from "../../interfaces/Video";
+import Unauthenticated from "../Unauthenticated";
 
 interface Props {
   videos: Video[];

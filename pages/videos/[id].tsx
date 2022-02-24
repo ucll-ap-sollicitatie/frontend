@@ -6,7 +6,7 @@ import React, { FormEvent } from "react";
 import router from "next/router";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
-import VideoPlayer from "../../components/VideoPlayer";
+import VideoPlayer from "../../components/videos/VideoPlayer";
 import DeleteCommentModal from "../../components/videos/DeleteCommentModal";
 import UpdateCommentModal from "../../components/videos/UpdateCommentModal";
 import CommentList from "../../components/videos/CommentList";
