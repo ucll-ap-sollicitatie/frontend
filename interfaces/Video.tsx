@@ -1,4 +1,4 @@
-export interface Video {
+export default interface Video {
   video_id: number;
   title: string;
   date: Date;
@@ -6,4 +6,6 @@ export interface Video {
   email: string;
   description: string;
   private: boolean;
+  name: string;
+  surname: string;
 }

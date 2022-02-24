@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useState } from "react";
-import { Button, Carousel } from "react-bootstrap";
+import { Button, Breadcrumb, Carousel } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import { Question } from "../../interfaces/Question";
@@ -59,6 +59,11 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
     return (
       <>
         <Layout>
+          <Breadcrumb>
+            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+            <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
+            <Breadcrumb.Item active>{category.category}</Breadcrumb.Item>
+          </Breadcrumb>
           <h1>Sollicitatie: {category.category}</h1>
         </Layout>
       </>
@@ -68,6 +73,11 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
   return (
     <>
       <Layout>
+        <Breadcrumb>
+          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+          <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
+          <Breadcrumb.Item active>{category.category}</Breadcrumb.Item>
+        </Breadcrumb>
         <h1>Sollicitatie: {category.category}</h1>
 
         <Link href={`/interviews/update/?id=${category.question_category_id}`} passHref>

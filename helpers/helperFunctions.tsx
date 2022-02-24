@@ -29,3 +29,5 @@ export function timeSince(date: Date): string {
   }
   return Math.floor(seconds) + " seconden geleden";
 }
+
+export function is24Hours(date: Date): boolean {}
