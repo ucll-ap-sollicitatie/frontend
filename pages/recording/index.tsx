@@ -13,7 +13,6 @@ import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import router from "next/router";
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
-
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`http://localhost:3001/question-categories`);
   const categories = await res.json();
