@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import { Button, Form, Navbar, Stack } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
+import Unauthenticated from "../../components/Unauthenticated";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import User from "../../interfaces/User";
 
@@ -27,12 +28,15 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
 
     const submitPreferences = async (event: FormEvent) => {
 
+      const { data: session } = useSession();
+      if (!session) return <Unauthenticated />;
+
         event.preventDefault();
         const target = event.target as HTMLFormElement;
 
         const res = await fetch("http://localhost:3001/preferences", {
             body: JSON.stringify({
-              r_u_number: target.r_u_number.value,
+              r_u_number: session.user.r_u_number,
               preference_1: target.preference_1.value,
               preference_2: target.preference_2.value,
               preference_3: target.preference_3.value,
@@ -68,10 +72,6 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
             <Form onSubmit={submitPreferences}>
                 <div className="d-flex gap-4 flex-wrap">
                     <Stack gap={3}>
-                    <Form.Group controlId="r_u_number">
-                        <Form.Label>R/U-nummer</Form.Label>
-                        <Form.Control type="text" placeholder="R/U-nummer" required />
-                    </Form.Group>
 
                     <Form.Group controlId="preference_1">
                         <Form.Label>Preferentie 1</Form.Label>
