@@ -13,6 +13,7 @@ const columns = [
   {
     Header: "Aantal vragen",
     accessor: "amount_of_questions",
+    sortInverted: true,
   },
 ];
 
