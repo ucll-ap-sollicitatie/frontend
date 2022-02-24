@@ -10,7 +10,13 @@ const Contact: NextPage = () => {
         <Breadcrumb.Item active>Contact</Breadcrumb.Item>
       </Breadcrumb>
       <h1>Contact</h1>
-
+      <p>
+        U kunt steeds contact opnemen met het team die verantwoordelijk is voor deze webapplicatie.
+        <br />
+        Aarzel ook niet om UC Leuven-Limburg te contacteren op elk moment.
+        <br />
+        UCLL mail: leuven@ucll.be
+      </p>
       <h2>Team</h2>
       <Table bordered hover responsive>
         <thead>

@@ -13,6 +13,8 @@ import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
 // import ReactStopwatch from 'react-stopwatch';
+import router from "next/router";
+
 // const videoConstraints = {
 //   width: 1280,
 //   height: 720,
@@ -141,9 +143,21 @@ const Recording: NextPage<Props> = ({ categories }) => {
       })
         .then((result) => {
           if (result.status === 201) {
-            console.log("Video uploaded.");
+            router.push(
+              {
+                pathname: `/profile`,
+                query: { toast: "Video geupload" },
+              },
+              `/videos`
+            );
           } else {
-            console.log("Error uploading file.");
+            router.push(
+              {
+                pathname: `/recording`,
+                query: { toast: "Video upload gefaald" },
+              },
+              `/recording`
+            );
           }
         })
         .catch((err) => {
