@@ -16,7 +16,6 @@ const Profile: NextPage = () => {
         <Breadcrumb.Item active>Gebruikers</Breadcrumb.Item>
       </Breadcrumb>
       <h1>Gebruikers</h1>
-
       <UsersTable />
     </Layout>
   );

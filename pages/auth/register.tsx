@@ -50,16 +50,16 @@ const Register: NextPage<Props> = ({ roles, formations }) => {
     });
 
     if (res.status === 400) {
-      const response = await res.json();
-      setError(response.messages);
+      setError("Gelieve alle velden in te vullen");
+      setShow(true);
+    } else if (res.status === 409) {
+      setError("Gebruiker met deze email bestaat al");
       setShow(true);
     } else {
-      router.push(
-        {
-          pathname: "/preferences",
-          query: { toast: "U bent geregistreerd, gelieve via email uw account te activeren" },
-        },
-      );
+      router.push({
+        pathname: "/preferences",
+        query: { toast: "U bent geregistreerd, gelieve via email uw account te activeren" },
+      });
     }
   };
 

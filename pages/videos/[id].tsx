@@ -1,6 +1,6 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Accordion, Badge, Breadcrumb, Button, Card, Col, ListGroup, Row } from "react-bootstrap";
+import { Breadcrumb, Button, Card, Col, Row } from "react-bootstrap";
 import { useSWRConfig } from "swr";
 import React, { FormEvent } from "react";
 import router from "next/router";
@@ -15,7 +15,6 @@ import FeedbackModal from "../../components/videos/FeedbackModal";
 import Video from "../../interfaces/Video";
 import Comment from "../../interfaces/Comment";
 import FeedbackList from "../../components/videos/FeedbackList";
-import Link from "next/link";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch("http://localhost:3001/videos/");
@@ -50,13 +49,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const feedback = await feedbackRes.json();
 
     props.video = video;
-    if (commentRes.status !== 404) {
+    if (commentRes.ok) {
       props.comments = comments;
     }
-    if (feedbackRes.status !== 404) {
+    if (feedbackRes.ok) {
       props.feedback = feedback;
     }
   }
+
   return {
     props,
   };
@@ -71,8 +71,8 @@ interface Props {
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
-  const { mutate } = useSWRConfig();
 
+  const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = React.useState(0);
   const [error, setError] = React.useState("");
   const [showDelete, setShowDelete] = React.useState(false);
@@ -80,8 +80,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [showFeedback, setShowFeedback] = React.useState(false);
   const [commentId, setCommentId] = React.useState(0);
   const [currentComment, setCurrentComment] = React.useState(comments == null ? [] : comments[0]);
-
-  console.log(comments);
 
   const handleAddFeedback = async (event: FormEvent) => {
     event.preventDefault();
@@ -307,7 +305,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
                 />
               )}
               {!comments && (
-                <Card>
+                <Card className="mt-2">
                   <Card.Body>
                     <Card.Text className="text-center text-muted">Geen commentaar onder deze video!</Card.Text>
                   </Card.Body>
