@@ -7,7 +7,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
 import { useRef, useCallback } from "react";
-import { Button, Col, Dropdown, DropdownButton, Form, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import { Button, Carousel, Col, Dropdown, DropdownButton, Form, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 
@@ -240,13 +240,17 @@ const Recording: NextPage<Props> = ({ categories }) => {
               </div>
             </Col>
             <Col>
-            <h2>Vragen:</h2>
-            {questions.map(
-            (question: Question) =>
-              <p>
-                {question.question}
-              </p>
-          )}
+              <Carousel interval={null} variant="dark" wrap={false}>
+                {questions.map((question, index) => (
+                  <Carousel.Item key={index}>
+                    <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
+                    <Carousel.Caption>
+                      <h3>Vraag {index + 1}</h3>
+                      <h1>{question.question}</h1>
+                    </Carousel.Caption>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
             </Col>
           </Row>
         </div>
