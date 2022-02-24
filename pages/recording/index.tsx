@@ -203,7 +203,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
             <div className="d-flex gap-4 flex-wrap">
               <OverlayTrigger placement="top" overlay={<Tooltip id="button-tooltip-2">Privé: alleen lectoren kunnen u video zien</Tooltip>}>
                 <Form.Group className="mb-3" controlId="privateCheckbox">
-                  <Form.Check type="checkbox" label="Privé" />
+                  <Form.Check type="checkbox" label="Privé" defaultChecked/>
                 </Form.Group>
               </OverlayTrigger>
             </div>
