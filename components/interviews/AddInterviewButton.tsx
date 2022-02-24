@@ -6,7 +6,7 @@ const AddInterviewButton: NextPage = () => {
   return (
     <>
       <Link href={"/interviews/add"} passHref>
-        <Button variant="primary">Interview aanmaken</Button>
+        <Button variant="primary">Sollicitatie aanmaken</Button>
       </Link>
     </>
   );

@@ -1,10 +1,14 @@
 import type { NextPage } from "next";
-import { Table } from "react-bootstrap";
+import { Breadcrumb, Table } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 
 const Contact: NextPage = () => {
   return (
     <Layout>
+      <Breadcrumb>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item active>Contact</Breadcrumb.Item>
+      </Breadcrumb>
       <h1>Contact</h1>
 
       <h2>Team</h2>

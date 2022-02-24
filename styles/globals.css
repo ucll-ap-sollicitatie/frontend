@@ -48,3 +48,7 @@ h1 {
 #addInterviewForm {
   max-width: 36rem;
 }
+
+.no-wrap {
+  white-space: nowrap;
+}

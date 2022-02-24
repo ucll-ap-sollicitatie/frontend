@@ -7,13 +7,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
 import { useRef, useCallback } from "react";
-import { Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
-
-// const videoConstraints = {
-//   width: 1280,
-//   height: 720,
-//   facingMode: "user",
-// };
+import { Breadcrumb, Button, Form, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 const Recording: NextPage = () => {
   const { data: session } = useSession();
@@ -106,6 +100,10 @@ const Recording: NextPage = () => {
 
   return (
     <Layout>
+      <Breadcrumb>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item active>Recording</Breadcrumb.Item>
+      </Breadcrumb>
       <h1>Recording</h1>
 
       {uploading ? (

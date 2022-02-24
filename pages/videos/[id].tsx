@@ -1,15 +1,21 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Video } from "../../interfaces/Video";
-import { Comment } from "../../interfaces/Comment";
-import router from "next/router";
+import { Accordion, Badge, Breadcrumb, Button, Card, Col, ListGroup, Row } from "react-bootstrap";
+import { useSWRConfig } from "swr";
 import React, { FormEvent } from "react";
+import router from "next/router";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import VideoPlayer from "../../components/VideoPlayer";
-import { Button, Card, Col, Form, Modal, Nav, Row } from "react-bootstrap";
-import { useSWRConfig } from "swr";
-import { timeSince } from "../../helpers/helperFunctions";
+import DeleteCommentModal from "../../components/videos/DeleteCommentModal";
+import UpdateCommentModal from "../../components/videos/UpdateCommentModal";
+import CommentList from "../../components/videos/CommentList";
+import AddComment from "../../components/videos/AddComment";
+import FeedbackModal from "../../components/videos/FeedbackModal";
+import Video from "../../interfaces/Video";
+import Comment from "../../interfaces/Comment";
+import FeedbackList from "../../components/videos/FeedbackList";
+import Link from "next/link";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch("http://localhost:3001/videos/");
@@ -31,6 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   const props = {
     video: null,
     comments: null,
+    feedback: null,
   };
 
   if (params !== undefined) {
@@ -39,10 +46,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const video = await videoRes.json();
     const commentRes = await fetch(`http://localhost:3001/comments/video/${video_id}`);
     const comments = await commentRes.json();
+    const feedbackRes = await fetch(`http://localhost:3001/comments/video/${video_id}/feedback`);
+    const feedback = await feedbackRes.json();
 
     props.video = video;
     if (commentRes.status !== 404) {
       props.comments = comments;
+    }
+    if (feedbackRes.status !== 404) {
+      props.feedback = feedback;
     }
   }
   return {
@@ -53,9 +65,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 interface Props {
   video: Video;
   comments: Comment[];
+  feedback: Comment[];
 }
 
-const Video: NextPage<Props> = ({ video, comments }) => {
+const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
   const { mutate } = useSWRConfig();
@@ -64,26 +77,38 @@ const Video: NextPage<Props> = ({ video, comments }) => {
   const [error, setError] = React.useState("");
   const [showDelete, setShowDelete] = React.useState(false);
   const [showUpdate, setShowUpdate] = React.useState(false);
+  const [showFeedback, setShowFeedback] = React.useState(false);
   const [commentId, setCommentId] = React.useState(0);
   const [currentComment, setCurrentComment] = React.useState(comments == null ? [] : comments[0]);
 
-  const userEmail = session?.user?.email;
-  const videoTitle = video.title;
-  const videoEmail = video.email;
+  console.log(comments);
 
-  const handleAddComment = async (event: FormEvent) => {
+  const handleAddFeedback = async (event: FormEvent) => {
+    event.preventDefault();
+    handleAddComment(event, true);
+  };
+
+  const handleAddComment = async (event: FormEvent, feedback: boolean = false) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const text = target.comment.value;
     const author = session.user?.r_u_number;
     const video_id = video.video_id;
+    const body = {
+      text: text,
+      author: author,
+      video_id: video_id,
+    };
+
+    if (feedback) {
+      Object.assign(body, { feedback: true });
+    } else {
+      Object.assign(body, { feedback: false });
+    }
+
     const request = await fetch(`http://localhost:3001/comments`, {
       method: "POST",
-      body: JSON.stringify({
-        text: text,
-        author: author,
-        video_id: video_id,
-      }),
+      body: JSON.stringify(body),
       headers: {
         "Content-Type": "application/json",
       },
@@ -94,10 +119,11 @@ const Video: NextPage<Props> = ({ video, comments }) => {
       setError(response.messages);
       setShowDelete(true);
     } else {
+      handleClose();
       router.push(
         {
           pathname: `/videos/${video.video_id}`,
-          query: { toast: "Uw commentaar is toegevoegd!" },
+          query: { toast: `Uw ${feedback ? "feedback" : "commentaar"} is toegevoegd!` },
         },
         `/videos/${video.video_id}`
       );
@@ -123,7 +149,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
   const handleUpdateComment = async (event: FormEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
-    const text = target.text.value;
+    const text = target.comment.value;
     console.log(text);
     await fetch(`http://localhost:3001/comments/${commentId}`, {
       method: "PUT",
@@ -149,6 +175,7 @@ const Video: NextPage<Props> = ({ video, comments }) => {
   const handleClose = () => {
     setShowDelete(false);
     setShowUpdate(false);
+    setShowFeedback(false);
   };
 
   const handleShowDelete = (comment_id: number, comment: Comment) => {
@@ -161,6 +188,10 @@ const Video: NextPage<Props> = ({ video, comments }) => {
     setCommentId(comment_id);
     setCurrentComment(comment);
     setShowUpdate(true);
+  };
+
+  const handleShowFeedback = () => {
+    setShowFeedback(true);
   };
 
   const handleSelect = (eventKey: string | null, comment_id: number) => {
@@ -177,133 +208,114 @@ const Video: NextPage<Props> = ({ video, comments }) => {
 
   return (
     <>
-      <Modal show={showDelete} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Commentaar verwijderen</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Bent u zeker dat u dit commentaar wilt verwijderen?
-          <br />
-          <br />
-          {`"${currentComment.text}"`}
-        </Modal.Body>
-        <Modal.Footer className="justify-content-center">
-          <Button variant="danger" onClick={handleDeleteComment}>
-            Verwijderen
-          </Button>
-          <Button variant="outline-secondary" onClick={handleClose}>
-            Sluiten
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <DeleteCommentModal
+        comment={currentComment}
+        showDelete={showDelete}
+        handleClose={handleClose}
+        handleDeleteComment={handleDeleteComment}
+      />
+      <UpdateCommentModal
+        comment={currentComment}
+        maxChars={maxChars}
+        showUpdate={showUpdate}
+        handleClose={handleClose}
+        handleUpdateComment={handleUpdateComment}
+        setMaxChars={setMaxChars}
+      />
 
-      <Modal show={showUpdate} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Commentaar bijwerken</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleUpdateComment} className="col-md-12 col-lg-10 col-xl-8">
-            <div className="gap-4 flex-wrap">
-              <Form.Group controlId="text">
-                <Form.Label>Commentaar bijwerken</Form.Label>
-                <Form.Control
-                  onChange={(e) => setMaxChars(e.target.value.length)}
-                  maxLength={255}
-                  as="textarea"
-                  placeholder={currentComment.text}
-                  required
-                />
-                <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
-              </Form.Group>
-              <Button variant="success" type="submit" className="mt-3">
-                Bijwerken
-              </Button>
-              <Button variant="outline-secondary" onClick={handleClose} className="mt-3 ms-2">
-                Sluiten
-              </Button>
-            </div>
-          </Form>
-        </Modal.Body>
-      </Modal>
-
+      <FeedbackModal
+        maxChars={maxChars}
+        showFeedback={showFeedback}
+        handleClose={handleClose}
+        handleAddFeedback={handleAddFeedback}
+        setMaxChars={setMaxChars}
+      />
       <Layout>
-        <h1>{video.title}</h1>
+        <Breadcrumb>
+          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+          <Breadcrumb.Item href="/videos">Video's</Breadcrumb.Item>
+          <Breadcrumb.Item active>{video.title}</Breadcrumb.Item>
+        </Breadcrumb>
+        <h1>
+          <span>Titel: </span>
+          {video.title}
+        </h1>
         <Row>
-          <Col>
-            <VideoPlayer userEmail={video.email} videoTitle={videoTitle} />
+          <Col sm={8}>
+            <VideoPlayer userEmail={video.email} videoTitle={video.title} />
           </Col>
-          <Col>
-            <h2>Beschrijving</h2>
-            <p>{video.description}</p>
-            <p>Geüpload op: {new Date(video.date).toLocaleString()}</p>
+          <Col className="d-flex flex-column justify-content-between">
+            <Row>
+              <h2>Informatie</h2>
+            </Row>
+            <Row>
+              <h4>Titel</h4>
+            </Row>
+            <Row>
+              <p>{video.title}</p>
+            </Row>
+            <Row>
+              <h4>Beschrijving</h4>
+            </Row>
+            <Row>
+              <p>{video.description}</p>
+            </Row>
+            <Row>
+              <h4>Geüpload door</h4>
+            </Row>
+            <Row>
+              <p>
+                {video.name} {video.surname}
+              </p>
+            </Row>
+            <Row>
+              <h4>Datum</h4>
+            </Row>
+            <Row>
+              <p>{new Date(video.date).toLocaleString()}</p>
+            </Row>
+            {session.user.role == "Lector" && (
+              <Row>
+                <Button variant="outline-success" onClick={handleShowFeedback}>
+                  Feedback toevoegen
+                </Button>
+              </Row>
+            )}
           </Col>
         </Row>
-        <Form onSubmit={handleAddComment} className="col-md-12 col-lg-10 col-xl-8s">
-          <div className="gap-4 flex-wrap">
-            <Form.Group controlId="comment">
-              <Form.Label>Commentaar toevoegen</Form.Label>
-              <Form.Control
-                onChange={(e) => setMaxChars(e.target.value.length)}
-                maxLength={255}
-                as="textarea"
-                placeholder="e.g. Wow wat een coole video!"
-                required
-              />
-              <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
-            </Form.Group>
-          </div>
-          <Button variant="primary" type="submit" className="mt-3">
-            Voeg commentaar toe
-          </Button>
-        </Form>
-        <div className="mt-3 gap-4 flex-wrap w-75">
-          {comments &&
-            comments.map((comment: Comment) => (
-              <Card className="mt-2" key={comment.comment_id}>
-                <Card.Header className="d-flex justify-content-between">
-                  <Nav variant="tabs" defaultActiveKey="0" onSelect={(e) => handleSelect(e, comment.comment_id)}>
-                    <Nav.Item>
-                      <Nav.Link eventKey="0">Commentaar</Nav.Link>
-                    </Nav.Item>
-                    {comment.author === session.user?.r_u_number && (
-                      <Nav.Item>
-                        <Nav.Link eventKey="1">Opties</Nav.Link>
-                      </Nav.Item>
-                    )}
-                  </Nav>
-                  <div className="mt-2">{timeSince(comment.date)}</div>
-                </Card.Header>
-                <Card.Body className="justify-content-around d-flex d-none" id={`commentOptions_${comment.comment_id}`}>
-                  <Button variant="outline-success" onClick={() => handleShowUpdate(comment.comment_id, comment)}>
-                    Bijwerken
-                  </Button>
-                  <Button variant="outline-danger" onClick={() => handleShowDelete(comment.comment_id, comment)}>
-                    Verwijderen
-                  </Button>
-                  <Button variant="light" disabled>
-                    {new Date(comment.date).toLocaleDateString()}
-                  </Button>
-                </Card.Body>
-                <Card.Body id={`commentBody_${comment.comment_id}`}>
-                  <blockquote className="blockquote mb-0">
-                    <p>{comment.text}</p>
-                    <footer className="blockquote-footer">
-                      <cite title="Author of comment">
-                        {comment.name} {comment.surname}
-                      </cite>
-                    </footer>
-                  </blockquote>
-                </Card.Body>
-              </Card>
-            ))}
-          {!comments && (
-            <Card>
-              <Card.Body>
-                <Card.Text className="text-center text-muted">Geen commentaar onder deze video!</Card.Text>
-              </Card.Body>
-            </Card>
-          )}
-        </div>
+        <Row>
+          <Col>
+            <AddComment handleAddComment={handleAddComment} setMaxChars={setMaxChars} maxChars={maxChars} />
+            <div className="mt-3 gap-4 flex-wrap">
+              {feedback && (
+                <FeedbackList
+                  feedback={feedback}
+                  user={session.user}
+                  video={video}
+                  handleSelect={handleSelect}
+                  handleShowUpdate={handleShowUpdate}
+                  handleShowDelete={handleShowDelete}
+                />
+              )}
+              {comments && (
+                <CommentList
+                  comments={comments}
+                  user={session.user}
+                  handleSelect={handleSelect}
+                  handleShowUpdate={handleShowUpdate}
+                  handleShowDelete={handleShowDelete}
+                />
+              )}
+              {!comments && (
+                <Card>
+                  <Card.Body>
+                    <Card.Text className="text-center text-muted">Geen commentaar onder deze video!</Card.Text>
+                  </Card.Body>
+                </Card>
+              )}
+            </div>
+          </Col>
+        </Row>
       </Layout>
     </>
   );

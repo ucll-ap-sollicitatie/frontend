@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { FC, useRef } from "react";
+import { useRef } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import type { XYCoord, Identifier } from "dnd-core";
 import { Button, Form } from "react-bootstrap";
@@ -15,6 +15,7 @@ interface Props {
   index: number;
   moveQuestionInput: (dragIndex: number, hoverIndex: number) => void;
   deleteQuestionInput: (id: number) => void;
+  question: string;
 }
 
 interface DragItem {
@@ -23,10 +24,10 @@ interface DragItem {
   type: string;
 }
 
-const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput, deleteQuestionInput }) => {
+const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput, deleteQuestionInput, question }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
-    accept: "test",
+    accept: "questionInput",
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -82,7 +83,7 @@ const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput, deleteQu
   });
 
   const [{ isDragging }, drag] = useDrag({
-    type: "test",
+    type: "questionInput",
     item: () => {
       return { id, index };
     },
@@ -91,17 +92,19 @@ const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput, deleteQu
     }),
   });
 
-  const opacity = isDragging ? 0 : 1;
+  const opacity = isDragging ? 0.5 : 1;
   drag(drop(ref));
 
   return (
-    <div id="drag" ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
-      <div className="d-flex gap-2">
+    <div>
+      <div style={{ opacity }} className="d-flex gap-2">
         <div className="w-100">
-          <Form.Group controlId={`question${id}`}>
+          <Form.Group controlId={`question${id + 1}`}>
             <div className="d-flex align-items-center gap-2">
-              <BsArrowsExpand />
-              <Form.Control type="text" placeholder="Vraag" required />
+              <div id="drag" ref={ref} style={{ ...style, opacity }} data-handler-id={handlerId}>
+                <BsArrowsExpand />
+              </div>
+              <Form.Control type="text" placeholder="Vraag" defaultValue={question} required />
             </div>
           </Form.Group>
         </div>
@@ -114,3 +117,7 @@ const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput, deleteQu
 };
 
 export default QuestionInput;
+
+QuestionInput.defaultProps = {
+  question: "",
+};

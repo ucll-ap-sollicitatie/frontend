@@ -1,7 +1,8 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { Breadcrumb } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
-import ProfileCard from "../../components/ProfileCard";
+import ProfileCard from "../../components/profile/ProfileCard";
 import Unauthenticated from "../../components/Unauthenticated";
 import User from "../../interfaces/User";
 
@@ -46,6 +47,13 @@ const UserDetails: NextPage<Props> = ({ user }) => {
 
   return (
     <Layout>
+      <Breadcrumb>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item href="/users">Gebruikers</Breadcrumb.Item>
+        <Breadcrumb.Item active>
+          {user.name} {user.surname}
+        </Breadcrumb.Item>
+      </Breadcrumb>
       <h1>User details</h1>
       <ProfileCard user={user} />
     </Layout>
