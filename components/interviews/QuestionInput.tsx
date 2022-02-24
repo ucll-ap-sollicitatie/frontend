@@ -14,7 +14,7 @@ interface Props {
   id: number;
   index: number;
   moveQuestionInput: (dragIndex: number, hoverIndex: number) => void;
-  deleteQuestionInput: (id: number) => void;
+  showDeleteQuestionInputModal: (id: number) => void;
   question: string;
 }
 
@@ -24,7 +24,7 @@ interface DragItem {
   type: string;
 }
 
-const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput, deleteQuestionInput, question }) => {
+const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput, showDeleteQuestionInputModal, question }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [{ handlerId }, drop] = useDrop<DragItem, void, { handlerId: Identifier | null }>({
     accept: "questionInput",
@@ -108,7 +108,7 @@ const QuestionInput: NextPage<Props> = ({ id, index, moveQuestionInput, deleteQu
             </div>
           </Form.Group>
         </div>
-        <Button onClick={() => deleteQuestionInput(id)} variant="danger">
+        <Button onClick={() => showDeleteQuestionInputModal(id)} variant="danger">
           <BsFillTrashFill />
         </Button>
       </div>
