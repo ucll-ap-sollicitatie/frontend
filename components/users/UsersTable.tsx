@@ -1,10 +1,12 @@
 import type { NextPage } from "next";
-import { Button, Modal, Spinner } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import User from "../../interfaces/User";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ReactTable from "../ReactTable";
 import SpinnerComponent from "../SpinnerComponent";
+import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
+import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
 
 const columns = [
   {
@@ -34,9 +36,19 @@ const columns = [
 ];
 
 const UsersTable: NextPage = () => {
+  const router = useRouter();
+  const [id, setId] = useState<number | string>("");
   const [users, setUsers] = useState<User[]>([]);
+
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = (id: number | string) => {
+    setId(id);
+    setShow(true);
+  };
 
   const fetchData = async () => {
     const res = await fetch("http://localhost:3001/users");
@@ -53,17 +65,6 @@ const UsersTable: NextPage = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const router = useRouter();
-  const [id, setId] = useState<number | string>("");
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-
-  const handleShow = (id: number | string) => {
-    setId(id);
-    setShow(true);
-  };
 
   const handleDelete = async () => {
     const res = await fetch(`http://localhost:3001/users/${id}`, {
@@ -96,12 +97,8 @@ const UsersTable: NextPage = () => {
           Bent u zeker dat u gebruiker <span className="font-italic">{id}</span> wilt verwijderen?
         </Modal.Body>
         <Modal.Footer className="justify-content-center">
-          <Button variant="primary" onClick={handleClose}>
-            Sluiten
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Verwijderen
-          </Button>
+          <ConfirmCloseButton handleClose={handleClose} />
+          <ConfirmRemoveButton handleDelete={handleDelete} />
         </Modal.Footer>
       </Modal>
 

@@ -1,9 +1,11 @@
 import type { NextPage } from "next";
-import { Button, Modal, Spinner } from "react-bootstrap";
+import { Modal, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import ReactTable from "../ReactTable";
+import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
+import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
 
 const columns = [
   {
@@ -84,12 +86,8 @@ const InterviewsTable: NextPage = () => {
         </Modal.Header>
         <Modal.Body>Bent u zeker dat u deze sollicitatie wilt verwijderen?</Modal.Body>
         <Modal.Footer className="justify-content-center">
-          <Button variant="primary" onClick={handleClose}>
-            Sluiten
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Verwijderen
-          </Button>
+          <ConfirmCloseButton handleClose={handleClose} />
+          <ConfirmRemoveButton handleDelete={handleDelete} />
         </Modal.Footer>
       </Modal>
 
