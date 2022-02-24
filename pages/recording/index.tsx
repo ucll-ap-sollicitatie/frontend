@@ -7,11 +7,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
 import { useRef, useCallback } from "react";
-<<<<<<< HEAD
-import { Breadcrumb, Button, Form, OverlayTrigger, Tooltip, Col, Row } from "react-bootstrap";
-=======
-import { Button, Col, Dropdown, DropdownButton, Form, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
->>>>>>> 001d06c... recording met spicifieke vragenlijst added
+import { Breadcrumb, Button, Form, OverlayTrigger, Tooltip, Col, Row, DropdownButton } from "react-bootstrap";
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 
