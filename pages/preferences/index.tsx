@@ -26,10 +26,10 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
     const [show, setShow] = useState(false);
     const [error, setError] = useState("");
 
-    const submitPreferences = async (event: FormEvent) => {
+    const { data: session } = useSession();
+    if (!session) return <Unauthenticated />;
 
-      const { data: session } = useSession();
-      if (!session) return <Unauthenticated />;
+    const submitPreferences = async (event: FormEvent) => {
 
         event.preventDefault();
         const target = event.target as HTMLFormElement;
