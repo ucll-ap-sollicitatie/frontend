@@ -1,5 +1,5 @@
 import type { NextPage } from "next";
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, useCallback, useState } from "react";
 import { Button, Form, Stack } from "react-bootstrap";
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
@@ -9,12 +9,20 @@ import update from "immutability-helper";
 
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  category: QuestionCategory | undefined;
-  questions: Question[] | [];
+  category?: QuestionCategory | undefined;
+  questions?: Question[] | [] | undefined;
 }
 
 const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
-  const [questionInputs, setQuestionInputs] = useState<QuestionInputType[]>([{ id: 1 }]);
+  const [questionInputs, setQuestionInputs] = useState<QuestionInputType[]>(() => {
+    if (questions === undefined) return [{ id: -1, question: "" }];
+
+    let res = [];
+    for (let i = 0; i < questions.length; i++) {
+      res.push({ id: i, question: questions[i].question });
+    }
+    return res;
+  });
 
   const getLastQuestionInputId = () => {
     if (questionInputs.length === 0) return 0;
@@ -26,11 +34,7 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
   };
 
   function addQuestionInput() {
-    setQuestionInputs([...questionInputs, { id: getLastQuestionInputId() + 1 }]);
-  }
-
-  for (let i = 0; i < questions.length; i++) {
-    addQuestionInput();
+    setQuestionInputs([...questionInputs, { id: getLastQuestionInputId() + 1, question: "" }]);
   }
 
   const moveQuestionInput = useCallback((dragIndex: number, hoverIndex: number) => {
@@ -51,7 +55,7 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
   };
 
   return (
-    <Form onSubmit={onSubmit} id="addInterviewForm">
+    <Form onSubmit={onSubmit} style={{ maxWidth: "48rem" }}>
       <Stack className="mb-2" gap={3}>
         <Form.Group controlId="category">
           <Form.Label>Categorie</Form.Label>
@@ -63,6 +67,7 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
             key={questionInput.id}
             id={questionInput.id}
             index={index}
+            question={questionInput.question}
             moveQuestionInput={moveQuestionInput}
             deleteQuestionInput={deleteQuestionInput}
           />
@@ -74,14 +79,10 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
       </Button>
 
       <Button variant="primary" type="submit" className="mt-4">
-        Sollicitatie aanmaken
+        {category !== undefined ? "Sollicitatie aanpassen" : "Sollicitatie aanmaken"}
       </Button>
     </Form>
   );
 };
 
 export default InterviewForm;
-
-InterviewForm.defaultProps = {
-  questions: [],
-};
