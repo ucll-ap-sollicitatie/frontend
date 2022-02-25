@@ -102,7 +102,7 @@ const UsersTable: NextPage = () => {
         </Modal.Footer>
       </Modal>
 
-      <ReactTable columns={columns} data={users} url={"/users"} id="r_u_number" handleShow={handleShow} />
+      <ReactTable columns={columns} data={users} url={"/users"} id="email" handleShow={handleShow} />
     </>
   );
 };

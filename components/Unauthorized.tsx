@@ -4,12 +4,14 @@ import { Button } from "react-bootstrap";
 import LoginButton from "./auth/LoginButton";
 import Layout from "./layout/Layout";
 
-const Unauthenticated: NextPage = () => {
+const Unauthorized: NextPage = () => {
   return (
     <Layout>
       <h1>Slim op sollicitatie</h1>
 
-      <p>U moet zich inloggen voordat u verder kan.</p>
+      <p>
+        U heeft geen toegang tot dat gedeelte. <br /> Gelieve in te loggen.
+      </p>
 
       <div className="d-flex gap-2 flex-column col-md-2">
         <LoginButton />
@@ -21,4 +23,4 @@ const Unauthenticated: NextPage = () => {
   );
 };
 
-export default Unauthenticated;
+export default Unauthorized;

@@ -15,6 +15,7 @@ import FeedbackModal from "../../components/videos/FeedbackModal";
 import Video from "../../interfaces/Video";
 import Comment from "../../interfaces/Comment";
 import FeedbackList from "../../components/videos/FeedbackList";
+import Unauthorized from "../../components/Unauthorized";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch("http://localhost:3001/videos/");
@@ -71,6 +72,7 @@ interface Props {
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
+  if (video.private && session.user?.role === "Student") return <Unauthorized />;
 
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = React.useState(0);

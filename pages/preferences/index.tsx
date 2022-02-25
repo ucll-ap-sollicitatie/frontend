@@ -6,7 +6,6 @@ import { Button, Form, Navbar, Stack } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
-import User from "../../interfaces/User";
 
 export const getStaticProps: GetStaticProps = async () => {
   const question_categories_response = await fetch(`http://localhost:3001/question-categories`);
@@ -22,12 +21,12 @@ interface Props {
 }
 
 const Preferences: NextPage<Props> = ({ question_categories }) => {
+  const { data: session } = useSession();
+  if (!session) return <Unauthenticated />;
+
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
-
-  const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
 
   const submitPreferences = async (event: FormEvent) => {
     event.preventDefault();
@@ -35,7 +34,7 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
 
     const res = await fetch("http://localhost:3001/preferences", {
       body: JSON.stringify({
-        r_u_number: session.user.r_u_number,
+        r_u_number: session.user?.r_u_number,
         preference_1: target.preference_1.value,
         preference_2: target.preference_2.value,
         preference_3: target.preference_3.value,
