@@ -9,12 +9,14 @@ import Unauthenticated from "../../components/Unauthenticated";
 import VideoPlayer from "../../components/videos/VideoPlayer";
 import DeleteCommentModal from "../../components/videos/DeleteCommentModal";
 import UpdateCommentModal from "../../components/videos/UpdateCommentModal";
-import CommentList from "../../components/videos/CommentList";
+import CommentItem from "../../components/videos/CommentItem";
 import AddComment from "../../components/videos/AddComment";
 import FeedbackModal from "../../components/videos/FeedbackModal";
 import Video from "../../interfaces/Video";
 import Comment from "../../interfaces/Comment";
 import FeedbackList from "../../components/videos/FeedbackList";
+import Unauthorized from "../../components/Unauthorized";
+import CommentList from "../../components/videos/CommentList";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch("http://localhost:3001/videos/");
@@ -71,6 +73,7 @@ interface Props {
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
+  if (video.private && session.user?.role === "Student") return <Unauthorized />;
 
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = React.useState(0);
@@ -80,6 +83,26 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [showFeedback, setShowFeedback] = React.useState(false);
   const [commentId, setCommentId] = React.useState(0);
   const [currentComment, setCurrentComment] = React.useState(comments == null ? [] : comments[0]);
+
+  const handleRemoveLike = async (email: string, comment_id: number) => {
+    await fetch(`http://localhost:3001/comments/likes/${comment_id}/unlike`, {
+      method: "POST",
+      body: JSON.stringify({ email: email }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
+  const handleAddLike = async (email: string, comment_id: number) => {
+    await fetch(`http://localhost:3001/comments/likes/${comment_id}/like`, {
+      method: "POST",
+      body: JSON.stringify({ email: email }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
   const handleAddFeedback = async (event: FormEvent) => {
     event.preventDefault();
@@ -222,6 +245,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       />
 
       <FeedbackModal
+        user={session.user}
         maxChars={maxChars}
         showFeedback={showFeedback}
         handleClose={handleClose}
@@ -302,6 +326,8 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
                   handleSelect={handleSelect}
                   handleShowUpdate={handleShowUpdate}
                   handleShowDelete={handleShowDelete}
+                  handleAddLike={handleAddLike}
+                  handleRemoveLike={handleRemoveLike}
                 />
               )}
               {!comments && (

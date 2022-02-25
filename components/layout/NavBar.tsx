@@ -29,14 +29,18 @@ const NavBar: NextPage = () => {
                 </>
               ) : (
                 <>
+                  {session.user?.role !== "Student" && (
+                    <Link href={"/dashboard"} passHref>
+                      <Nav.Link href="/" className="border">
+                        Dashboard
+                      </Nav.Link>
+                    </Link>
+                  )}
                   <Link href={"/interviews"} passHref>
                     <Nav.Link href="/">Sollicitaties</Nav.Link>
                   </Link>
                   <Link href="/recording" passHref>
                     <Nav.Link href="/">Recording</Nav.Link>
-                  </Link>
-                  <Link href={"/users"} passHref>
-                    <Nav.Link href="/">Gebruikers</Nav.Link>
                   </Link>
                   <Link href={"/videos"} passHref>
                     <Nav.Link href="/">Video's</Nav.Link>
@@ -44,7 +48,7 @@ const NavBar: NextPage = () => {
                   <Link href={"/preferences"} passHref>
                     <Nav.Link href="/">Preferenties</Nav.Link>
                   </Link>
-                  <Link href={"/profile"} passHref>
+                  <Link href={`/users/${session.user?.email}`} passHref>
                     <Nav.Link href="/">Profiel</Nav.Link>
                   </Link>
                 </>

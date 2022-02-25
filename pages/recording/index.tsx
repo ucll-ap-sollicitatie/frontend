@@ -11,15 +11,9 @@ import { Breadcrumb, Button, Form, OverlayTrigger, Tooltip, Col, Row, DropdownBu
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import router from "next/router";
-
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
-// import ReactStopwatch from 'react-stopwatch';
-// const videoConstraints = {
-//   width: 1280,
-//   height: 720,
-//   facingMode: "user",
-// };
+
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`http://localhost:3001/question-categories`);
   const categories = await res.json();
@@ -84,7 +78,9 @@ const Recording: NextPage<Props> = ({ categories }) => {
       mediaRecorderRef.current.stop();
       setCapturing(false);
       stopwatch.current?.stop();
-      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current?.getTime())}\nVraag ${previousQuestion}: ${questions[previousQuestion].question}`;
+      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(
+        stopwatch.current?.getTime()
+      )}\nVraag ${previousQuestion + 1}: ${questions[previousQuestion].question}`;
       setSubtitles(subtitles + data);
     }
   };
@@ -92,7 +88,9 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const handleSelect = (selectedIndex: number) => {
     if (stopwatch != null) {
       if (stopwatch.current?.getState() == "RUNNING") {
-        let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current.getTime())}\nVraag ${previousQuestion}: ${questions[previousQuestion].question}\n\n`;
+        let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(
+          stopwatch.current.getTime()
+        )}\nVraag ${previousQuestion + 1}: ${questions[previousQuestion].question}\n\n`;
         setSubtitles(subtitles + data);
         setPreviousTime(stopwatch.current.getTime());
         setSubtitleCount(subtitleCount + 1);
@@ -197,76 +195,79 @@ const Recording: NextPage<Props> = ({ categories }) => {
     setChoosingQuestions(true);
   }, [setChoosingQuestions]);
 
-  if (choosingQuestions) return (
-    <Layout>
-      <h1>Recording</h1>
-      <div className="d-flex">
-      <Button variant="primary" onClick={handleRandomClick}>
-        Random Questions 
-      </Button>
-      <DropdownButton id="dropdown-basic-button" title="Kies Categorie">
-        {categories.map(
-              (category: QuestionCategory) =>
-                <Dropdown.Item onClick={()=>handleCategoryClick(category)}>{category.category}</Dropdown.Item>
-            )}
-      </DropdownButton>
-      </div>
-
-    </Layout>
-  )
-
-  if (!choosingQuestions) return (
-    <Layout>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Recording</Breadcrumb.Item>
-      </Breadcrumb>
-      <h1>Recording</h1>
-
-      {uploading ? (
-        <div>
-          <Form onSubmit={handleUpload} className="col-md-12 col-lg-10 col-xl-8">
-            <div className="d-flex gap-4 flex-wrap">
-              <Form.Group controlId="title">
-                <Form.Label>Titel:</Form.Label>
-                <Form.Control type="text" placeholder="e.g. Mijn interviewopname" required />
-              </Form.Group>
-            </div>
-            <div className="gap-4 flex-wrap">
-              <Form.Group controlId="description">
-                <Form.Label>Omschrijving:</Form.Label>
-                <Form.Control
-                  onChange={(e) => setMaxChars(e.target.value.length)}
-                  as="textarea"
-                  rows={4}
-                  maxLength={255}
-                  placeholder="e.g. Mijn interview voor back-end web developer"
-                  required
-                />
-                <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
-              </Form.Group>
-            </div>
-            <div className="d-flex gap-4 flex-wrap">
-              <OverlayTrigger placement="top" overlay={<Tooltip id="button-tooltip-2">Privé: alleen lectoren kunnen u video zien</Tooltip>}>
-                <Form.Group className="mb-3" controlId="privateCheckbox">
-                  <Form.Check type="checkbox" label="Privé" defaultChecked/>
-                </Form.Group>
-              </OverlayTrigger>
-            </div>
-            <Button variant="primary" type="submit" className="mt-3">
-              Upload
-            </Button>
-            <Button variant="light" className="mt-3 ms-2" onClick={handleBackClick}>
-              Back
-            </Button>
-          </Form>
+  if (choosingQuestions)
+    return (
+      <Layout>
+        <h1>Recording</h1>
+        <div className="d-flex">
+          <Button variant="primary" onClick={handleRandomClick}>
+            Random Questions
+          </Button>
+          <DropdownButton id="dropdown-basic-button" title="Kies Categorie">
+            {categories.map((category: QuestionCategory) => (
+              <Dropdown.Item onClick={() => handleCategoryClick(category)}>{category.category}</Dropdown.Item>
+            ))}
+          </DropdownButton>
         </div>
-      ) : (
-        <div>
-          <Row>
-            <Col>
-              <Webcam className="w-75" audio={true} ref={webcamRef} muted />
-              {/* <ReactStopwatch
+      </Layout>
+    );
+
+  if (!choosingQuestions)
+    return (
+      <Layout>
+        <Breadcrumb>
+          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+          <Breadcrumb.Item active>Recording</Breadcrumb.Item>
+        </Breadcrumb>
+        <h1>Recording</h1>
+
+        {uploading ? (
+          <div>
+            <Form onSubmit={handleUpload} className="col-md-12 col-lg-10 col-xl-8">
+              <div className="d-flex gap-4 flex-wrap">
+                <Form.Group controlId="title">
+                  <Form.Label>Titel:</Form.Label>
+                  <Form.Control type="text" placeholder="e.g. Mijn interviewopname" required />
+                </Form.Group>
+              </div>
+              <div className="gap-4 flex-wrap">
+                <Form.Group controlId="description">
+                  <Form.Label>Omschrijving:</Form.Label>
+                  <Form.Control
+                    onChange={(e) => setMaxChars(e.target.value.length)}
+                    as="textarea"
+                    rows={4}
+                    maxLength={255}
+                    placeholder="e.g. Mijn interview voor back-end web developer"
+                    required
+                  />
+                  <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
+                </Form.Group>
+              </div>
+              <div className="d-flex gap-4 flex-wrap">
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip id="button-tooltip-2">Privé: alleen lectoren kunnen u video zien</Tooltip>}
+                >
+                  <Form.Group className="mb-3" controlId="privateCheckbox">
+                    <Form.Check type="checkbox" label="Privé" defaultChecked />
+                  </Form.Group>
+                </OverlayTrigger>
+              </div>
+              <Button variant="primary" type="submit" className="mt-3">
+                Upload
+              </Button>
+              <Button variant="light" className="mt-3 ms-2" onClick={handleBackClick}>
+                Back
+              </Button>
+            </Form>
+          </div>
+        ) : (
+          <div>
+            <Row>
+              <Col>
+                <Webcam className="w-75" audio={true} ref={webcamRef} muted />
+                {/* <ReactStopwatch
                 autostart={false}
                 seconds={0}
                 minutes={0}
@@ -281,57 +282,57 @@ const Recording: NextPage<Props> = ({ categories }) => {
                   );
                 }}
               /> */}
-              <div className="d-flex gap-2 flex-column col-md-2">
-                {capturing ? (
-                  <Button variant="primary" onClick={handleStopCaptureClick}>
-                    Stop recording
-                  </Button>
+                <div className="d-flex gap-2 flex-column col-md-2">
+                  {capturing ? (
+                    <Button variant="primary" onClick={handleStopCaptureClick}>
+                      Stop recording
+                    </Button>
+                  ) : (
+                    <div className="d-flex">
+                      <Button variant="primary" onClick={handleStartCaptureClick}>
+                        Start recording
+                      </Button>
+                      <Button variant="light" className="mt-3 ms-2" onClick={handleGoToQuestionsClick}>
+                        Back
+                      </Button>
+                    </div>
+                  )}
+                  {recordedChunks.length > 0 && (
+                    <Button variant="primary" onClick={handleUploadClick}>
+                      Upload
+                    </Button>
+                  )}
+                </div>
+              </Col>
+              <Col>
+                {questions.length === 0 ? (
+                  <Carousel interval={null} variant="dark" wrap={false}>
+                    <Carousel.Item>
+                      <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
+                      <Carousel.Caption>
+                        <h3>Deze categorie bevat geen vragen</h3>
+                      </Carousel.Caption>
+                    </Carousel.Item>
+                  </Carousel>
                 ) : (
-                  <div className="d-flex">
-                    <Button variant="primary" onClick={handleStartCaptureClick}>
-                      Start recording
-                    </Button>
-                    <Button variant="light" className="mt-3 ms-2" onClick={handleGoToQuestionsClick}>
-                      Back
-                    </Button>
-                  </div>
+                  <Carousel onSelect={handleSelect} interval={null} variant="dark" wrap={false}>
+                    {questions.map((question, index) => (
+                      <Carousel.Item key={index}>
+                        <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
+                        <Carousel.Caption>
+                          <h3>Vraag {index + 1}</h3>
+                          <h1>{question.question}</h1>
+                        </Carousel.Caption>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
                 )}
-                {recordedChunks.length > 0 && (
-                  <Button variant="primary" onClick={handleUploadClick}>
-                    Upload
-                  </Button>
-                )}
-              </div>
-            </Col>
-            <Col>
-              {questions.length === 0 ? (
-            <Carousel interval={null} variant="dark" wrap={false}>
-              <Carousel.Item>
-                <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
-                <Carousel.Caption>
-                  <h3>Deze categorie bevat geen vragen</h3>
-                </Carousel.Caption>
-              </Carousel.Item>
-            </Carousel>
-          ) : (
-            <Carousel onSelect={handleSelect} interval={null} variant="dark" wrap={false}>
-              {questions.map((question, index) => (
-                <Carousel.Item key={index}>
-                  <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
-                  <Carousel.Caption>
-                    <h3>Vraag {index + 1}</h3>
-                    <h1>{question.question}</h1>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              ))}
-            </Carousel>
-          )}
-            </Col>
-          </Row>
-        </div>
-      )}
-    </Layout>
-  );
+              </Col>
+            </Row>
+          </div>
+        )}
+      </Layout>
+    );
 };
 
 export default Recording;
