@@ -1,8 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
-import { useState } from "react";
-import { Button, Breadcrumb, Carousel } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import { Question } from "../../interfaces/Question";
@@ -59,32 +57,8 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
     return (
       <>
         <Layout>
-          <Breadcrumb>
-            <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-            <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
-            <Breadcrumb.Item active>{category.category}</Breadcrumb.Item>
-          </Breadcrumb>
           <h1>Sollicitatie: {category.category}</h1>
-        </Layout>
-      </>
-    );
-  }
 
-  return (
-    <>
-      <Layout>
-        <Breadcrumb>
-          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-          <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
-          <Breadcrumb.Item active>{category.category}</Breadcrumb.Item>
-        </Breadcrumb>
-        <h1>Sollicitatie: {category.category}</h1>
-
-        <Link href={`/interviews/update/?id=${category.question_category_id}`} passHref>
-          <Button variant="primary">Sollicitatie aanpassen</Button>
-        </Link>
-
-        {questions.length === 0 ? (
           <Carousel interval={null} variant="dark" wrap={false}>
             <Carousel.Item>
               <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
@@ -93,19 +67,27 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
-        ) : (
-          <Carousel interval={null} variant="dark" wrap={false}>
-            {questions.map((question, index) => (
-              <Carousel.Item key={index}>
-                <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
-                <Carousel.Caption>
-                  <h3>Vraag {index + 1}</h3>
-                  <h1>{question.question}</h1>
-                </Carousel.Caption>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        )}
+        </Layout>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <Layout>
+        <h1>Sollicitatie: {category.category}</h1>
+
+        <Carousel interval={null} variant="dark" wrap={false}>
+          {questions.map((question, index) => (
+            <Carousel.Item key={index}>
+              <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
+              <Carousel.Caption>
+                <h3>Vraag {index + 1}</h3>
+                <h1>{question.question}</h1>
+              </Carousel.Caption>
+            </Carousel.Item>
+          ))}
+        </Carousel>
       </Layout>
     </>
   );

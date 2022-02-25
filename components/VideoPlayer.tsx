@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useRef } from "react";
-import { Video, CloudinaryContext } from "cloudinary-react";
+import { Video, CloudinaryContext, Transformation } from "cloudinary-react";
 
 interface Props {
   userEmail: string;
@@ -14,7 +14,9 @@ const VideoPlayer: NextPage<Props> = ({ userEmail, videoTitle }) => {
   return (
     <CloudinaryContext cloud_name="dou4tgpae">
       <div>
-        <Video publicId={publicId} width="100%" controls innerRef={videoRef} />
+        <Video publicId={publicId} width="100%" controls innerRef={videoRef}>
+          <Transformation overlay={{ publicId: `SOS/${userEmail}/${videoTitle}.srt`, resourceType: "subtitles" }} />
+        </Video>
       </div>
     </CloudinaryContext>
   );

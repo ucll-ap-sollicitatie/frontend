@@ -10,7 +10,9 @@ import { useRef, useCallback } from "react";
 import { Breadcrumb, Button, Form, OverlayTrigger, Tooltip, Col, Row, DropdownButton, Dropdown, Carousel } from "react-bootstrap";
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
-
+import { Stopwatch } from "ts-stopwatch";
+import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
+// import ReactStopwatch from 'react-stopwatch';
 // const videoConstraints = {
 //   width: 1280,
 //   height: 720,
@@ -45,14 +47,26 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
-  const handleStartCaptureClick = React.useCallback(() => {
+  const stopwatch = useRef<Stopwatch | null>(null);
+  const [previousTime, setPreviousTime] = React.useState(0);
+  const [previousQuestion, setPreviousQuestion] = React.useState(0);
+  const [subtitleCount, setSubtitleCount] = useState<number>(1);
+  const [subtitles, setSubtitles] = useState<string>("");
+
+  const handleStartCaptureClick = () => {
     setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm",
     });
     mediaRecorderRef.current.addEventListener("dataavailable", handleDataAvailable);
     mediaRecorderRef.current.start();
-  }, [webcamRef, setCapturing, mediaRecorderRef]);
+    stopwatch.current = new Stopwatch();
+    stopwatch.current.start(true);
+    setSubtitleCount(1);
+    setSubtitles("");
+    setPreviousTime(0);
+    console.log("started recording");
+  };
 
   const handleDataAvailable = useCallback(
     ({ data }) => {
@@ -63,16 +77,33 @@ const Recording: NextPage<Props> = ({ categories }) => {
     [setRecordedChunks]
   );
 
-  const handleStopCaptureClick = useCallback(() => {
+  const handleStopCaptureClick = () => {
     if (mediaRecorderRef.current !== null) {
       mediaRecorderRef.current.stop();
       setCapturing(false);
+      stopwatch.current?.stop();
+      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current?.getTime())}\nVraag ${previousQuestion}: ${questions[previousQuestion].question}`;
+      setSubtitles(subtitles + data);
     }
-  }, [mediaRecorderRef, webcamRef, setCapturing]);
+  };
 
-  const handleUploadClick = React.useCallback(() => {
+  const handleSelect = (selectedIndex: number) => {
+    if (stopwatch != null) {
+      if (stopwatch.current?.getState() == "RUNNING") {
+        let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current.getTime())}\nVraag ${previousQuestion}: ${questions[previousQuestion].question}\n\n`;
+        setSubtitles(subtitles + data);
+        setPreviousTime(stopwatch.current.getTime());
+        setSubtitleCount(subtitleCount + 1);
+        console.log("u moeder");
+      }
+    }
+    setPreviousQuestion(selectedIndex);
+  };
+
+  const handleUploadClick = () => {
     setUploading(true);
-  }, [setUploading]);
+    console.log(subtitles);
+  };
 
   const handleBackClick = React.useCallback(() => {
     setUploading(false);
@@ -98,6 +129,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
       formData.set("private", prive);
       formData.set("r_u_number", session?.user?.r_u_number);
       formData.set("email", session.user?.email);
+      formData.set("subtitles", subtitles);
 
       axios({
         method: "POST",
@@ -220,7 +252,21 @@ const Recording: NextPage<Props> = ({ categories }) => {
           <Row>
             <Col>
               <Webcam className="w-75" audio={true} ref={webcamRef} muted />
-
+              {/* <ReactStopwatch
+                autostart={false}
+                seconds={0}
+                minutes={0}
+                hours={0}
+                render={({ formatted }) => {
+                  return (
+                    <div>
+                      <p>
+                        Formatted: { formatted }
+                      </p>
+                    </div>
+                  );
+                }}
+              /> */}
               <div className="d-flex gap-2 flex-column col-md-2">
                 {capturing ? (
                   <Button variant="primary" onClick={handleStopCaptureClick}>
@@ -254,7 +300,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
               </Carousel.Item>
             </Carousel>
           ) : (
-            <Carousel interval={null} variant="dark" wrap={false}>
+            <Carousel onSelect={handleSelect} interval={null} variant="dark" wrap={false}>
               {questions.map((question, index) => (
                 <Carousel.Item key={index}>
                   <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
