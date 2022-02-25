@@ -83,6 +83,16 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [commentId, setCommentId] = React.useState(0);
   const [currentComment, setCurrentComment] = React.useState(comments == null ? [] : comments[0]);
 
+  const handleAddLike = async (email: string, comment_id: number) => {
+    await fetch(`http://localhost:3001/comments/${comment_id}/like`, {
+      method: "POST",
+      body: JSON.stringify({ email: email }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+
   const handleAddFeedback = async (event: FormEvent) => {
     event.preventDefault();
     handleAddComment(event, true);
@@ -304,6 +314,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
                   handleSelect={handleSelect}
                   handleShowUpdate={handleShowUpdate}
                   handleShowDelete={handleShowDelete}
+                  handleAddLike={handleAddLike}
                 />
               )}
               {!comments && (

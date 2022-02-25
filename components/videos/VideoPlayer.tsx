@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useRef } from "react";
-import { Video, CloudinaryContext, Transformation } from "cloudinary-react";
+import { Video, Transformation, CloudinaryContext } from "cloudinary-react";
 
 interface Props {
   userEmail: string;
