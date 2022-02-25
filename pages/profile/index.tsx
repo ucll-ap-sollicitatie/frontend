@@ -5,7 +5,7 @@ import Layout from "../../components/layout/Layout";
 import ProfileCard from "../../components/profile/ProfileCard";
 import Unauthenticated from "../../components/Unauthenticated";
 import OwnVideoOverview from "../../components/OwnVideoOverview";
-import { Video } from "../../interfaces/Video";
+import Video from "../../interfaces/Video";
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`http://localhost:3001/videos`);

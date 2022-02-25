@@ -7,10 +7,6 @@ import SpinnerComponent from "../SpinnerComponent";
 import InterviewForm from "./InterviewForm";
 import { Question } from "../../interfaces/Question";
 
-export interface QuestionInputType {
-  id: number;
-}
-
 interface Props {
   id: string;
 }
