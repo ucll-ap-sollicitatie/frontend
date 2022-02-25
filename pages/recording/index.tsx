@@ -11,15 +11,9 @@ import { Breadcrumb, Button, Form, OverlayTrigger, Tooltip, Col, Row, DropdownBu
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import router from "next/router";
-
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
-// import ReactStopwatch from 'react-stopwatch';
-// const videoConstraints = {
-//   width: 1280,
-//   height: 720,
-//   facingMode: "user",
-// };
+
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`http://localhost:3001/question-categories`);
   const categories = await res.json();
@@ -86,7 +80,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
       stopwatch.current?.stop();
       let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(
         stopwatch.current?.getTime()
-      )}\nVraag ${previousQuestion}: ${questions[previousQuestion].question}`;
+      )}\nVraag ${previousQuestion + 1}: ${questions[previousQuestion].question}`;
       setSubtitles(subtitles + data);
     }
   };
@@ -96,7 +90,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
       if (stopwatch.current?.getState() == "RUNNING") {
         let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(
           stopwatch.current.getTime()
-        )}\nVraag ${previousQuestion}: ${questions[previousQuestion].question}\n\n`;
+        )}\nVraag ${previousQuestion + 1}: ${questions[previousQuestion].question}\n\n`;
         setSubtitles(subtitles + data);
         setPreviousTime(stopwatch.current.getTime());
         setSubtitleCount(subtitleCount + 1);
