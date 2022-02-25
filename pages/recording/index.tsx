@@ -84,7 +84,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
       mediaRecorderRef.current.stop();
       setCapturing(false);
       stopwatch.current?.stop();
-      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current?.getTime())}\nVraag ${previousQuestion}: ${questions[previousQuestion].question}`;
+      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current?.getTime())}\nVraag ${previousQuestion + 1}: ${questions[previousQuestion].question}`;
       setSubtitles(subtitles + data);
     }
   };
@@ -92,7 +92,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const handleSelect = (selectedIndex: number) => {
     if (stopwatch != null) {
       if (stopwatch.current?.getState() == "RUNNING") {
-        let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current.getTime())}\nVraag ${previousQuestion}: ${questions[previousQuestion].question}\n\n`;
+        let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current.getTime())}\nVraag ${previousQuestion + 1}: ${questions[previousQuestion].question}\n\n`;
         setSubtitles(subtitles + data);
         setPreviousTime(stopwatch.current.getTime());
         setSubtitleCount(subtitleCount + 1);
