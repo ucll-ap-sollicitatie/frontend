@@ -35,12 +35,14 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
+    // Check passwords
     if (target.password.value != target.password_check.value) {
       setError("De wachtwoorden komen niet overeen");
       setShow(true);
       return;
     }
 
+    // Update
     const res = await fetch(`http://localhost:3001/users/${email}`, {
       body: JSON.stringify({
         name: target.user_name.value,
@@ -56,25 +58,34 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
       },
       method: "PUT",
     });
+    if (!res.ok) {
+      const data = await res.json();
+      console.log(data);
 
-    console.log(res);
-    console.log(await res.json());
-
-    /* if (!res.ok) {
-      const response = await res.json();
-      setError(response.messages);
+      setError(data.error);
       setShow(true);
-    } else {
-      //session.data.user = user;
+      return;
+    }
 
-      router.push(
-        {
-          pathname: `/profile`,
-          query: { toast: "Profiel succesvol aangepast" },
-        },
-        `/profile`
-      );
-    } */
+    // Get user and update local user information
+    const user_res = await fetch(`http://localhost:3001/users/email/${email}`);
+    if (!user_res.ok) {
+      const data = await res.json();
+      setError(data.error);
+      setShow(true);
+      return;
+    }
+    const user = await user_res.json();
+    if (session.data !== null) session.data.user = user;
+
+    // Redirect to /profile
+    router.push(
+      {
+        pathname: `/profile`,
+        query: { toast: "Profiel succesvol aangepast" },
+      },
+      `/profile`
+    );
   };
 
   if (loading) return <SpinnerComponent />;

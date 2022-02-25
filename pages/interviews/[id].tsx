@@ -62,6 +62,7 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
           <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
           <Breadcrumb.Item active>{category.category}</Breadcrumb.Item>
         </Breadcrumb>
+
         <h1>Sollicitatie: {category.category}</h1>
 
         <UpdateInterviewButton question_category_id={category.question_category_id} />
