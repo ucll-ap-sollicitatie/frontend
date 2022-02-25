@@ -15,6 +15,9 @@ import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
 // import ReactStopwatch from 'react-stopwatch';
 import router from "next/router";
 
+import { Stopwatch } from "ts-stopwatch";
+import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
+// import ReactStopwatch from 'react-stopwatch';
 // const videoConstraints = {
 //   width: 1280,
 //   height: 720,
