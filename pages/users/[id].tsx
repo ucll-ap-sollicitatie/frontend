@@ -11,7 +11,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths = users.map((user: User) => {
     return {
-      params: { id: user.email.toString() },
+      params: { id: user.email },
     };
   });
 
@@ -45,6 +45,7 @@ interface Props {
 const UserDetails: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
+
   if (session.user?.email !== user.email) return <UserProfile user={user} />;
   return <MyProfile user={session.user} />;
 };

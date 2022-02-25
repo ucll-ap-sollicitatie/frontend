@@ -81,10 +81,10 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
     // Redirect to /profile
     router.push(
       {
-        pathname: `/profile`,
+        pathname: `/users/${user.email}`,
         query: { toast: "Profiel succesvol aangepast" },
       },
-      `/profile`
+      `/users/${user.email}`
     );
   };
 
