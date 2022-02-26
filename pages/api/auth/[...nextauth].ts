@@ -20,10 +20,9 @@ export default NextAuth({
           },
           body: JSON.stringify(credentials),
         });
+        if (!res.ok) return null;
 
         const user = await res.json();
-
-        if (user.error) return null;
         return user;
       },
     }),

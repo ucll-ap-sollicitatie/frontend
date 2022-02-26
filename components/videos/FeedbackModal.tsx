@@ -1,19 +1,23 @@
 import type { NextPage } from "next";
 import { Modal, Button, Form } from "react-bootstrap";
+import User from "../../interfaces/User";
 
 interface Props {
   maxChars: number;
+  user: User;
   showFeedback: Function;
   handleClose: Function;
   handleAddFeedback: Function;
   setMaxChars: Function;
 }
 
-const FeedbackModal: NextPage<Props> = ({ maxChars, showFeedback, handleClose, handleAddFeedback, setMaxChars }) => {
+const FeedbackModal: NextPage<Props> = ({ maxChars, user, showFeedback, handleClose, handleAddFeedback, setMaxChars }) => {
   return (
     <Modal show={showFeedback} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Feedback geven aan Voornaam Naam</Modal.Title>
+        <Modal.Title>
+          Feedback geven aan {user.name} {user.surname}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleAddFeedback} className="col-md-12 col-lg-10 col-xl-8">

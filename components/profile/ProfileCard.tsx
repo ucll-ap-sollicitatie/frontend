@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { Button, Card } from "react-bootstrap";
 import { capitalize } from "../../helpers/helperFunctions";
 import User from "../../interfaces/User";
+import UpdateUserutton from "../users/UpdateUserButton";
 
 interface Props {
   user: User;
@@ -24,7 +25,7 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
       <Card.Body className="border-top">
         <Card.Text>{user.r_u_number}</Card.Text>
         <Card.Text>{user.email}</Card.Text>
-        <Button variant="primary">Update information</Button>
+        <UpdateUserutton email={user.email} />
       </Card.Body>
     </Card>
   );

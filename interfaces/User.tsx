@@ -7,4 +7,6 @@ export default interface User {
   hashed_password: string;
   role: string;
   formation: string;
+  activation_token: string;
+  token_expiration_date: string;
 }

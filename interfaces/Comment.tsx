@@ -6,4 +6,5 @@ export default interface Comment {
   surname: string;
   author: string;
   feedback: boolean;
+  likes: number;
 }
