@@ -9,4 +9,5 @@ export default interface User {
   formation: string;
   activation_token: string;
   token_expiration_date: string;
+  last_login: Date;
 }

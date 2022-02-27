@@ -36,6 +36,11 @@ const NavBar: NextPage = () => {
                       </Nav.Link>
                     </Link>
                   )}
+                  {session.user?.role === "Student" && (
+                    <Link href={"/tasks"} passHref>
+                      <Nav.Link href="/">Mijn taken</Nav.Link>
+                    </Link>
+                  )}
                   <Link href={"/interviews"} passHref>
                     <Nav.Link href="/">Sollicitaties</Nav.Link>
                   </Link>
