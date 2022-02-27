@@ -4,7 +4,7 @@ import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
 import { useTable, useSortBy, usePagination } from "react-table";
 import RemoveButton from "./buttons/RemoveButton";
-import ShowButton from "./buttons/ShowButton";
+import UpdateButton from "./buttons/UpdateButton";
 
 interface Props {
   columns: any;
@@ -14,7 +14,7 @@ interface Props {
   handleShow?: (id: string | number) => void;
 }
 
-const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => {
+const TasksReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -55,8 +55,12 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
                   </span>
                 </th>
               ))}
-              <th>Bekijken</th>
-              <th>Verwijderen</th>
+              {handleShow != null && (
+                <>
+                  <th>Aanpassen</th>
+                  <th>Verwijderen</th>
+                </>
+              )}
             </tr>
           ))}
         </thead>
@@ -68,12 +72,16 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
                 {row.cells.map((cell, index) => {
                   return <td key={index}>{cell.render("Cell")}</td>;
                 })}
-                <td>
-                  <ShowButton url={`${url}/${row.original[id]}`} />
-                </td>
-                <td>
-                  <RemoveButton handleShow={handleShow} id={row.original[id]} />
-                </td>
+                {handleShow != null && (
+                  <>
+                    <td>
+                      <UpdateButton url={`${url}/update?task_id=${row.original[id]}`} />
+                    </td>
+                    <td>
+                      <RemoveButton handleShow={handleShow} id={row.original[id]} />
+                    </td>
+                  </>
+                )}
               </tr>
             );
           })}
@@ -127,4 +135,4 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
   );
 };
 
-export default ReactTable;
+export default TasksReactTable;
