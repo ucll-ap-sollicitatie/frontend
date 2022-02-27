@@ -1,30 +1,32 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Video from "../../interfaces/Video";
-import VideoCard from "./VideoCard";
 import Unauthenticated from "../Unauthenticated";
+import { Row } from "react-bootstrap";
+import VideoCard from "./VideoCard";
 
 interface Props {
-  videos: Video[] | null;
+  videos: Video[];
 }
 
-const ProfileVideoOverview: NextPage<Props> = ({ videos }) => {
+const OwnVideoOverview: NextPage<Props> = ({ videos }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
+
+  if (!videos || videos.length !== 0) return <p>U heeft momenteel nog geen video's geüpload.</p>;
+
   return (
-    <>
-      {!videos && <p>Deze gebruiker heeft geen video's.</p>}
-      {videos && (
-        <div className="row">
-          {videos.map((video: Video) => (
+    <Row>
+      {videos.map(
+        (video: Video) =>
+          video.email === session.user?.email && (
             <div className="col-md-5 border" key={video.video_id}>
               <VideoCard video={video} />
             </div>
-          ))}
-        </div>
+          )
       )}
-    </>
+    </Row>
   );
 };
 
-export default ProfileVideoOverview;
+export default OwnVideoOverview;
