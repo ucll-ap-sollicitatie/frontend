@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import { Button, Card } from "react-bootstrap";
-import { capitalize } from "../../helpers/helperFunctions";
 import User from "../../interfaces/User";
 import UpdateUserutton from "../users/UpdateUserButton";
 
@@ -18,7 +17,7 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
           {user.name} {user.surname}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted fst-italic">
-          {capitalize(user.role)} - {user.formation}
+          {user.role} - {user.formation}
         </Card.Subtitle>
       </Card.Body>
 

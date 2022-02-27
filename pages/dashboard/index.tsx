@@ -1,9 +1,10 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Breadcrumb, Tab, Tabs } from "react-bootstrap";
+import { Breadcrumb, Button, Tab, Tabs } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import Unauthorized from "../../components/Unauthorized";
+import StudentsTable from "../../components/users/StudentsTable";
 import UsersTable from "../../components/users/UsersTable";
 
 const Dashboard: NextPage = () => {
@@ -34,10 +35,10 @@ const Dashboard: NextPage = () => {
       {session.user?.role === "Lector" && (
         <Tabs defaultActiveKey="students" id="uncontrolled-tab" className="mb-3">
           <Tab eventKey="students" title="Mijn studenten">
-            <p>Studenten lijst</p>
+            <StudentsTable />
           </Tab>
           <Tab eventKey="tasks" title="Taken">
-            <p>Maak taak</p>
+            <Button href="/tasks/add">Taak aanmaken</Button>
             <p>Lijst taken</p>
           </Tab>
         </Tabs>
