@@ -121,12 +121,37 @@
     "record_interview": "Ga voor het echte ding en beantwoord vragen enkel uit een thema die jij zelf kiest!",
     "record_interview_questions": "Je krijgt steeds 5 willekeurige vragen uit de gekozen categorie die je moet beantwoorden."
   },
+  "comments": {
+    "comment": "Commentaar",
+    "name": "Voornaam",
+    "surname": "Familienaam",
+    "date": "Datum",
+    "amount_of_likes": "Aantal likes",
+  }
   "preferences": {
     "title": "Voorkeuren",
     "form_title": "Kies 3 categorieën waarover je interviews wilt krijgen.",
     "preference": "Voorkeur",
     "preferences_update": "Voorkeuren aanpassen",
     "error": "Er is een probleem opgetreden bij aanpassen van uw preferenties."
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "none": "Geen",
+    "server_information": "Server informatie",
+    "users_overview": "Gebruikers overzicht",
+    "users": "Gebruikers",
+    "amount_of_users": "Aantal gebruikers",
+    "amount_of_admins": "Aantal admins",
+    "amount_of_lecturers": "Aantal lectoren",
+    "my_students": "Mijn studenten",
+    "amount_of_students": "Aantal studenten",
+    "comments_overview": "Commentaar overzicht",
+    "amount_of_comments": "Aantal commentaar",
+    "amount_of_feedback": "Aantal feedback",
+    "videos": "Video's",
+    "amount_of_videos": "Aantal video's",
+    "task_add": "Taak aanmaken"
   },
   "contact": {
     "title": "Contact",
