@@ -18,8 +18,12 @@ import CarouselNoQuestions from "../../components/recording/CarouselNoQuestions"
 import CarouselWithQuestions from "../../components/recording/CarouselWithQuestions";
 import User from "../../interfaces/User";
 import SpinnerComponent from "../../components/SpinnerComponent";
+<<<<<<< HEAD
 import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
+=======
+import { useTranslations } from "next-intl";
+>>>>>>> 5a71bda... buttons appear when webcam ready
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
