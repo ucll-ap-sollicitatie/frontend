@@ -7,35 +7,46 @@ import ReactTable from "../ReactTable";
 import SpinnerComponent from "../SpinnerComponent";
 import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
+import { useTranslations } from "next-intl";
 
-const columns = [
-  {
-    Header: "R/U-nummer",
-    accessor: "r_u_number",
-  },
-  {
-    Header: "Voornaam",
-    accessor: "name",
-  },
-  {
-    Header: "Familienaam",
-    accessor: "surname",
-  },
-  {
-    Header: "E-mail",
-    accessor: "email",
-  },
-  {
-    Header: "Richting",
-    accessor: "formation",
-  },
-  {
-    Header: "Rol",
-    accessor: "role",
-  },
-];
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 const UsersTable: NextPage = () => {
+  const t = useTranslations("users");
+
+  const columns = [
+    {
+      Header: "R/U-nummer",
+      accessor: "r_u_number",
+    },
+    {
+      Header: t("name"),
+      accessor: "name",
+    },
+    {
+      Header: t("surname"),
+      accessor: "surname",
+    },
+    {
+      Header: t("email"),
+      accessor: "email",
+    },
+    {
+      Header: t("formation"),
+      accessor: "formation",
+    },
+    {
+      Header: t("role"),
+      accessor: "role",
+    },
+  ];
+
   const router = useRouter();
   const [id, setId] = useState<number | string>("");
   const [users, setUsers] = useState<User[]>([]);
@@ -75,7 +86,7 @@ const UsersTable: NextPage = () => {
     router.push(
       {
         pathname: "/users",
-        query: { toast: "Gebruiker verwijderd" },
+        query: { toast: t("remove_user_success") },
       },
       "/users"
     );
@@ -83,19 +94,17 @@ const UsersTable: NextPage = () => {
     fetchData();
   };
 
-  if (error) return <div>Er is een probleem opgetreden bij het laden van de gebruikers.</div>;
+  if (error) return <div>{t("users_loading_failed")}</div>;
   if (loading) return <SpinnerComponent />;
-  if (users.length === 0) return <div>Geen gebruikers gevonden.</div>;
+  if (users.length === 0) return <div>{t("no_users")}</div>;
 
   return (
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Gebruiker verwijderen</Modal.Title>
+          <Modal.Title>{t("remove_user")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          Bent u zeker dat u gebruiker <span className="font-italic">{id}</span> wilt verwijderen?
-        </Modal.Body>
+        <Modal.Body>{t("users_delete_confirm")}</Modal.Body>
         <Modal.Footer className="justify-content-center">
           <ConfirmCloseButton handleClose={handleClose} />
           <ConfirmRemoveButton handleDelete={handleDelete} />

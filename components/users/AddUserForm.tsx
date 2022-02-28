@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
@@ -6,7 +7,17 @@ import { Formation } from "../../interfaces/Formation";
 import { Role } from "../../interfaces/Role";
 import UserForm from "./UserForm";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 const AddUserForm: NextPage = () => {
+  const t = useTranslations("errors");
+
   const router = useRouter();
 
   const [roles, setRoles] = useState<Role[]>([]);
@@ -36,7 +47,7 @@ const AddUserForm: NextPage = () => {
     const target = event.target as HTMLFormElement;
 
     if (target.password.value != target.password_check.value) {
-      setError("De wachtwoorden komen niet overeen");
+      setError(t("password_mismatch"));
       setShow(true);
       return;
     }
@@ -57,9 +68,8 @@ const AddUserForm: NextPage = () => {
       method: "POST",
     });
 
-    if (res.status === 400) {
-      const response = await res.json();
-      setError(response.messages);
+    if (!res.ok) {
+      setError(t("register_new_account_error"));
       setShow(true);
     } else {
       router.push({
@@ -71,7 +81,7 @@ const AddUserForm: NextPage = () => {
   return (
     <>
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
-        <Alert.Heading>Slim op sollicitatie</Alert.Heading>
+        <Alert.Heading>{t("title")}</Alert.Heading>
         <span>{error}</span>
       </Alert>
 

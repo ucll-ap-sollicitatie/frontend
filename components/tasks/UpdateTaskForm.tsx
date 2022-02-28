@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
@@ -8,11 +9,22 @@ import User from "../../interfaces/User";
 import SpinnerComponent from "../SpinnerComponent";
 import TaskForm from "./TaskForm";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   task_id: string;
 }
 
 const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
+  const t = useTranslations("tasks");
+  const e = useTranslations("errors");
+
   const { data: session } = useSession();
   const user = session?.user as User;
   const router = useRouter();
@@ -50,7 +62,7 @@ const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
     });
 
     if (!res.ok) {
-      setError("Er was een probleem bij het aanpassen van de taak.");
+      setError(t("task_update_failed"));
       setShow(true);
     } else {
       router.push({
@@ -60,11 +72,11 @@ const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
   };
 
   if (loading) return <SpinnerComponent />;
-  if (task?.teacher_email !== session?.user?.email && user.role !== "Admin") return <div>U mag deze taak niet aanpassen.</div>;
+  if (task?.teacher_email !== session?.user?.email && user.role !== "Admin") return <div>{t("task_update_unauthorized")}</div>;
   return (
     <>
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
-        <Alert.Heading>Slim op sollicitatie</Alert.Heading>
+        <Alert.Heading>{e("error_title")}</Alert.Heading>
         <span>{error}</span>
       </Alert>
 

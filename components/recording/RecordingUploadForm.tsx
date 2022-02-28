@@ -1,6 +1,15 @@
 import { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { FormEvent } from "react";
 import { Form, OverlayTrigger, Tooltip, Button, Spinner } from "react-bootstrap";
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 interface Props {
   handleUpload: (event: FormEvent<HTMLFormElement>) => void;
@@ -12,30 +21,26 @@ interface Props {
 }
 
 const RecordingUploadForm: NextPage<Props> = ({ handleUpload, setMaxChars, maxChars, handleBackClick, setUploading, uploading }) => {
+  const t = useTranslations("recording");
+
   return (
     <Form onSubmit={handleUpload} className="col-md-12 col-lg-10 col-xl-8">
       <div className="d-flex gap-4 flex-wrap">
         <Form.Group controlId="file_title">
-          <Form.Label>Titel:</Form.Label>
+          <Form.Label>{t("recording_title")}</Form.Label>
           <Form.Control type="text" placeholder="e.g. Mijn interviewopname" required />
-          <Form.Text className="text-muted">Titel mag geen vraagtekens (?) of hashtags (#) bevatten</Form.Text>
+          <Form.Text className="text-muted">{t("recording_error_title")}</Form.Text>
         </Form.Group>
       </div>
       <div className="gap-4 flex-wrap mt-2">
         <Form.Group controlId="description">
-          <Form.Label>Omschrijving:</Form.Label>
-          <Form.Control
-            onChange={(e) => setMaxChars(e.target.value.length)}
-            as="textarea"
-            rows={4}
-            maxLength={255}
-            placeholder="e.g. Mijn interview voor back-end web developer"
-          />
+          <Form.Label>{t("description")}</Form.Label>
+          <Form.Control onChange={(e) => setMaxChars(e.target.value.length)} as="textarea" rows={4} maxLength={255} placeholder={t("description")} />
           <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
         </Form.Group>
       </div>
       <div className="d-flex gap-4 flex-wrap">
-        <OverlayTrigger placement="top" overlay={<Tooltip id="button-tooltip-2">Privé: alleen lectoren kunnen jouw video zien</Tooltip>}>
+        <OverlayTrigger placement="top" overlay={<Tooltip id="button-tooltip-2">{t("recording_private")}</Tooltip>}>
           <Form.Group className="mb-3" controlId="privateCheckbox">
             <Form.Check type="checkbox" label="Privé" defaultChecked />
           </Form.Group>
@@ -43,17 +48,17 @@ const RecordingUploadForm: NextPage<Props> = ({ handleUpload, setMaxChars, maxCh
       </div>
       {!uploading && (
         <Button variant="primary" type="submit" className="mt-3">
-          Uploaden
+          {t("upload")}
         </Button>
       )}
       {uploading && (
         <Button variant="primary" className="mt-3" disabled>
           <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
-          Uploading...
+          {t("uploading")}
         </Button>
       )}
       <Button variant="light" className="mt-3 ms-2" onClick={handleBackClick}>
-        Terug
+        {t("back")}
       </Button>
     </Form>
   );

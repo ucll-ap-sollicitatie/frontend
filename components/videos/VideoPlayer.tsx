@@ -2,6 +2,14 @@ import type { NextPage } from "next";
 import { useRef } from "react";
 import { Video, CloudinaryContext, Transformation } from "cloudinary-react";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   userEmail: string;
   videoTitle: string;

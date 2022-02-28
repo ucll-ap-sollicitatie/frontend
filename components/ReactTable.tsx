@@ -5,6 +5,15 @@ import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
 import { useTable, useSortBy, usePagination } from "react-table";
 import RemoveButton from "./buttons/RemoveButton";
 import ShowButton from "./buttons/ShowButton";
+import { useTranslations } from "next-intl";
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 interface Props {
   columns: any;
@@ -15,6 +24,8 @@ interface Props {
 }
 
 const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => {
+  const t = useTranslations("table");
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -47,8 +58,8 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
                   </span>
                 </th>
               ))}
-              <th>Bekijken</th>
-              <th>Verwijderen</th>
+              <th>{t("view")}</th>
+              <th>{t("remove")}</th>
             </tr>
           ))}
         </thead>
@@ -81,14 +92,14 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
         </Pagination>
 
         <span>
-          Page{" "}
+          {t("page")}{" "}
           <strong>
             {pageIndex + 1} of {pageOptions.length}
           </strong>
         </span>
 
         <span>
-          Go to page:{" "}
+          {t("go_to_page")}:{" "}
           <Form.Control
             type="number"
             defaultValue={pageIndex + 1}
@@ -110,7 +121,7 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
         >
           {[5, 10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
-              Show {pageSize}
+              {t("show")} {pageSize}
             </option>
           ))}
         </Form.Select>

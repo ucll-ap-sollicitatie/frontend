@@ -1,12 +1,24 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Badge, Toast } from "react-bootstrap";
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 interface Props {
   message: string;
 }
 
 const ToastComponent: NextPage<Props> = ({ message }) => {
+  const t = useTranslations("home");
+
+  // To enable the fade in animation, we need to set the initial state to false.
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -18,7 +30,7 @@ const ToastComponent: NextPage<Props> = ({ message }) => {
       <Toast.Header>
         <h5 className="m-0 me-auto">
           <Badge bg="success" className="me-auto">
-            Success
+            {t("success")}
           </Badge>
         </h5>
       </Toast.Header>

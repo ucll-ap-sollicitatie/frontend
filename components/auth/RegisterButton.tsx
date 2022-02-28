@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { Button } from "react-bootstrap";
 
 export async function getStaticProps({ locale }) {
@@ -10,18 +11,14 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-interface Props {
-  handleDelete: () => void;
-}
-
-const ConfirmRemoveButton: NextPage<Props> = ({ handleDelete }) => {
-  const t = useTranslations("buttons");
+const RegisterButton: NextPage = () => {
+  const t = useTranslations("home");
 
   return (
-    <Button variant="outline-danger" onClick={handleDelete}>
-      {t("remove")}
-    </Button>
+    <Link href="/auth/register" passHref>
+      <Button variant="primary">{t("register_new_account")}</Button>
+    </Link>
   );
 };
 
-export default ConfirmRemoveButton;
+export default RegisterButton;

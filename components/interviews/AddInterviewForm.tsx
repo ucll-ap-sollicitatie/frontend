@@ -1,10 +1,22 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import { Alert } from "react-bootstrap";
 import InterviewForm from "./InterviewForm";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 const AddInterviewForm: NextPage = () => {
+  const t = useTranslations("interviews");
+  const e = useTranslations("errors");
+
   const router = useRouter();
 
   const [show, setShow] = useState(false);
@@ -26,7 +38,7 @@ const AddInterviewForm: NextPage = () => {
     });
 
     if (!category_res.ok) {
-      setError("Categorie bestaat al");
+      setError(t("interview_error_exists"));
       setShow(true);
       return;
     }
@@ -57,7 +69,7 @@ const AddInterviewForm: NextPage = () => {
     router.push(
       {
         pathname: "/interviews",
-        query: { toast: "Sollicitatie werd succesvol aangemaakt" },
+        query: { toast: t("interview_add_success") },
       },
       "/interviews"
     );
@@ -66,7 +78,7 @@ const AddInterviewForm: NextPage = () => {
   return (
     <>
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
-        <Alert.Heading>Slim op sollicitatie</Alert.Heading>
+        <Alert.Heading>{e("error_title")}</Alert.Heading>
         <span>{error}</span>
       </Alert>
 

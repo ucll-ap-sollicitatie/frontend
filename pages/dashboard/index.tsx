@@ -12,6 +12,7 @@ import Comment from "../../interfaces/Comment";
 import CommentsTable from "../../components/comments/CommentsTable";
 import Video from "../../interfaces/Video";
 import Task from "../../interfaces/Task";
+import { useTranslations } from "next-intl";
 
 interface Props {
   users: User[];
@@ -20,7 +21,7 @@ interface Props {
   tasks: Task[];
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const usersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
   const usersJson = await usersRes.json();
 
@@ -39,11 +40,14 @@ export const getStaticProps: GetStaticProps = async () => {
       comments: commentsJson,
       videos: videosJson,
       tasks: tasksJson,
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
   };
 };
 
 const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
+  const t = useTranslations("dashboard");
+
   const { data: session } = useSession();
   const user = session?.user as User;
   if (!session || user === undefined) return <Unauthenticated />;
@@ -72,53 +76,67 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
         <Breadcrumb.Item active>Dashboard</Breadcrumb.Item>
       </Breadcrumb>
 
-      <h1>Dashboard</h1>
+      <h1>{t("title")}</h1>
       {user.role === "Admin" && (
         <Tabs defaultActiveKey="start" id="uncontrolled-tab">
-          <Tab eventKey="start" title="Server informatie">
+          <Tab eventKey="start" title={t("server_information")}>
             <Accordion>
               <Accordion.Item eventKey="0" className="rounded-0">
-                <Accordion.Header>Gebruikers</Accordion.Header>
+                <Accordion.Header>{t("users")}</Accordion.Header>
                 <Accordion.Body>
-                  Aantal gebruikers: {users ? users.length : "Geen"}
+                  {t("amount_of_users")}: {users ? users.length : t("none")}
                   <div className="d-flex justify-content-between mt-3">
-                    <div>Aantal admins: {countRole("Admin")}</div>
-                    <div>Aantal lectoren: {countRole("Lector")}</div>
-                    <div>Aantal studenten: {countRole("Student")}</div>
+                    <div>
+                      {t("amount_of_admins")}: {countRole("Admin")}
+                    </div>
+                    <div>
+                      {t("amount_of_lecturers")}: {countRole("Lector")}
+                    </div>
+                    <div>
+                      {t("amount_of_students")}: {countRole("Student")}
+                    </div>
                   </div>
                 </Accordion.Body>
               </Accordion.Item>
+
               <Accordion.Item eventKey="1">
                 <Accordion.Header>Commentaar</Accordion.Header>
                 <Accordion.Body>
                   <div className="d-flex justify-content-between">
-                    <div>Aantal commentaar: {comments ? comments.length - countFeedback() : "Geen"}</div>
-                    <div>Aantal feedback: {countFeedback()}</div>
+                    <div>
+                      {t("amount_of_comments")}: {comments ? comments.length - countFeedback() : "Geen"}
+                    </div>
+                    <div>
+                      {t("amount_of_feedback")}: {countFeedback()}
+                    </div>
                   </div>
                 </Accordion.Body>
               </Accordion.Item>
+
               <Accordion.Item eventKey="2">
-                <Accordion.Header>Video&apos;s</Accordion.Header>
-                <Accordion.Body>Aantal video&apos;s: {videos ? videos.length : "Geen"}</Accordion.Body>
+                <Accordion.Header>{t("videos")}</Accordion.Header>
+                <Accordion.Body>
+                  {t("amount_of_videos")}: {videos ? videos.length : "Geen"}
+                </Accordion.Body>
               </Accordion.Item>
             </Accordion>
           </Tab>
-          <Tab eventKey="profile" title="Gebruikers overzicht">
+          <Tab eventKey="profile" title={t("users_overview")}>
             <UsersTable />
           </Tab>
-          <Tab eventKey="contact" title="Commentaar overzicht">
+          <Tab eventKey="contact" title={t("comments_overview")}>
             <CommentsTable comments={comments} />
           </Tab>
         </Tabs>
       )}
       {user.role === "Lector" && (
         <Tabs defaultActiveKey="students" id="uncontrolled-tab" className="mb-3">
-          <Tab eventKey="students" title="Mijn studenten">
+          <Tab eventKey="students" title={t("my_students")}>
             <StudentsTable />
           </Tab>
           <Tab eventKey="tasks" title="Taken">
             <Button href="/tasks/add" className="mb-3">
-              Taak aanmaken
+              {t("task_add")}"
             </Button>
             <TasksTable allTasks={tasks} />
           </Tab>

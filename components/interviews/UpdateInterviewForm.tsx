@@ -6,12 +6,24 @@ import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import SpinnerComponent from "../SpinnerComponent";
 import InterviewForm from "./InterviewForm";
 import { Question } from "../../interfaces/Question";
+import { useTranslations } from "next-intl";
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 interface Props {
   id: string;
 }
 
 const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
+  const t = useTranslations("interviews");
+  const e = useTranslations("errors");
+
   const router = useRouter();
 
   const [category, setCategory] = useState<QuestionCategory>();
@@ -90,19 +102,19 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
     router.push(
       {
         pathname: `/interviews/${id}`,
-        query: { toast: "Sollicitatie succesvol aangepast" },
+        query: { toast: t("interview_update_success") },
       },
       `/interviews/${id}`
     );
   };
 
   if (loading) return <SpinnerComponent />;
-  if (error) return <div>Er is een probleem opgetreden bij het laden van de sollicitatie.</div>;
+  if (error) return <div>{t("interview_error_loading")}</div>;
 
   return (
     <>
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
-        <Alert.Heading>Slim op sollicitatie</Alert.Heading>
+        <Alert.Heading>{t("error_title")}</Alert.Heading>
         <span>{error}</span>
       </Alert>
 

@@ -17,6 +17,7 @@ import FeedbackList from "../../components/videos/FeedbackList";
 import Unauthorized from "../../components/Unauthorized";
 import CommentList from "../../components/videos/CommentList";
 import User from "../../interfaces/User";
+import { useTranslations } from "next-intl";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
@@ -34,11 +35,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   const props = {
     video: null,
     comments: null,
     feedback: null,
+    messages: (await import(`../../public/locales/${locale}.json`)).default,
   };
 
   if (params !== undefined) {
@@ -71,6 +73,9 @@ interface Props {
 }
 
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
+  const t = useTranslations("videos");
+  const c = useTranslations("comments");
+
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = useState(0);
   const [error, setError] = useState("");
@@ -184,7 +189,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       router.push(
         {
           pathname: `/videos/${video.video_id}`,
-          query: { toast: `Uw ${feedback ? "feedback" : "commentaar"} is toegevoegd!` },
+          query: { toast: `${feedback ? t("feedback_add_success") : t("comment_add_success")}` },
         },
         `/videos/${video.video_id}`
       );
@@ -201,7 +206,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     router.push(
       {
         pathname: `/videos/${video.video_id}`,
-        query: { toast: "Commentaar verwijderd" },
+        query: { toast: t("comment_remove_success") },
       },
       `/videos/${video.video_id}`
     );
@@ -227,7 +232,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     router.push(
       {
         pathname: `/videos/${video.video_id}`,
-        query: { toast: "Commentaar bijgewerkt" },
+        query: { toast: t("comment_update_success") },
       },
       `/videos/${video.video_id}`
     );
@@ -294,36 +299,38 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
           <Breadcrumb.Item active>{video.title}</Breadcrumb.Item>
         </Breadcrumb>
 
-        <h1>Titel: {video.title}</h1>
+        <h1>
+          {t("title")}: {video.title}
+        </h1>
 
         <div className="d-flex flex-wrap gap-3 gap-lg-5">
           <Col sm={12} lg={8}>
             <VideoPlayer userEmail={video.email} videoTitle={video.title} />
           </Col>
           <Col className="d-flex flex-column gap-2">
-            <h2 className="h2 mt-0">Informatie</h2>
+            <h2 className="h2 mt-0">{t("information")}</h2>
             <div>
-              <h4>Titel</h4>
+              <h4>{t("title")}</h4>
               <p>{video.title}</p>
             </div>
             <div>
-              <h4>Beschrijving</h4>
+              <h4>{t("description")}</h4>
               <p>{video.description}</p>
             </div>
             <div>
-              <h4>Geüpload door</h4>
+              <h4>{t("uploaded_by")}</h4>
               <p>
                 {video.name} {video.surname}
               </p>
             </div>
             <div>
-              <h4>Datum</h4>
+              <h4>{t("date")}</h4>
               <p>{new Date(video.date).toLocaleString()}</p>
             </div>
             {user.role == "Lector" && (
               <div>
                 <Button variant="outline-success" onClick={handleShowFeedback}>
-                  Feedback toevoegen
+                  {t("add_feedback")}
                 </Button>
               </div>
             )}
@@ -362,7 +369,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               {!comments && (
                 <Card className="mt-2">
                   <Card.Body>
-                    <Card.Text className="text-center text-muted">Geen commentaar op deze video.</Card.Text>
+                    <Card.Text className="text-center text-muted">{t("no_comments")}</Card.Text>
                   </Card.Body>
                 </Card>
               )}

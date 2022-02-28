@@ -7,13 +7,15 @@ import User from "../../interfaces/User";
 import SpinnerComponent from "../../components/SpinnerComponent";
 import TasksReactTable from "../../components/TasksReactTable";
 import Layout from "../../components/layout/Layout";
+import { useTranslations } from "next-intl";
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
   const data = await res.json();
   return {
     props: {
       tasks: data,
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
   };
 };
@@ -22,26 +24,28 @@ interface Props {
   tasks: Task[];
 }
 
-const columns = [
-  {
-    Header: "Titel",
-    accessor: "title",
-  },
-  {
-    Header: "Beschrijving",
-    accessor: "description",
-  },
-  {
-    Header: "Deadline",
-    accessor: "deadline_string",
-  },
-  {
-    Header: "Gegeven door",
-    accessor: "full_name",
-  },
-];
-
 const TasksIndex: NextPage<Props> = ({ tasks }) => {
+  const t = useTranslations("tasks");
+
+  const columns = [
+    {
+      Header: t("task"),
+      accessor: "title",
+    },
+    {
+      Header: t("description"),
+      accessor: "description",
+    },
+    {
+      Header: t("deadline"),
+      accessor: "deadline_string",
+    },
+    {
+      Header: t("given_by"),
+      accessor: "full_name",
+    },
+  ];
+
   const [loading, setLoading] = useState<boolean>(true);
   const { data: session } = useSession();
   useEffect(() => {
@@ -53,11 +57,11 @@ const TasksIndex: NextPage<Props> = ({ tasks }) => {
   if (user.role === "Lector") return <Unauthorized />;
 
   if (loading) return <SpinnerComponent />;
-  if (tasks.length < 1) return <p>Geen taken gevonden</p>;
+  if (tasks.length < 1) return <p>{t("no_tasks_found")}</p>;
 
   return (
     <Layout>
-      <h1>Mijn taken</h1>
+      <h1>{t("my_tasks")}</h1>
       <TasksReactTable columns={columns} data={tasks} url={"/tasks"} id="task_id" />
     </Layout>
   );

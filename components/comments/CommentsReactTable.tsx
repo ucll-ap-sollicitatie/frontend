@@ -3,10 +3,19 @@ import type { NextPage } from "next";
 import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
 import { useTable, useSortBy, usePagination } from "react-table";
-import RemoveButton from "./buttons/RemoveButton";
-import ShowButton from "./buttons/ShowButton";
-import UpdateButton from "./buttons/UpdateButton";
-import Comment from "../interfaces/Comment";
+import RemoveButton from "../buttons/RemoveButton";
+import ShowButton from "../buttons/ShowButton";
+import UpdateButton from "../buttons/UpdateButton";
+import Comment from "../../interfaces/Comment";
+import { useTranslations } from "next-intl";
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 interface Props {
   columns: any;
@@ -17,6 +26,8 @@ interface Props {
 }
 
 const CommentsReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => {
+  const t = useTranslations("table");
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -51,8 +62,8 @@ const CommentsReactTable: NextPage<Props> = ({ columns, data, url, id, handleSho
               ))}
               {handleShow != null && (
                 <>
-                  <th>Aanpassen</th>
-                  <th>Verwijderen</th>
+                  <th>{t("update")}</th>
+                  <th>{t("remove")}</th>
                 </>
               )}
             </tr>
@@ -94,14 +105,14 @@ const CommentsReactTable: NextPage<Props> = ({ columns, data, url, id, handleSho
         </Pagination>
 
         <span>
-          Page{" "}
+          {t("page")}{" "}
           <strong>
             {pageIndex + 1} of {pageOptions.length}
           </strong>
         </span>
 
         <span>
-          Go to page:{" "}
+          {t("go_to_page")}:{" "}
           <Form.Control
             type="number"
             defaultValue={pageIndex + 1}
@@ -123,7 +134,7 @@ const CommentsReactTable: NextPage<Props> = ({ columns, data, url, id, handleSho
         >
           {[5, 10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
-              Show {pageSize}
+              {t("show")} {pageSize}
             </option>
           ))}
         </Form.Select>

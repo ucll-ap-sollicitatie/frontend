@@ -1,29 +1,41 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import User from "../../interfaces/User";
 import SpinnerComponent from "../SpinnerComponent";
 import StudentsReactTable from "../StudentsReactTable";
 
-const columns = [
-  {
-    Header: "Voornaam",
-    accessor: "name",
-  },
-  {
-    Header: "Familienaam",
-    accessor: "surname",
-  },
-  {
-    Header: "E-mail",
-    accessor: "email",
-  },
-  {
-    Header: "Richting",
-    accessor: "formation",
-  },
-];
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 const StudentsTable: NextPage = () => {
+  const t = useTranslations("students");
+  const u = useTranslations("users");
+
+  const columns = [
+    {
+      Header: t("name"),
+      accessor: "name",
+    },
+    {
+      Header: t("surname"),
+      accessor: "surname",
+    },
+    {
+      Header: t("email"),
+      accessor: "email",
+    },
+    {
+      Header: t("formation"),
+      accessor: "formation",
+    },
+  ];
+
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -45,9 +57,9 @@ const StudentsTable: NextPage = () => {
     fetchData();
   }, []);
 
-  if (error) return <div>Er is een probleem opgetreden bij het laden van uw studenten.</div>;
+  if (error) return <div>{t("error")}</div>;
   if (loading) return <SpinnerComponent />;
-  if (users.length === 0) return <div>U heeft geen studenten op toezicht.</div>;
+  if (users.length === 0) return <div>{t("no_students")}</div>;
 
   return (
     <>

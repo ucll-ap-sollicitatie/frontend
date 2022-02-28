@@ -1,14 +1,25 @@
 import { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Card } from "react-bootstrap";
 import Video from "../../interfaces/Video";
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 interface Props {
   video: Video;
 }
 
 const VideoCard: NextPage<Props> = ({ video }) => {
-  if (!video) return <p>Geen video gevonden</p>;
+  const t = useTranslations("videos");
+
+  if (!video) return <p>{t("no_videos")}</p>;
 
   return (
     <Link href={`/videos/${video.video_id}`} passHref>
