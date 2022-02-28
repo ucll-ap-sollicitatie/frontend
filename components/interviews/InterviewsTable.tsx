@@ -6,20 +6,31 @@ import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import ReactTable from "../ReactTable";
 import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
+import { useTranslations } from "next-intl";
 
-const columns = [
-  {
-    Header: "Categorie",
-    accessor: "category",
-  },
-  {
-    Header: "Aantal vragen",
-    accessor: "amount_of_questions",
-    sortInverted: true,
-  },
-];
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 const InterviewsTable: NextPage = () => {
+  const t = useTranslations("interviews");
+
+  const columns = [
+    {
+      Header: t("category"),
+      accessor: "category",
+    },
+    {
+      Header: t("amount_of_questions"),
+      accessor: "amount_of_questions",
+      sortInverted: true,
+    },
+  ];
+
   const [question_categories, setQuestion_categories] = useState<QuestionCategory[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -60,7 +71,7 @@ const InterviewsTable: NextPage = () => {
     router.push(
       {
         pathname: "/interviews",
-        query: { toast: "Sollicitatie verwijderd" },
+        query: { toast: "Sollicitatie successvol verwijderd" },
       },
       "/interviews"
     );
@@ -68,7 +79,7 @@ const InterviewsTable: NextPage = () => {
     fetchData();
   };
 
-  if (error) return <div>Er is een probleem opgetreden bij het laden van de sollicitaties.</div>;
+  if (error) return <div>{t("interviews_error_loading")}</div>;
   if (loading) {
     return (
       <div>
@@ -76,15 +87,15 @@ const InterviewsTable: NextPage = () => {
       </div>
     );
   }
-  if (question_categories.length === 0) return <div>Geen sollicitaties gevonden.</div>;
+  if (question_categories.length === 0) return <div>{t("no_interviews_found")}</div>;
 
   return (
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Sollicitatie verwijderen</Modal.Title>
+          <Modal.Title>{t("interview_remove")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Bent u zeker dat u deze sollicitatie wilt verwijderen?</Modal.Body>
+        <Modal.Body>{t("interview_remove_confirm")}</Modal.Body>
         <Modal.Footer className="justify-content-center">
           <ConfirmCloseButton handleClose={handleClose} />
           <ConfirmRemoveButton handleDelete={handleDelete} />

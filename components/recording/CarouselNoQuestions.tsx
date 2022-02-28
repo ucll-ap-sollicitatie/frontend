@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Carousel, Image } from "react-bootstrap";
 
 const CarouselNoQuestions: NextPage = () => {
-  const t = useTranslations("recording");
+  const t = useTranslations("carousel");
 
   return (
     <Carousel interval={null} variant="dark" wrap={false}>
