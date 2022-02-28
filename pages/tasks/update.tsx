@@ -7,6 +7,14 @@ import Error from "../_error";
 import UpdateTaskForm from "../../components/tasks/UpdateTaskForm";
 import { useTranslations } from "next-intl";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 const UpdateInterview: NextPage = () => {
   const t = useTranslations("tasks");
 

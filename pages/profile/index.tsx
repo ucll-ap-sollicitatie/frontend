@@ -9,12 +9,15 @@ import OwnVideoOverview from "../../components/videos/OwnVideoOverview";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
   const videos = await res.json();
 
   return {
-    props: { videos: videos },
+    props: {
+      videos: videos,
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
   };
 };
 

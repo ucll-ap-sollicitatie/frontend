@@ -9,35 +9,43 @@ import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
 import { useTranslations } from "next-intl";
 
-const columns = [
-  {
-    Header: "R/U-nummer",
-    accessor: "r_u_number",
-  },
-  {
-    Header: "Voornaam",
-    accessor: "name",
-  },
-  {
-    Header: "Familienaam",
-    accessor: "surname",
-  },
-  {
-    Header: "E-mail",
-    accessor: "email",
-  },
-  {
-    Header: "Richting",
-    accessor: "formation",
-  },
-  {
-    Header: "Rol",
-    accessor: "role",
-  },
-];
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 const UsersTable: NextPage = () => {
   const t = useTranslations("users");
+
+  const columns = [
+    {
+      Header: "R/U-nummer",
+      accessor: "r_u_number",
+    },
+    {
+      Header: t("name"),
+      accessor: "name",
+    },
+    {
+      Header: t("surname"),
+      accessor: "surname",
+    },
+    {
+      Header: t("email"),
+      accessor: "email",
+    },
+    {
+      Header: t("formation"),
+      accessor: "formation",
+    },
+    {
+      Header: t("role"),
+      accessor: "role",
+    },
+  ];
 
   const router = useRouter();
   const [id, setId] = useState<number | string>("");

@@ -8,9 +8,10 @@ import AllVideoOverview from "../../components/videos/AllVideoOverview";
 import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   let props = {
     videos: null,
+    messages: (await import(`../public/locales/${locale}.json`)).default,
   };
 
   const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);

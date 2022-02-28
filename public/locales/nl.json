@@ -2,16 +2,31 @@
   "home": {
     "title": "Slim op sollicitatie",
     "welcome": "Welkom",
-    "login": "Login",
+    "login": "Inloggen",
     "logout": "Logout",
-    "register": "Registreer"
+    "register": "Registreren",
+    "register_new_account": "Account registeren",
+    "register_new_account_error": "Er is een fout opgetreden bij het registreren van uw account",
+    "unauthenticated": "U moet zich eerst inloggen voor u verder kan.",
+    "anauthorized": "U bent niet geautoriseerd om deze pagina te bekijken. Gelieve in te loggen.",
+    "success": "Succes",
+    "copyright": "© 2022 UCLL, Inc",
+    "dashboard": "Dashboard",
+    "my_tasks": "Mijn taken",
+    "interviews:": "Sollicitaties",
+    "recording": "Opnemen",
+    "videos": "Videos",
+    "preferences": "Voorkeuren",
+    "profile": "Profiel",
+    "contact": "Contact"
   },
   "table": {
     "update": "Aanpassen",
-    "delete": "Verwijderen",
+    "remove": "Verwijderen",
     "page": "Pagina",
     "go_to_page": "Ga naar pagina",
-    "show": "Toon"
+    "show": "Toon",
+    "view": "Bekijken"
   },
   "modal": {
     "add": "Toevoegen",
@@ -21,12 +36,18 @@
   },
   "buttons": {
     "update": "Aanpassen",
-    "delete": "Verwijderen"
+    "remove": "Verwijderen",
+    "close": "Sluiten",
+    "view": "Bekijken"
   },
   "errors": {
     "error_title": "Slim op sollicitatie",
     "password_mismatch": "De wachtwoorden komen niet overeen",
-    "update_failed": "Het aanpassen van is mislukt"
+    "update_failed": "Het aanpassen van is mislukt",
+    "status_code": "Foutcode",
+    "404": "Pagina niet gevonden",
+    "500": "Er is een fout opgetreden",
+    "unexpected_error": "Er is een onverwachte fout opgetreden"
   },
   "toasts": {
     "success": "Succes",
@@ -64,7 +85,7 @@
     "password": "Wachtwoord",
     "password_confirmation": "Wachtwoord bevestigen",
     "role": "Rol",
-    "formation": "Formulier",
+    "formation": "Richting",
     "users": "Gebruikers",
     "update_profile": "Profiel aanpassen",
     "my_profile": "Uw profiel",
@@ -151,6 +172,7 @@
     "amount_of_questions": "Aantal vragen",
     "question_add": "Vraag toevoegen",
     "interviews_error_loading": "Er is een probleem opgetreden bij het laden van de sollicitaties.",
+    "interview_error_loading": "Er is een probleem opgetreden bij het laden van de sollicitatie.",
     "no_interviews_found": "Geen sollicitaties gevonden."
   },
   "dashboard": {

@@ -21,7 +21,7 @@ interface Props {
   tasks: Task[];
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const usersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
   const usersJson = await usersRes.json();
 
@@ -40,6 +40,7 @@ export const getStaticProps: GetStaticProps = async () => {
       comments: commentsJson,
       videos: videosJson,
       tasks: tasksJson,
+      messages: (await import(`../public/locales/${locale}.json`)).default,
     },
   };
 };

@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
-import { signIn } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { Button } from "react-bootstrap";
 
 export async function getStaticProps({ locale }) {
@@ -11,14 +11,14 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-const LoginButton: NextPage = () => {
+const RegisterButton: NextPage = () => {
   const t = useTranslations("home");
 
   return (
-    <Button variant="primary" onClick={() => signIn(undefined, { callbackUrl: `/?toast=Successvol ingelogd` })}>
-      {t("login")}
-    </Button>
+    <Link href="/auth/register" passHref>
+      <Button variant="primary">{t("register_new_account")}</Button>
+    </Link>
   );
 };
 
-export default LoginButton;
+export default RegisterButton;

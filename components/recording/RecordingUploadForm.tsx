@@ -3,6 +3,14 @@ import { useTranslations } from "next-intl";
 import { FormEvent } from "react";
 import { Form, OverlayTrigger, Tooltip, Button, Spinner } from "react-bootstrap";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   handleUpload: (event: FormEvent<HTMLFormElement>) => void;
   setMaxChars: (maxChars: number) => void;

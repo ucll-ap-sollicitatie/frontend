@@ -3,6 +3,14 @@ import CommentsReactTable from "./CommentsReactTable";
 import Comment from "../../interfaces/Comment";
 import { useTranslations } from "next-intl";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   comments: Comment[];
 }

@@ -8,6 +8,14 @@ import { useEffect, useState } from "react";
 import Video from "../../interfaces/Video";
 import { useTranslations } from "next-intl";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   user: User;
   videos: Video[];

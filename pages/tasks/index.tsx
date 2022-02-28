@@ -9,12 +9,13 @@ import TasksReactTable from "../../components/TasksReactTable";
 import Layout from "../../components/layout/Layout";
 import { useTranslations } from "next-intl";
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
   const data = await res.json();
   return {
     props: {
       tasks: data,
+      messages: (await import(`../public/locales/${locale}.json`)).default,
     },
   };
 };

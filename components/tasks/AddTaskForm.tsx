@@ -7,6 +7,14 @@ import { Alert } from "react-bootstrap";
 import Unauthenticated from "../Unauthenticated";
 import TaskForm from "./TaskForm";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 const AddTaskForm: NextPage = () => {
   const t = useTranslations("tasks");
   const e = useTranslations("errors");

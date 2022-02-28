@@ -3,6 +3,14 @@ import { useTranslations } from "next-intl";
 import { Carousel, Image } from "react-bootstrap";
 import { Question } from "../../interfaces/Question";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   handleSelect?: (selectedIndex: number) => void | undefined;
   questions: Question[];
