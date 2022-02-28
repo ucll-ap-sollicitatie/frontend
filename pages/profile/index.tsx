@@ -16,7 +16,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       videos: videos,
-      messages: (await import(`../public/locales/${locale}.json`)).default,
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
   };
 };

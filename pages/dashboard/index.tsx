@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
       comments: commentsJson,
       videos: videosJson,
       tasks: tasksJson,
-      messages: (await import(`../public/locales/${locale}.json`)).default,
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
   };
 };

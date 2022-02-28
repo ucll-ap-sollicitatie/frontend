@@ -26,7 +26,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   const props = {
     user: null,
     videos: null,
-    messages: (await import(`../public/locales/${locale}.json`)).default,
+    messages: (await import(`../../public/locales/${locale}.json`)).default,
   };
 
   if (params !== undefined) {

@@ -16,7 +16,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
-  const t = useTranslations("home");
+  //const t = useTranslations("home");
 
   const router = useRouter();
 
@@ -27,7 +27,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <>
       <Head>
-        <title>{t("title")}</title>
+        {/* <title>{t("title")}</title> */}
+        <title>Slim op sollicitatie</title>
         <meta name="description" content="Slim op sollicitatie" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

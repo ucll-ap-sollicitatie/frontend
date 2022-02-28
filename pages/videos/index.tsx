@@ -11,7 +11,7 @@ import { useTranslations } from "next-intl";
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   let props = {
     videos: null,
-    messages: (await import(`../public/locales/${locale}.json`)).default,
+    messages: (await import(`../../public/locales/${locale}.json`)).default,
   };
 
   const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
