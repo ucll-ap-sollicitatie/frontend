@@ -341,6 +341,9 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               <p>{new Date(video.date).toLocaleString()}</p>
             </Row>
             <Row>
+              Likes: {video.likes}
+            </Row>
+            <Row>
               {videoLiked && (
                 <Button variant="outline-secondary" onClick={() => handleUnlikeVideo(session.user.email, video.video_id)} className="ms-auto">
                   Vind ik niet leuk
