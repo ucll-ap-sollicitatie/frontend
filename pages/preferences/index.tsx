@@ -59,6 +59,27 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
     }
   };
 
+  const test = () => {
+    question_categories.map((QuestionCategory) => {
+      if (QuestionCategory.category == 'Algemeen') {
+        return (        
+        <option key={QuestionCategory.question_category_id} value={QuestionCategory.question_category_id} selected>
+          {QuestionCategory.category}
+        </option>
+        )
+
+      }
+      else {
+        return 
+        (
+        <option key={QuestionCategory.question_category_id} value={QuestionCategory.question_category_id}>
+          {QuestionCategory.category}
+        </option>
+        )
+      }
+    })
+  }
+
   return (
     <Layout>
       <Navbar></Navbar>
@@ -72,11 +93,12 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
             <Form.Group controlId="preference_1">
               <Form.Label>Preferentie 1</Form.Label>
               <Form.Select required>
-                {question_categories.map((QuestionCategory) => (
+                {/* {question_categories.map((QuestionCategory) => (
                   <option key={QuestionCategory.question_category_id} value={QuestionCategory.question_category_id}>
                     {QuestionCategory.category}
                   </option>
-                ))}
+                ))} */}
+                {test()}
               </Form.Select>
             </Form.Group>
 
