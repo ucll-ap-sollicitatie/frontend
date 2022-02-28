@@ -10,19 +10,10 @@ import { useRef, useCallback } from "react";
 import { Breadcrumb, Button, Form, OverlayTrigger, Tooltip, Col, Row, DropdownButton, Dropdown, Carousel } from "react-bootstrap";
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
-import { Stopwatch } from "ts-stopwatch";
-import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
-// import ReactStopwatch from 'react-stopwatch';
 import router from "next/router";
-
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
-// import ReactStopwatch from 'react-stopwatch';
-// const videoConstraints = {
-//   width: 1280,
-//   height: 720,
-//   facingMode: "user",
-// };
+
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`http://localhost:3001/question-categories`);
   const categories = await res.json();

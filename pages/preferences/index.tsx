@@ -35,7 +35,7 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
 
     const res = await fetch("http://localhost:3001/preferences", {
       body: JSON.stringify({
-        r_u_number: session.user.r_u_number,
+        email: session.user.email,
         preference_1: target.preference_1.value,
         preference_2: target.preference_2.value,
         preference_3: target.preference_3.value,
