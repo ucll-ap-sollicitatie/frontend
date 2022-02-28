@@ -2,7 +2,7 @@ import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "ne
 import { useSession } from "next-auth/react";
 import { Breadcrumb, Button, Card, Col, Row } from "react-bootstrap";
 import { useSWRConfig } from "swr";
-import React, { FormEvent } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import router from "next/router";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
@@ -17,6 +17,7 @@ import Comment from "../../interfaces/Comment";
 import FeedbackList from "../../components/videos/FeedbackList";
 import Unauthorized from "../../components/Unauthorized";
 import CommentList from "../../components/videos/CommentList";
+import { User } from "next-auth";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch("http://localhost:3001/videos/");
@@ -83,6 +84,49 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [showFeedback, setShowFeedback] = React.useState(false);
   const [commentId, setCommentId] = React.useState(0);
   const [currentComment, setCurrentComment] = React.useState(comments == null ? [] : comments[0]);
+
+  const handleLikeVideo = async (email: string, video_id: number) => {
+    await fetch(`http://localhost:3001/videos/likes/${video_id}/like`, {
+      method: "POST",
+      body: JSON.stringify({ email: email}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  const handleUnlikeVideo = async (email: string, video_id: number) => {
+    await fetch(`http://localhost:3001/videos/likes/${video_id}/unlike`, {
+      method: "POST",
+      body: JSON.stringify({ email: email}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  const [videoLiked, setVideoLiked] = useState(false);
+
+  const fetchData = async () => {
+    const res = await fetch(`http://localhost:3001/videos/likes/${video.video_id}/check`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: session.user.email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.ok) {
+      setVideoLiked(true);
+    } else {
+      setVideoLiked(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  });
 
   const handleRemoveLike = async (email: string, comment_id: number) => {
     await fetch(`http://localhost:3001/comments/likes/${comment_id}/unlike`, {
@@ -295,6 +339,21 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
             </Row>
             <Row>
               <p>{new Date(video.date).toLocaleString()}</p>
+            </Row>
+            <Row>
+              Likes: {video.likes}
+            </Row>
+            <Row>
+              {videoLiked && (
+                <Button variant="outline-secondary" onClick={() => handleUnlikeVideo(session.user.email, video.video_id)} className="ms-auto">
+                  Vind ik niet leuk
+                </Button>
+              )}
+              {!videoLiked && (
+                <Button variant="outline-secondary" onClick={() => handleLikeVideo(session.user.email, video.video_id)} className="ms-auto">
+                  Vind ik leuk
+                </Button>
+              )}
             </Row>
             {session.user.role == "Lector" && (
               <Row>

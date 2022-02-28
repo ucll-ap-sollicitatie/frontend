@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import { Button, Card } from "react-bootstrap";
-import { capitalize } from "../../helpers/helperFunctions";
 import User from "../../interfaces/User";
 import UpdateUserutton from "../users/UpdateUserButton";
 
@@ -9,6 +9,14 @@ interface Props {
 }
 
 const ProfileCard: NextPage<Props> = ({ user }) => {
+  const { data: session } = useSession();
+
+  const updateComponent = () => {
+    if (session?.user?.email === user.email || session?.user?.role === "Admin") {
+      return <UpdateUserutton email={user.email} />;
+    }
+  };
+
   return (
     <Card style={{ maxWidth: "22rem" }}>
       <Card.Img variant="top" src={user.image} />
@@ -18,14 +26,14 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
           {user.name} {user.surname}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted fst-italic">
-          {capitalize(user.role)} - {user.formation}
+          {user.role} - {user.formation}
         </Card.Subtitle>
       </Card.Body>
 
       <Card.Body className="border-top">
         <Card.Text>{user.r_u_number}</Card.Text>
         <Card.Text>{user.email}</Card.Text>
-        <UpdateUserutton email={user.email} />
+        {updateComponent()}
       </Card.Body>
     </Card>
   );

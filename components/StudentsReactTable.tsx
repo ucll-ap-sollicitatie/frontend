@@ -3,7 +3,6 @@ import type { NextPage } from "next";
 import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
 import { useTable, useSortBy, usePagination } from "react-table";
-import RemoveButton from "./buttons/RemoveButton";
 import ShowButton from "./buttons/ShowButton";
 
 interface Props {
@@ -11,10 +10,9 @@ interface Props {
   data: any;
   url: string;
   id: string | number;
-  handleShow?: (id: string | number) => void;
 }
 
-const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => {
+const StudentsReactTable: NextPage<Props> = ({ columns, data, url, id }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -56,7 +54,6 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
                 </th>
               ))}
               <th>Bekijken</th>
-              <th>Verwijderen</th>
             </tr>
           ))}
         </thead>
@@ -70,9 +67,6 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
                 })}
                 <td>
                   <ShowButton url={`${url}/${row.original[id]}`} />
-                </td>
-                <td>
-                  <RemoveButton handleShow={handleShow} id={row.original[id]} />
                 </td>
               </tr>
             );
@@ -89,14 +83,14 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
         </Pagination>
 
         <span>
-          Page{" "}
+          Pagina{" "}
           <strong>
-            {pageIndex + 1} of {pageOptions.length}
+            {pageIndex + 1} van {pageOptions.length}
           </strong>
         </span>
 
         <span>
-          Go to page:{" "}
+          Naar pagina:{" "}
           <Form.Control
             type="number"
             defaultValue={pageIndex + 1}
@@ -127,4 +121,4 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
   );
 };
 
-export default ReactTable;
+export default StudentsReactTable;

@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
 import Video from "../../interfaces/Video";
+import VideoCard from "./VideoCard";
 import Unauthenticated from "../Unauthenticated";
 
 interface Props {
@@ -18,18 +18,7 @@ const ProfileVideoOverview: NextPage<Props> = ({ videos }) => {
         <div className="row">
           {videos.map((video: Video) => (
             <div className="col-md-5 border" key={video.video_id}>
-              <Link href={`/videos/${video.video_id}`}>
-                <div className="card border-0">
-                  <img
-                    src={`https://res.cloudinary.com/dou4tgpae/video/upload/w_640,h_480/v1645438283/SOS/${video.email}/${video.title}.jpg`}
-                    alt={video.title}
-                  />
-                  <div className="card-body">
-                    <p>{video.title}</p>
-                    <p>{new Date(video.date).toDateString()}</p>
-                  </div>
-                </div>
-              </Link>
+              <VideoCard video={video} />
             </div>
           ))}
         </div>

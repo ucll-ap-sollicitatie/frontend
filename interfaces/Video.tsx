@@ -8,4 +8,5 @@ export default interface Video {
   private: boolean;
   name: string;
   surname: string;
+  likes: number;
 }
