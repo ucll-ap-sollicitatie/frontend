@@ -6,6 +6,14 @@ import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import UsersTable from "../../components/users/UsersTable";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 const Profile: NextPage = () => {
   const t = useTranslations("users");
 

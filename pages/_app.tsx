@@ -5,7 +5,7 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 
 import { SessionProvider } from "next-auth/react";
-import { NextIntlProvider } from "next-intl";
+import { NextIntlProvider, useTranslations } from "next-intl";
 
 import Head from "next/head";
 import NextNProgress from "nextjs-progressbar";
@@ -16,6 +16,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
+  const t = useTranslations("home");
+
   const router = useRouter();
 
   useEffect(() => {
@@ -25,7 +27,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <>
       <Head>
-        <title>Slim op sollicitatie</title>
+        <title>{t("title")}</title>
         <meta name="description" content="Slim op sollicitatie" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

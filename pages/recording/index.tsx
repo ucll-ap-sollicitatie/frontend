@@ -21,12 +21,15 @@ import User from "../../interfaces/User";
 import SpinnerComponent from "../../components/SpinnerComponent";
 import { useTranslations } from "next-intl";
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
   const categories: QuestionCategory[] = await res.json();
 
   return {
-    props: { categories: categories },
+    props: {
+      categories: categories,
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
   };
 };
 

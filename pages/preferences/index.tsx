@@ -9,12 +9,15 @@ import Unauthenticated from "../../components/Unauthenticated";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import User from "../../interfaces/User";
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const question_categories_response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
   const question_categories = await question_categories_response.json();
 
   return {
-    props: { question_categories: question_categories },
+    props: {
+      question_categories: question_categories,
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
   };
 };
 

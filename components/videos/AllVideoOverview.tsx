@@ -7,6 +7,14 @@ import Video from "../../interfaces/Video";
 import Unauthenticated from "../Unauthenticated";
 import VideoCard from "./VideoCard";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   videos: Video[];
   user: User;

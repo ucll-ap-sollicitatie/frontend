@@ -9,6 +9,14 @@ import UpdateButton from "../buttons/UpdateButton";
 import Comment from "../../interfaces/Comment";
 import { useTranslations } from "next-intl";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   columns: any;
   data: Comment[];
@@ -55,7 +63,7 @@ const CommentsReactTable: NextPage<Props> = ({ columns, data, url, id, handleSho
               {handleShow != null && (
                 <>
                   <th>{t("update")}</th>
-                  <th>{t("delete")}</th>
+                  <th>{t("remove")}</th>
                 </>
               )}
             </tr>

@@ -4,6 +4,15 @@ import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
 import { useTable, useSortBy, usePagination } from "react-table";
 import ShowButton from "./buttons/ShowButton";
+import { useTranslations } from "next-intl";
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 interface Props {
   columns: any;
@@ -13,6 +22,8 @@ interface Props {
 }
 
 const StudentsReactTable: NextPage<Props> = ({ columns, data, url, id }) => {
+  const t = useTranslations("table");
+
   const {
     getTableProps,
     getTableBodyProps,
@@ -45,7 +56,7 @@ const StudentsReactTable: NextPage<Props> = ({ columns, data, url, id }) => {
                   </span>
                 </th>
               ))}
-              <th>Bekijken</th>
+              <th>{t("view")}</th>
             </tr>
           ))}
         </thead>
@@ -75,14 +86,14 @@ const StudentsReactTable: NextPage<Props> = ({ columns, data, url, id }) => {
         </Pagination>
 
         <span>
-          Pagina{" "}
+          {t("page")}{" "}
           <strong>
             {pageIndex + 1} van {pageOptions.length}
           </strong>
         </span>
 
         <span>
-          Naar pagina:{" "}
+          {t("go_to_page")}:{" "}
           <Form.Control
             type="number"
             defaultValue={pageIndex + 1}
@@ -104,7 +115,7 @@ const StudentsReactTable: NextPage<Props> = ({ columns, data, url, id }) => {
         >
           {[5, 10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
-              Show {pageSize}
+              {t("show")} {pageSize}
             </option>
           ))}
         </Form.Select>

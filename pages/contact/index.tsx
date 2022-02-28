@@ -3,6 +3,14 @@ import { useTranslations } from "next-intl";
 import { Breadcrumb, Table } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 const Contact: NextPage = () => {
   const t = useTranslations("contact");
 

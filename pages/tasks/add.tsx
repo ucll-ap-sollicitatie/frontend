@@ -5,6 +5,14 @@ import Unauthenticated from "../../components/Unauthenticated";
 import AddTaskForm from "../../components/tasks/AddTaskForm";
 import { useTranslations } from "next-intl";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 const AddTask: NextPage = () => {
   const t = useTranslations("tasks");
 

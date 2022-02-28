@@ -4,6 +4,14 @@ import { FormEvent } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import Comment from "../../interfaces/Comment";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   comment: Comment | null;
   maxChars: number;

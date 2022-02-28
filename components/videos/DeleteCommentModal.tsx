@@ -3,6 +3,14 @@ import { useTranslations } from "next-intl";
 import { Modal, Button } from "react-bootstrap";
 import Comment from "../../interfaces/Comment";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   comment: Comment | null;
   showDelete: boolean;

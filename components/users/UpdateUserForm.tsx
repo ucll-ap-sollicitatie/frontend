@@ -8,6 +8,14 @@ import User from "../../interfaces/User";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   email: string;
 }

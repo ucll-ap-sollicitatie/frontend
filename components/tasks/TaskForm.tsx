@@ -4,6 +4,14 @@ import { FormEvent } from "react";
 import { Button, Form, Stack } from "react-bootstrap";
 import Task from "../../interfaces/Task";
 
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../public/locales/${locale}.json`)).default,
+    },
+  };
+}
+
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   task?: Task;
