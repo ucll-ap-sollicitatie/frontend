@@ -74,6 +74,7 @@ interface Props {
 
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const t = useTranslations("videos");
+  const c = useTranslations("comments");
 
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = useState(0);
@@ -188,7 +189,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       router.push(
         {
           pathname: `/videos/${video.video_id}`,
-          query: { toast: `Uw ${feedback ? "feedback" : "commentaar"} is toegevoegd!` },
+          query: { toast: `${feedback ? t("feedback_add_success") : t("comment_add_success")}` },
         },
         `/videos/${video.video_id}`
       );
@@ -205,7 +206,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     router.push(
       {
         pathname: `/videos/${video.video_id}`,
-        query: { toast: "Commentaar verwijderd" },
+        query: { toast: t("comment_remove_success") },
       },
       `/videos/${video.video_id}`
     );
@@ -231,7 +232,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     router.push(
       {
         pathname: `/videos/${video.video_id}`,
-        query: { toast: "Commentaar bijgewerkt" },
+        query: { toast: t("comment_update_success") },
       },
       `/videos/${video.video_id}`
     );

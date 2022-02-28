@@ -70,7 +70,7 @@ const TasksTable: NextPage<Props> = ({ allTasks }) => {
     router.push(
       {
         pathname: "/dashboard",
-        query: { toast: "Taak verwijderd" },
+        query: { toast: t("task_remove_success") },
       },
       "/dashboard"
     );

@@ -184,7 +184,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
           router.push(
             {
               pathname: `/profile`,
-              query: { toast: "Video geupload" },
+              query: { toast: t("upload_success") },
             },
             `/videos`
           );
@@ -196,7 +196,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
           router.push(
             {
               pathname: `/recording`,
-              query: { toast: "Video upload gefaald" },
+              query: { toast: t("upload_failed") },
             },
             `/recording`
           );

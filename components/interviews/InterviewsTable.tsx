@@ -71,7 +71,7 @@ const InterviewsTable: NextPage = () => {
     router.push(
       {
         pathname: "/interviews",
-        query: { toast: "Sollicitatie successvol verwijderd" },
+        query: { toast: t("interview_remove_success") },
       },
       "/interviews"
     );

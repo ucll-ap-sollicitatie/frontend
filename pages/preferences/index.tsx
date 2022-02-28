@@ -59,7 +59,7 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
     } else {
       router.push({
         pathname: "/",
-        query: { toast: "U heeft uw preferenties toegevoegd!" },
+        query: { toast: t("preferences_update_success") },
       });
     }
   };

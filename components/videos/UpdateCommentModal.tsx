@@ -28,13 +28,13 @@ const UpdateCommentModal: NextPage<Props> = ({ comment, maxChars, showUpdate, ha
   return (
     <Modal show={showUpdate} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>{t("update_comment")}</Modal.Title>
+        <Modal.Title>{t("comment_update")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleUpdateComment} className="col-md-12 col-lg-10 col-xl-8">
           <div className="gap-4 flex-wrap">
             <Form.Group controlId="comment">
-              <Form.Label>{t("update_comment")}</Form.Label>
+              <Form.Label>{t("comment_update")}</Form.Label>
               <Form.Control onChange={(e) => setMaxChars(e.target.value.length)} maxLength={255} as="textarea" placeholder={comment?.text} required />
               <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
             </Form.Group>

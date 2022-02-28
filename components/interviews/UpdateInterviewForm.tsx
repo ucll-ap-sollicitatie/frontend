@@ -102,7 +102,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
     router.push(
       {
         pathname: `/interviews/${id}`,
-        query: { toast: "Sollicitatie succesvol aangepast" },
+        query: { toast: t("interview_update_success") },
       },
       `/interviews/${id}`
     );

@@ -50,8 +50,7 @@
     "unexpected_error": "Er is een onverwachte fout opgetreden"
   },
   "toasts": {
-    "success": "Succes",
-    "error": "Fout"
+    "success": "Succes"
   },
   "videos": {
     "all": "Alle videos",
@@ -69,14 +68,18 @@
     "no_comments": "Geen commentaar deze video.",
     "comment_add": "Voeg commentaar toe",
     "add_comment": "Commentaar toevoegen",
-    "update_comment": "Commentaar toevoegen",
+    "comment_add_success": "Commentaar succesvol toegevoegd",
+    "comment_update": "Commentaar aanpassen",
+    "comment_update_success": "Commentaar succesvol aangepast",
     "characters": "Karakters",
     "options": "Opties",
     "likes": "Likes",
     "like": "Vind ik leuk",
     "dislike": "Vind ik niet leuk",
     "comment_remove": "Commentaar verwijderen",
-    "comment_remove_confirm": "Bent u zeker dat u dit commentaar wilt verwijderen?"
+    "comment_remove_confirm": "Bent u zeker dat u dit commentaar wilt verwijderen?",
+    "comment_remove_success": "Het commentaar is succesvol verwijderd.",
+    "feedback_add_success": "Feedback succesvol toegevoegd"
   },
   "users": {
     "name": "Naam",
@@ -88,6 +91,7 @@
     "formation": "Richting",
     "users": "Gebruikers",
     "update_profile": "Profiel aanpassen",
+    "update_profile_success": "Uw profiel is succesvol aangepast.",
     "my_profile": "Uw profiel",
     "my_videos": "Uw video's",
     "profile_edit": "Profiel aanpassen",
@@ -96,7 +100,8 @@
     "no_users": "Geen gebruikers gevonden.",
     "users_loading_failed": "Er is een probleem opgetreden bij het laden van de gebruikers.",
     "remove_user": "Gebruiker verwijderen",
-    "remove_user_confirm": "Bent u zeker dat u deze gebruiker wilt verwijderen?"
+    "remove_user_confirm": "Bent u zeker dat u deze gebruiker wilt verwijderen?",
+    "remove_user_success": "De gebruiker is succesvol verwijderd."
   },
   "students": {
     "error": "Er is een probleem opgetreden bij het laden van uw studenten.",
@@ -115,6 +120,7 @@
     "add_failed": "Het aanpassen van is mislukt",
     "task_remove": "Taak verwijderen",
     "task_remove_confirm": "Bent u zeker dat u deze taak wilt verwijderen?",
+    "task_remove_success": "Taak succesvol verwijderd",
     "task_update_failed": "Er is een probleem opgetreden bij het aanpassen van de taak.",
     "task_update_unauthorized": "U bent niet gemachtigd om deze taak aan te passen."
   },
@@ -130,6 +136,8 @@
     "recording_private": "Privé: alleen lectoren kunnen jouw video zien",
     "upload": "Uploaden",
     "uploading": "Aan het uploaden...",
+    "upload_failed": "Het uploaden van uw video is mislukt",
+    "upload_success": "Uw video is succesvol geüpload",
     "back": "Terug",
     "recording_error_title": "De titel mag geen '?' of '#' bevatten.",
     "start_recording": "Opnemen starten",
@@ -156,14 +164,18 @@
     "form_title": "Kies 3 categorieën waarover je interviews wilt krijgen.",
     "preference": "Voorkeur",
     "preferences_update": "Voorkeuren aanpassen",
-    "error": "Er is een probleem opgetreden bij aanpassen van uw preferenties."
+    "error": "Er is een probleem opgetreden bij aanpassen van uw preferenties.",
+    "preferences_update_success": "Uw voorkeuren zijn succesvol aangepast."
   },
   "interviews": {
     "title": "Sollicitaties",
     "interview_add": "Sollicitatie toevoegen",
+    "interview_add_success": "Sollicitatie succesvol toegevoegd",
     "interview_update": "Sollicitatie aanpassen",
+    "interview_update_success": "Sollicitatie succesvol aangepast",
     "interview_remove": "Sollicitatie verwijderen",
     "interview_remove_confirm": "Bent u zeker dat u deze sollicitatie wilt verwijderen?",
+    "interview_remove_success": "Sollicitatie succesvol verwijderd",
     "interview_error_exists": "Categorie bestaat al",
     "question_remove": "Vraag verwijderen",
     "question_remove_confirm": "Bent u zeker dat u deze vraag wilt verwijderen?",
