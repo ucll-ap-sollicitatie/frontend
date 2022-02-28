@@ -8,27 +8,30 @@ import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
 import Task from "../../interfaces/Task";
 import TasksReactTable from "../TasksReactTable";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   allTasks: Task[];
 }
 
-const columns = [
-  {
-    Header: "Titel",
-    accessor: "title",
-  },
-  {
-    Header: "Beschrijving",
-    accessor: "description",
-  },
-  {
-    Header: "Deadline",
-    accessor: "deadline_string",
-  },
-];
-
 const TasksTable: NextPage<Props> = ({ allTasks }) => {
+  const t = useTranslations("tasks");
+
+  const columns = [
+    {
+      Header: t("task"),
+      accessor: "title",
+    },
+    {
+      Header: t("description"),
+      accessor: "description",
+    },
+    {
+      Header: t("deadline"),
+      accessor: "deadline_string",
+    },
+  ];
+
   const { data: session } = useSession();
   const router = useRouter();
   const [id, setId] = useState<number | string>("");
@@ -65,18 +68,16 @@ const TasksTable: NextPage<Props> = ({ allTasks }) => {
     );
   };
 
-  if (tasks.length < 1) return <p>U heeft geen taken</p>;
+  if (tasks.length < 1) return <p>{t("no_tasks")}</p>;
   if (loading) return <SpinnerComponent />;
 
   return (
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Taak verwijderen</Modal.Title>
+          <Modal.Title>{t("task_remove")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          Bent u zeker dat u taak <span className="font-italic">{id}</span> wilt verwijderen?
-        </Modal.Body>
+        <Modal.Body>{t("task_remove_confirm")}</Modal.Body>
         <Modal.Footer className="justify-content-center">
           <ConfirmCloseButton handleClose={handleClose} />
           <ConfirmRemoveButton handleDelete={handleDelete} />
