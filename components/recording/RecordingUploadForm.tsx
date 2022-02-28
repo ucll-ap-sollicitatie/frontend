@@ -1,13 +1,13 @@
 import { NextPage } from "next";
-import error from "next/error";
-import { Form, OverlayTrigger, Tooltip, Button, Spinner, Alert } from "react-bootstrap";
+import { FormEvent } from "react";
+import { Form, OverlayTrigger, Tooltip, Button, Spinner } from "react-bootstrap";
 
 interface Props {
-  handleUpload: Function;
-  setMaxChars: Function;
+  handleUpload: (event: FormEvent<HTMLFormElement>) => void;
+  setMaxChars: (maxChars: number) => void;
   maxChars: number;
-  handleBackClick: Function;
-  setUploading: Function;
+  handleBackClick: () => void;
+  setUploading: (uploading: boolean) => void;
   uploading: boolean;
 }
 
@@ -15,7 +15,7 @@ const RecordingUploadForm: NextPage<Props> = ({ handleUpload, setMaxChars, maxCh
   return (
     <Form onSubmit={handleUpload} className="col-md-12 col-lg-10 col-xl-8">
       <div className="d-flex gap-4 flex-wrap">
-        <Form.Group controlId="title">
+        <Form.Group controlId="file_title">
           <Form.Label>Titel:</Form.Label>
           <Form.Control type="text" placeholder="e.g. Mijn interviewopname" required />
           <Form.Text className="text-muted">Titel mag geen vraagtekens (?) of hashtags (#) bevatten</Form.Text>
