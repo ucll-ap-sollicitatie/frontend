@@ -41,7 +41,7 @@ const MyProfile: NextPage<Props> = ({ user, videos }) => {
       <ProfileCard user={user} />
       <br />
 
-      <h2 className="h2">{t("own_videos")}</h2>
+      <h2 className="h2">{t("my_videos")}</h2>
       <OwnVideoOverview videos={myVideos} />
     </Layout>
   );
