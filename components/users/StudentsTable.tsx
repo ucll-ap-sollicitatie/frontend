@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import User from "../../interfaces/User";
 import SpinnerComponent from "../SpinnerComponent";
@@ -24,6 +25,8 @@ const columns = [
 ];
 
 const StudentsTable: NextPage = () => {
+  const t = useTranslations("students");
+
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -45,9 +48,9 @@ const StudentsTable: NextPage = () => {
     fetchData();
   }, []);
 
-  if (error) return <div>Er is een probleem opgetreden bij het laden van uw studenten.</div>;
+  if (error) return <div>{t("error")}</div>;
   if (loading) return <SpinnerComponent />;
-  if (users.length === 0) return <div>U heeft geen studenten op toezicht.</div>;
+  if (users.length === 0) return <div>{t("no_students")}</div>;
 
   return (
     <>

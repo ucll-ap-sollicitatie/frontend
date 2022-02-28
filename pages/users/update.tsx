@@ -5,8 +5,11 @@ import Unauthenticated from "../../components/Unauthenticated";
 import { useRouter } from "next/router";
 import Error from "../_error";
 import UpdateUserForm from "../../components/users/UpdateUserForm";
+import { useTranslations } from "next-intl";
 
 const UpdateInterview: NextPage = () => {
+  const t = useTranslations("users");
+
   const router = useRouter();
   const query = router.query as { email: string };
   const { data: session } = useSession();
@@ -15,7 +18,7 @@ const UpdateInterview: NextPage = () => {
 
   return (
     <Layout>
-      <h1>Profiel aanpassen</h1>
+      <h1>{t("update_profile")}</h1>
 
       <UpdateUserForm email={query.email} />
     </Layout>

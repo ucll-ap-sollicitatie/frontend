@@ -23,6 +23,15 @@
     "update": "Aanpassen",
     "delete": "Verwijderen"
   },
+  "errors": {
+    "title": "Slim op sollicitatie",
+    "password_mismatch": "De wachtwoorden komen niet overeen",
+    "update_failed": "Het aanpassen van is mislukt"
+  },
+  "toasts": {
+    "success": "Succes",
+    "error": "Fout"
+  },
   "videos": {
     "all": "Alle videos",
     "title": "Titel",
@@ -47,5 +56,29 @@
     "dislike": "Vind ik niet leuk",
     "comment_remove": "Commentaar verwijderen",
     "comment_remove_confirm": "Bent u zeker dat u dit commentaar wilt verwijderen?"
+  },
+  "users": {
+    "name": "Naam",
+    "surname": "Familienaam",
+    "email": "E-mail adres",
+    "password": "Wachtwoord",
+    "password_confirmation": "Wachtwoord bevestigen",
+    "role": "Rol",
+    "formation": "Formulier",
+    "users": "Gebruikers",
+    "update_profile": "Profiel aanpassen",
+    "own_profile": "Uw profiel",
+    "own_videos": "Uw video's",
+    "profile_edit": "Profiel aanpassen",
+    "user_profile": "Profiel van",
+    "user_videos": "Video's van",
+    "no_users": "Geen gebruikers gevonden.",
+    "users_loading_failed": "Er is een probleem opgetreden bij het laden van de gebruikers.",
+    "remove_user": "Gebruiker verwijderen",
+    "remove_user_confirm": "Bent u zeker dat u deze gebruiker wilt verwijderen?"
+  },
+  "students": {
+    "error": "Er is een probleem opgetreden bij het laden van uw studenten.",
+    "no_students": "U heeft geen studenten op toezicht."
   }
 }

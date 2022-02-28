@@ -6,12 +6,15 @@ import SpinnerComponent from "../SpinnerComponent";
 import UserForm from "./UserForm";
 import User from "../../interfaces/User";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   email: string;
 }
 
 const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
+  const t = useTranslations("errors");
+
   const router = useRouter();
   const session = useSession();
 
@@ -37,7 +40,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
 
     // Check passwords
     if (target.password.value != target.password_check.value) {
-      setError("De wachtwoorden komen niet overeen");
+      setError(t("password_mismatch"));
       setShow(true);
       return;
     }
@@ -59,10 +62,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
       method: "PUT",
     });
     if (!res.ok) {
-      const data = await res.json();
-      console.log(data);
-
-      setError(data.error);
+      setError(t("update_failed"));
       setShow(true);
       return;
     }
@@ -93,7 +93,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
   return (
     <>
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
-        <Alert.Heading>Slim op sollicitatie</Alert.Heading>
+        <Alert.Heading>{t("title")}</Alert.Heading>
         <span>{error}</span>
       </Alert>
 

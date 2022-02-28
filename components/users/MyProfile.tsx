@@ -7,6 +7,7 @@ import OwnVideoOverview from "../videos/ProfileVideoOverview";
 import ProfileCard from "../profile/ProfileCard";
 import Video from "../../interfaces/Video";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 interface Props {
   user: User;
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const MyProfile: NextPage<Props> = ({ user, videos }) => {
+  const t = useTranslations("users");
+
   const [myVideos, setVideos] = useState<Video[]>([]);
   const { data: session } = useSession();
 
@@ -34,11 +37,11 @@ const MyProfile: NextPage<Props> = ({ user, videos }) => {
         <Breadcrumb.Item active>Profiel</Breadcrumb.Item>
       </Breadcrumb>
 
-      <h1>Uw profiel</h1>
+      <h1>{t("my_profile")}</h1>
       <ProfileCard user={user} />
       <br />
 
-      <h2 className="h2">Uw video&apos;s</h2>
+      <h2 className="h2">{t("own_videos")}</h2>
       <OwnVideoOverview videos={myVideos} />
     </Layout>
   );
