@@ -27,7 +27,7 @@ const InterviewsTable: NextPage = () => {
   const fetchData = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
 
-    if (res.status !== 200) {
+    if (!res.ok) {
       setError(true);
     } else {
       const data = await res.json();
