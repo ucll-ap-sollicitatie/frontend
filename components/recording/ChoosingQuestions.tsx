@@ -39,7 +39,10 @@ const ChoosingQuestions: NextPage<Props> = ({ handleRandomClick, categories, han
 =======
           {categories.map((category: QuestionCategory) => (
             <Dropdown.Item onClick={() => handleCategoryClick(category)} key={category.question_category_id}>
+<<<<<<< HEAD
 >>>>>>> fixed front end build errors
+=======
+>>>>>>> 467957f (fixed front end build errors)
               {category.category}
             </Dropdown.Item>
           ))}
