@@ -16,7 +16,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
     props: {
       question_categories: question_categories,
-      messages: (await import(`../public/locales/${locale}.json`)).default,
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
   };
 };

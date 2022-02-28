@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     video: null,
     comments: null,
     feedback: null,
-    messages: (await import(`../public/locales/${locale}.json`)).default,
+    messages: (await import(`../../public/locales/${locale}.json`)).default,
   };
 
   if (params !== undefined) {

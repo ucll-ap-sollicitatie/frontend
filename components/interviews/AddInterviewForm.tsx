@@ -8,7 +8,7 @@ import InterviewForm from "./InterviewForm";
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
+      messages: (await import(`../../../public/locales/${locale}.json`)).default,
     },
   };
 }

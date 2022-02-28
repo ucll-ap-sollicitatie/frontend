@@ -9,7 +9,7 @@ import Video from "../../interfaces/Video";
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      messages: (await import(`../public/locales/${locale}.json`)).default,
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
   };
 }

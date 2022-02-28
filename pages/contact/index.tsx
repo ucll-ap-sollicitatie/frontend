@@ -6,7 +6,7 @@ import Layout from "../../components/layout/Layout";
 export async function getStaticProps({ locale }) {
   return {
     props: {
-      messages: (await import(`../public/locales/${locale}.json`)).default,
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
   };
 }
@@ -21,14 +21,15 @@ const Contact: NextPage = () => {
         <Breadcrumb.Item active>Contact</Breadcrumb.Item>
       </Breadcrumb>
 
-      <h1>{t("contact")}</h1>
+      <h1>{t("title")}</h1>
+
+      <p>{t("contact_description")}</p>
       <p>
-        {t("contact_description")}
-        <br />
         {t("contact_us")}
         <br />
         UCLL mail: leuven@ucll.be
       </p>
+      <br />
 
       <h2>{t("team")}</h2>
       <Table bordered hover responsive>
