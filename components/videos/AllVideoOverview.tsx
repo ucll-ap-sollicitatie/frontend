@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { Row } from "react-bootstrap";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
 import Unauthenticated from "../Unauthenticated";
@@ -13,22 +14,19 @@ interface Props {
 const AllVideoOverview: NextPage<Props> = ({ videos, user }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
-  if (!videos) return <h1>Geen video's gevonden</h1>;
+  if (!videos) return <p>Geen video's gevonden</p>;
 
   return (
-    <>
-      <h1>Alle video's</h1>
-      <div className="row">
-        {videos.map(
-          (video: Video) =>
-            (!video.private || user.role != "Student") && (
-              <div className="col-md-4 border" key={video.video_id}>
-                <VideoCard video={video} />
-              </div>
-            )
-        )}
-      </div>
-    </>
+    <Row className="g-4">
+      {videos.map(
+        (video: Video) =>
+          (!video.private || user.role != "Student") && (
+            <div className="col-md-6 col-lg-4 col-xl-3" key={video.video_id}>
+              <VideoCard video={video} />
+            </div>
+          )
+      )}
+    </Row>
   );
 };
 

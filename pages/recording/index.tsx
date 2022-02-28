@@ -1,25 +1,27 @@
 import type { GetStaticProps, NextPage } from "next";
-import React from "react";
 import { FormEvent, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useRef, useCallback } from "react";
+import { Breadcrumb, Button, Stack, Alert } from "react-bootstrap";
+import { Question } from "../../interfaces/Question";
+import { QuestionCategory } from "../../interfaces/QuestionCategory";
+import { Stopwatch } from "ts-stopwatch";
+import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
 import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
 import axios from "axios";
-import { useSession } from "next-auth/react";
-import Unauthenticated from "../../components/Unauthenticated";
-import { useRef, useCallback } from "react";
-import { Breadcrumb, Button, Form, OverlayTrigger, Tooltip, Col, Row, DropdownButton, Dropdown, Carousel } from "react-bootstrap";
-import { Question } from "../../interfaces/Question";
-import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import router from "next/router";
-import { Stopwatch } from "ts-stopwatch";
-import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
-<<<<<<< HEAD
-=======
+import Unauthenticated from "../../components/Unauthenticated";
+import React from "react";
+import ChoosingQuestions from "../../components/recording/ChoosingQuestions";
+import RecordingUploadForm from "../../components/recording/RecordingUploadForm";
+import CarouselNoQuestions from "../../components/recording/CarouselNoQuestions";
+import CarouselWithQuestions from "../../components/recording/CarouselWithQuestions";
+import User from "../../interfaces/User";
 
->>>>>>> a7a7172... random questions based on preferences
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`http://localhost:3001/question-categories`);
-  const categories = await res.json();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
+  const categories: QuestionCategory[] = await res.json();
 
   return {
     props: { categories: categories },
@@ -30,29 +32,34 @@ interface Props {
   categories: QuestionCategory[];
 }
 
+// @ts-ignore
 const Recording: NextPage<Props> = ({ categories }) => {
   const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const user = session.user as User;
 
   const webcamRef = useRef<Webcam | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const stopwatch = useRef<Stopwatch | null>(null);
+
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
-  const [uploading, setUploading] = React.useState(false);
-  const [maxChars, setMaxChars] = React.useState(0);
+  const [ready, setReady] = useState(false);
+  const [maxChars, setMaxChars] = useState(0);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+  const [show, setShow] = useState(false);
 
-  const [choosingQuestions, setChoosingQuestions] = React.useState(true);
+  const [choosingQuestions, setChoosingQuestions] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
 
-  const stopwatch = useRef<Stopwatch | null>(null);
-  const [previousTime, setPreviousTime] = React.useState(0);
-  const [previousQuestion, setPreviousQuestion] = React.useState(0);
+  const [previousTime, setPreviousTime] = useState(0);
+  const [previousQuestion, setPreviousQuestion] = useState(0);
   const [subtitleCount, setSubtitleCount] = useState<number>(1);
   const [subtitles, setSubtitles] = useState<string>("");
 
   const handleStartCaptureClick = () => {
+    if (webcamRef.current === null || webcamRef.current.stream === null) return;
     setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm",
@@ -64,7 +71,6 @@ const Recording: NextPage<Props> = ({ categories }) => {
     setSubtitleCount(1);
     setSubtitles("");
     setPreviousTime(0);
-    console.log("started recording");
   };
 
   const handleDataAvailable = useCallback(
@@ -77,13 +83,13 @@ const Recording: NextPage<Props> = ({ categories }) => {
   );
 
   const handleStopCaptureClick = () => {
-    if (mediaRecorderRef.current !== null) {
+    if (mediaRecorderRef.current !== null && stopwatch.current !== null) {
       mediaRecorderRef.current.stop();
       setCapturing(false);
-      stopwatch.current?.stop();
-      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(
-        stopwatch.current?.getTime()
-      )}\nVraag ${previousQuestion + 1}: ${questions[previousQuestion].question}`;
+      stopwatch.current.stop();
+      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current.getTime())}\nVraag ${
+        previousQuestion + 1
+      }: ${questions[previousQuestion].question}`;
       setSubtitles(subtitles + data);
     }
   };
@@ -91,251 +97,195 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const handleSelect = (selectedIndex: number) => {
     if (stopwatch != null) {
       if (stopwatch.current?.getState() == "RUNNING") {
-        let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(
-          stopwatch.current.getTime()
-        )}\nVraag ${previousQuestion + 1}: ${questions[previousQuestion].question}\n\n`;
+        let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current.getTime())}\nVraag ${
+          previousQuestion + 1
+        }: ${questions[previousQuestion].question}\n\n`;
         setSubtitles(subtitles + data);
         setPreviousTime(stopwatch.current.getTime());
         setSubtitleCount(subtitleCount + 1);
-        console.log("u moeder");
       }
     }
     setPreviousQuestion(selectedIndex);
   };
 
   const handleUploadClick = () => {
-    setUploading(true);
-    console.log(subtitles);
+    setReady(true);
   };
 
-  const handleBackClick = React.useCallback(() => {
-    setUploading(false);
-  }, [setUploading]);
+  const handleBackClick = useCallback(() => {
+    setReady(false);
+  }, [setReady]);
 
-  const handleUpload = async (event: FormEvent) => {
+  const handleUpload = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setUploading(true);
+
+    setUploading(true);
 
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: "video/webm",
       });
-
       const url = URL.createObjectURL(blob);
+      const target = event.target as HTMLFormElement;
       const formData = new FormData();
-      const fileName = event.target.title.value;
-      const description = event.target.description.value;
-      const prive = event.target.privateCheckbox.checked;
+      const fileName = target.title.value;
+      const description = target.description.value;
+      const prive = target.privateCheckbox.checked;
+
+      if (fileName.includes("#") || fileName.includes("?")) {
+        setUploading(false);
+        setError("Titel mag geen '?' of '#' bevatten.");
+        setShow(true);
+        return;
+      }
 
       formData.append("newRecording", blob, fileName);
       formData.set("description", description);
       formData.set("title", fileName);
       formData.set("private", prive);
-      formData.set("r_u_number", session?.user?.r_u_number);
-      formData.set("email", session.user?.email);
+      formData.set("r_u_number", user.r_u_number);
+      formData.set("email", user.email);
       formData.set("subtitles", subtitles);
 
       axios({
         method: "POST",
-        url: "http://localhost:3001/videos",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/videos`,
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
         },
       })
-        .then((result) => {
-          if (result.status === 201) {
-            router.push(
-              {
-                pathname: `/profile`,
-                query: { toast: "Video geupload" },
-              },
-              `/videos`
-            );
-          } else {
-            router.push(
-              {
-                pathname: `/recording`,
-                query: { toast: "Video upload gefaald" },
-              },
-              `/recording`
-            );
-          }
+        .then(() => {
+          setUploading(false);
+          window.URL.revokeObjectURL(url);
+          setRecordedChunks([]);
+          setReady(false);
+          router.push(
+            {
+              pathname: `/profile`,
+              query: { toast: "Video geupload" },
+            },
+            `/videos`
+          );
         })
-        .catch((err) => {
-          console.log(err);
+        .catch(() => {
+          setUploading(false);
+          window.URL.revokeObjectURL(url);
+          setReady(false);
+          router.push(
+            {
+              pathname: `/recording`,
+              query: { toast: "Video upload gefaald" },
+            },
+            `/recording`
+          );
         });
-      window.URL.revokeObjectURL(url);
-      setRecordedChunks([]);
-      setUploading(false);
     }
   };
 
-  const handleRandomClick = React.useCallback(async () => {
-    const res = await fetch(`http://localhost:3001/questions/random/${session.user?.email}`);
+  const handleRandomClick = useCallback(async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/random/${session.user?.email}`);
 
-    if (res.status !== 200) {
-      setError(true);
-    } else {
-      const data = await res.json();
-      setQuestions(data);
-      setChoosingQuestions(false);
-    }
+    const data = await res.json();
+    setQuestions(data);
+    setChoosingQuestions(false);
   }, [setChoosingQuestions]);
 
   const handleCategoryClick = async (category: QuestionCategory) => {
     const res = await fetch(`http://localhost:3001/questions/category/${category.question_category_id}`);
-
-    if (res.status !== 200) {
-      setError(true);
-    } else {
-      const data = await res.json();
-      setQuestions(data);
-      setChoosingQuestions(false);
-    }
+    const data = await res.json();
+    setQuestions(data);
+    setChoosingQuestions(false);
   };
 
-  const handleGoToQuestionsClick = React.useCallback(() => {
+  const handleGoToQuestionsClick = useCallback(() => {
+    setRecordedChunks([]);
     setChoosingQuestions(true);
   }, [setChoosingQuestions]);
 
-  if (choosingQuestions)
-    return (
-      <Layout>
-        <h1>Recording</h1>
-        <div className="d-flex">
-          <Button variant="primary" onClick={handleRandomClick}>
-            Random Questions
+  const viewChoosingQuestions = () => {
+    if (choosingQuestions) {
+      return <ChoosingQuestions handleRandomClick={handleRandomClick} categories={categories} handleCategoryClick={handleCategoryClick} />;
+    }
+  };
+
+  const readyToUpload = () => {
+    if (ready) {
+      return (
+        <RecordingUploadForm
+          handleUpload={handleUpload}
+          setMaxChars={setMaxChars}
+          maxChars={maxChars}
+          handleBackClick={handleBackClick}
+          setUploading={setUploading}
+          uploading={uploading}
+        />
+      );
+    }
+  };
+
+  const viewCarousel = () => {
+    if (questions.length > 0) {
+      return <CarouselWithQuestions handleSelect={handleSelect} questions={questions} />;
+    } else {
+      return <CarouselNoQuestions />;
+    }
+  };
+
+  const captureButtons = () => {
+    if (!capturing) {
+      return (
+        <>
+          <Button variant="primary" className="w-25" onClick={handleStartCaptureClick}>
+            Begin opname
           </Button>
-          <DropdownButton id="dropdown-basic-button" title="Kies Categorie">
-            {categories.map((category: QuestionCategory) => (
-              <Dropdown.Item onClick={() => handleCategoryClick(category)}>{category.category}</Dropdown.Item>
-            ))}
-          </DropdownButton>
+          <Button variant="light" onClick={handleGoToQuestionsClick}>
+            Terug naar categoriekeuze
+          </Button>
+        </>
+      );
+    } else {
+      return (
+        <Button variant="primary" className="w-25" onClick={handleStopCaptureClick}>
+          Stop opname
+        </Button>
+      );
+    }
+  };
+
+  return (
+    <Layout>
+      <Breadcrumb>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item active>Interview opname</Breadcrumb.Item>
+      </Breadcrumb>
+      <h1>Interview opname</h1>
+      {viewChoosingQuestions()}
+      <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
+        <Alert.Heading>Upload error</Alert.Heading>
+        <span>{error}</span>
+      </Alert>
+      {readyToUpload()}
+
+      {!choosingQuestions && !ready && (
+        <div>
+          <Stack direction="horizontal">
+            <Webcam className="border rounded" audio={true} height={480} ref={webcamRef} width={640} muted />
+            {viewCarousel()}
+          </Stack>
+          <div className="w-50 d-flex justify-content-between mt-3">
+            {captureButtons()}
+            {recordedChunks.length > 0 && (
+              <Button variant="primary" onClick={handleUploadClick}>
+                Verdergaan
+              </Button>
+            )}
+          </div>
         </div>
-      </Layout>
-    );
-
-  if (!choosingQuestions)
-    return (
-      <Layout>
-        <Breadcrumb>
-          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-          <Breadcrumb.Item active>Recording</Breadcrumb.Item>
-        </Breadcrumb>
-        <h1>Recording</h1>
-
-        {uploading ? (
-          <div>
-            <Form onSubmit={handleUpload} className="col-md-12 col-lg-10 col-xl-8">
-              <div className="d-flex gap-4 flex-wrap">
-                <Form.Group controlId="title">
-                  <Form.Label>Titel:</Form.Label>
-                  <Form.Control type="text" placeholder="e.g. Mijn interviewopname" required />
-                </Form.Group>
-              </div>
-              <div className="gap-4 flex-wrap">
-                <Form.Group controlId="description">
-                  <Form.Label>Omschrijving:</Form.Label>
-                  <Form.Control
-                    onChange={(e) => setMaxChars(e.target.value.length)}
-                    as="textarea"
-                    rows={4}
-                    maxLength={255}
-                    placeholder="e.g. Mijn interview voor back-end web developer"
-                    required
-                  />
-                  <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
-                </Form.Group>
-              </div>
-              <div className="d-flex gap-4 flex-wrap">
-                <OverlayTrigger
-                  placement="top"
-                  overlay={<Tooltip id="button-tooltip-2">Privé: alleen lectoren kunnen u video zien</Tooltip>}
-                >
-                  <Form.Group className="mb-3" controlId="privateCheckbox">
-                    <Form.Check type="checkbox" label="Privé" defaultChecked />
-                  </Form.Group>
-                </OverlayTrigger>
-              </div>
-              <Button variant="primary" type="submit" className="mt-3">
-                Upload
-              </Button>
-              <Button variant="light" className="mt-3 ms-2" onClick={handleBackClick}>
-                Back
-              </Button>
-            </Form>
-          </div>
-        ) : (
-          <div>
-            <Row>
-              <Col>
-                <Webcam className="w-75" audio={true} ref={webcamRef} muted />
-                {/* <ReactStopwatch
-                autostart={false}
-                seconds={0}
-                minutes={0}
-                hours={0}
-                render={({ formatted }) => {
-                  return (
-                    <div>
-                      <p>
-                        Formatted: { formatted }
-                      </p>
-                    </div>
-                  );
-                }}
-              /> */}
-                <div className="d-flex gap-2 flex-column col-md-2">
-                  {capturing ? (
-                    <Button variant="primary" onClick={handleStopCaptureClick}>
-                      Stop recording
-                    </Button>
-                  ) : (
-                    <div className="d-flex">
-                      <Button variant="primary" onClick={handleStartCaptureClick}>
-                        Start recording
-                      </Button>
-                      <Button variant="light" className="mt-3 ms-2" onClick={handleGoToQuestionsClick}>
-                        Back
-                      </Button>
-                    </div>
-                  )}
-                  {recordedChunks.length > 0 && (
-                    <Button variant="primary" onClick={handleUploadClick}>
-                      Upload
-                    </Button>
-                  )}
-                </div>
-              </Col>
-              <Col>
-                {questions.length === 0 ? (
-                  <Carousel interval={null} variant="dark" wrap={false}>
-                    <Carousel.Item>
-                      <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
-                      <Carousel.Caption>
-                        <h3>Deze categorie bevat geen vragen</h3>
-                      </Carousel.Caption>
-                    </Carousel.Item>
-                  </Carousel>
-                ) : (
-                  <Carousel onSelect={handleSelect} interval={null} variant="dark" wrap={false}>
-                    {questions.map((question, index) => (
-                      <Carousel.Item key={index}>
-                        <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
-                        <Carousel.Caption>
-                          <h3>Vraag {index + 1}</h3>
-                          <h1>{question.question}</h1>
-                        </Carousel.Caption>
-                      </Carousel.Item>
-                    ))}
-                  </Carousel>
-                )}
-              </Col>
-            </Row>
-          </div>
-        )}
-      </Layout>
-    );
+      )}
+    </Layout>
+  );
 };
 
 export default Recording;

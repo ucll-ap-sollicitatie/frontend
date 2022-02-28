@@ -16,13 +16,13 @@ const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
 
   useEffect(() => {
     const fetchRoles = async () => {
-      const response = await fetch(`http://localhost:3001/roles`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/roles`);
       const data = await response.json();
       setRoles(data);
     };
 
     const fetchFormations = async () => {
-      const response = await fetch(`http://localhost:3001/formations`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/formations`);
       const data = await response.json();
       setFormations(data);
     };
@@ -83,11 +83,7 @@ const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
               <Form.Label>Richting</Form.Label>
               <Form.Select required>
                 {formations.map((formation) => (
-                  <option
-                    key={formation.formation_id}
-                    value={formation.formation_id}
-                    selected={user !== undefined && user.formation === formation.formation}
-                  >
+                  <option key={formation.formation_id} value={formation.formation_id} selected={user !== undefined && user.formation === formation.formation}>
                     {formation.formation}
                   </option>
                 ))}

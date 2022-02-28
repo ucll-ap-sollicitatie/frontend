@@ -18,9 +18,9 @@ const AddTaskForm: NextPage = () => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
-    const res = await fetch("http://localhost:3001/tasks", {
+    const res = await fetch(`${process.env.API_URL}/tasks`, {
       body: JSON.stringify({
-        title: target.title.value,
+        title: target.task_title.value,
         description: target.description.value,
         deadline: target.deadline.value,
         teacher_email: session.user?.email,

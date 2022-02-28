@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import User from "../../interfaces/User";
 import UpdateUserutton from "../users/UpdateUserButton";
 
@@ -10,9 +10,10 @@ interface Props {
 
 const ProfileCard: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession();
+  const session_user = session?.user as User;
 
   const updateComponent = () => {
-    if (session?.user?.email === user.email || session?.user?.role === "Admin") {
+    if (session_user.email === user.email || session_user.role === "Admin") {
       return <UpdateUserutton email={user.email} />;
     }
   };

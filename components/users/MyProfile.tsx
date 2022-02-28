@@ -14,7 +14,7 @@ const MyProfile: NextPage<Props> = ({ user }) => {
   const [myVideos, setVideos] = useState(null);
 
   const fetchData = async () => {
-    const res = await fetch(`http://localhost:3001/videos/email/${user.email}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/email/${user.email}`);
     const data = await res.json();
     if (res.ok) {
       setVideos(data);
@@ -32,16 +32,12 @@ const MyProfile: NextPage<Props> = ({ user }) => {
         <Breadcrumb.Item active>Profiel</Breadcrumb.Item>
       </Breadcrumb>
 
-      <Row>
-        <Col>
-          <h1>Uw profiel</h1>
-          <ProfileCard user={user} />
-        </Col>
-        <Col>
-          <h1>Uw video's</h1>
-          <OwnVideoOverview videos={myVideos} />
-        </Col>
-      </Row>
+      <h1>Uw profiel</h1>
+      <ProfileCard user={user} />
+      <br />
+
+      <h2 className="h2">Uw video's</h2>
+      <OwnVideoOverview videos={myVideos} />
     </Layout>
   );
 };

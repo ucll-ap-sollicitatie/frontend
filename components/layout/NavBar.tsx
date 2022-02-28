@@ -3,9 +3,11 @@ import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import User from "../../interfaces/User";
 
 const NavBar: NextPage = () => {
   const { data: session } = useSession();
+  const user = session?.user as User;
 
   return (
     <header className="bg-light">
@@ -29,14 +31,14 @@ const NavBar: NextPage = () => {
                 </>
               ) : (
                 <>
-                  {session.user?.role !== "Student" && (
+                  {user.role !== "Student" && (
                     <Link href={"/dashboard"} passHref>
                       <Nav.Link href="/" className="border">
                         Dashboard
                       </Nav.Link>
                     </Link>
                   )}
-                  {session.user?.role === "Student" && (
+                  {user.role === "Student" && (
                     <Link href={"/tasks"} passHref>
                       <Nav.Link href="/">Mijn taken</Nav.Link>
                     </Link>
@@ -53,7 +55,7 @@ const NavBar: NextPage = () => {
                   <Link href={"/preferences"} passHref>
                     <Nav.Link href="/">Preferenties</Nav.Link>
                   </Link>
-                  <Link href={`/users/${session.user?.email}`} passHref>
+                  <Link href={`/users/${user.email}`} passHref>
                     <Nav.Link href="/">Profiel</Nav.Link>
                   </Link>
                 </>

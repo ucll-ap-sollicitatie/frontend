@@ -6,7 +6,7 @@ import UserProfile from "../../components/users/UserProfile";
 import User from "../../interfaces/User";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await fetch("http://localhost:3001/users/");
+  const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
   const users = await data.json();
 
   const paths = users.map((user: User) => {
@@ -27,7 +27,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   };
 
   if (params !== undefined) {
-    const userRes = await fetch(`http://localhost:3001/users/email/${params.id}`);
+    const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/email/${params.id}`);
     const user = await userRes.json();
 
     props.user = user;
@@ -44,10 +44,11 @@ interface Props {
 
 const UserDetails: NextPage<Props> = ({ user }) => {
   const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const session_user = session.user as User;
 
-  if (session.user?.email !== user.email) return <UserProfile user={user} />;
-  return <MyProfile user={session.user} />;
+  if (session_user.email !== user.email) return <UserProfile user={user} />;
+  return <MyProfile user={session_user} />;
 };
 
 export default UserDetails;

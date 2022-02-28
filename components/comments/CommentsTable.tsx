@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import CommentsReactTable from "../CommentsReactTable";
+import Comment from "../../interfaces/Comment";
 
 const columns = [
   {

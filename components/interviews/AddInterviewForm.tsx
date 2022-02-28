@@ -16,7 +16,7 @@ const AddInterviewForm: NextPage = () => {
     const inputs = Array.from(target.elements) as HTMLInputElement[];
 
     // Category
-    const category_res = await fetch("http://localhost:3001/question-categories", {
+    const category_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`, {
       body: JSON.stringify({
         category: target.category.value,
       }),
@@ -26,21 +26,20 @@ const AddInterviewForm: NextPage = () => {
       method: "POST",
     });
 
-    if (category_res.status === 400) {
-      const res = await category_res.json();
-      setError(res.messages);
+    if (!category_res.ok) {
+      setError("Categorie bestaat al");
       setShow(true);
       return;
     }
 
     // Questions
-    const category_id_res = await fetch(`http://localhost:3001/question-categories/category/${target.category.value}`);
+    const category_id_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories/category/${target.category.value}`);
     const { question_category_id, _ } = await category_id_res.json();
 
     const elements = Array.from(target.elements) as HTMLInputElement[];
     const questions_inputs = elements.filter((element) => element.id.includes("question"));
     for (const question_input of questions_inputs) {
-      await fetch(`http://localhost:3001/questions`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions`, {
         body: JSON.stringify({
           question: question_input.value,
           question_category_id: question_category_id,

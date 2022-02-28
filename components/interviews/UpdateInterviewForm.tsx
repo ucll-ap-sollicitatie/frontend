@@ -22,7 +22,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
 
   useEffect(() => {
     const fetchCategory = async () => {
-      fetch(`http://localhost:3001/question-categories/${id}`)
+      fetch(`${process.env.API_URL}/api/question-categories/${id}`)
         .then((res) => res.json())
         .then((res) => {
           setCategory(res);
@@ -33,7 +33,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
     };
 
     const fetchQuestions = async () => {
-      fetch(`http://localhost:3001/questions/category/${id}`)
+      fetch(`${process.env.API_URL}/questions/category/${id}`)
         .then((res) => res.json())
         .then((res) => {
           if (!res.error) setQuestions(res);
@@ -51,7 +51,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
     const target = event.target as HTMLFormElement;
 
     // Update category
-    const res = await fetch(`http://localhost:3001/question-categories/${id}`, {
+    const res = await fetch(`${process.env.API_URL}/question-categories/${id}`, {
       body: JSON.stringify({
         category: target.category.value,
       }),
@@ -62,18 +62,20 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
     });
 
     // Delete all old questions
-    for (const question of questions) {
-      question as Question;
-      await fetch(`http://localhost:3001/questions/${question.question_id}`, {
-        method: "DELETE",
-      });
+    if (questions !== null) {
+      for (const question of questions) {
+        question as Question;
+        await fetch(`${process.env.API_URL}/questions/${question.question_id}`, {
+          method: "DELETE",
+        });
+      }
     }
 
     // Add all new questions
     const elements = Array.from(target.elements) as HTMLInputElement[];
     const questions_inputs = elements.filter((element) => element.id.includes("question"));
     for (const question_input of questions_inputs) {
-      await fetch(`http://localhost:3001/questions`, {
+      await fetch(`${process.env.API_URL}/questions`, {
         body: JSON.stringify({
           question: question_input.value,
           question_category_id: id,

@@ -6,6 +6,7 @@ import { useTable, useSortBy, usePagination } from "react-table";
 import RemoveButton from "./buttons/RemoveButton";
 import ShowButton from "./buttons/ShowButton";
 import UpdateButton from "./buttons/UpdateButton";
+import Comment from "../../interfaces/Comment";
 
 interface Props {
   columns: any;
@@ -44,15 +45,7 @@ const CommentsReactTable: NextPage<Props> = ({ columns, data, url, id, handleSho
                   {column.render("Header")}
                   <span>
                     {" "}
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <BsArrowBarDown color="blue" />
-                      ) : (
-                        <BsArrowBarUp color="blue" />
-                      )
-                    ) : (
-                      <BsArrowsExpand color="blue" />
-                    )}
+                    {column.isSorted ? column.isSortedDesc ? <BsArrowBarDown color="blue" /> : <BsArrowBarUp color="blue" /> : <BsArrowsExpand color="blue" />}
                   </span>
                 </th>
               ))}
