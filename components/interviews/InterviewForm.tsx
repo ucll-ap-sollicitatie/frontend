@@ -8,6 +8,15 @@ import QuestionInput from "./QuestionInput";
 import update from "immutability-helper";
 import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
+import { useTranslations } from "next-intl";
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
@@ -16,6 +25,9 @@ interface Props {
 }
 
 const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
+  const t = useTranslations("interviews");
+  const e = useTranslations("errors");
+
   const [id, setId] = useState<number | string>("");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -76,9 +88,9 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Vraag verwijderen</Modal.Title>
+          <Modal.Title>{t("question_remove")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Bent u zeker dat deze vraag wilt verwijderen?</Modal.Body>
+        <Modal.Body>{t("question_remove_confirm")}</Modal.Body>
         <Modal.Footer className="justify-content-center">
           <ConfirmCloseButton handleClose={handleClose} />
           <ConfirmRemoveButton handleDelete={handleDelete} />
@@ -86,15 +98,15 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
       </Modal>
 
       <Alert variant="danger" onClose={() => setShowError(false)} show={showError} transition={true} dismissible>
-        <Alert.Heading>Slim op sollicitatie</Alert.Heading>
-        <span>U moet minstens één vraag invullen om een sollicitatie aan te maken.</span>
+        <Alert.Heading>{e("error_title")}</Alert.Heading>
+        <span>{t("minimum_one_question")}</span>
       </Alert>
 
       <Form onSubmit={onSubmit} style={{ maxWidth: "48rem" }}>
         <Stack className="mb-2" gap={3}>
           <Form.Group controlId="category">
-            <Form.Label>Categorie</Form.Label>
-            <Form.Control type="text" placeholder="Categorie" defaultValue={category !== undefined ? category.category : ""} required />
+            <Form.Label>{t("category")}</Form.Label>
+            <Form.Control type="text" placeholder={t("category")} defaultValue={category !== undefined ? category.category : ""} required />
           </Form.Group>
 
           {questionInputs.map((questionInput: QuestionInputType, index) => (
@@ -110,11 +122,11 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
         </Stack>
 
         <Button variant="link" size="sm" onClick={addQuestionInput} className="d-block p-0">
-          Voeg vraag toe
+          {t("question_add")}
         </Button>
 
         <Button variant="primary" type="submit" className="mt-4">
-          {category !== undefined ? "Sollicitatie aanpassen" : "Sollicitatie aanmaken"}
+          {category !== undefined ? t("interview_update") : t("interview_add")}
         </Button>
       </Form>
     </>

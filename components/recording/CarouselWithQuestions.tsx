@@ -4,12 +4,12 @@ import { Carousel, Image } from "react-bootstrap";
 import { Question } from "../../interfaces/Question";
 
 interface Props {
-  handleSelect: (selectedIndex: number) => void;
+  handleSelect?: (selectedIndex: number) => void | undefined;
   questions: Question[];
 }
 
 const CarouselWithQuestions: NextPage<Props> = ({ handleSelect, questions }) => {
-  const t = useTranslations("recording");
+  const t = useTranslations("carousel");
 
   return (
     <Carousel onSelect={handleSelect} interval={null} variant="dark" wrap={false}>
@@ -18,7 +18,7 @@ const CarouselWithQuestions: NextPage<Props> = ({ handleSelect, questions }) => 
           <Image className="d-block w-50" src="https://via.placeholder.com/600x400/ffffff/ffffff" alt="Carousel slide" />
           <Carousel.Caption>
             <h2>
-              {t("question")} {index + 1}
+              {t("carousel_question")} {index + 1}
             </h2>
             <h3>{question.question}</h3>
           </Carousel.Caption>
@@ -26,6 +26,10 @@ const CarouselWithQuestions: NextPage<Props> = ({ handleSelect, questions }) => 
       ))}
     </Carousel>
   );
+};
+
+CarouselWithQuestions.defaultProps = {
+  handleSelect: undefined,
 };
 
 export default CarouselWithQuestions;

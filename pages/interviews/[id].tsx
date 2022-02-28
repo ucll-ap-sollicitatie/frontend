@@ -1,8 +1,11 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Breadcrumb, Carousel, Image } from "react-bootstrap";
+import { useTranslations } from "next-intl";
+import { Breadcrumb } from "react-bootstrap";
 import UpdateInterviewButton from "../../components/interviews/UpdateInterviewButton";
 import Layout from "../../components/layout/Layout";
+import CarouselNoQuestions from "../../components/recording/CarouselNoQuestions";
+import CarouselWithQuestions from "../../components/recording/CarouselWithQuestions";
 import Unauthenticated from "../../components/Unauthenticated";
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
@@ -23,7 +26,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   if (params === undefined || params.id === undefined) {
     return { props: { questions: [], category: null } };
   }
@@ -41,6 +44,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       questions: questions,
       category: category,
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
   };
 };
@@ -51,6 +55,9 @@ interface Props {
 }
 
 const Interviews: NextPage<Props> = ({ questions, category }) => {
+  const t = useTranslations("interviews");
+  const c = useTranslations("carousel");
+
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
@@ -63,34 +70,15 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
           <Breadcrumb.Item active>{category.category}</Breadcrumb.Item>
         </Breadcrumb>
 
-        <h1>Sollicitatie: {category.category}</h1>
+        <h1>
+          {t("title")}: {category.category}
+        </h1>
 
         <UpdateInterviewButton question_category_id={category.question_category_id} />
         <br />
         <br />
 
-        {questions.length === 0 ? (
-          <Carousel interval={null} variant="dark" wrap={false}>
-            <Carousel.Item>
-              <Image className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
-              <Carousel.Caption>
-                <h3>Deze categorie bevat geen vragen</h3>
-              </Carousel.Caption>
-            </Carousel.Item>
-          </Carousel>
-        ) : (
-          <Carousel interval={null} variant="dark" wrap={false}>
-            {questions.map((question, index) => (
-              <Carousel.Item key={index}>
-                <Image className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
-                <Carousel.Caption>
-                  <h3>Vraag {index + 1}</h3>
-                  <h1>{question.question}</h1>
-                </Carousel.Caption>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-        )}
+        {questions.length === 0 ? <CarouselNoQuestions /> : <CarouselWithQuestions questions={questions} />}
       </Layout>
     </>
   );

@@ -1,11 +1,22 @@
 import { NextPage } from "next";
 import Layout from "../../components/layout/Layout";
-import { Alert, Breadcrumb, Button, Form, Stack } from "react-bootstrap";
+import { Breadcrumb } from "react-bootstrap";
 import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
 import AddInterviewForm from "../../components/interviews/AddInterviewForm";
+import { useTranslations } from "next-intl";
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
+  };
+}
 
 const AddInterview: NextPage = () => {
+  const t = useTranslations("interviews");
+
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
@@ -16,7 +27,8 @@ const AddInterview: NextPage = () => {
         <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
         <Breadcrumb.Item active>Toevoegen</Breadcrumb.Item>
       </Breadcrumb>
-      <h1>Sollicatie aanmaken</h1>
+
+      <h1>{t("interview_add")}</h1>
 
       <AddInterviewForm />
     </Layout>
