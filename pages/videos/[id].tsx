@@ -334,9 +334,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
           </Col>
         </div>
 
-        <br />
-        <hr />
-        <br />
+        <hr className="mt-5 mb-5" />
 
         <Row>
           <Col>
