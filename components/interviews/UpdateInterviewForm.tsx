@@ -62,11 +62,13 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
     });
 
     // Delete all old questions
-    for (const question of questions) {
-      question as Question;
-      await fetch(`${process.env.API_URL}/questions/${question.question_id}`, {
-        method: "DELETE",
-      });
+    if (questions !== null) {
+      for (const question of questions) {
+        question as Question;
+        await fetch(`${process.env.API_URL}/questions/${question.question_id}`, {
+          method: "DELETE",
+        });
+      }
     }
 
     // Add all new questions

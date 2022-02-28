@@ -48,7 +48,7 @@ const Dashboard: NextPage = () => {
 
     useEffect(() => {
       fetchData();
-    }, []);
+    }, [fetchData]);
   }
 
   const countRole = (role: string) => {

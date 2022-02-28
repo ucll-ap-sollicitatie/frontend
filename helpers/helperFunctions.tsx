@@ -31,15 +31,15 @@ export function timeSince(date: Date): string {
 }
 
 export function milisecondsToReadableTime(ms: number): string {
-  var milliseconds = Math.floor((ms % 1000) / 100),
-  seconds = Math.floor((ms / 1000) % 60),
-  minutes = Math.floor((ms / (1000 * 60)) % 60),
-  hours = Math.floor((ms / (1000 * 60 * 60)) % 24);
+  let milliseconds: number | string = Math.floor((ms % 1000) / 100),
+    seconds: number | string = Math.floor((ms / 1000) % 60),
+    minutes: number | string = Math.floor((ms / (1000 * 60)) % 60),
+    hours: number | string = Math.floor((ms / (1000 * 60 * 60)) % 24);
   milliseconds = Math.floor(ms % 1000);
 
-  hours = (hours < 10) ? "0" + hours : hours;
-  minutes = (minutes < 10) ? "0" + minutes : minutes;
-  seconds = (seconds < 10) ? "0" + seconds : seconds;
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
   if (milliseconds < 100) {
     if (milliseconds < 10) {
       milliseconds = "00" + milliseconds;
@@ -50,4 +50,4 @@ export function milisecondsToReadableTime(ms: number): string {
   return hours + ":" + minutes + ":" + seconds + "," + milliseconds;
 }
 
-export function is24Hours(date: Date): boolean {}
+//export function is24Hours(date: Date): boolean {}

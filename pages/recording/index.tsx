@@ -12,10 +12,11 @@ import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import router from "next/router";
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
+import User from "../../interfaces/User";
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
-  const categories = await res.json();
+  const categories: QuestionCategory[] = await res.json();
 
   return {
     props: { categories: categories },
@@ -26,9 +27,11 @@ interface Props {
   categories: QuestionCategory[];
 }
 
+// @ts-ignore
 const Recording: NextPage<Props> = ({ categories }) => {
   const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const user = session.user as User;
 
   const webcamRef = useRef<Webcam | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -49,6 +52,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const [subtitles, setSubtitles] = useState<string>("");
 
   const handleStartCaptureClick = () => {
+    if (webcamRef.current === null || webcamRef.current.stream === null) return;
     setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm",
@@ -73,11 +77,11 @@ const Recording: NextPage<Props> = ({ categories }) => {
   );
 
   const handleStopCaptureClick = () => {
-    if (mediaRecorderRef.current !== null) {
+    if (mediaRecorderRef.current !== null && stopwatch.current !== null) {
       mediaRecorderRef.current.stop();
       setCapturing(false);
-      stopwatch.current?.stop();
-      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current?.getTime())}\nVraag ${
+      stopwatch.current.stop();
+      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current.getTime())}\nVraag ${
         previousQuestion + 1
       }: ${questions[previousQuestion].question}`;
       setSubtitles(subtitles + data);
@@ -108,8 +112,9 @@ const Recording: NextPage<Props> = ({ categories }) => {
     setUploading(false);
   }, [setUploading]);
 
-  const handleUpload = async (event: FormEvent) => {
+  const handleUpload = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const target = event.target as HTMLFormElement;
 
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
@@ -118,16 +123,16 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
       const url = URL.createObjectURL(blob);
       const formData = new FormData();
-      const fileName = event.target.title.value;
-      const description = event.target.description.value;
-      const prive = event.target.privateCheckbox.checked;
+      const fileName = target.file_title.value;
+      const description = target.description.value;
+      const prive = target.privateCheckbox.checked;
 
       formData.append("newRecording", blob, fileName);
       formData.set("description", description);
       formData.set("title", fileName);
       formData.set("private", prive);
-      formData.set("r_u_number", session?.user?.r_u_number);
-      formData.set("email", session.user?.email);
+      formData.set("r_u_number", user.r_u_number);
+      formData.set("email", user.email);
       formData.set("subtitles", subtitles);
 
       axios({
@@ -224,7 +229,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
           <div>
             <Form onSubmit={handleUpload} className="col-md-12 col-lg-10 col-xl-8">
               <div className="d-flex gap-4 flex-wrap">
-                <Form.Group controlId="title">
+                <Form.Group controlId="file_title">
                   <Form.Label>Titel:</Form.Label>
                   <Form.Control type="text" placeholder="e.g. Mijn interviewopname" required />
                 </Form.Group>

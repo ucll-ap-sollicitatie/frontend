@@ -20,7 +20,7 @@ const AddTaskForm: NextPage = () => {
 
     const res = await fetch(`${process.env.API_URL}/tasks`, {
       body: JSON.stringify({
-        title: target.title.value,
+        title: target.task_title.value,
         description: target.description.value,
         deadline: target.deadline.value,
         teacher_email: session.user?.email,
