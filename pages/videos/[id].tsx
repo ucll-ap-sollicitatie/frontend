@@ -1,15 +1,14 @@
-import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Breadcrumb, Button, Card, Col, Row } from "react-bootstrap";
+import { Breadcrumb, Button, Card, Col, Row, Stack } from "react-bootstrap";
 import { useSWRConfig } from "swr";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import router from "next/router";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import VideoPlayer from "../../components/videos/VideoPlayer";
 import DeleteCommentModal from "../../components/videos/DeleteCommentModal";
 import UpdateCommentModal from "../../components/videos/UpdateCommentModal";
-import CommentItem from "../../components/videos/CommentItem";
 import AddComment from "../../components/videos/AddComment";
 import FeedbackModal from "../../components/videos/FeedbackModal";
 import Video from "../../interfaces/Video";
@@ -17,7 +16,7 @@ import Comment from "../../interfaces/Comment";
 import FeedbackList from "../../components/videos/FeedbackList";
 import Unauthorized from "../../components/Unauthorized";
 import CommentList from "../../components/videos/CommentList";
-import { User } from "next-auth";
+import User from "../../interfaces/User";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch("http://localhost:3001/videos/");
@@ -73,17 +72,18 @@ interface Props {
 
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
-  if (video.private && session.user?.role === "Student") return <Unauthorized />;
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const user = session.user as User;
+  if (video.private && user.role === "Student") return <Unauthorized />;
 
   const { mutate } = useSWRConfig();
-  const [maxChars, setMaxChars] = React.useState(0);
-  const [error, setError] = React.useState("");
-  const [showDelete, setShowDelete] = React.useState(false);
-  const [showUpdate, setShowUpdate] = React.useState(false);
-  const [showFeedback, setShowFeedback] = React.useState(false);
-  const [commentId, setCommentId] = React.useState(0);
-  const [currentComment, setCurrentComment] = React.useState(comments == null ? [] : comments[0]);
+  const [maxChars, setMaxChars] = useState(0);
+  const [error, setError] = useState("");
+  const [showDelete, setShowDelete] = useState(false);
+  const [showUpdate, setShowUpdate] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [commentId, setCommentId] = useState(0);
+  const [currentComment, setCurrentComment] = useState<Comment | null>(comments == null ? null : comments[0]);
 
   const handleLikeVideo = async (email: string, video_id: number) => {
     await fetch(`http://localhost:3001/videos/likes/${video_id}/like`, {
@@ -157,7 +157,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const text = target.comment.value;
-    const author = session.user?.r_u_number;
+    const author = user.r_u_number;
     const video_id = video.video_id;
     const body = {
       text: text,
@@ -273,12 +273,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
 
   return (
     <>
-      <DeleteCommentModal
-        comment={currentComment}
-        showDelete={showDelete}
-        handleClose={handleClose}
-        handleDeleteComment={handleDeleteComment}
-      />
+      <DeleteCommentModal comment={currentComment} showDelete={showDelete} handleClose={handleClose} handleDeleteComment={handleDeleteComment} />
       <UpdateCommentModal
         comment={currentComment}
         maxChars={maxChars}
@@ -289,7 +284,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       />
 
       <FeedbackModal
-        user={session.user}
+        user={user}
         maxChars={maxChars}
         showFeedback={showFeedback}
         handleClose={handleClose}
@@ -302,76 +297,57 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
           <Breadcrumb.Item href="/videos">Video's</Breadcrumb.Item>
           <Breadcrumb.Item active>{video.title}</Breadcrumb.Item>
         </Breadcrumb>
-        <h1>
-          <span>Titel: </span>
-          {video.title}
-        </h1>
-        <Row>
-          <Col sm={8}>
+
+        <h1>Titel: {video.title}</h1>
+
+        <div className="d-flex flex-wrap gap-3 gap-lg-5">
+          <Col sm={12} lg={8}>
             <VideoPlayer userEmail={video.email} videoTitle={video.title} />
           </Col>
-          <Col className="d-flex flex-column justify-content-between">
-            <Row>
-              <h2>Informatie</h2>
-            </Row>
-            <Row>
+          <Col className="d-flex flex-column gap-2">
+            <h2 className="h2 mt-0">Informatie</h2>
+            <div>
               <h4>Titel</h4>
-            </Row>
-            <Row>
               <p>{video.title}</p>
-            </Row>
-            <Row>
+            </div>
+            <div>
               <h4>Beschrijving</h4>
-            </Row>
-            <Row>
               <p>{video.description}</p>
-            </Row>
-            <Row>
+            </div>
+            <div>
               <h4>Geüpload door</h4>
-            </Row>
-            <Row>
               <p>
                 {video.name} {video.surname}
               </p>
-            </Row>
-            <Row>
+            </div>
+            <div>
               <h4>Datum</h4>
-            </Row>
-            <Row>
               <p>{new Date(video.date).toLocaleString()}</p>
-            </Row>
-            <Row>
-              Likes: {video.likes}
-            </Row>
-            <Row>
-              {videoLiked && (
-                <Button variant="outline-secondary" onClick={() => handleUnlikeVideo(session.user.email, video.video_id)} className="ms-auto">
-                  Vind ik niet leuk
-                </Button>
-              )}
-              {!videoLiked && (
-                <Button variant="outline-secondary" onClick={() => handleLikeVideo(session.user.email, video.video_id)} className="ms-auto">
-                  Vind ik leuk
-                </Button>
-              )}
-            </Row>
-            {session.user.role == "Lector" && (
-              <Row>
+            </div>
+            {user.role == "Lector" && (
+              <div>
                 <Button variant="outline-success" onClick={handleShowFeedback}>
                   Feedback toevoegen
                 </Button>
-              </Row>
+              </div>
             )}
           </Col>
-        </Row>
+        </div>
+
+        <br />
+        <hr />
+        <br />
+
         <Row>
           <Col>
             <AddComment handleAddComment={handleAddComment} setMaxChars={setMaxChars} maxChars={maxChars} />
-            <div className="mt-3 gap-4 flex-wrap">
+            <br />
+
+            <Stack gap={3}>
               {feedback && (
                 <FeedbackList
                   feedback={feedback}
-                  user={session.user}
+                  user={user}
                   video={video}
                   handleSelect={handleSelect}
                   handleShowUpdate={handleShowUpdate}
@@ -381,7 +357,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               {comments && (
                 <CommentList
                   comments={comments}
-                  user={session.user}
+                  user={user}
                   handleSelect={handleSelect}
                   handleShowUpdate={handleShowUpdate}
                   handleShowDelete={handleShowDelete}
@@ -392,11 +368,11 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               {!comments && (
                 <Card className="mt-2">
                   <Card.Body>
-                    <Card.Text className="text-center text-muted">Geen commentaar onder deze video!</Card.Text>
+                    <Card.Text className="text-center text-muted">Geen commentaar op deze video.</Card.Text>
                   </Card.Body>
                 </Card>
               )}
-            </div>
+            </Stack>
           </Col>
         </Row>
       </Layout>

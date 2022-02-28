@@ -1,13 +1,14 @@
 import type { NextPage } from "next";
+import { FormEvent } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import User from "../../interfaces/User";
 
 interface Props {
   maxChars: number;
   user: User;
-  showFeedback: Function;
-  handleClose: Function;
-  handleAddFeedback: Function;
+  showFeedback: boolean;
+  handleClose: () => void;
+  handleAddFeedback: (event: FormEvent) => void;
   setMaxChars: Function;
 }
 

@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
 import { Modal, Button } from "react-bootstrap";
-import { Comment } from "../../interfaces/Comment";
+import Comment from "../../interfaces/Comment";
 
 interface Props {
-  comment: Comment;
-  showDelete: Function;
-  handleClose: Function;
-  handleDeleteComment: Function;
+  comment: Comment | null;
+  showDelete: boolean;
+  handleClose: () => void;
+  handleDeleteComment: () => void;
 }
 
 const DeleteCommentModal: NextPage<Props> = ({ comment, showDelete, handleClose, handleDeleteComment }) => {
@@ -19,7 +19,7 @@ const DeleteCommentModal: NextPage<Props> = ({ comment, showDelete, handleClose,
         Bent u zeker dat u dit commentaar wilt verwijderen?
         <br />
         <br />
-        {`"${comment.text}"`}
+        {comment?.text}
       </Modal.Body>
       <Modal.Footer className="justify-content-center">
         <Button variant="danger" onClick={handleDeleteComment}>

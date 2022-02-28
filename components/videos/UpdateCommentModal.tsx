@@ -1,13 +1,14 @@
 import type { NextPage } from "next";
+import { FormEvent } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import Comment from "../../interfaces/Comment";
 
 interface Props {
-  comment: Comment;
+  comment: Comment | null;
   maxChars: number;
-  showUpdate: Function;
-  handleClose: Function;
-  handleUpdateComment: Function;
+  showUpdate: boolean;
+  handleClose: () => void;
+  handleUpdateComment: (event: FormEvent) => void;
   setMaxChars: Function;
 }
 
@@ -26,7 +27,7 @@ const UpdateCommentModal: NextPage<Props> = ({ comment, maxChars, showUpdate, ha
                 onChange={(e) => setMaxChars(e.target.value.length)}
                 maxLength={255}
                 as="textarea"
-                placeholder={comment.text}
+                placeholder={comment?.text}
                 required
               />
               <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>

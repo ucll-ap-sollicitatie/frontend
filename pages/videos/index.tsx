@@ -37,6 +37,8 @@ const Home: NextPage<Props> = ({ videos }) => {
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>Video's</Breadcrumb.Item>
       </Breadcrumb>
+
+      <h1>Alle video's</h1>
       <AllVideoOverview videos={videos} user={session.user} />
     </Layout>
   );

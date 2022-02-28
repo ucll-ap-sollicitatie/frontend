@@ -15,21 +15,25 @@ import CommentsTable from "../../components/comments/CommentsTable";
 
 const Dashboard: NextPage = () => {
   const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
-  if (session.user?.role === "Student") return <Unauthorized />;
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const user = session.user as User;
+  if (user.role === "Student") return <Unauthorized />;
 
   const [users, setUsers] = useState<User[]>([]);
   const [comments, setComments] = useState<Comment[]>([]);
   const [videos, setVideos] = useState<Video[]>([]);
 
-  if (session.user?.role === "Admin") {
+  if (user.role === "Admin") {
     const fetchData = async () => {
       const usersRes = await fetch("http://localhost:3001/users");
-      const commentsRes = await fetch("http://localhost:3001/comments");
-      const videosRes = await fetch("http://localhost:3001/videos");
       const users = await usersRes.json();
-      const comments = await commentsRes.json();
+
+      const commentsRes = await fetch("http://localhost:3001/comments");
+      const comments = (await commentsRes.json()) as Comment[];
+
+      const videosRes = await fetch("http://localhost:3001/videos");
       const videos = await videosRes.json();
+
       if (users.length > 0) {
         setUsers(users);
       }
@@ -69,12 +73,13 @@ const Dashboard: NextPage = () => {
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>Dashboard</Breadcrumb.Item>
       </Breadcrumb>
+
       <h1>Dashboard</h1>
-      {session.user?.role === "Admin" && (
-        <Tabs defaultActiveKey="start" id="uncontrolled-tab" className="mb-3">
+      {user.role === "Admin" && (
+        <Tabs defaultActiveKey="start" id="uncontrolled-tab">
           <Tab eventKey="start" title="Server informatie">
             <Accordion>
-              <Accordion.Item eventKey="0">
+              <Accordion.Item eventKey="0" className="rounded-0">
                 <Accordion.Header>Gebruikers</Accordion.Header>
                 <Accordion.Body>
                   Aantal gebruikers: {users ? users.length : "Geen"}
@@ -108,7 +113,7 @@ const Dashboard: NextPage = () => {
           </Tab>
         </Tabs>
       )}
-      {session.user?.role === "Lector" && (
+      {user.role === "Lector" && (
         <Tabs defaultActiveKey="students" id="uncontrolled-tab" className="mb-3">
           <Tab eventKey="students" title="Mijn studenten">
             <StudentsTable />
