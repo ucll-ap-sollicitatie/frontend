@@ -120,6 +120,8 @@ const Recording: NextPage<Props> = ({ categories }) => {
     event.preventDefault();
     setUploading(true);
 
+    setUploading(true);
+
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: "video/webm",
