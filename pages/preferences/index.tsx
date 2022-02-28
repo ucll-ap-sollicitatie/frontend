@@ -60,25 +60,25 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
   };
 
   const test = () => {
-    question_categories.map((QuestionCategory) => {
-      if (QuestionCategory.category == 'Algemeen') {
-        return (        
-        <option key={QuestionCategory.question_category_id} value={QuestionCategory.question_category_id} selected>
-          {QuestionCategory.category}
-        </option>
-        )
-
+    let testArr: any = [];
+    for (let i = 0; i < question_categories.length; i++) {
+      const item = question_categories[i];
+      if (item.category === "Algemeen") {
+        testArr.push(
+          <option key={item.question_category_id} value={item.category} selected>
+            {item.category}
+          </option>
+        );
+      } else {
+        testArr.push(
+          <option key={item.question_category_id} value={item.category}>
+            {item.category}
+          </option>
+        );
       }
-      else {
-        return 
-        (
-        <option key={QuestionCategory.question_category_id} value={QuestionCategory.question_category_id}>
-          {QuestionCategory.category}
-        </option>
-        )
-      }
-    })
-  }
+    }
+    return testArr;
+  };
 
   return (
     <Layout>
@@ -92,14 +92,7 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
           <Stack gap={3}>
             <Form.Group controlId="preference_1">
               <Form.Label>Preferentie 1</Form.Label>
-              <Form.Select required>
-                {/* {question_categories.map((QuestionCategory) => (
-                  <option key={QuestionCategory.question_category_id} value={QuestionCategory.question_category_id}>
-                    {QuestionCategory.category}
-                  </option>
-                ))} */}
-                {test()}
-              </Form.Select>
+              <Form.Select required>{test()}</Form.Select>
             </Form.Group>
 
             <Form.Group controlId="preference_2">
