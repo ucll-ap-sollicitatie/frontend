@@ -31,7 +31,7 @@ const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
 
     fetchTask();
     setLoading(false);
-  }, []);
+  }, [task_id]);
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();

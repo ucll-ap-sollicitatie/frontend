@@ -1,4 +1,4 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { Modal } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -8,6 +8,10 @@ import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
 import Task from "../../interfaces/Task";
 import TasksReactTable from "../TasksReactTable";
 import { useSession } from "next-auth/react";
+
+interface Props {
+  allTasks: Task[];
+}
 
 const columns = [
   {
@@ -24,40 +28,27 @@ const columns = [
   },
 ];
 
-const TasksTable: NextPage = () => {
+const TasksTable: NextPage<Props> = ({ allTasks }) => {
   const { data: session } = useSession();
-
   const router = useRouter();
   const [id, setId] = useState<number | string>("");
   const [tasks, setTasks] = useState<Task[]>([]);
-
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
-
+  const [loading, setLoading] = useState<boolean>(false);
   const [show, setShow] = useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = (id: number | string) => {
     setId(id);
     setShow(true);
   };
 
-  const fetchData = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
-
-    if (res.status !== 200) {
-      setError(true);
-    } else {
-      const data = await res.json();
-      const myTasks = data.filter((task: Task) => task.teacher_email === session?.user?.email);
-      myTasks.forEach((task: Task) => (task.deadline_string = new Date(task.deadline).toLocaleString()));
-      setTasks(myTasks);
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchData();
-  }, []);
+    setLoading(true);
+    const myTasks = allTasks.filter((task: Task) => task.teacher_email === session?.user?.email);
+    myTasks.forEach((task: Task) => (task.deadline_string = new Date(task.deadline).toLocaleString()));
+    setTasks(myTasks);
+    setLoading(false);
+  }, [allTasks, session?.user?.email]);
 
   const handleDelete = async () => {
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`, {
@@ -72,11 +63,9 @@ const TasksTable: NextPage = () => {
       },
       "/dashboard"
     );
-
-    fetchData();
   };
 
-  if (error) return <div>Geen taken gevonden.</div>;
+  if (tasks.length < 1) return <p>U heeft geen taken</p>;
   if (loading) return <SpinnerComponent />;
 
   return (

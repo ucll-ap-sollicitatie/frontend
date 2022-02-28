@@ -7,18 +7,17 @@ import Unauthenticated from "../Unauthenticated";
 import TaskForm from "./TaskForm";
 
 const AddTaskForm: NextPage = () => {
-  const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
   const router = useRouter();
-
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
+  const { data: session } = useSession();
+  if (!session) return <Unauthenticated />;
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
-    const res = await fetch(`${process.env.API_URL}/tasks`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
       body: JSON.stringify({
         title: target.task_title.value,
         description: target.description.value,

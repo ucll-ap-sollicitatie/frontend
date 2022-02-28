@@ -34,7 +34,9 @@ const ChoosingQuestions: NextPage<Props> = ({ handleRandomClick, categories, han
         </p>
         <DropdownButton variant="outline-primary" title="Categorie van vragen kiezen" className="ms-auto me-1">
           {categories.map((category: QuestionCategory) => (
-            <Dropdown.Item onClick={() => handleCategoryClick(category)}>{category.category}</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleCategoryClick(category)} key={category.question_category_id}>
+              {category.category}
+            </Dropdown.Item>
           ))}
         </DropdownButton>
       </Stack>

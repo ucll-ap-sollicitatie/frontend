@@ -1,12 +1,26 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import SpinnerComponent from "../../components/SpinnerComponent";
 import Task from "../../interfaces/Task";
-import TasksReactTable from "../../components/TasksReactTable";
 import Unauthorized from "../../components/Unauthorized";
-import Layout from "../../components/layout/Layout";
 import User from "../../interfaces/User";
+import SpinnerComponent from "../../components/SpinnerComponent";
+import TasksReactTable from "../../components/TasksReactTable";
+import Layout from "../../components/layout/Layout";
+
+export const getStaticProps: GetStaticProps = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
+  const data = await res.json();
+  return {
+    props: {
+      tasks: data,
+    },
+  };
+};
+
+interface Props {
+  tasks: Task[];
+}
 
 const columns = [
   {
@@ -27,35 +41,19 @@ const columns = [
   },
 ];
 
-const TasksIndex: NextPage = () => {
+const TasksIndex: NextPage<Props> = ({ tasks }) => {
+  const [loading, setLoading] = useState<boolean>(true);
   const { data: session } = useSession();
+  useEffect(() => {
+    tasks.forEach((task: Task) => (task.deadline_string = new Date(task.deadline).toLocaleString()));
+    setLoading(false);
+  }, [tasks]);
   if (!session || session.user === undefined) return <Unauthorized />;
   const user = session.user as User;
   if (user.role === "Lector") return <Unauthorized />;
 
-  const [tasks, setTasks] = useState<Task[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
-
-  const fetchData = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
-
-    if (!res.ok) {
-      setError(true);
-    } else {
-      const data = await res.json();
-      data.forEach((task: Task) => (task.deadline_string = new Date(task.deadline).toLocaleString()));
-      setTasks(data);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  if (error) return <div>Geen taken gevonden.</div>;
   if (loading) return <SpinnerComponent />;
+  if (tasks.length < 1) return <p>Geen taken gevonden</p>;
 
   return (
     <Layout>

@@ -13,7 +13,6 @@ import { Container } from "react-bootstrap";
 import { useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import Amogus from "../components/Amogus";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
@@ -32,7 +31,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
       <NextNProgress options={{ showSpinner: false }} />
 
-      <Amogus url={"/amogus.mp3"} />
+      {/* <Amogus url={"/amogus.mp3"} /> */}
 
       <SessionProvider session={session}>
         {router.query.toast && (

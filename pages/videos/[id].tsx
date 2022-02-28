@@ -71,19 +71,38 @@ interface Props {
 }
 
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
-  const { data: session } = useSession();
-  if (!session || session.user === undefined) return <Unauthenticated />;
-  const user = session.user as User;
-  if (video.private && user.role === "Student") return <Unauthorized />;
-
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = useState(0);
   const [error, setError] = useState("");
   const [showDelete, setShowDelete] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [videoLiked, setVideoLiked] = useState(false);
   const [commentId, setCommentId] = useState(0);
   const [currentComment, setCurrentComment] = useState<Comment | null>(comments == null ? null : comments[0]);
+  const { data: session } = useSession();
+  const user = session?.user as User;
+  useEffect(() => {
+    const fetchTest = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video.video_id}/check`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: session?.user?.email,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (res.ok) {
+        setVideoLiked(true);
+      } else {
+        setVideoLiked(false);
+      }
+    };
+    fetchTest();
+  }, [session?.user?.email, video.video_id]);
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  if (video.private && user.role === "Student") return <Unauthorized />;
 
   const handleLikeVideo = async (email: string, video_id: number) => {
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video_id}/like`, {
@@ -104,29 +123,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       },
     });
   };
-
-  const [videoLiked, setVideoLiked] = useState(false);
-
-  const fetchData = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video.video_id}/check`, {
-      method: "POST",
-      body: JSON.stringify({
-        email: user.email,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (res.ok) {
-      setVideoLiked(true);
-    } else {
-      setVideoLiked(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  });
 
   const handleRemoveLike = async (email: string, comment_id: number) => {
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/likes/${comment_id}/unlike`, {
@@ -294,7 +290,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       <Layout>
         <Breadcrumb>
           <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-          <Breadcrumb.Item href="/videos">Video's</Breadcrumb.Item>
+          <Breadcrumb.Item href="/videos">Video&apos;s</Breadcrumb.Item>
           <Breadcrumb.Item active>{video.title}</Breadcrumb.Item>
         </Breadcrumb>
 

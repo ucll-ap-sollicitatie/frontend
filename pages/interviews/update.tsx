@@ -7,12 +7,11 @@ import { useRouter } from "next/router";
 import Error from "../_error";
 
 const UpdateInterview: NextPage = () => {
-  const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
-
   const router = useRouter();
   const query = router.query as { id: string };
+  const { data: session } = useSession();
   if (query.id === undefined) return <Error statusCode={404} />;
+  if (!session) return <Unauthenticated />;
 
   return (
     <Layout>

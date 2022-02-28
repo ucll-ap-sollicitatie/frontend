@@ -1,6 +1,5 @@
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
 import { Accordion, Breadcrumb, Button, Tab, Tabs } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
@@ -9,47 +8,46 @@ import StudentsTable from "../../components/users/StudentsTable";
 import UsersTable from "../../components/users/UsersTable";
 import TasksTable from "../../components/tasks/TasksTable";
 import User from "../../interfaces/User";
-import Video from "../../interfaces/Video";
 import Comment from "../../interfaces/Comment";
 import CommentsTable from "../../components/comments/CommentsTable";
+import Video from "../../interfaces/Video";
+import Task from "../../interfaces/Task";
 
-const Dashboard: NextPage = () => {
+interface Props {
+  users: User[];
+  comments: Comment[];
+  videos: Video[];
+  tasks: Task[];
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const usersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+  const usersJson = await usersRes.json();
+
+  const commentsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
+  const commentsJson = (await commentsRes.json()) as Comment[];
+
+  const videosRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
+  const videosJson = await videosRes.json();
+
+  const tasksRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
+  const tasksJson = await tasksRes.json();
+
+  return {
+    props: {
+      users: usersJson,
+      comments: commentsJson,
+      videos: videosJson,
+      tasks: tasksJson,
+    },
+  };
+};
+
+const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
   const { data: session } = useSession();
-  if (!session || session.user === undefined) return <Unauthenticated />;
-  const user = session.user as User;
+  const user = session?.user as User;
+  if (!session || user === undefined) return <Unauthenticated />;
   if (user.role === "Student") return <Unauthorized />;
-
-  const [users, setUsers] = useState<User[]>([]);
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [videos, setVideos] = useState<Video[]>([]);
-
-  if (user.role === "Admin") {
-    const fetchData = async () => {
-      const usersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
-      const users = await usersRes.json();
-
-      const commentsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
-      const comments = (await commentsRes.json()) as Comment[];
-
-      const videosRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
-      const videos = await videosRes.json();
-
-      if (users.length > 0) {
-        setUsers(users);
-      }
-      if (comments.length > 0) {
-        comments.forEach((comment: Comment) => (comment.date_string = new Date(comment.date).toLocaleString()));
-        setComments(comments);
-      }
-      if (videos.length > 0) {
-        setVideos(videos);
-      }
-    };
-
-    useEffect(() => {
-      fetchData();
-    }, [fetchData]);
-  }
 
   const countRole = (role: string) => {
     if (users.length > 0) {
@@ -100,8 +98,8 @@ const Dashboard: NextPage = () => {
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="2">
-                <Accordion.Header>Video's</Accordion.Header>
-                <Accordion.Body>Aantal video's: {videos ? videos.length : "Geen"}</Accordion.Body>
+                <Accordion.Header>Video&apos;s</Accordion.Header>
+                <Accordion.Body>Aantal video&apos;s: {videos ? videos.length : "Geen"}</Accordion.Body>
               </Accordion.Item>
             </Accordion>
           </Tab>
@@ -122,7 +120,7 @@ const Dashboard: NextPage = () => {
             <Button href="/tasks/add" className="mb-3">
               Taak aanmaken
             </Button>
-            <TasksTable />
+            <TasksTable allTasks={tasks} />
           </Tab>
         </Tabs>
       )}

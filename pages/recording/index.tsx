@@ -34,14 +34,9 @@ interface Props {
 
 // @ts-ignore
 const Recording: NextPage<Props> = ({ categories }) => {
-  const { data: session } = useSession();
-  if (!session || session.user === undefined) return <Unauthenticated />;
-  const user = session.user as User;
-
   const webcamRef = useRef<Webcam | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const stopwatch = useRef<Stopwatch | null>(null);
-
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
   const [ready, setReady] = useState(false);
@@ -49,14 +44,42 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
-
   const [choosingQuestions, setChoosingQuestions] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([]);
-
   const [previousTime, setPreviousTime] = useState(0);
   const [previousQuestion, setPreviousQuestion] = useState(0);
   const [subtitleCount, setSubtitleCount] = useState<number>(1);
   const [subtitles, setSubtitles] = useState<string>("");
+  const { data: session } = useSession();
+
+  const handleDataAvailable = useCallback(
+    ({ data }) => {
+      if (data.size > 0) {
+        setRecordedChunks((prev) => prev.concat(data));
+      }
+    },
+    [setRecordedChunks]
+  );
+
+  const handleBackClick = useCallback(() => {
+    setReady(false);
+  }, [setReady]);
+
+  const handleGoToQuestionsClick = useCallback(() => {
+    setRecordedChunks([]);
+    setChoosingQuestions(true);
+  }, [setChoosingQuestions]);
+
+  const handleRandomClick = useCallback(async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/random/${session?.user?.email}`);
+
+    const data = await res.json();
+    setQuestions(data);
+    setChoosingQuestions(false);
+  }, [session?.user?.email, setChoosingQuestions]);
+
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const user = session.user as User;
 
   const handleStartCaptureClick = () => {
     if (webcamRef.current === null || webcamRef.current.stream === null) return;
@@ -72,15 +95,6 @@ const Recording: NextPage<Props> = ({ categories }) => {
     setSubtitles("");
     setPreviousTime(0);
   };
-
-  const handleDataAvailable = useCallback(
-    ({ data }) => {
-      if (data.size > 0) {
-        setRecordedChunks((prev) => prev.concat(data));
-      }
-    },
-    [setRecordedChunks]
-  );
 
   const handleStopCaptureClick = () => {
     if (mediaRecorderRef.current !== null && stopwatch.current !== null) {
@@ -111,10 +125,6 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const handleUploadClick = () => {
     setReady(true);
   };
-
-  const handleBackClick = useCallback(() => {
-    setReady(false);
-  }, [setReady]);
 
   const handleUpload = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -184,25 +194,12 @@ const Recording: NextPage<Props> = ({ categories }) => {
     }
   };
 
-  const handleRandomClick = useCallback(async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/random/${session.user?.email}`);
-
-    const data = await res.json();
-    setQuestions(data);
-    setChoosingQuestions(false);
-  }, [setChoosingQuestions]);
-
   const handleCategoryClick = async (category: QuestionCategory) => {
     const res = await fetch(`http://localhost:3001/questions/category/${category.question_category_id}`);
     const data = await res.json();
     setQuestions(data);
     setChoosingQuestions(false);
   };
-
-  const handleGoToQuestionsClick = useCallback(() => {
-    setRecordedChunks([]);
-    setChoosingQuestions(true);
-  }, [setChoosingQuestions]);
 
   const viewChoosingQuestions = () => {
     if (choosingQuestions) {
