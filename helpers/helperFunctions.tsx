@@ -27,7 +27,7 @@ export function timeSince(date: Date): string {
   if (interval > 1) {
     return Math.floor(interval) + " minuten geleden";
   }
-  return Math.floor(seconds) + " seconden geleden";
+  return Math.floor(seconds) + 1 + " seconden geleden";
 }
 
 export function milisecondsToReadableTime(ms: number): string {

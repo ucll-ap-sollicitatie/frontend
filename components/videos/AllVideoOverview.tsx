@@ -14,7 +14,7 @@ interface Props {
 const AllVideoOverview: NextPage<Props> = ({ videos, user }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
-  if (!videos) return <p>Geen video's gevonden</p>;
+  if (!videos) return <p>Geen video&apos;s gevonden</p>;
 
   return (
     <Row className="g-4">

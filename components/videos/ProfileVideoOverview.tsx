@@ -13,7 +13,7 @@ const ProfileVideoOverview: NextPage<Props> = ({ videos }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
-  if (!videos) return <p>Deze gebruiker heeft nog geen video's.</p>;
+  if (!videos) return <p>Deze gebruiker heeft nog geen video&apos;s.</p>;
 
   return (
     <Row className="g-4">

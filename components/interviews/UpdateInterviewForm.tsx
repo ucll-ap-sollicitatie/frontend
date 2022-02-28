@@ -22,7 +22,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
 
   useEffect(() => {
     const fetchCategory = async () => {
-      fetch(`${process.env.API_URL}/api/question-categories/${id}`)
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories/${id}`)
         .then((res) => res.json())
         .then((res) => {
           setCategory(res);
@@ -33,7 +33,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
     };
 
     const fetchQuestions = async () => {
-      fetch(`${process.env.API_URL}/questions/category/${id}`)
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/category/${id}`)
         .then((res) => res.json())
         .then((res) => {
           if (!res.error) setQuestions(res);
@@ -44,14 +44,14 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
     fetchCategory();
     fetchQuestions();
     setLoading(false);
-  }, []);
+  }, [id]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
     // Update category
-    const res = await fetch(`${process.env.API_URL}/question-categories/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories/${id}`, {
       body: JSON.stringify({
         category: target.category.value,
       }),
@@ -65,7 +65,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
     if (questions !== null) {
       for (const question of questions) {
         question as Question;
-        await fetch(`${process.env.API_URL}/questions/${question.question_id}`, {
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/${question.question_id}`, {
           method: "DELETE",
         });
       }
@@ -75,7 +75,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ id }) => {
     const elements = Array.from(target.elements) as HTMLInputElement[];
     const questions_inputs = elements.filter((element) => element.id.includes("question"));
     for (const question_input of questions_inputs) {
-      await fetch(`${process.env.API_URL}/questions`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions`, {
         body: JSON.stringify({
           question: question_input.value,
           question_category_id: id,

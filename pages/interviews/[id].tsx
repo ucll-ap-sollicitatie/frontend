@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Breadcrumb, Carousel } from "react-bootstrap";
+import { Breadcrumb, Carousel, Image } from "react-bootstrap";
 import UpdateInterviewButton from "../../components/interviews/UpdateInterviewButton";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
@@ -72,7 +72,7 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
         {questions.length === 0 ? (
           <Carousel interval={null} variant="dark" wrap={false}>
             <Carousel.Item>
-              <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
+              <Image className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
               <Carousel.Caption>
                 <h3>Deze categorie bevat geen vragen</h3>
               </Carousel.Caption>
@@ -82,7 +82,7 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
           <Carousel interval={null} variant="dark" wrap={false}>
             {questions.map((question, index) => (
               <Carousel.Item key={index}>
-                <img className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
+                <Image className="d-block w-100" src="https://via.placeholder.com/800x400/f8f9fa/f8f9fa" alt="Carousel slide" />
                 <Carousel.Caption>
                   <h3>Vraag {index + 1}</h3>
                   <h1>{question.question}</h1>

@@ -1,4 +1,5 @@
 // @ts-nocheck :)
+import { table } from "console";
 import type { NextPage } from "next";
 import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
@@ -36,22 +37,14 @@ const TasksReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }
     <>
       <Table {...getTableProps()} bordered hover responsive>
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+          {headerGroups.map((headerGroup, index) => (
+            <tr {...headerGroup.getHeaderGroupProps()} key={index}>
               {headerGroup.headers.map((column, index) => (
-                <th key={index} {...column.getHeaderProps(column.getSortByToggleProps())} className="no-wrap">
+                <th {...column.getHeaderProps(column.getSortByToggleProps())} className="no-wrap" key={index}>
                   {column.render("Header")}
-                  <span>
+                  <span key={index}>
                     {" "}
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <BsArrowBarDown color="blue" />
-                      ) : (
-                        <BsArrowBarUp color="blue" />
-                      )
-                    ) : (
-                      <BsArrowsExpand color="blue" />
-                    )}
+                    {column.isSorted ? column.isSortedDesc ? <BsArrowBarDown color="blue" /> : <BsArrowBarUp color="blue" /> : <BsArrowsExpand color="blue" />}
                   </span>
                 </th>
               ))}

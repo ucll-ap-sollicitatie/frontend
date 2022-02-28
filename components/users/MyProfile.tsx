@@ -1,29 +1,31 @@
-import { NextPage } from "next";
-import { Breadcrumb, Row, Col } from "react-bootstrap";
+import { GetStaticProps, NextPage } from "next";
+import { Breadcrumb } from "react-bootstrap";
+import { useEffect, useState } from "react";
 import User from "../../interfaces/User";
 import Layout from "../layout/Layout";
 import OwnVideoOverview from "../videos/ProfileVideoOverview";
 import ProfileCard from "../profile/ProfileCard";
-import { useEffect, useState } from "react";
+import Video from "../../interfaces/Video";
+import { useSession } from "next-auth/react";
 
 interface Props {
   user: User;
+  videos: Video[];
 }
 
-const MyProfile: NextPage<Props> = ({ user }) => {
-  const [myVideos, setVideos] = useState(null);
-
-  const fetchData = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/email/${user.email}`);
-    const data = await res.json();
-    if (res.ok) {
-      setVideos(data);
-    }
-  };
+const MyProfile: NextPage<Props> = ({ user, videos }) => {
+  const [myVideos, setVideos] = useState<Video[]>([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    let temp: Video[] = [];
+    videos.forEach((video) => {
+      if (video.email === session?.user?.email) {
+        temp.push(video);
+      }
+    });
+    setVideos(temp);
+  }, [videos, session?.user?.email]);
 
   return (
     <Layout>
@@ -36,7 +38,7 @@ const MyProfile: NextPage<Props> = ({ user }) => {
       <ProfileCard user={user} />
       <br />
 
-      <h2 className="h2">Uw video's</h2>
+      <h2 className="h2">Uw video&apos;s</h2>
       <OwnVideoOverview videos={myVideos} />
     </Layout>
   );

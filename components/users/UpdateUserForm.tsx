@@ -29,7 +29,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
 
     fetchUser();
     setLoading(false);
-  }, []);
+  }, [email]);
 
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

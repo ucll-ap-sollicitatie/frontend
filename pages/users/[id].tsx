@@ -4,6 +4,7 @@ import Unauthenticated from "../../components/Unauthenticated";
 import MyProfile from "../../components/users/MyProfile";
 import UserProfile from "../../components/users/UserProfile";
 import User from "../../interfaces/User";
+import Video from "../../interfaces/Video";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
@@ -24,13 +25,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const props = {
     user: null,
+    videos: null,
   };
 
   if (params !== undefined) {
     const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/email/${params.id}`);
     const user = await userRes.json();
+    const videosRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
+    const videos = await videosRes.json();
 
     props.user = user;
+    props.videos = videos;
   }
 
   return {
@@ -40,15 +45,16 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 interface Props {
   user: User;
+  videos: Video[];
 }
 
-const UserDetails: NextPage<Props> = ({ user }) => {
+const UserDetails: NextPage<Props> = ({ user, videos }) => {
   const { data: session } = useSession();
   if (!session || session.user === undefined) return <Unauthenticated />;
   const session_user = session.user as User;
 
-  if (session_user.email !== user.email) return <UserProfile user={user} />;
-  return <MyProfile user={session_user} />;
+  if (session_user.email !== user.email) return <UserProfile user={user} videos={videos} />;
+  return <MyProfile user={session_user} videos={videos} />;
 };
 
 export default UserDetails;
