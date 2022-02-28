@@ -127,5 +127,14 @@
     "preference": "Voorkeur",
     "preferences_update": "Voorkeuren aanpassen",
     "error": "Er is een probleem opgetreden bij aanpassen van uw preferenties."
+  },
+  "contact": {
+    "title": "Contact",
+    "team": "Het team",
+    "name": "Naam",
+    "email": "E-mail",
+    "r_number": "R-nummer",
+    "contact_description": "U kunt steeds contact opnemen met het team die verantwoordelijk is voor deze webapplicatie.",
+    "contact_us": "Aarzel ook niet om UC Leuven-Limburg te contacteren op elk moment."
   }
 }

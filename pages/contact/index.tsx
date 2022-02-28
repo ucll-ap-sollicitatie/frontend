@@ -1,29 +1,34 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { Breadcrumb, Table } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 
 const Contact: NextPage = () => {
+  const t = useTranslations("contact");
+
   return (
     <Layout>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>Contact</Breadcrumb.Item>
       </Breadcrumb>
-      <h1>Contact</h1>
+
+      <h1>{t("contact")}</h1>
       <p>
-        U kunt steeds contact opnemen met het team die verantwoordelijk is voor deze webapplicatie.
+        {t("contact_description")}
         <br />
-        Aarzel ook niet om UC Leuven-Limburg te contacteren op elk moment.
+        {t("contact_us")}
         <br />
         UCLL mail: leuven@ucll.be
       </p>
-      <h2>Team</h2>
+
+      <h2>{t("team")}</h2>
       <Table bordered hover responsive>
         <thead>
           <tr>
-            <th>Naam</th>
-            <th>E-mail</th>
-            <th>R-nummer</th>
+            <th>{t("name")}</th>
+            <th>{t("email")}</th>
+            <th>{t("r_number")}</th>
           </tr>
         </thead>
         <tbody>
