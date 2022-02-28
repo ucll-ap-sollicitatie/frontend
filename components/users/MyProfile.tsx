@@ -32,16 +32,12 @@ const MyProfile: NextPage<Props> = ({ user }) => {
         <Breadcrumb.Item active>Profiel</Breadcrumb.Item>
       </Breadcrumb>
 
-      <Row>
-        <Col>
-          <h1>Uw profiel</h1>
-          <ProfileCard user={user} />
-        </Col>
-        <Col>
-          <h1>Uw video's</h1>
-          <OwnVideoOverview videos={myVideos} />
-        </Col>
-      </Row>
+      <h1>Uw profiel</h1>
+      <ProfileCard user={user} />
+      <br />
+
+      <h2 className="h2">Uw video's</h2>
+      <OwnVideoOverview videos={myVideos} />
     </Layout>
   );
 };
