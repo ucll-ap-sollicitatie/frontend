@@ -36,11 +36,7 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences`, {
       body: JSON.stringify({
-<<<<<<< HEAD
-        email: user.email,
-=======
         email: session.user?.email,
->>>>>>> 3c4975d (preferences fixed)
         preference_1: target.preference_1.value,
         preference_2: target.preference_2.value,
         preference_3: target.preference_3.value,
