@@ -25,7 +25,7 @@ const InterviewsTable: NextPage = () => {
   const [error, setError] = useState<boolean>(false);
 
   const fetchData = async () => {
-    const res = await fetch("http://localhost:3001/question-categories");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
 
     if (res.status !== 200) {
       setError(true);
@@ -52,7 +52,7 @@ const InterviewsTable: NextPage = () => {
   };
 
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:3001/question-categories/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories/${id}`, {
       method: "DELETE",
     });
 

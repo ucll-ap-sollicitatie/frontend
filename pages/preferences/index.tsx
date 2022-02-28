@@ -6,9 +6,10 @@ import { Button, Form, Navbar, Stack } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
+import User from "../../interfaces/User";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const question_categories_response = await fetch(`http://localhost:3001/question-categories`);
+  const question_categories_response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
   const question_categories = await question_categories_response.json();
 
   return {
@@ -22,7 +23,8 @@ interface Props {
 
 const Preferences: NextPage<Props> = ({ question_categories }) => {
   const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const user = session.user as User;
 
   const router = useRouter();
   const [show, setShow] = useState(false);
@@ -32,9 +34,9 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
-    const res = await fetch("http://localhost:3001/preferences", {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences`, {
       body: JSON.stringify({
-        email: session.user.email,
+        email: user.email,
         preference_1: target.preference_1.value,
         preference_2: target.preference_2.value,
         preference_3: target.preference_3.value,

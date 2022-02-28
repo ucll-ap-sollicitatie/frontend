@@ -51,7 +51,7 @@ const UsersTable: NextPage = () => {
   };
 
   const fetchData = async () => {
-    const res = await fetch("http://localhost:3001/users");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
 
     if (res.status !== 200) {
       setError(true);
@@ -67,7 +67,7 @@ const UsersTable: NextPage = () => {
   }, []);
 
   const handleDelete = async () => {
-    const res = await fetch(`http://localhost:3001/users/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, {
       method: "DELETE",
     });
 

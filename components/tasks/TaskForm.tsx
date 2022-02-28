@@ -14,7 +14,7 @@ const TaskForm: NextPage<Props> = ({ onSubmit, task }) => {
       <Form onSubmit={onSubmit} className="col-md-12 col-lg-10 col-xl-8">
         <div className="d-flex gap-4 flex-wrap">
           <Stack gap={3}>
-            <Form.Group controlId="title">
+            <Form.Group controlId="task_title">
               <Form.Label>Titel</Form.Label>
               <Form.Control type="text" placeholder="Titel" defaultValue={task !== undefined ? task.title : ""} required />
             </Form.Group>

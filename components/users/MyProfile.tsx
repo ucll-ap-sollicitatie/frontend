@@ -14,7 +14,7 @@ const MyProfile: NextPage<Props> = ({ user }) => {
   const [myVideos, setVideos] = useState(null);
 
   const fetchData = async () => {
-    const res = await fetch(`http://localhost:3001/videos/email/${user.email}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/email/${user.email}`);
     const data = await res.json();
     if (res.ok) {
       setVideos(data);

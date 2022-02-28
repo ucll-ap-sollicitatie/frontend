@@ -19,7 +19,7 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
   const [liked, setLiked] = useState(false);
 
   const fetchData = async () => {
-    const res = await fetch(`http://localhost:3001/comments/likes/${comment.comment_id}/check`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/likes/${comment.comment_id}/check`, {
       method: "POST",
       body: JSON.stringify({
         email: user.email,

@@ -5,10 +5,11 @@ import Layout from "../../components/layout/Layout";
 import ProfileCard from "../../components/profile/ProfileCard";
 import Unauthenticated from "../../components/Unauthenticated";
 import OwnVideoOverview from "../../components/videos/OwnVideoOverview";
-import { Video } from "../../interfaces/Video";
+import User from "../../interfaces/User";
+import Video from "../../interfaces/Video";
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`http://localhost:3001/videos`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
   const videos = await res.json();
 
   return {
@@ -22,7 +23,8 @@ interface Props {
 
 const Home: NextPage<Props> = ({ videos }) => {
   const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const user = session.user as User;
 
   return (
     <Layout>
@@ -33,7 +35,7 @@ const Home: NextPage<Props> = ({ videos }) => {
       <Row>
         <Col>
           <h1>Profiel</h1>
-          <ProfileCard user={session.user} />
+          <ProfileCard user={user} />
         </Col>
         <Col>
           <h1>Uw Video's</h1>

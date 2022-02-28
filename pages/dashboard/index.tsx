@@ -25,13 +25,13 @@ const Dashboard: NextPage = () => {
 
   if (user.role === "Admin") {
     const fetchData = async () => {
-      const usersRes = await fetch("http://localhost:3001/users");
+      const usersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
       const users = await usersRes.json();
 
-      const commentsRes = await fetch("http://localhost:3001/comments");
+      const commentsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
       const comments = (await commentsRes.json()) as Comment[];
 
-      const videosRes = await fetch("http://localhost:3001/videos");
+      const videosRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
       const videos = await videosRes.json();
 
       if (users.length > 0) {

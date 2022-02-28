@@ -22,7 +22,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const res = await fetch(`http://localhost:3001/users/email/${email}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/email/${email}`);
       const data = await res.json();
       setUser(data);
     };
@@ -43,7 +43,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
     }
 
     // Update
-    const res = await fetch(`http://localhost:3001/users/${email}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${email}`, {
       body: JSON.stringify({
         name: target.user_name.value,
         surname: target.surname.value,
@@ -68,7 +68,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
     }
 
     // Get user and update local user information
-    const user_res = await fetch(`http://localhost:3001/users/email/${email}`);
+    const user_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/email/${email}`);
     if (!user_res.ok) {
       const data = await res.json();
       setError(data.error);

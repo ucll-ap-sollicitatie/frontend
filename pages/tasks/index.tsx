@@ -6,6 +6,7 @@ import Task from "../../interfaces/Task";
 import TasksReactTable from "../../components/TasksReactTable";
 import Unauthorized from "../../components/Unauthorized";
 import Layout from "../../components/layout/Layout";
+import User from "../../interfaces/User";
 
 const columns = [
   {
@@ -28,13 +29,16 @@ const columns = [
 
 const TasksIndex: NextPage = () => {
   const { data: session } = useSession();
-  if (session?.user?.role === "Lector") return <Unauthorized />;
+  if (!session || session.user === undefined) return <Unauthorized />;
+  const user = session.user as User;
+  if (user.role === "Lector") return <Unauthorized />;
+
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
   const fetchData = async () => {
-    const res = await fetch("http://localhost:3001/tasks");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
 
     if (!res.ok) {
       setError(true);
