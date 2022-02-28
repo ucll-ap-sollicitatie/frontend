@@ -6,6 +6,7 @@ import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import AllVideoOverview from "../../components/videos/AllVideoOverview";
 import User from "../../interfaces/User";
+import { useTranslations } from "next-intl";
 
 export const getStaticProps: GetStaticProps = async () => {
   let props = {
@@ -29,6 +30,8 @@ interface Props {
 }
 
 const Home: NextPage<Props> = ({ videos }) => {
+  const t = useTranslations("videos");
+
   const { data: session } = useSession();
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
@@ -40,7 +43,7 @@ const Home: NextPage<Props> = ({ videos }) => {
         <Breadcrumb.Item active>Video&apos;s</Breadcrumb.Item>
       </Breadcrumb>
 
-      <h1>Alle video&apos;s</h1>
+      <h1>{t("all")}</h1>
       <AllVideoOverview videos={videos} user={user} />
     </Layout>
   );
