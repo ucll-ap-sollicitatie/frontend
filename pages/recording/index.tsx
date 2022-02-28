@@ -168,7 +168,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   };
 
   const handleRandomClick = React.useCallback(async () => {
-    const res = await fetch("http://localhost:3001/questions/random/random");
+    const res = await fetch(`http://localhost:3001/questions/random/${session.user?.email}`);
 
     if (res.status !== 200) {
       setError(true);
