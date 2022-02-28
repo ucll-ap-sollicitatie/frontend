@@ -1,4 +1,4 @@
-// @ts-ignore :)
+// @ts-nocheck :)
 import type { NextPage } from "next";
 import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
