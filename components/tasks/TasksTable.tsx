@@ -42,7 +42,7 @@ const TasksTable: NextPage = () => {
   };
 
   const fetchData = async () => {
-    const res = await fetch("http://localhost:3001/tasks");
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
 
     if (res.status !== 200) {
       setError(true);
@@ -60,7 +60,7 @@ const TasksTable: NextPage = () => {
   }, []);
 
   const handleDelete = async () => {
-    await fetch(`http://localhost:3001/tasks/${id}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${id}`, {
       method: "DELETE",
     });
 

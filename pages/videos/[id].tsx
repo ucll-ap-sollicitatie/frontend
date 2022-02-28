@@ -2,7 +2,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { Breadcrumb, Button, Card, Col, Row, Stack } from "react-bootstrap";
 import { useSWRConfig } from "swr";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import router from "next/router";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
@@ -19,7 +19,7 @@ import CommentList from "../../components/videos/CommentList";
 import User from "../../interfaces/User";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await fetch("http://localhost:3001/videos/");
+  const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
   const videos = await data.json();
 
   const paths = videos.map((video: Video) => {
@@ -43,11 +43,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   if (params !== undefined) {
     const video_id = params.id;
-    const videoRes = await fetch(`http://localhost:3001/videos/${video_id}`);
+    const videoRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/${video_id}`);
     const video = await videoRes.json();
-    const commentRes = await fetch(`http://localhost:3001/comments/video/${video_id}`);
+    const commentRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/video/${video_id}`);
     const comments = await commentRes.json();
-    const feedbackRes = await fetch(`http://localhost:3001/comments/video/${video_id}/feedback`);
+    const feedbackRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/video/${video_id}/feedback`);
     const feedback = await feedbackRes.json();
 
     props.video = video;
@@ -86,32 +86,32 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [currentComment, setCurrentComment] = useState<Comment | null>(comments == null ? null : comments[0]);
 
   const handleLikeVideo = async (email: string, video_id: number) => {
-    await fetch(`http://localhost:3001/videos/likes/${video_id}/like`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video_id}/like`, {
       method: "POST",
-      body: JSON.stringify({ email: email}),
+      body: JSON.stringify({ email: email }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
 
   const handleUnlikeVideo = async (email: string, video_id: number) => {
-    await fetch(`http://localhost:3001/videos/likes/${video_id}/unlike`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video_id}/unlike`, {
       method: "POST",
-      body: JSON.stringify({ email: email}),
+      body: JSON.stringify({ email: email }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-  }
+  };
 
   const [videoLiked, setVideoLiked] = useState(false);
 
   const fetchData = async () => {
-    const res = await fetch(`http://localhost:3001/videos/likes/${video.video_id}/check`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video.video_id}/check`, {
       method: "POST",
       body: JSON.stringify({
-        email: session.user.email,
+        email: user.email,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -129,7 +129,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   });
 
   const handleRemoveLike = async (email: string, comment_id: number) => {
-    await fetch(`http://localhost:3001/comments/likes/${comment_id}/unlike`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/likes/${comment_id}/unlike`, {
       method: "POST",
       body: JSON.stringify({ email: email }),
       headers: {
@@ -139,7 +139,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   };
 
   const handleAddLike = async (email: string, comment_id: number) => {
-    await fetch(`http://localhost:3001/comments/likes/${comment_id}/like`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/likes/${comment_id}/like`, {
       method: "POST",
       body: JSON.stringify({ email: email }),
       headers: {
@@ -171,7 +171,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       Object.assign(body, { feedback: false });
     }
 
-    const request = await fetch(`http://localhost:3001/comments`, {
+    const request = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments`, {
       method: "POST",
       body: JSON.stringify(body),
       headers: {
@@ -196,12 +196,12 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   };
 
   const handleDeleteComment = async () => {
-    await fetch(`http://localhost:3001/comments/${commentId}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}`, {
       method: "DELETE",
     });
 
     handleClose();
-    mutate("http://localhost:3001/comments");
+    mutate(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
     router.push(
       {
         pathname: `/videos/${video.video_id}`,
@@ -216,7 +216,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     const target = event.target as HTMLFormElement;
     const text = target.comment.value;
     console.log(text);
-    await fetch(`http://localhost:3001/comments/${commentId}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -227,7 +227,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     });
 
     handleClose();
-    mutate("http://localhost:3001/comments");
+    mutate(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
     router.push(
       {
         pathname: `/videos/${video.video_id}`,

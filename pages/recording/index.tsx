@@ -1,5 +1,4 @@
 import type { GetStaticProps, NextPage } from "next";
-import React from "react";
 import { FormEvent, useState } from "react";
 import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
@@ -13,8 +12,9 @@ import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import router from "next/router";
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
+
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`http://localhost:3001/question-categories`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
   const categories = await res.json();
 
   return {
@@ -34,17 +34,17 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [capturing, setCapturing] = useState(false);
   const [recordedChunks, setRecordedChunks] = useState([]);
-  const [uploading, setUploading] = React.useState(false);
-  const [maxChars, setMaxChars] = React.useState(0);
+  const [uploading, setUploading] = useState(false);
+  const [maxChars, setMaxChars] = useState(0);
 
-  const [choosingQuestions, setChoosingQuestions] = React.useState(true);
+  const [choosingQuestions, setChoosingQuestions] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
   const stopwatch = useRef<Stopwatch | null>(null);
-  const [previousTime, setPreviousTime] = React.useState(0);
-  const [previousQuestion, setPreviousQuestion] = React.useState(0);
+  const [previousTime, setPreviousTime] = useState(0);
+  const [previousQuestion, setPreviousQuestion] = useState(0);
   const [subtitleCount, setSubtitleCount] = useState<number>(1);
   const [subtitles, setSubtitles] = useState<string>("");
 
@@ -77,9 +77,9 @@ const Recording: NextPage<Props> = ({ categories }) => {
       mediaRecorderRef.current.stop();
       setCapturing(false);
       stopwatch.current?.stop();
-      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(
-        stopwatch.current?.getTime()
-      )}\nVraag ${previousQuestion + 1}: ${questions[previousQuestion].question}`;
+      let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current?.getTime())}\nVraag ${
+        previousQuestion + 1
+      }: ${questions[previousQuestion].question}`;
       setSubtitles(subtitles + data);
     }
   };
@@ -87,9 +87,9 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const handleSelect = (selectedIndex: number) => {
     if (stopwatch != null) {
       if (stopwatch.current?.getState() == "RUNNING") {
-        let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(
-          stopwatch.current.getTime()
-        )}\nVraag ${previousQuestion + 1}: ${questions[previousQuestion].question}\n\n`;
+        let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current.getTime())}\nVraag ${
+          previousQuestion + 1
+        }: ${questions[previousQuestion].question}\n\n`;
         setSubtitles(subtitles + data);
         setPreviousTime(stopwatch.current.getTime());
         setSubtitleCount(subtitleCount + 1);
@@ -104,7 +104,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
     console.log(subtitles);
   };
 
-  const handleBackClick = React.useCallback(() => {
+  const handleBackClick = useCallback(() => {
     setUploading(false);
   }, [setUploading]);
 
@@ -132,7 +132,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
       axios({
         method: "POST",
-        url: "http://localhost:3001/videos",
+        url: `${process.env.NEXT_PUBLIC_API_URL}/videos`,
         data: formData,
         headers: {
           "Content-Type": "multipart/form-data",
@@ -166,8 +166,8 @@ const Recording: NextPage<Props> = ({ categories }) => {
     }
   };
 
-  const handleRandomClick = React.useCallback(async () => {
-    const res = await fetch(`http://localhost:3001/questions/random/${session.user?.email}`);
+  const handleRandomClick = useCallback(async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/random/${session.user?.email}`);
 
     if (res.status !== 200) {
       setError(true);
@@ -179,7 +179,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   }, [setChoosingQuestions]);
 
   const handleCategoryClick = async (category: QuestionCategory) => {
-    const res = await fetch(`http://localhost:3001/questions/category/${category.question_category_id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/category/${category.question_category_id}`);
 
     if (res.status !== 200) {
       setError(true);
@@ -190,7 +190,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
     }
   };
 
-  const handleGoToQuestionsClick = React.useCallback(() => {
+  const handleGoToQuestionsClick = useCallback(() => {
     setChoosingQuestions(true);
   }, [setChoosingQuestions]);
 
@@ -244,10 +244,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
                 </Form.Group>
               </div>
               <div className="d-flex gap-4 flex-wrap">
-                <OverlayTrigger
-                  placement="top"
-                  overlay={<Tooltip id="button-tooltip-2">Privé: alleen lectoren kunnen u video zien</Tooltip>}
-                >
+                <OverlayTrigger placement="top" overlay={<Tooltip id="button-tooltip-2">Privé: alleen lectoren kunnen u video zien</Tooltip>}>
                   <Form.Group className="mb-3" controlId="privateCheckbox">
                     <Form.Check type="checkbox" label="Privé" defaultChecked />
                   </Form.Group>

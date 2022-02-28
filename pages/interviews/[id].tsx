@@ -8,7 +8,7 @@ import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await fetch("http://localhost:3001/question-categories");
+  const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
   const categories = await data.json();
 
   const paths = categories.map((category: QuestionCategory) => {
@@ -28,10 +28,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     return { props: { questions: [], category: null } };
   }
 
-  const category_res = await fetch(`http://localhost:3001/question-categories/${params.id}`);
+  const category_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories/${params.id}`);
   const category = await category_res.json();
 
-  const questions_res = await fetch(`http://localhost:3001/questions/category/${params.id}`);
+  const questions_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/category/${params.id}`);
   if (questions_res.status !== 200) {
     return { props: { questions: [], category: category } };
   }

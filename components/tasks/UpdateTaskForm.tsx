@@ -4,8 +4,8 @@ import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import Task from "../../interfaces/Task";
+import User from "../../interfaces/User";
 import SpinnerComponent from "../SpinnerComponent";
-import Unauthorized from "../Unauthorized";
 import TaskForm from "./TaskForm";
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
 
 const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
   const { data: session } = useSession();
+  const user = session?.user as User;
   const router = useRouter();
 
   const [task, setTask] = useState<Task>();
@@ -23,7 +24,7 @@ const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
 
   useEffect(() => {
     const fetchTask = async () => {
-      const res = await fetch(`http://localhost:3001/tasks/${task_id}`);
+      const res = await fetch(`${process.env.API_URL}/tasks/${task_id}`);
       const data = await res.json();
       setTask(data);
     };
@@ -36,9 +37,9 @@ const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
-    const res = await fetch("http://localhost:3001/tasks", {
+    const res = await fetch(`${process.env.API_URL}/tasks`, {
       body: JSON.stringify({
-        title: target.title.value,
+        title: target.task_title.value,
         description: target.description.value,
         deadline: target.deadline.value,
       }),
@@ -59,7 +60,7 @@ const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
   };
 
   if (loading) return <SpinnerComponent />;
-  if (task?.teacher_email !== session?.user?.email && session?.user?.role !== "Admin") return <div>U mag deze taak niet aanpassen.</div>;
+  if (task?.teacher_email !== session?.user?.email && user.role !== "Admin") return <div>U mag deze taak niet aanpassen.</div>;
   return (
     <>
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>

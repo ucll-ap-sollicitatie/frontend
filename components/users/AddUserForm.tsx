@@ -16,13 +16,13 @@ const AddUserForm: NextPage = () => {
 
   useEffect(() => {
     const fetchRoles = async () => {
-      const response = await fetch(`http://localhost:3001/roles`);
+      const response = await fetch(`${process.env.API_URL}/roles`);
       const data = await response.json();
       setRoles(data);
     };
 
     const fetchFormations = async () => {
-      const response = await fetch(`http://localhost:3001/formations`);
+      const response = await fetch(`${process.env.API_URL}/formations`);
       const data = await response.json();
       setFormations(data);
     };
@@ -41,7 +41,7 @@ const AddUserForm: NextPage = () => {
       return;
     }
 
-    const res = await fetch("http://localhost:3001/users", {
+    const res = await fetch(`${process.env.API_URL}/users`, {
       body: JSON.stringify({
         name: target.user_name.value,
         surname: target.surname.value,
