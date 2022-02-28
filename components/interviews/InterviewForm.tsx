@@ -21,9 +21,9 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
   const handleClose = () => setShow(false);
 
   const [questionInputs, setQuestionInputs] = useState<QuestionInputType[]>(() => {
-    if (questions === undefined) return [{ id: -1, question: "" }];
+    if (questions === undefined || questions.length === 0) return [{ id: -1, question: "" }];
 
-    let res = [];
+    let res: { id: number; question: string }[] = [];
     for (let i = 0; i < questions.length; i++) {
       res.push({ id: i, question: questions[i].question });
     }
@@ -60,9 +60,7 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
   };
 
   const handleDelete = () => {
-    setQuestionInputs((prevQuestionInputs: QuestionInputType[]) =>
-      prevQuestionInputs.filter((questionInput: QuestionInputType) => questionInput.id !== id)
-    );
+    setQuestionInputs((prevQuestionInputs: QuestionInputType[]) => prevQuestionInputs.filter((questionInput: QuestionInputType) => questionInput.id !== id));
 
     setShow(false);
   };

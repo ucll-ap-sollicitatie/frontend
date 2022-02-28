@@ -11,7 +11,7 @@ const VideoCard: NextPage<Props> = ({ video }) => {
   if (!video) return <p>Geen video gevonden</p>;
 
   return (
-    <Link href={`/videos/${video.video_id}`}>
+    <Link href={`/videos/${video.video_id}`} passHref>
       <Card>
         <Card.Img
           variant="top"
