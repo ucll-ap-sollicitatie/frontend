@@ -7,6 +7,7 @@ import ReactTable from "../ReactTable";
 import SpinnerComponent from "../SpinnerComponent";
 import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
+import { useTranslations } from "next-intl";
 
 const columns = [
   {
@@ -36,6 +37,8 @@ const columns = [
 ];
 
 const UsersTable: NextPage = () => {
+  const t = useTranslations("users");
+
   const router = useRouter();
   const [id, setId] = useState<number | string>("");
   const [users, setUsers] = useState<User[]>([]);
@@ -83,19 +86,17 @@ const UsersTable: NextPage = () => {
     fetchData();
   };
 
-  if (error) return <div>Er is een probleem opgetreden bij het laden van de gebruikers.</div>;
+  if (error) return <div>{t("users_loading_failed")}</div>;
   if (loading) return <SpinnerComponent />;
-  if (users.length === 0) return <div>Geen gebruikers gevonden.</div>;
+  if (users.length === 0) return <div>{t("no_users")}</div>;
 
   return (
     <>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Gebruiker verwijderen</Modal.Title>
+          <Modal.Title>{t("remove_user")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          Bent u zeker dat u gebruiker <span className="font-italic">{id}</span> wilt verwijderen?
-        </Modal.Body>
+        <Modal.Body>{t("users_delete_confirm")}</Modal.Body>
         <Modal.Footer className="justify-content-center">
           <ConfirmCloseButton handleClose={handleClose} />
           <ConfirmRemoveButton handleDelete={handleDelete} />

@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { FormEvent, useEffect, useState } from "react";
 import { Button, Form, Stack } from "react-bootstrap";
 import { Formation } from "../../interfaces/Formation";
@@ -11,6 +12,8 @@ interface Props {
 }
 
 const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
+  const t = useTranslations("users");
+
   const [roles, setRoles] = useState<Role[]>([]);
   const [formations, setFormations] = useState<Formation[]>([]);
 
@@ -37,13 +40,13 @@ const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
         <div className="d-flex gap-4 flex-wrap">
           <Stack gap={3}>
             <Form.Group controlId="user_name">
-              <Form.Label>Voornaam</Form.Label>
-              <Form.Control type="text" placeholder="Voornaam" defaultValue={user !== undefined ? user.name : ""} required />
+              <Form.Label>{t("name")}</Form.Label>
+              <Form.Control type="text" placeholder={t("name")} defaultValue={user !== undefined ? user.name : ""} required />
             </Form.Group>
 
             <Form.Group controlId="surname">
-              <Form.Label>Familienaam</Form.Label>
-              <Form.Control type="text" placeholder="Familienaam" defaultValue={user !== undefined ? user.surname : ""} required />
+              <Form.Label>{t("surname")}</Form.Label>
+              <Form.Control type="text" placeholder={t("surname")} defaultValue={user !== undefined ? user.surname : ""} required />
             </Form.Group>
 
             <Form.Group controlId="r_u_number">
@@ -52,24 +55,24 @@ const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
             </Form.Group>
 
             <Form.Group controlId="email">
-              <Form.Label>E-mail adres</Form.Label>
-              <Form.Control type="email" placeholder="E-mail adres" defaultValue={user !== undefined ? user.email : ""} required />
+              <Form.Label>{t("email")}</Form.Label>
+              <Form.Control type="email" placeholder={t("email")} defaultValue={user !== undefined ? user.email : ""} required />
             </Form.Group>
           </Stack>
 
           <Stack gap={3}>
             <Form.Group controlId="password">
-              <Form.Label>Wachtwoord</Form.Label>
-              <Form.Control type="password" placeholder="Wachtwoord" required />
+              <Form.Label>{t("password")}</Form.Label>
+              <Form.Control type="password" placeholder={t("password")} required />
             </Form.Group>
 
             <Form.Group controlId="password_check">
-              <Form.Label>Wachtwoord verifiëren</Form.Label>
-              <Form.Control type="password" placeholder="Wachtwoord verifiëren" required />
+              <Form.Label>{t("password_confirmation")}</Form.Label>
+              <Form.Control type="password" placeholder={t("password_confirmation")} required />
             </Form.Group>
 
             <Form.Group controlId="role_id">
-              <Form.Label>Rol</Form.Label>
+              <Form.Label>{t("role")}</Form.Label>
               <Form.Select required>
                 {roles.map((role) => (
                   <option key={role.role_id} value={role.role_id} selected={user !== undefined && user.role === role.role}>
@@ -80,7 +83,7 @@ const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
             </Form.Group>
 
             <Form.Group controlId="formation_id">
-              <Form.Label>Richting</Form.Label>
+              <Form.Label>{t("formation")}</Form.Label>
               <Form.Select required>
                 {formations.map((formation) => (
                   <option key={formation.formation_id} value={formation.formation_id} selected={user !== undefined && user.formation === formation.formation}>

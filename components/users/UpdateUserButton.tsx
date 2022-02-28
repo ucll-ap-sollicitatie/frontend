@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Button } from "react-bootstrap";
 
@@ -7,9 +8,11 @@ interface Props {
 }
 
 const UpdateUserutton: NextPage<Props> = ({ email }) => {
+  const t = useTranslations("users");
+
   return (
     <Link href={`/users/update/?email=${email}`} passHref>
-      <Button variant="primary">Profiel aanpassen</Button>
+      <Button variant="primary">{t("profile_edit")}</Button>
     </Link>
   );
 };

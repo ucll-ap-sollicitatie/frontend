@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
@@ -7,6 +8,8 @@ import { Role } from "../../interfaces/Role";
 import UserForm from "./UserForm";
 
 const AddUserForm: NextPage = () => {
+  const t = useTranslations("errors");
+
   const router = useRouter();
 
   const [roles, setRoles] = useState<Role[]>([]);
@@ -36,7 +39,7 @@ const AddUserForm: NextPage = () => {
     const target = event.target as HTMLFormElement;
 
     if (target.password.value != target.password_check.value) {
-      setError("De wachtwoorden komen niet overeen");
+      setError(t("password_mismatch"));
       setShow(true);
       return;
     }
@@ -71,7 +74,7 @@ const AddUserForm: NextPage = () => {
   return (
     <>
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
-        <Alert.Heading>Slim op sollicitatie</Alert.Heading>
+        <Alert.Heading>{t("title")}</Alert.Heading>
         <span>{error}</span>
       </Alert>
 
