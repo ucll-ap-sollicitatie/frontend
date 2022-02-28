@@ -1,12 +1,11 @@
 import { NextPage } from "next";
-import { Button, DropdownButton, Dropdown, Stack, Breadcrumb } from "react-bootstrap";
+import { Button, DropdownButton, Dropdown, Stack } from "react-bootstrap";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
-import Layout from "../layout/Layout";
 
 interface Props {
-  handleRandomClick: Function;
+  handleRandomClick: () => void;
   categories: QuestionCategory[];
-  handleCategoryClick: Function;
+  handleCategoryClick: (category: QuestionCategory) => void;
 }
 
 const ChoosingQuestions: NextPage<Props> = ({ handleRandomClick, categories, handleCategoryClick }) => {
