@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { Button, Card, Nav, Stack } from "react-bootstrap";
 import { timeSince } from "../../helpers/helperFunctions";
 import Comment from "../../interfaces/Comment";
@@ -15,6 +16,9 @@ interface Props {
 }
 
 const FeedbackList: NextPage<Props> = ({ feedback, user, video, handleSelect, handleShowUpdate, handleShowDelete }) => {
+  const t = useTranslations("videos");
+  const b = useTranslations("buttons");
+
   return (
     <Stack gap={3}>
       {feedback.map(
@@ -26,12 +30,12 @@ const FeedbackList: NextPage<Props> = ({ feedback, user, video, handleSelect, ha
                   <div className="d-flex">
                     <Nav.Item>
                       <Nav.Link eventKey="0">
-                        <strong>Feedback</strong>
+                        <strong>{t("feedback")}</strong>
                       </Nav.Link>
                     </Nav.Item>
                     {feedback.author === user.r_u_number && (
                       <Nav.Item>
-                        <Nav.Link eventKey="1">Opties</Nav.Link>
+                        <Nav.Link eventKey="1">{t("options")}</Nav.Link>
                       </Nav.Item>
                     )}
                   </div>
@@ -43,10 +47,10 @@ const FeedbackList: NextPage<Props> = ({ feedback, user, video, handleSelect, ha
               <Card.Body className="d-flex justify-content-between d-none" id={`commentOptions_${feedback.comment_id}`}>
                 <div className="d-flex gap-3">
                   <Button variant="outline-success" onClick={() => handleShowUpdate(feedback.comment_id, feedback)}>
-                    Bijwerken
+                    {b("update")}
                   </Button>
                   <Button variant="outline-danger" onClick={() => handleShowDelete(feedback.comment_id, feedback)}>
-                    Verwijderen
+                    {b("delete")}
                   </Button>
                 </div>
                 <Button variant="light" disabled>

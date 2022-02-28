@@ -6,7 +6,46 @@
     "logout": "Logout",
     "register": "Registreer"
   },
+  "table": {
+    "update": "Aanpassen",
+    "delete": "Verwijderen",
+    "page": "Pagina",
+    "go_to_page": "Ga naar pagina",
+    "show": "Toon"
+  },
+  "modal": {
+    "add": "Toevoegen",
+    "update": "Aanpassen",
+    "delete": "Verwijderen",
+    "close": "Sluiten"
+  },
+  "buttons": {
+    "update": "Aanpassen",
+    "delete": "Verwijderen"
+  },
   "videos": {
-    "all": "Alle videos"
+    "all": "Alle videos",
+    "title": "Titel",
+    "information": "Informatie",
+    "description": "Beschrijving",
+    "uploaded_by": "Geüpload door",
+    "date": "Date",
+    "feedback": "Feedback",
+    "feedback_to": "Feedback geven aan",
+    "feedback_form_label": "Gelieve uw feedback hieronder te typen",
+    "no_videos": "Geen video's gevonden.",
+    "no_videos_user": "Deze gebruiker heeft nog geen video's.",
+    "comment": "Commentaar",
+    "no_comments": "Geen commentaar deze video.",
+    "comment_add": "Voeg commentaar toe",
+    "add_comment": "Commentaar toevoegen",
+    "update_comment": "Commentaar toevoegen",
+    "characters": "Karakters",
+    "options": "Opties",
+    "likes": "Likes",
+    "like": "Vind ik leuk",
+    "dislike": "Vind ik niet leuk",
+    "comment_remove": "Commentaar verwijderen",
+    "comment_remove_confirm": "Bent u zeker dat u dit commentaar wilt verwijderen?"
   }
 }
