@@ -5,8 +5,11 @@ import Unauthenticated from "../../components/Unauthenticated";
 import { useRouter } from "next/router";
 import Error from "../_error";
 import UpdateTaskForm from "../../components/tasks/UpdateTaskForm";
+import { useTranslations } from "next-intl";
 
 const UpdateInterview: NextPage = () => {
+  const t = useTranslations("tasks");
+
   const router = useRouter();
   const query = router.query as { task_id: string };
   const { data: session } = useSession();
@@ -15,7 +18,7 @@ const UpdateInterview: NextPage = () => {
 
   return (
     <Layout>
-      <h1>Taak aanpassen</h1>
+      <h1>{t("task_update")}</h1>
 
       <UpdateTaskForm task_id={query.task_id} />
     </Layout>

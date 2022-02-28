@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
 import { Alert } from "react-bootstrap";
@@ -7,6 +8,9 @@ import Unauthenticated from "../Unauthenticated";
 import TaskForm from "./TaskForm";
 
 const AddTaskForm: NextPage = () => {
+  const t = useTranslations("tasks");
+  const e = useTranslations("errors");
+
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
@@ -31,7 +35,7 @@ const AddTaskForm: NextPage = () => {
     });
 
     if (!res.ok) {
-      setError("Er was een probleem bij het aanmaken van uw taak.");
+      setError(t("add_failed"));
       setShow(true);
     } else {
       router.push({
@@ -43,7 +47,7 @@ const AddTaskForm: NextPage = () => {
   return (
     <>
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
-        <Alert.Heading>Slim op sollicitatie</Alert.Heading>
+        <Alert.Heading>{e("error_title")}</Alert.Heading>
         <span>{error}</span>
       </Alert>
 
