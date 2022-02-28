@@ -205,12 +205,6 @@ const Recording: NextPage<Props> = ({ categories }) => {
     setChoosingQuestions(false);
   };
 
-  const handleGoToQuestionsClick = useCallback(() => {
-    setRecordedChunks([]);
-    setChoosingQuestions(true);
-    setWebCamReady(false);
-  }, [setChoosingQuestions]);
-
   const viewChoosingQuestions = () => {
     if (choosingQuestions) {
       return <ChoosingQuestions handleRandomClick={handleRandomClick} categories={categories} handleCategoryClick={handleCategoryClick} />;

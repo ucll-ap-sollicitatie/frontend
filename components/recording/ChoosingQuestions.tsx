@@ -33,13 +33,8 @@ const ChoosingQuestions: NextPage<Props> = ({ handleRandomClick, categories, han
           Je krijgt steeds 5 willekeurige vragen uit de gekozen categorie die je moet beantwoorden.
         </p>
         <DropdownButton variant="outline-primary" title="Categorie van vragen kiezen" className="ms-auto me-1">
-<<<<<<< HEAD
           {categories.map((category: QuestionCategory, index) => (
             <Dropdown.Item key={index} onClick={() => handleCategoryClick(category)}>
-=======
-          {categories.map((category: QuestionCategory) => (
-            <Dropdown.Item onClick={() => handleCategoryClick(category)} key={category.question_category_id}>
->>>>>>> fixed front end build errors
               {category.category}
             </Dropdown.Item>
           ))}
