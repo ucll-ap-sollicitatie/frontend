@@ -1,8 +1,9 @@
 import { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useState } from "react";
-import { Button, Form, Navbar, Stack } from "react-bootstrap";
+import { Button, Form, Stack } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
@@ -22,6 +23,8 @@ interface Props {
 }
 
 const Preferences: NextPage<Props> = ({ question_categories }) => {
+  const t = useTranslations("preferences");
+
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
@@ -46,9 +49,9 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
       method: "POST",
     });
 
-    if (res.status === 400) {
+    if (!res.ok) {
       const response = await res.json();
-      setError(response.messages);
+      setError(t("error"));
       setShow(true);
     } else {
       router.push({
@@ -81,33 +84,31 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
 
   return (
     <Layout>
-      <Navbar></Navbar>
-      <h1>Preferenties</h1>
+      <h1>{t("title")}</h1>
 
-      <p>Kies 3 categorieën waarover je interviews wilt krijgen.</p>
-
+      <p>{t("form_title")}</p>
       <Form onSubmit={submitPreferences}>
         <div className="d-flex gap-4 flex-wrap">
           <Stack gap={3}>
             <Form.Group controlId="preference_1">
-              <Form.Label>Preferentie 1</Form.Label>
+              <Form.Label>{t("preference")} 1</Form.Label>
               <Form.Select required>{test()}</Form.Select>
             </Form.Group>
 
             <Form.Group controlId="preference_2">
-              <Form.Label>Preferentie 2</Form.Label>
+              <Form.Label>{t("preference")} 2</Form.Label>
               <Form.Select required>{test()}</Form.Select>
             </Form.Group>
 
             <Form.Group controlId="preference_3">
-              <Form.Label>Preferentie 3</Form.Label>
+              <Form.Label>{t("preference")} 3</Form.Label>
               <Form.Select required>{test()}</Form.Select>
             </Form.Group>
           </Stack>
         </div>
 
         <Button variant="primary" type="submit" className="mt-3">
-          Voeg preferenties toe
+          {t("preferences_update")}
         </Button>
       </Form>
     </Layout>

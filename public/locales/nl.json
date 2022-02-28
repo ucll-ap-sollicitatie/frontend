@@ -120,5 +120,12 @@
     "random_questions": " Willekeurige vragen uit mijn preferenties",
     "record_interview": "Ga voor het echte ding en beantwoord vragen enkel uit een thema die jij zelf kiest!",
     "record_interview_questions": "Je krijgt steeds 5 willekeurige vragen uit de gekozen categorie die je moet beantwoorden."
+  },
+  "preferences": {
+    "title": "Voorkeuren",
+    "form_title": "Kies 3 categorieën waarover je interviews wilt krijgen.",
+    "preference": "Voorkeur",
+    "preferences_update": "Voorkeuren aanpassen",
+    "error": "Er is een probleem opgetreden bij aanpassen van uw preferenties."
   }
 }
