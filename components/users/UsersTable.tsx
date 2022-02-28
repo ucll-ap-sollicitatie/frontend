@@ -86,7 +86,7 @@ const UsersTable: NextPage = () => {
     router.push(
       {
         pathname: "/users",
-        query: { toast: "Gebruiker verwijderd" },
+        query: { toast: t("remove_user_success") },
       },
       "/users"
     );

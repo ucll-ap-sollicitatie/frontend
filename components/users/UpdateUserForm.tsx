@@ -90,7 +90,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
     router.push(
       {
         pathname: `/users/${user.email}`,
-        query: { toast: "Profiel succesvol aangepast" },
+        query: { toast: t("update_profile_success") },
       },
       `/users/${user.email}`
     );

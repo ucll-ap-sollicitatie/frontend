@@ -69,7 +69,7 @@ const AddInterviewForm: NextPage = () => {
     router.push(
       {
         pathname: "/interviews",
-        query: { toast: "Sollicitatie werd succesvol aangemaakt" },
+        query: { toast: t("interview_add_success") },
       },
       "/interviews"
     );
