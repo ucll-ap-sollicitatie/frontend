@@ -36,7 +36,11 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences`, {
       body: JSON.stringify({
+<<<<<<< HEAD
         email: user.email,
+=======
+        email: session.user?.email,
+>>>>>>> 3c4975d (preferences fixed)
         preference_1: target.preference_1.value,
         preference_2: target.preference_2.value,
         preference_3: target.preference_3.value,
@@ -65,13 +69,13 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
       const item = question_categories[i];
       if (item.category === "Algemeen") {
         testArr.push(
-          <option key={item.question_category_id} value={item.category} selected>
+          <option key={item.question_category_id} value={item.question_category_id} selected>
             {item.category}
           </option>
         );
       } else {
         testArr.push(
-          <option key={item.question_category_id} value={item.category}>
+          <option key={item.question_category_id} value={item.question_category_id}>
             {item.category}
           </option>
         );
@@ -97,24 +101,12 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
 
             <Form.Group controlId="preference_2">
               <Form.Label>Preferentie 2</Form.Label>
-              <Form.Select required>
-                {question_categories.map((QuestionCategory) => (
-                  <option key={QuestionCategory.question_category_id} value={QuestionCategory.question_category_id}>
-                    {QuestionCategory.category}
-                  </option>
-                ))}
-              </Form.Select>
+              <Form.Select required>{test()}</Form.Select>
             </Form.Group>
 
             <Form.Group controlId="preference_3">
               <Form.Label>Preferentie 3</Form.Label>
-              <Form.Select required>
-                {question_categories.map((QuestionCategory) => (
-                  <option key={QuestionCategory.question_category_id} value={QuestionCategory.question_category_id}>
-                    {QuestionCategory.category}
-                  </option>
-                ))}
-              </Form.Select>
+              <Form.Select required>{test()}</Form.Select>
             </Form.Group>
           </Stack>
         </div>
