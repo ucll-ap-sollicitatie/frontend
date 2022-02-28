@@ -15,12 +15,9 @@ import FeedbackModal from "../../components/videos/FeedbackModal";
 import Video from "../../interfaces/Video";
 import Comment from "../../interfaces/Comment";
 import FeedbackList from "../../components/videos/FeedbackList";
-<<<<<<< HEAD
 import Unauthorized from "../../components/Unauthorized";
 import CommentList from "../../components/videos/CommentList";
 import { User } from "next-auth";
-=======
->>>>>>> b29e8ed... error handling improvements
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch("http://localhost:3001/videos/");
@@ -77,10 +74,7 @@ interface Props {
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
-<<<<<<< HEAD
   if (video.private && session.user?.role === "Student") return <Unauthorized />;
-=======
->>>>>>> b29e8ed... error handling improvements
 
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = React.useState(0);
@@ -91,7 +85,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [commentId, setCommentId] = React.useState(0);
   const [currentComment, setCurrentComment] = React.useState(comments == null ? [] : comments[0]);
 
-<<<<<<< HEAD
   const handleLikeVideo = async (email: string, video_id: number) => {
     await fetch(`http://localhost:3001/videos/likes/${video_id}/like`, {
       method: "POST",
@@ -155,8 +148,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     });
   };
 
-=======
->>>>>>> b29e8ed... error handling improvements
   const handleAddFeedback = async (event: FormEvent) => {
     event.preventDefault();
     handleAddComment(event, true);
