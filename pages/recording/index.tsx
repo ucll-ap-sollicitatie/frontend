@@ -18,6 +18,7 @@ import RecordingUploadForm from "../../components/recording/RecordingUploadForm"
 import CarouselNoQuestions from "../../components/recording/CarouselNoQuestions";
 import CarouselWithQuestions from "../../components/recording/CarouselWithQuestions";
 import User from "../../interfaces/User";
+import SpinnerComponent from "../../components/SpinnerComponent";
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
@@ -49,6 +50,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
+  const [webCamReady, setWebCamReady] = useState(false);
 
   const [choosingQuestions, setChoosingQuestions] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([]);
@@ -110,6 +112,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
   const handleUploadClick = () => {
     setReady(true);
+    setWebCamReady(false);
   };
 
   const handleBackClick = useCallback(() => {
@@ -202,6 +205,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const handleGoToQuestionsClick = useCallback(() => {
     setRecordedChunks([]);
     setChoosingQuestions(true);
+    setWebCamReady(false);
   }, [setChoosingQuestions]);
 
   const viewChoosingQuestions = () => {
@@ -234,6 +238,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   };
 
   const captureButtons = () => {
+    if (!webCamReady) {return <SpinnerComponent/>};
     if (!capturing) {
       return (
         <>
@@ -271,17 +276,17 @@ const Recording: NextPage<Props> = ({ categories }) => {
       {!choosingQuestions && !ready && (
         <div>
           <Stack direction="horizontal">
-            <Webcam className="border rounded" audio={true} height={480} ref={webcamRef} width={640} muted />
+            <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded" audio={true} height={480} ref={webcamRef} width={640} muted />
             {viewCarousel()}
           </Stack>
-          <div className="w-50 d-flex justify-content-between mt-3">
-            {captureButtons()}
-            {recordedChunks.length > 0 && (
-              <Button variant="primary" onClick={handleUploadClick}>
-                Verdergaan
-              </Button>
-            )}
-          </div>
+            <div className="w-50 d-flex justify-content-between mt-3">
+              {captureButtons()}
+              {(recordedChunks.length > 0 && webCamReady) && (
+                <Button variant="primary" onClick={handleUploadClick}>
+                  Verdergaan
+                </Button>
+              )}
+            </div> 
         </div>
       )}
     </Layout>
