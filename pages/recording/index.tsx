@@ -46,7 +46,6 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const [error, setError] = useState("");
   const [show, setShow] = useState(false);
   const [webCamReady, setWebCamReady] = useState(false);
-
   const [choosingQuestions, setChoosingQuestions] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [previousTime, setPreviousTime] = useState(0);
@@ -204,12 +203,6 @@ const Recording: NextPage<Props> = ({ categories }) => {
     setQuestions(data);
     setChoosingQuestions(false);
   };
-
-  const handleGoToQuestionsClick = useCallback(() => {
-    setRecordedChunks([]);
-    setChoosingQuestions(true);
-    setWebCamReady(false);
-  }, [setChoosingQuestions]);
 
   const viewChoosingQuestions = () => {
     if (choosingQuestions) {
