@@ -13,7 +13,6 @@ const AddInterviewForm: NextPage = () => {
   const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
-    const inputs = Array.from(target.elements) as HTMLInputElement[];
 
     // Category
     const category_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`, {

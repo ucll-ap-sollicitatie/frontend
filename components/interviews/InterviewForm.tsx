@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { FormEvent, useCallback, useState } from "react";
-import { Button, Form, Modal, Stack } from "react-bootstrap";
+import { Alert, Button, Form, Modal, Stack } from "react-bootstrap";
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import { QuestionInputType } from "../../interfaces/QuestionInputType";
@@ -19,6 +19,7 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
   const [id, setId] = useState<number | string>("");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+  const [showError, setShowError] = useState(false);
 
   const [questionInputs, setQuestionInputs] = useState<QuestionInputType[]>(() => {
     if (questions === undefined || questions.length === 0) return [{ id: -1, question: "" }];
@@ -55,12 +56,18 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
   }, []);
 
   const showDeleteQuestionInputModal = (id: number) => {
-    setId(id);
-    setShow(true);
+    if (questionInputs.length > 1) {
+      setId(id);
+      setShow(true);
+    } else {
+      setShowError(true);
+    }
   };
 
   const handleDelete = () => {
-    setQuestionInputs((prevQuestionInputs: QuestionInputType[]) => prevQuestionInputs.filter((questionInput: QuestionInputType) => questionInput.id !== id));
+    if (questionInputs.length > 1) {
+      setQuestionInputs((prevQuestionInputs: QuestionInputType[]) => prevQuestionInputs.filter((questionInput: QuestionInputType) => questionInput.id !== id));
+    }
 
     setShow(false);
   };
@@ -77,6 +84,11 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
           <ConfirmRemoveButton handleDelete={handleDelete} />
         </Modal.Footer>
       </Modal>
+
+      <Alert variant="danger" onClose={() => setShowError(false)} show={showError} transition={true} dismissible>
+        <Alert.Heading>Slim op sollicitatie</Alert.Heading>
+        <span>U moet minstens één vraag invullen om een sollicitatie aan te maken.</span>
+      </Alert>
 
       <Form onSubmit={onSubmit} style={{ maxWidth: "48rem" }}>
         <Stack className="mb-2" gap={3}>
