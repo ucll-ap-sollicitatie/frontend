@@ -24,7 +24,6 @@ interface Props {
 
 const TasksTable: NextPage<Props> = ({ allTasks }) => {
   const t = useTranslations("tasks");
-
   const columns = [
     {
       Header: t("task"),
@@ -76,6 +75,8 @@ const TasksTable: NextPage<Props> = ({ allTasks }) => {
     );
   };
 
+  const { locale } = router;
+
   if (tasks.length < 1) return <p>{t("no_tasks")}</p>;
   if (loading) return <SpinnerComponent />;
 
@@ -92,7 +93,7 @@ const TasksTable: NextPage<Props> = ({ allTasks }) => {
         </Modal.Footer>
       </Modal>
 
-      <TasksReactTable columns={columns} data={tasks} url={"/tasks"} id="task_id" handleShow={handleShow} />
+      <TasksReactTable columns={columns} data={tasks} url={`/tasks`} id="task_id" handleShow={handleShow} />
     </>
   );
 };

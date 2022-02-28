@@ -28,21 +28,21 @@ const RecordingUploadForm: NextPage<Props> = ({ handleUpload, setMaxChars, maxCh
       <div className="d-flex gap-4 flex-wrap">
         <Form.Group controlId="file_title">
           <Form.Label>{t("recording_title")}</Form.Label>
-          <Form.Control type="text" placeholder="e.g. Mijn interviewopname" required />
+          <Form.Control type="text" placeholder={t("title_example")} required />
           <Form.Text className="text-muted">{t("recording_error_title")}</Form.Text>
         </Form.Group>
       </div>
       <div className="gap-4 flex-wrap mt-2">
         <Form.Group controlId="description">
-          <Form.Label>{t("description")}</Form.Label>
-          <Form.Control onChange={(e) => setMaxChars(e.target.value.length)} as="textarea" rows={4} maxLength={255} placeholder={t("description")} />
+          <Form.Label>{t("recording_description")}</Form.Label>
+          <Form.Control onChange={(e) => setMaxChars(e.target.value.length)} as="textarea" rows={4} maxLength={255} placeholder={t("recording_description")} />
           <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
         </Form.Group>
       </div>
       <div className="d-flex gap-4 flex-wrap">
         <OverlayTrigger placement="top" overlay={<Tooltip id="button-tooltip-2">{t("recording_private")}</Tooltip>}>
           <Form.Group className="mb-3" controlId="privateCheckbox">
-            <Form.Check type="checkbox" label="Privé" defaultChecked />
+            <Form.Check type="checkbox" label={t("recording_private_radio")} defaultChecked />
           </Form.Group>
         </OverlayTrigger>
       </div>

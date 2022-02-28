@@ -10,19 +10,23 @@ import Unauthenticated from "../../components/Unauthenticated";
 import { Question } from "../../interfaces/Question";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
   const categories = await data.json();
 
-  const paths = categories.map((category: QuestionCategory) => {
-    return {
-      params: { id: category.question_category_id.toString() },
-    };
+  let paths = [] as any;
+
+  categories.map((category: QuestionCategory) => {
+    paths.push(
+      { params: { id: category.question_category_id.toString() }, locale: "en" },
+      { params: { id: category.question_category_id.toString() }, locale: "fr" },
+      { params: { id: category.question_category_id.toString() }, locale: "nl" }
+    );
   });
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
