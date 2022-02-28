@@ -5,6 +5,7 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 
 import { SessionProvider } from "next-auth/react";
+import { NextIntlProvider } from "next-intl";
 
 import Head from "next/head";
 import NextNProgress from "nextjs-progressbar";
@@ -33,17 +34,19 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
 
       {/* <Amogus url={"/amogus.mp3"} /> */}
 
-      <SessionProvider session={session}>
-        {router.query.toast && (
-          <Container className="d-flex justify-content-end">
-            <ToastComponent message={router.query.toast as string} />
-          </Container>
-        )}
+      <NextIntlProvider messages={pageProps.messages}>
+        <SessionProvider session={session}>
+          {router.query.toast && (
+            <Container className="d-flex justify-content-end">
+              <ToastComponent message={router.query.toast as string} />
+            </Container>
+          )}
 
-        <DndProvider backend={HTML5Backend}>
-          <Component {...pageProps} />
-        </DndProvider>
-      </SessionProvider>
+          <DndProvider backend={HTML5Backend}>
+            <Component {...pageProps} />
+          </DndProvider>
+        </SessionProvider>
+      </NextIntlProvider>
     </>
   );
 }
