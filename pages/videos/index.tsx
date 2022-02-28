@@ -37,10 +37,10 @@ const Home: NextPage<Props> = ({ videos }) => {
     <Layout>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Video's</Breadcrumb.Item>
+        <Breadcrumb.Item active>Video&apos;s</Breadcrumb.Item>
       </Breadcrumb>
 
-      <h1>Alle video's</h1>
+      <h1>Alle video&apos;s</h1>
       <AllVideoOverview videos={videos} user={user} />
     </Layout>
   );

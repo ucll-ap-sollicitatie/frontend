@@ -22,13 +22,12 @@ interface Props {
 }
 
 const Preferences: NextPage<Props> = ({ question_categories }) => {
-  const { data: session } = useSession();
-  if (!session || session.user === undefined) return <Unauthenticated />;
-  const user = session.user as User;
-
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
+  const { data: session } = useSession();
+  const user = session?.user as User;
+  if (!session || session.user === undefined) return <Unauthenticated />;
 
   const submitPreferences = async (event: FormEvent) => {
     event.preventDefault();
@@ -54,7 +53,7 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
     } else {
       router.push({
         pathname: "/",
-        query: { toast: "U hebt uw preferenties toegevoegd!" },
+        query: { toast: "U heeft uw preferenties toegevoegd!" },
       });
     }
   };
@@ -65,7 +64,7 @@ const Preferences: NextPage<Props> = ({ question_categories }) => {
       const item = question_categories[i];
       if (item.category === "Algemeen") {
         testArr.push(
-          <option key={item.question_category_id} value={item.question_category_id} selected>
+          <option key={item.question_category_id} value={item.question_category_id} selected={true}>
             {item.category}
           </option>
         );

@@ -34,22 +34,14 @@ const StudentsReactTable: NextPage<Props> = ({ columns, data, url, id }) => {
     <>
       <Table {...getTableProps()} bordered hover responsive>
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
+          {headerGroups.map((headerGroup, index) => (
+            <tr {...headerGroup.getHeaderGroupProps()} key={index}>
               {headerGroup.headers.map((column, index) => (
-                <th key={index} {...column.getHeaderProps(column.getSortByToggleProps())} className="no-wrap">
+                <th {...column.getHeaderProps(column.getSortByToggleProps())} className="no-wrap" key={index}>
                   {column.render("Header")}
-                  <span>
+                  <span key={index}>
                     {" "}
-                    {column.isSorted ? (
-                      column.isSortedDesc ? (
-                        <BsArrowBarDown color="blue" />
-                      ) : (
-                        <BsArrowBarUp color="blue" />
-                      )
-                    ) : (
-                      <BsArrowsExpand color="blue" />
-                    )}
+                    {column.isSorted ? column.isSortedDesc ? <BsArrowBarDown color="blue" /> : <BsArrowBarUp color="blue" /> : <BsArrowsExpand color="blue" />}
                   </span>
                 </th>
               ))}

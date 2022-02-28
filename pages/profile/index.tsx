@@ -38,7 +38,7 @@ const Home: NextPage<Props> = ({ videos }) => {
           <ProfileCard user={user} />
         </Col>
         <Col>
-          <h1>Uw Video's</h1>
+          <h1>Uw Video&apos;s</h1>
           <OwnVideoOverview videos={videos} />
         </Col>
       </Row>

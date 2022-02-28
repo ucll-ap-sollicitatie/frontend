@@ -19,6 +19,7 @@ const CommentList: NextPage<Props> = ({ comments, user, handleSelect, handleShow
     <Stack gap={3}>
       {comments.map((comment: Comment) => (
         <CommentItem
+          key={comment.comment_id}
           comment={comment}
           user={user}
           handleSelect={handleSelect}

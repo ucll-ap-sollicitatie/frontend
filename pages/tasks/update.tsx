@@ -7,12 +7,11 @@ import Error from "../_error";
 import UpdateTaskForm from "../../components/tasks/UpdateTaskForm";
 
 const UpdateInterview: NextPage = () => {
-  const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
-
   const router = useRouter();
   const query = router.query as { task_id: string };
+  const { data: session } = useSession();
   if (query.task_id === undefined) return <Error statusCode={404} />;
+  if (!session) return <Unauthenticated />;
 
   return (
     <Layout>
