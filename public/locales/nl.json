@@ -95,16 +95,30 @@
     "task_remove": "Taak verwijderen",
     "task_remove_confirm": "Bent u zeker dat u deze taak wilt verwijderen?",
     "task_update_failed": "Er is een probleem opgetreden bij het aanpassen van de taak.",
-    "task_update_unauthorized": "U bent niet gemachtigd om deze taak aan te passen.",
-
-    "error": "Er is een probleem opgetreden bij het laden van uw taken.",
-    "no_tasks_user": "Deze gebruiker heeft nog geen taken.",
-    "add_task": "Taak toevoegen",
-    "task_remove_success": "Taak succesvol verwijderd.",
-    "task_remove_failed": "Er is een probleem opgetreden bij het verwijderen van de taak.",
-    "task_update_success": "Taak succesvol aangepast.",
-    "task_add_success": "Taak succesvol toegevoegd.",
-    "task_add_failed": "Er is een probleem opgetreden bij het toevoegen van de taak."
+    "task_update_unauthorized": "U bent niet gemachtigd om deze taak aan te passen."
   },
+  "recording": {
+    "title": "Sollicitatie opnemen",
+    "recording_title": "Title",
+    "recording_description": "Beschrijving",
+    "characters": "Karakters",
+    "recording_private": "Privé: alleen lectoren kunnen jouw video zien",
+    "upload": "Uploaden",
+    "uploading": "Aan het uploaden...",
+    "back": "Terug",
+    "recording_error_title": "De titel mag geen '?' of '#' bevatten.",
+    "start_recording": "Opnemen starten",
+    "stop_recording": "Opnemen stoppen",
+    "back_to_categories": "Terug naar categorieën",
+    "continue": "Doorgaan",
+    "carousel_no_questions": "Deze categorie bevat geen vragen",
+    "question": "Vraag",
+    "choosing_category_description": "Wanneer je op de knop drukt, zal jouw browser toegang vragen tot jouw camera en wordt het aangezet. Op jouw signaal begint de opname. Geen nood, je kan steeds jouw opname annuleren of stoppen wanneer je wilt.",
+    "choosing_category": "Vooraleer je kan beginnen, moet je een categorie van vragen kiezen.",
+    "warmup": "Je kan opwarmen door jezelf uit te dagen om willekeurige vragen uit jou geprefereerde categorieën proberen te beantwoorden!",
+    "change_preferences": "Je kan altijd jouw preferenties veranderen in jouw profiel.",
+    "random_questions": " Willekeurige vragen uit mijn preferenties",
+    "record_interview": "Ga voor het echte ding en beantwoord vragen enkel uit een thema die jij zelf kiest!",
+    "record_interview_questions": "Je krijgt steeds 5 willekeurige vragen uit de gekozen categorie die je moet beantwoorden."
   }
 }

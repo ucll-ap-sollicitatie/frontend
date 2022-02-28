@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { Button, DropdownButton, Dropdown, Stack } from "react-bootstrap";
 import { QuestionCategory } from "../../interfaces/QuestionCategory";
 
@@ -9,28 +10,29 @@ interface Props {
 }
 
 const ChoosingQuestions: NextPage<Props> = ({ handleRandomClick, categories, handleCategoryClick }) => {
+  const t = useTranslations("recording");
+
   return (
     <>
-      <p className="mt-5">
-        Wanneer je op de knop drukt, zal jouw browser toegang vragen tot jouw camera en wordt het aangezet. <br />
-        Op jouw signaal begint de opname. Geen nood, je kan steeds jouw opname annuleren of stoppen wanneer je wilt.
-      </p>
-      <p>Vooraleer je kan beginnen, moet je een categorie van vragen kiezen.</p>
+      <p className="mt-5">{t("choosing_category_description")}</p>
+      <p>{t("choosing_category")}</p>
+
       <Stack direction="horizontal" gap={3} className="mt-5 bg-light border rounded">
         <p className="ms-1">
-          Je kan opwarmen door jezelf uit te dagen om willekeurige vragen uit jou geprefereerde categorieën proberen te beantwoorden!
+          {t("warmup")}
           <br />
-          Je kan altijd jouw preferenties veranderen in jouw profiel.
+          {t("change_preferences")}
         </p>
         <Button variant="outline-success" onClick={handleRandomClick} className="ms-auto me-1">
-          Willekeurige vragen uit mijn preferenties
+          {t("random_questions")}
         </Button>
       </Stack>
+
       <Stack direction="horizontal" gap={3} className="mt-5 bg-light border rounded">
         <p className="ms-1">
-          Ga voor het echte ding en beantwoord vragen enkel uit een thema die jij zelf kiest!
+          {t("record_interview")}
           <br />
-          Je krijgt steeds 5 willekeurige vragen uit de gekozen categorie die je moet beantwoorden.
+          {t("record_interview_questions")}
         </p>
         <DropdownButton variant="outline-primary" title="Categorie van vragen kiezen" className="ms-auto me-1">
           {categories.map((category: QuestionCategory, index) => (

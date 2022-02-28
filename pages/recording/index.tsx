@@ -19,6 +19,7 @@ import CarouselNoQuestions from "../../components/recording/CarouselNoQuestions"
 import CarouselWithQuestions from "../../components/recording/CarouselWithQuestions";
 import User from "../../interfaces/User";
 import SpinnerComponent from "../../components/SpinnerComponent";
+import { useTranslations } from "next-intl";
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
@@ -35,6 +36,9 @@ interface Props {
 
 // @ts-ignore
 const Recording: NextPage<Props> = ({ categories }) => {
+  const t = useTranslations("recording");
+  const e = useTranslations("errors");
+
   const webcamRef = useRef<Webcam | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const stopwatch = useRef<Stopwatch | null>(null);
@@ -148,7 +152,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
       if (fileName.includes("#") || fileName.includes("?")) {
         setUploading(false);
-        setError("Titel mag geen '?' of '#' bevatten.");
+        setError(t("recording_error_title"));
         setShow(true);
         return;
       }
@@ -241,17 +245,17 @@ const Recording: NextPage<Props> = ({ categories }) => {
       return (
         <>
           <Button variant="primary" className="w-25" onClick={handleStartCaptureClick}>
-            Begin opname
+            {t("start_recording")}
           </Button>
           <Button variant="light" onClick={handleGoToQuestionsClick}>
-            Terug naar categoriekeuze
+            {t("back_to_categories")}
           </Button>
         </>
       );
     } else {
       return (
         <Button variant="primary" className="w-25" onClick={handleStopCaptureClick}>
-          Stop opname
+          {t("stop_recording")}
         </Button>
       );
     }
@@ -263,10 +267,11 @@ const Recording: NextPage<Props> = ({ categories }) => {
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>Interview opname</Breadcrumb.Item>
       </Breadcrumb>
-      <h1>Interview opname</h1>
+
+      <h1>{t("title")}</h1>
       {viewChoosingQuestions()}
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
-        <Alert.Heading>Upload error</Alert.Heading>
+        <Alert.Heading>{e("error_title")}</Alert.Heading>
         <span>{error}</span>
       </Alert>
       {readyToUpload()}
@@ -281,7 +286,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
             {captureButtons()}
             {recordedChunks.length > 0 && webCamReady && (
               <Button variant="primary" onClick={handleUploadClick}>
-                Verdergaan
+                {t("continue")}
               </Button>
             )}
           </div>
