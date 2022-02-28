@@ -85,6 +85,49 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [commentId, setCommentId] = useState(0);
   const [currentComment, setCurrentComment] = useState<Comment | null>(comments == null ? null : comments[0]);
 
+  const handleLikeVideo = async (email: string, video_id: number) => {
+    await fetch(`http://localhost:3001/videos/likes/${video_id}/like`, {
+      method: "POST",
+      body: JSON.stringify({ email: email}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  const handleUnlikeVideo = async (email: string, video_id: number) => {
+    await fetch(`http://localhost:3001/videos/likes/${video_id}/unlike`, {
+      method: "POST",
+      body: JSON.stringify({ email: email}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
+  const [videoLiked, setVideoLiked] = useState(false);
+
+  const fetchData = async () => {
+    const res = await fetch(`http://localhost:3001/videos/likes/${video.video_id}/check`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: session.user.email,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.ok) {
+      setVideoLiked(true);
+    } else {
+      setVideoLiked(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  });
+
   const handleRemoveLike = async (email: string, comment_id: number) => {
     await fetch(`http://localhost:3001/comments/likes/${comment_id}/unlike`, {
       method: "POST",

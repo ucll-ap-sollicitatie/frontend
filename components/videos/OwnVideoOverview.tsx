@@ -13,9 +13,6 @@ interface Props {
 const OwnVideoOverview: NextPage<Props> = ({ videos }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
-
-  if (!videos || videos.length !== 0) return <p>U heeft momenteel nog geen video's geüpload.</p>;
-
   return (
     <Row>
       {videos.map(
