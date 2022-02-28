@@ -1,0 +1,12 @@
+{
+  "home": {
+    "title": "Slim op sollicitatie",
+    "welcome": "Welkom",
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Registreer"
+  },
+  "videos": {
+    "all": "Alle videos"
+  }
+}
