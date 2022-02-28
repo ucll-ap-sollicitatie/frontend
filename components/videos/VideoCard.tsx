@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { Card } from "react-bootstrap";
 import Video from "../../interfaces/Video";
@@ -8,7 +9,9 @@ interface Props {
 }
 
 const VideoCard: NextPage<Props> = ({ video }) => {
-  if (!video) return <p>Geen video gevonden</p>;
+  const t = useTranslations("videos");
+
+  if (!video) return <p>{t("no_videos")}</p>;
 
   return (
     <Link href={`/videos/${video.video_id}`} passHref>

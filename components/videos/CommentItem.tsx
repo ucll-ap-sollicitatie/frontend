@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Card, Nav, Stack, Button } from "react-bootstrap";
 import { timeSince } from "../../helpers/helperFunctions";
@@ -16,6 +17,8 @@ interface Props {
 }
 
 const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowUpdate, handleShowDelete, handleAddLike, handleRemoveLike }) => {
+  const t = useTranslations("videos");
+
   const [liked, setLiked] = useState(false);
 
   const fetchData = async () => {
@@ -45,16 +48,18 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
         <Nav variant="tabs" defaultActiveKey="0" onSelect={(e) => handleSelect(e, comment.comment_id)} className="d-flex justify-content-between">
           <div className="d-flex">
             <Nav.Item>
-              <Nav.Link eventKey="0">Commentaar</Nav.Link>
+              <Nav.Link eventKey="0">{t("comment")}</Nav.Link>
             </Nav.Item>
             {comment.author === user.r_u_number && (
               <Nav.Item>
-                <Nav.Link eventKey="1">Opties</Nav.Link>
+                <Nav.Link eventKey="1">{t("options")}</Nav.Link>
               </Nav.Item>
             )}
             {comment.likes != 0 && (
               <Nav.Item>
-                <Nav.Link disabled>Likes: {comment.likes}</Nav.Link>
+                <Nav.Link disabled>
+                  {t("likes")}: {comment.likes}
+                </Nav.Link>
               </Nav.Item>
             )}
           </div>
@@ -75,12 +80,12 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
           </blockquote>
           {liked && (
             <Button variant="outline-secondary" onClick={() => handleRemoveLike(user.email, comment.comment_id)} className="ms-auto">
-              Vind ik niet leuk
+              {t("dislike")}
             </Button>
           )}
           {!liked && (
             <Button variant="outline-secondary" onClick={() => handleAddLike(user.email, comment.comment_id)} className="ms-auto">
-              Vind ik leuk
+              {t("like")}
             </Button>
           )}
         </Stack>
