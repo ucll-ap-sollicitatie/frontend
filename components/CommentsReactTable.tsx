@@ -1,4 +1,4 @@
-// @ts-nocheck :)
+// @ts-ignore :)
 import type { NextPage } from "next";
 import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
@@ -6,7 +6,7 @@ import { useTable, useSortBy, usePagination } from "react-table";
 import RemoveButton from "./buttons/RemoveButton";
 import ShowButton from "./buttons/ShowButton";
 import UpdateButton from "./buttons/UpdateButton";
-import Comment from "../../interfaces/Comment";
+import Comment from "../interfaces/Comment";
 
 interface Props {
   columns: any;

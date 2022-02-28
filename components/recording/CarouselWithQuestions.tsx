@@ -3,7 +3,7 @@ import { Carousel } from "react-bootstrap";
 import { Question } from "../../interfaces/Question";
 
 interface Props {
-  handleSelect: Function;
+  handleSelect: (selectedIndex: number) => void;
   questions: Question[];
 }
 
