@@ -18,11 +18,9 @@ interface Props {
   handleSelect: Function;
   handleShowUpdate: Function;
   handleShowDelete: Function;
-  handleAddLike: Function;
-  handleRemoveLike: Function;
 }
 
-const CommentList: NextPage<Props> = ({ comments, user, handleSelect, handleShowUpdate, handleShowDelete, handleAddLike, handleRemoveLike }) => {
+const CommentList: NextPage<Props> = ({ comments, user, handleSelect, handleShowUpdate, handleShowDelete }) => {
   return (
     <Stack gap={3}>
       {comments.map((comment: Comment) => (
@@ -33,8 +31,6 @@ const CommentList: NextPage<Props> = ({ comments, user, handleSelect, handleShow
           handleSelect={handleSelect}
           handleShowUpdate={handleShowUpdate}
           handleShowDelete={handleShowDelete}
-          handleAddLike={handleAddLike}
-          handleRemoveLike={handleRemoveLike}
         />
       ))}
     </Stack>
