@@ -24,7 +24,7 @@ const NavBar: NextPage = () => {
   const router = useRouter();
 
   const changeLanguage = (lang: string) => {
-    router.push(`/${lang}${router.pathname}`);
+    router.push(`${router.pathname}`, `${router.pathname}`, { locale: lang });
   };
 
   return (

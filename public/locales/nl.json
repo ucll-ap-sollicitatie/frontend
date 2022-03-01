@@ -201,6 +201,7 @@
     "users_overview": "Gebruikers overzicht",
     "users": "Gebruikers",
     "amount_of_users": "Aantal gebruikers",
+    "users_delete_confirm": "Bent u zeker dat u deze gebruiker wilt verwijderen?",
     "amount_of_admins": "Aantal admins",
     "amount_of_lecturers": "Aantal lectoren",
     "my_students": "Mijn studenten",
