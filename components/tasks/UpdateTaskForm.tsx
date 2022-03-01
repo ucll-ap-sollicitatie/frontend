@@ -36,7 +36,7 @@ const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
 
   useEffect(() => {
     const fetchTask = async () => {
-      const res = await fetch(`${process.env.API_URL}/tasks/${task_id}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks/${task_id}`);
       const data = await res.json();
       setTask(data);
     };
@@ -49,7 +49,7 @@ const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
-    const res = await fetch(`${process.env.API_URL}/tasks`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
       body: JSON.stringify({
         title: target.task_title.value,
         description: target.description.value,

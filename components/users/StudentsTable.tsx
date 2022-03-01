@@ -19,19 +19,19 @@ const StudentsTable: NextPage = () => {
 
   const columns = [
     {
-      Header: t("name"),
+      Header: u("name"),
       accessor: "name",
     },
     {
-      Header: t("surname"),
+      Header: u("surname"),
       accessor: "surname",
     },
     {
-      Header: t("email"),
+      Header: u("email"),
       accessor: "email",
     },
     {
-      Header: t("formation"),
+      Header: u("formation"),
       accessor: "formation",
     },
   ];

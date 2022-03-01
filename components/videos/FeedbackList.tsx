@@ -58,7 +58,7 @@ const FeedbackList: NextPage<Props> = ({ feedback, user, video, handleSelect, ha
                     {b("update")}
                   </Button>
                   <Button variant="outline-danger" onClick={() => handleShowDelete(feedback.comment_id, feedback)}>
-                    {b("delete")}
+                    {b("remove")}
                   </Button>
                 </div>
                 <Button variant="light" disabled>

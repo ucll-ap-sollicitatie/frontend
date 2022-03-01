@@ -21,7 +21,7 @@ const Unauthenticated: NextPage = () => {
 
       <p>{t("unauthenticated")}</p>
 
-      <div className="d-flex gap-2 flex-column col-md-2">
+      <div className="d-flex gap-2 flex-column col-sm-5 col-md-3">
         <LoginButton />
         <RegisterButton />
       </div>

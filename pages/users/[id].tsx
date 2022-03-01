@@ -6,19 +6,19 @@ import UserProfile from "../../components/users/UserProfile";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
   const users = await data.json();
 
-  const paths = users.map((user: User) => {
-    return {
-      params: { id: user.email },
-    };
+  let paths = [] as any;
+
+  users.map((user: User) => {
+    paths.push({ params: { id: user.email }, locale: "en" }, { params: { id: user.email }, locale: "fr" }, { params: { id: user.email }, locale: "nl" });
   });
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 };
 

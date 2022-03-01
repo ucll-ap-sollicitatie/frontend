@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import next, { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { Breadcrumb, Button, Card, Col, Row, Stack } from "react-bootstrap";
 import { useSWRConfig } from "swr";
@@ -19,19 +19,23 @@ import CommentList from "../../components/videos/CommentList";
 import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
   const videos = await data.json();
 
-  const paths = videos.map((video: Video) => {
-    return {
-      params: { id: video.video_id.toString() },
-    };
+  let paths = [] as any;
+
+  videos.map((video: Video) => {
+    paths.push(
+      { params: { id: video.video_id.toString() }, locale: "en" },
+      { params: { id: video.video_id.toString() }, locale: "fr" },
+      { params: { id: video.video_id.toString() }, locale: "nl" }
+    );
   });
 
   return {
     paths: paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -74,7 +78,6 @@ interface Props {
 
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const t = useTranslations("videos");
-  const c = useTranslations("comments");
 
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = useState(0);
@@ -330,7 +333,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
             {user.role == "Lector" && (
               <div>
                 <Button variant="outline-success" onClick={handleShowFeedback}>
-                  {t("add_feedback")}
+                  {t("feedback_add")}
                 </Button>
               </div>
             )}

@@ -77,6 +77,7 @@ const TasksReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }
                 })}
                 {handleShow != null && (
                   <>
+                    {console.log(row)}
                     <td>
                       <UpdateButton url={`${url}/update?task_id=${row.original[id]}`} />
                     </td>
@@ -102,7 +103,7 @@ const TasksReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }
         <span>
           {t("page")}{" "}
           <strong>
-            {pageIndex + 1} of {pageOptions.length}
+            {pageIndex + 1} / {pageOptions.length}
           </strong>
         </span>
 

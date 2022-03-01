@@ -15,7 +15,7 @@ interface Props {
   email: string;
 }
 
-const UpdateUserutton: NextPage<Props> = ({ email }) => {
+const UpdateUserButton: NextPage<Props> = ({ email }) => {
   const t = useTranslations("users");
 
   return (
@@ -25,4 +25,4 @@ const UpdateUserutton: NextPage<Props> = ({ email }) => {
   );
 };
 
-export default UpdateUserutton;
+export default UpdateUserButton;

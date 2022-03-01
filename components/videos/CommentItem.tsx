@@ -26,6 +26,7 @@ interface Props {
 
 const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowUpdate, handleShowDelete, handleAddLike, handleRemoveLike }) => {
   const t = useTranslations("videos");
+  const b = useTranslations("buttons");
 
   const [liked, setLiked] = useState(false);
 
@@ -106,7 +107,7 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
               handleShowUpdate(comment.comment_id, comment);
             }}
           >
-            Bijwerken
+            {b("update")}
           </Button>
           <Button
             variant="outline-danger"
@@ -114,7 +115,7 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
               handleShowDelete(comment.comment_id, comment);
             }}
           >
-            Verwijderen
+            {b("remove")}
           </Button>
         </div>
         <Button variant="light" disabled>

@@ -21,6 +21,7 @@ interface Props {
 
 const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
   const t = useTranslations("users");
+  const h = useTranslations("home");
 
   const [roles, setRoles] = useState<Role[]>([]);
   const [formations, setFormations] = useState<Formation[]>([]);
@@ -104,7 +105,7 @@ const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
         </div>
 
         <Button variant="primary" type="submit" className="mt-3">
-          {user ? "Profiel aanpassen" : "Registreren"}
+          {user ? t("profile_edit") : h("register")}
         </Button>
       </Form>
     </>
