@@ -34,7 +34,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             <Head>
               <title>Slim op sollicitatie</title>
               <meta name="description" content="Slim op sollicitatie" />
-              <link rel="icon" href="/favicon.ico" />
+              <link rel="icon" href="/test.ico" />
             </Head>
 
             {router.query.toast && (
