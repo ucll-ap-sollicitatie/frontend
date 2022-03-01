@@ -83,7 +83,8 @@
     "comment_remove_confirm": "Êtes-vous sûr de vouloir supprimer ce commentaire ?",
     "comment_remove_success": "Commentaire supprimé avec succès",
     "feedback_add": "Ajouter un feedback",
-    "feedback_add_success": "Feedback ajouté avec succès"
+    "feedback_add_success": "Feedback ajouté avec succès",
+    "search": "Rechercher"
   },
   "users": {
     "name": "Prénom",
