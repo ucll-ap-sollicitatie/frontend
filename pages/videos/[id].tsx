@@ -87,9 +87,11 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [videoLiked, setVideoLiked] = useState(false);
   const [commentId, setCommentId] = useState(0);
+  const [likes, setLikes] = useState(video.likes);
   const [currentComment, setCurrentComment] = useState<Comment | null>(comments == null ? null : comments[0]);
   const { data: session } = useSession();
   const user = session?.user as User;
+
   useEffect(() => {
     const fetchTest = async () => {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video.video_id}/check`, {
@@ -109,47 +111,32 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     };
     fetchTest();
   }, [session?.user?.email, video.video_id]);
+
   if (!session || session.user === undefined) return <Unauthenticated />;
   if (video.private && user.role === "Student") return <Unauthorized />;
 
-  const handleLikeVideo = async (email: string, video_id: number) => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video_id}/like`, {
+  const handleLikeVideo = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video.video_id}/like`, {
       method: "POST",
-      body: JSON.stringify({ email: email }),
+      body: JSON.stringify({ email: user.email }),
       headers: {
         "Content-Type": "application/json",
       },
     });
+    setVideoLiked(true);
+    setLikes(likes + 1);
   };
 
-  const handleUnlikeVideo = async (email: string, video_id: number) => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video_id}/unlike`, {
+  const handleUnlikeVideo = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video.video_id}/unlike`, {
       method: "POST",
-      body: JSON.stringify({ email: email }),
+      body: JSON.stringify({ email: user.email }),
       headers: {
         "Content-Type": "application/json",
       },
     });
-  };
-
-  const handleRemoveLike = async (email: string, comment_id: number) => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/likes/${comment_id}/unlike`, {
-      method: "POST",
-      body: JSON.stringify({ email: email }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
-
-  const handleAddLike = async (email: string, comment_id: number) => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/likes/${comment_id}/like`, {
-      method: "POST",
-      body: JSON.stringify({ email: email }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    setVideoLiked(false);
+    setLikes(likes - 1);
   };
 
   const handleAddFeedback = async (event: FormEvent) => {
@@ -335,6 +322,16 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
                 <Button variant="outline-success" onClick={handleShowFeedback}>
                   {t("feedback_add")}
                 </Button>
+                {videoLiked ? (
+                  <Button variant="outline-secondary" className="ms-2" onClick={handleUnlikeVideo}>
+                    {t("dislike_video")}
+                  </Button>
+                ) : (
+                  <Button variant="outline-primary" className="ms-2" onClick={handleLikeVideo}>
+                    {t("like_video")}
+                  </Button>
+                )}
+                {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
               </div>
             )}
           </Col>
@@ -365,8 +362,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
                   handleSelect={handleSelect}
                   handleShowUpdate={handleShowUpdate}
                   handleShowDelete={handleShowDelete}
-                  handleAddLike={handleAddLike}
-                  handleRemoveLike={handleRemoveLike}
                 />
               )}
               {!comments && (

@@ -25,7 +25,7 @@ const AddComment: NextPage<Props> = ({ handleAddComment, setMaxChars, maxChars }
       <Form.Group controlId="comment" className="flex-fill">
         <Form.Label>{t("add_comment")}</Form.Label>
         <div className="d-flex gap-3 flex-wrap flex-md-nowrap">
-          <Form.Control onChange={(e) => setMaxChars(e.target.value.length)} maxLength={255} as="textarea" placeholder="Uw commentaar" required />
+          <Form.Control onChange={(e) => setMaxChars(e.target.value.length)} maxLength={255} as="textarea" placeholder={t("comment_add")} required />
           <Button variant="primary" type="submit" className="input-group-addon">
             {t("comment_add")}
           </Button>

@@ -20,15 +20,14 @@ interface Props {
   handleSelect: Function;
   handleShowUpdate: Function;
   handleShowDelete: Function;
-  handleAddLike: Function;
-  handleRemoveLike: Function;
 }
 
-const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowUpdate, handleShowDelete, handleAddLike, handleRemoveLike }) => {
+const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowUpdate, handleShowDelete }) => {
   const t = useTranslations("videos");
   const b = useTranslations("buttons");
 
   const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState<number>(comment.likes);
 
   const fetchData = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/likes/${comment.comment_id}/check`, {
@@ -51,6 +50,30 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
     fetchData();
   });
 
+  const handleRemoveLike = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/likes/${comment.comment_id}/unlike`, {
+      method: "POST",
+      body: JSON.stringify({ email: user.email }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    setLiked(false);
+    setLikes(likes - 1);
+  };
+
+  const handleAddLike = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/likes/${comment.comment_id}/like`, {
+      method: "POST",
+      body: JSON.stringify({ email: user.email }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    setLiked(true);
+    setLikes(likes + 1);
+  };
+
   return (
     <Card>
       <Card.Header>
@@ -64,10 +87,10 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
                 <Nav.Link eventKey="1">{t("options")}</Nav.Link>
               </Nav.Item>
             )}
-            {comment.likes != 0 && (
+            {likes != 0 && (
               <Nav.Item>
                 <Nav.Link disabled>
-                  {t("likes")}: {comment.likes}
+                  {t("likes")}: {likes}
                 </Nav.Link>
               </Nav.Item>
             )}
@@ -88,13 +111,13 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
             </footer>
           </blockquote>
           {liked && (
-            <Button variant="outline-secondary" onClick={() => handleRemoveLike(user.email, comment.comment_id)} className="ms-auto">
-              {t("dislike")}
+            <Button variant="outline-secondary" onClick={handleRemoveLike} className="ms-auto">
+              {t("dislike_comment")}
             </Button>
           )}
           {!liked && (
-            <Button variant="outline-secondary" onClick={() => handleAddLike(user.email, comment.comment_id)} className="ms-auto">
-              {t("like")}
+            <Button variant="outline-primary" onClick={handleAddLike} className="ms-auto">
+              {t("like_comment")}
             </Button>
           )}
         </Stack>
