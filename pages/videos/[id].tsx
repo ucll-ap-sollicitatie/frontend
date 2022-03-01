@@ -87,7 +87,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [showFeedback, setShowFeedback] = useState(false);
   const [videoLiked, setVideoLiked] = useState(false);
   const [commentId, setCommentId] = useState(0);
-  const [likes, setLikes] = useState(video.likes);
+  const [likes, setLikes] = useState<number>(video.likes > 0 ? video.likes : 0);
   const [currentComment, setCurrentComment] = useState<Comment | null>(comments == null ? null : comments[0]);
   const { data: session } = useSession();
   const user = session?.user as User;
@@ -317,23 +317,23 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               <h4>{t("date")}</h4>
               <p>{new Date(video.date).toLocaleString()}</p>
             </div>
-            {user.role == "Lector" && (
-              <div>
+            <div>
+              {user.role == "Lector" && (
                 <Button variant="outline-success" onClick={handleShowFeedback}>
                   {t("feedback_add")}
                 </Button>
-                {videoLiked ? (
-                  <Button variant="outline-secondary" className="ms-2" onClick={handleUnlikeVideo}>
-                    {t("dislike_video")}
-                  </Button>
-                ) : (
-                  <Button variant="outline-primary" className="ms-2" onClick={handleLikeVideo}>
-                    {t("like_video")}
-                  </Button>
-                )}
-                {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
-              </div>
-            )}
+              )}
+              {videoLiked ? (
+                <Button variant="outline-secondary" className="ms-2" onClick={handleUnlikeVideo}>
+                  {t("dislike_video")}
+                </Button>
+              ) : (
+                <Button variant="outline-primary" className="ms-2" onClick={handleLikeVideo}>
+                  {t("like_video")}
+                </Button>
+              )}
+            </div>
+            {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
           </Col>
         </div>
 
