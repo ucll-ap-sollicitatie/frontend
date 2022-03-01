@@ -103,7 +103,7 @@ const TasksReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }
         <span>
           {t("page")}{" "}
           <strong>
-            {pageIndex + 1} of {pageOptions.length}
+            {pageIndex + 1} / {pageOptions.length}
           </strong>
         </span>
 

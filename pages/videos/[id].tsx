@@ -78,7 +78,6 @@ interface Props {
 
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const t = useTranslations("videos");
-  const c = useTranslations("comments");
 
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = useState(0);
@@ -334,7 +333,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
             {user.role == "Lector" && (
               <div>
                 <Button variant="outline-success" onClick={handleShowFeedback}>
-                  {t("add_feedback")}
+                  {t("feedback_add")}
                 </Button>
               </div>
             )}

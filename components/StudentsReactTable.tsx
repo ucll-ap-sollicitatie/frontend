@@ -88,7 +88,7 @@ const StudentsReactTable: NextPage<Props> = ({ columns, data, url, id }) => {
         <span>
           {t("page")}{" "}
           <strong>
-            {pageIndex + 1} van {pageOptions.length}
+            {pageIndex + 1} / {pageOptions.length}
           </strong>
         </span>
 

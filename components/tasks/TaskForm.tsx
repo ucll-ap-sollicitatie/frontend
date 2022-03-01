@@ -36,7 +36,7 @@ const TaskForm: NextPage<Props> = ({ onSubmit, task }) => {
             </Form.Group>
 
             <Form.Group controlId="deadline">
-              <Form.Label>{t("Deadline")}</Form.Label>
+              <Form.Label>{t("deadline")}</Form.Label>
               <Form.Control type="date" placeholder={t("Deadline")} required />
             </Form.Group>
           </Stack>

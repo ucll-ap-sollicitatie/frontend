@@ -14,6 +14,7 @@ import Video from "../../interfaces/Video";
 import Task from "../../interfaces/Task";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface Props {
   users: User[];
@@ -102,7 +103,7 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
               </Accordion.Item>
 
               <Accordion.Item eventKey="1">
-                <Accordion.Header>Commentaar</Accordion.Header>
+                <Accordion.Header>{t("comments")}</Accordion.Header>
                 <Accordion.Body>
                   <div className="d-flex justify-content-between">
                     <div>
@@ -137,9 +138,9 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
             <StudentsTable />
           </Tab>
           <Tab eventKey="tasks" title={t("tasks")}>
-            <Button href={`/tasks/add`} className="mb-3">
-              {t("task_add")}
-            </Button>
+            <Link href={`/tasks/add`} passHref>
+              <Button className="mb-3">{t("task_add")}</Button>
+            </Link>
             <TasksTable allTasks={tasks} />
           </Tab>
         </Tabs>

@@ -18,7 +18,8 @@
     "videos": "Video's",
     "preferences": "Voorkeuren",
     "profile": "Profiel",
-    "contact": "Contact"
+    "contact": "Contact",
+    "language": "Taal"
   },
   "table": {
     "update": "Aanpassen",
@@ -65,7 +66,7 @@
     "no_videos": "Geen video's gevonden.",
     "no_videos_user": "Deze gebruiker heeft nog geen video's.",
     "comment": "Commentaar",
-    "no_comments": "Geen commentaar deze video.",
+    "no_comments": "Geen commentaar op deze video.",
     "comment_add": "Voeg commentaar toe",
     "add_comment": "Commentaar toevoegen",
     "comment_add_success": "Commentaar succesvol toegevoegd",
@@ -79,6 +80,7 @@
     "comment_remove": "Commentaar verwijderen",
     "comment_remove_confirm": "Bent u zeker dat u dit commentaar wilt verwijderen?",
     "comment_remove_success": "Het commentaar is succesvol verwijderd",
+    "feedback_add": "Feedback toevoegen",
     "feedback_add_success": "Feedback succesvol toegevoegd"
   },
   "users": {
@@ -101,7 +103,7 @@
     "users_loading_failed": "Er is een probleem opgetreden bij het laden van de gebruikers.",
     "remove_user": "Gebruiker verwijderen",
     "remove_user_confirm": "Bent u zeker dat u deze gebruiker wilt verwijderen?",
-    "remove_user_success": "De gebruiker is succesvol verwijderd."
+    "remove_user_success": "De gebruiker is succesvol verwijderd"
   },
   "students": {
     "error": "Er is een probleem opgetreden bij het laden van uw studenten.",
@@ -109,7 +111,7 @@
   },
   "tasks": {
     "no_tasks_found": "Geen taken gevonden.",
-    "no_tasks": "U heeft momentel nog geen taken.",
+    "no_tasks": "U heeft momenteel nog geen taken.",
     "my_tasks": "Mijn taken",
     "task": "Taak",
     "description": "Beschrijving",
@@ -125,7 +127,7 @@
     "task_update_unauthorized": "U bent niet gemachtigd om deze taak aan te passen."
   },
   "carousel": {
-    "carousel_no_questions": "Deze categorie bevat geen vragen",
+    "carousel_no_questions": "Deze categorie bevat geen vragen.",
     "carousel_question": "Vraag"
   },
   "recording": {
@@ -166,7 +168,7 @@
     "form_title": "Kies 3 categorieën waarover je interviews wilt krijgen.",
     "preference": "Voorkeur",
     "preferences_update": "Voorkeuren aanpassen",
-    "error": "Er is een probleem opgetreden bij aanpassen van uw preferenties.",
+    "error": "Er is een probleem opgetreden bij het aanpassen van uw preferenties.",
     "preferences_update_success": "Uw voorkeuren zijn succesvol aangepast."
   },
   "interviews": {
@@ -200,11 +202,13 @@
     "amount_of_lecturers": "Aantal lectoren",
     "my_students": "Mijn studenten",
     "amount_of_students": "Aantal studenten",
-    "comments_overview": "Commentaar overzicht",
+    "comments": "Commentaren",
+    "comments_overview": "Commentaren overzicht",
     "amount_of_comments": "Aantal commentaar",
     "amount_of_feedback": "Aantal feedback",
     "videos": "Video's",
     "amount_of_videos": "Aantal video's",
+    "tasks": "Taken",
     "task_add": "Taak aanmaken"
   },
   "contact": {

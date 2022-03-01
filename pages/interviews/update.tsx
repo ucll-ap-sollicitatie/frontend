@@ -26,7 +26,7 @@ const UpdateInterview: NextPage = () => {
 
   return (
     <Layout>
-      <h1>{t("interview_aanpassen")}</h1>
+      <h1>{t("interview_update")}</h1>
 
       <UpdateInterviewForm id={query.id} />
     </Layout>

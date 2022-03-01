@@ -18,7 +18,8 @@
     "videos": "Videos",
     "preferences": "Preferences",
     "profile": "Profile",
-    "contact": "Contact"
+    "contact": "Contact",
+    "language": "Language"
   },
   "table": {
     "update": "Update",
@@ -79,6 +80,7 @@
     "comment_remove": "Delete comment",
     "comment_remove_confirm": "Are you sure you want to delete this comment?",
     "comment_remove_success": "Comment deleted successfully",
+    "feedback_add": "Add feedback",
     "feedback_add_success": "Feedback succesvol toegevoegd"
   },
   "users": {
@@ -195,17 +197,18 @@
     "server_information": "Server information",
     "users_overview": "Users overview",
     "users": "Users",
-    "tasks": "Assignments",
     "amount_of_users": "Amount of users",
     "amount_of_admins": "Amount of admins",
     "amount_of_lecturers": "Amount of teachers",
     "my_students": "My students",
     "amount_of_students": "Amount of students",
+    "comments": "Comments",
     "comments_overview": "Comments overview",
     "amount_of_comments": "Amount of comments",
     "amount_of_feedback": "Amount of feedback",
     "videos": "Videos",
     "amount_of_videos": "Amount of videos",
+    "tasks": "Assignments",
     "task_add": "Add assignment"
   },
   "contact": {

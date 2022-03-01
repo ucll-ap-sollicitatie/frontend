@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { Card } from "react-bootstrap";
 import User from "../../interfaces/User";
-import UpdateUserutton from "../users/UpdateUserButton";
+import UpdateUserButton from "../users/UpdateUserButton";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -22,7 +22,7 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
 
   const updateComponent = () => {
     if (session_user.email === user.email || session_user.role === "Admin") {
-      return <UpdateUserutton email={user.email} />;
+      return <UpdateUserButton email={user.email} />;
     }
   };
 
