@@ -201,6 +201,7 @@
     "users_overview": "Aperçu des utilisateurs",
     "users": "Utilisateurs",
     "amount_of_users": "Nombre d'utilisateurs",
+    "users_delete_confirm": "Êtes-vous sûr de vouloir supprimer cet utilisateur ?",
     "amount_of_admins": "Nombre d'administrateurs",
     "amount_of_lecturers": "Nombre de formateurs",
     "my_students": "Mes étudiants",

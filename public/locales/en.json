@@ -201,6 +201,7 @@
     "users_overview": "Users overview",
     "users": "Users",
     "amount_of_users": "Amount of users",
+    "users_delete_confirm": "Are you sure you want to delete this user?",
     "amount_of_admins": "Amount of admins",
     "amount_of_lecturers": "Amount of teachers",
     "my_students": "My students",
