@@ -37,12 +37,19 @@ interface Props {
   categories: QuestionCategory[];
 }
 
+const webCamConstraints = {
+  facingMode: "user",
+  height: 480,
+  width: 640,
+};
+
 // @ts-ignore
 const Recording: NextPage<Props> = ({ categories }) => {
   const t = useTranslations("recording");
   const e = useTranslations("errors");
 
   const webcamRef = useRef<Webcam | null>(null);
+  webcamRef.current?.stream?.getVideoTracks()[0].applyConstraints(webCamConstraints);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const stopwatch = useRef<Stopwatch | null>(null);
   const [capturing, setCapturing] = useState(false);
