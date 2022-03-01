@@ -4,7 +4,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 
-import { SessionProvider } from "next-auth/react";
+import { SessionProvider, useSession } from "next-auth/react";
 import { NextIntlProvider } from "next-intl";
 
 import Head from "next/head";
@@ -17,7 +17,6 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
-
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap");
   }, []);
@@ -42,7 +41,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
                 <ToastComponent message={router.query.toast as string} />
               </Container>
             )}
-
             <Component {...pageProps} />
           </DndProvider>
         </SessionProvider>

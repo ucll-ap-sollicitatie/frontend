@@ -27,7 +27,7 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
   const b = useTranslations("buttons");
 
   const [liked, setLiked] = useState(false);
-  const [likes, setLikes] = useState<number>(comment.likes);
+  const [likes, setLikes] = useState<number>(comment.likes > 0 ? comment.likes : 0);
 
   const fetchData = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/likes/${comment.comment_id}/check`, {
