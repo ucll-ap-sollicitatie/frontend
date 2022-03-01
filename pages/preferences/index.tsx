@@ -2,20 +2,24 @@ import { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
-import { Button, Form, Stack } from "react-bootstrap";
+import { FormEvent, useEffect, useState } from "react";
+import { Alert, Button, Form, Stack } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
-import { QuestionCategory } from "../../interfaces/QuestionCategory";
+import Preference from "../../interfaces/Preference";
+import QuestionCategory from "../../interfaces/QuestionCategory";
 import User from "../../interfaces/User";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const question_categories_response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
   const question_categories = await question_categories_response.json();
+  const preferencesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences/`);
+  const preferences = await preferencesRes.json();
 
   return {
     props: {
       question_categories: question_categories,
+      preferences: preferences,
       messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
   };
@@ -23,89 +27,94 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 interface Props {
   question_categories: QuestionCategory[];
+  preferences: Preference[];
 }
 
-const Preferences: NextPage<Props> = ({ question_categories }) => {
+const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
   const t = useTranslations("preferences");
 
   const router = useRouter();
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
   const { data: session } = useSession();
-  const user = session?.user as User;
-  if (!session || session.user === undefined) return <Unauthenticated />;
 
-  const submitPreferences = async (event: FormEvent) => {
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const user = session?.user as User;
+
+  const preference = preferences.find((pref) => pref.email === user.email);
+  const category_1 = question_categories.find((category) => category.question_category_id === preference?.preference_1);
+  const category_2 = question_categories.find((category) => category.question_category_id === preference?.preference_2);
+  const category_3 = question_categories.find((category) => category.question_category_id === preference?.preference_3);
+
+  const editPreferences = async (event: FormEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences`, {
+    const test1 = question_categories.find((category) => category.category === target.preference_1.value);
+    const test2 = question_categories.find((category) => category.category === target.preference_2.value);
+    const test3 = question_categories.find((category) => category.category === target.preference_3.value);
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences/${session?.user?.email}`, {
       body: JSON.stringify({
-        email: session.user?.email,
-        preference_1: target.preference_1.value,
-        preference_2: target.preference_2.value,
-        preference_3: target.preference_3.value,
+        preference_1: test1?.question_category_id,
+        preference_2: test2?.question_category_id,
+        preference_3: test3?.question_category_id,
       }),
       headers: {
         "Content-Type": "application/json",
       },
-      method: "POST",
+      method: "PUT",
     });
 
     if (!res.ok) {
-      const response = await res.json();
       setError(t("error"));
       setShow(true);
     } else {
       router.push({
-        pathname: "/",
+        pathname: `/users/${session?.user?.email}`,
         query: { toast: t("preferences_update_success") },
       });
     }
   };
 
-  const test = () => {
-    let testArr: any = [];
-    for (let i = 0; i < question_categories.length; i++) {
-      const item = question_categories[i];
-      if (item.category === "Algemeen") {
-        testArr.push(
-          <option key={item.question_category_id} value={item.question_category_id} selected={true}>
-            {item.category}
-          </option>
-        );
-      } else {
-        testArr.push(
-          <option key={item.question_category_id} value={item.question_category_id}>
-            {item.category}
-          </option>
-        );
-      }
-    }
-    return testArr;
-  };
-
   return (
     <Layout>
       <h1>{t("title")}</h1>
-
       <p>{t("form_title")}</p>
-      <Form onSubmit={submitPreferences}>
+
+      <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
+        <Alert.Heading>{t("error_title")}</Alert.Heading>
+        <span>{error}</span>
+      </Alert>
+
+      <Form onSubmit={editPreferences}>
         <div className="d-flex gap-4 flex-wrap">
           <Stack gap={3}>
             <Form.Group controlId="preference_1">
               <Form.Label>{t("preference")} 1</Form.Label>
-              <Form.Select required>{test()}</Form.Select>
+              <Form.Select defaultValue={category_1?.category} required>
+                {question_categories.map((category: QuestionCategory) => (
+                  <option key={category.question_category_id}>{category.category}</option>
+                ))}
+              </Form.Select>
             </Form.Group>
 
             <Form.Group controlId="preference_2">
               <Form.Label>{t("preference")} 2</Form.Label>
-              <Form.Select required>{test()}</Form.Select>
+              <Form.Select defaultValue={category_2?.category} required>
+                {question_categories.map((category: QuestionCategory) => (
+                  <option key={category.question_category_id}>{category.category}</option>
+                ))}
+              </Form.Select>
             </Form.Group>
 
             <Form.Group controlId="preference_3">
               <Form.Label>{t("preference")} 3</Form.Label>
-              <Form.Select required>{test()}</Form.Select>
+              <Form.Select defaultValue={category_3?.category} required>
+                {question_categories.map((category: QuestionCategory) => (
+                  <option key={category.question_category_id}>{category.category}</option>
+                ))}
+              </Form.Select>
             </Form.Group>
           </Stack>
         </div>

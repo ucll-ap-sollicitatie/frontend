@@ -7,6 +7,7 @@
     "register": "Register",
     "register_new_account": "Register new account",
     "register_new_account_error": "An error occurred when registering your account",
+    "register_success": "Registration successful, please activate your account using your email",
     "unauthenticated": "You must log in to continue.",
     "anauthorized": "You are not authorized to visit that page, please log in first.",
     "success": "Success",
@@ -97,6 +98,7 @@
     "users": "Users",
     "update_profile": "Edit profile",
     "update_profile_success": "Your profile has been edited",
+    "preferences_edit": "Edit preferences",
     "my_profile": "Your profile",
     "my_videos": "Your videos",
     "profile_edit": "Edit profile",
@@ -172,6 +174,7 @@
     "preference": "Preference",
     "preferences_update": "Adjust preferences",
     "error": "An error occurred during the adjustment of your preferences.",
+    "error_title": "Smart on job applications",
     "preferences_update_success": "Your preferences have been adjusted successfully"
   },
   "interviews": {

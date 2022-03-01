@@ -27,13 +27,13 @@ const AddUserForm: NextPage = () => {
 
   useEffect(() => {
     const fetchRoles = async () => {
-      const response = await fetch(`${process.env.API_URL}/roles`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/roles`);
       const data = await response.json();
       setRoles(data);
     };
 
     const fetchFormations = async () => {
-      const response = await fetch(`${process.env.API_URL}/formations`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/formations`);
       const data = await response.json();
       setFormations(data);
     };
@@ -52,7 +52,7 @@ const AddUserForm: NextPage = () => {
       return;
     }
 
-    const res = await fetch(`${process.env.API_URL}/users`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
       body: JSON.stringify({
         name: target.user_name.value,
         surname: target.surname.value,
@@ -69,11 +69,12 @@ const AddUserForm: NextPage = () => {
     });
 
     if (!res.ok) {
-      setError(t("register_new_account_error"));
+      setError(t("500"));
       setShow(true);
     } else {
       router.push({
         pathname: "/preferences",
+        query: { toast: t("register_success") },
       });
     }
   };
@@ -81,7 +82,7 @@ const AddUserForm: NextPage = () => {
   return (
     <>
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
-        <Alert.Heading>{t("title")}</Alert.Heading>
+        <Alert.Heading>{t("error_title")}</Alert.Heading>
         <span>{error}</span>
       </Alert>
 

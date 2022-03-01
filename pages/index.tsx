@@ -1,10 +1,12 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import LogoutButton from "../components/auth/LogoutButton";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
 import Unauthenticated from "../components/Unauthenticated";
 import User from "../interfaces/User";
+import Link from "next/link";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -16,8 +18,24 @@ export async function getStaticProps({ locale }) {
 
 const Home: NextPage = () => {
   const t = useTranslations("home");
-
+  const router = useRouter();
   const { data: session } = useSession();
+  const [edited, setEdited] = useState<boolean>(true);
+
+  useEffect(() => {
+    const fetchPrefEdited = async () => {
+      if (!session?.user) {
+        return;
+      }
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences/${session?.user?.email}`);
+      const prefEdited = await res.json();
+      if (!prefEdited.edited) {
+        setEdited(false);
+      }
+    };
+    fetchPrefEdited();
+  }, [session?.user?.email]);
+
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
 
@@ -26,9 +44,16 @@ const Home: NextPage = () => {
       <h1>{t("title")}</h1>
 
       <p>
-        {t("welcome")}, {user.name || user.email}!
+        {t("welcome")}, {user.name || user.email}! <br />
+        {!edited && (
+          <span>
+            U heeft uw preferenties nog niet aangepast. <br />
+            <Link href={`/users/${session.user.email}`} passHref>
+              Klik hier om dat te doen
+            </Link>
+          </span>
+        )}
       </p>
-      <LogoutButton />
     </Layout>
   );
 };

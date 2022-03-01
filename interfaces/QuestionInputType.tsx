@@ -1,4 +1,4 @@
-export interface QuestionInputType {
+export default interface QuestionInputType {
   id: number;
   question: string;
 }

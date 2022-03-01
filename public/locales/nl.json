@@ -7,6 +7,7 @@
     "register": "Registreren",
     "register_new_account": "Account registeren",
     "register_new_account_error": "Er is een fout opgetreden bij het registreren van uw account",
+    "register_success": "Registratie succesvol, gelieve uw account te activeren via email",
     "unauthenticated": "U moet zich eerst inloggen voor u verder kan.",
     "anauthorized": "U bent niet geautoriseerd om deze pagina te bekijken. Gelieve in te loggen.",
     "success": "Succes",
@@ -97,6 +98,7 @@
     "users": "Gebruikers",
     "update_profile": "Profiel aanpassen",
     "update_profile_success": "Uw profiel is succesvol aangepast.",
+    "preferences_edit": "Preferenties aanpassen",
     "my_profile": "Uw profiel",
     "my_videos": "Uw video's",
     "profile_edit": "Profiel aanpassen",
@@ -172,6 +174,7 @@
     "preference": "Voorkeur",
     "preferences_update": "Voorkeuren aanpassen",
     "error": "Er is een probleem opgetreden bij het aanpassen van uw preferenties.",
+    "error_title": "Slim op sollicitatie",
     "preferences_update_success": "Uw voorkeuren zijn succesvol aangepast."
   },
   "interviews": {

@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { Card } from "react-bootstrap";
 import User from "../../interfaces/User";
+import UpdatePreferencesButton from "../users/UpdatePreferencesButton";
 import UpdateUserButton from "../users/UpdateUserButton";
 
 export async function getStaticProps({ locale }) {
@@ -26,6 +27,12 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
     }
   };
 
+  const updatePreferences = () => {
+    if (session_user.email === user.email || session_user.role === "Admin") {
+      return <UpdatePreferencesButton />;
+    }
+  };
+
   return (
     <Card style={{ maxWidth: "22rem" }}>
       <Card.Img variant="top" src={user.image} />
@@ -43,6 +50,7 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
         <Card.Text>{user.r_u_number}</Card.Text>
         <Card.Text>{user.email}</Card.Text>
         {updateComponent()}
+        {updatePreferences()}
       </Card.Body>
     </Card>
   );

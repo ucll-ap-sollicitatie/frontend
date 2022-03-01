@@ -7,6 +7,7 @@
     "register": "S'inscrire",
     "register_new_account": "Créer un nouveau compte",
     "register_new_account_error": "Erreur lors de la création du compte",
+    "register_success": "Inscription réussie, veuillez activer votre compte par e-mail",
     "unauthenticated": "Vous devez être authentifié pour accéder à cette page",
     "anauthorized": "Vous n'êtes pas autorisé à accéder à cette page",
     "success": "Succes",
@@ -97,6 +98,7 @@
     "users": "Utilisateurs",
     "update_profile": "Modifier le profil",
     "update_profile_success": "Profil modifié avec succès",
+    "preferences_edit": "Modifier les préférences",
     "my_profile": "Votre profil",
     "my_videos": "Vos videos",
     "profile_edit": "Modifier le profil",
@@ -172,6 +174,7 @@
     "preference": "Préférence",
     "preferences_update": "Modifier vos préférences",
     "error": "Erreur lors de la modification des préférences",
+    "error_title": "Malin en entretien d'embauche",
     "preferences_update_success": "Préférences modifiées avec succès"
   },
   "interviews": {

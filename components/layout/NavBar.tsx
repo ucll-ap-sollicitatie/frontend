@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { Container, Dropdown, DropdownButton, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import User from "../../interfaces/User";
+import LogoutButton from "../auth/LogoutButton";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -51,7 +52,7 @@ const NavBar: NextPage = () => {
                 <>
                   {user.role !== "Student" && (
                     <Link href={"/dashboard"} passHref>
-                      <Nav.Link href="/" className="border">
+                      <Nav.Link href="/" className="border rounded">
                         {t("dashboard")}
                       </Nav.Link>
                     </Link>
@@ -70,9 +71,6 @@ const NavBar: NextPage = () => {
                   <Link href={"/videos"} passHref>
                     <Nav.Link href="/">{t("videos")}</Nav.Link>
                   </Link>
-                  <Link href={"/preferences"} passHref>
-                    <Nav.Link href="/">{t("preferences")}</Nav.Link>
-                  </Link>
                   <Link href={`/users/${user.email}`} passHref>
                     <Nav.Link href="/">{t("profile")}</Nav.Link>
                   </Link>
@@ -81,12 +79,12 @@ const NavBar: NextPage = () => {
               <Link href={"/contact"} passHref>
                 <Nav.Link href="/">{t("contact")}</Nav.Link>
               </Link>
-
               <DropdownButton variant="outline-secondary" className="ms-2" title={t("language")}>
                 <Dropdown.Item onClick={() => changeLanguage("nl")}>Nederlands</Dropdown.Item>
                 <Dropdown.Item onClick={() => changeLanguage("en")}>English</Dropdown.Item>
                 <Dropdown.Item onClick={() => changeLanguage("fr")}>Français</Dropdown.Item>
               </DropdownButton>
+              {session && <LogoutButton />}
             </Nav>
           </Navbar.Collapse>
         </Container>

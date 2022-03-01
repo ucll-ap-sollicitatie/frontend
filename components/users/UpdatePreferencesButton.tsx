@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
-import { signOut } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { Button } from "react-bootstrap";
 
 export async function getStaticProps({ locale }) {
@@ -11,14 +11,16 @@ export async function getStaticProps({ locale }) {
   };
 }
 
-const LogoutButton: NextPage = () => {
-  const t = useTranslations("home");
+const UpdatePreferencesButton: NextPage = () => {
+  const t = useTranslations("users");
 
   return (
-    <Button variant="outline-danger" className="ms-2" onClick={() => signOut({ callbackUrl: `/?toast=Successvol uitgelogd` })}>
-      {t("logout")}
-    </Button>
+    <Link href={`/preferences`} passHref>
+      <Button className="mt-2" variant="primary">
+        {t("preferences_edit")}
+      </Button>
+    </Link>
   );
 };
 
-export default LogoutButton;
+export default UpdatePreferencesButton;

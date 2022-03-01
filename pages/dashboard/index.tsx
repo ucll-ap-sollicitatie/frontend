@@ -50,7 +50,6 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
   const t = useTranslations("dashboard");
   const router = useRouter();
-  const { locale } = router;
   const { data: session } = useSession();
   const user = session?.user as User;
   if (!session || user === undefined) return <Unauthenticated />;
