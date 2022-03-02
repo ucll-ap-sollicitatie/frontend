@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import { FormEvent, useCallback, useState } from "react";
 import { Alert, Button, Form, Modal, Stack } from "react-bootstrap";
-import { Question } from "../../interfaces/Question";
-import { QuestionCategory } from "../../interfaces/QuestionCategory";
-import { QuestionInputType } from "../../interfaces/QuestionInputType";
+import Question from "../../interfaces/Question";
+import QuestionCategory from "../../interfaces/QuestionCategory";
+import QuestionInputType from "../../interfaces/QuestionInputType";
 import QuestionInput from "./QuestionInput";
 import update from "immutability-helper";
 import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
@@ -34,12 +34,18 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
   const [showError, setShowError] = useState(false);
 
   const [questionInputs, setQuestionInputs] = useState<QuestionInputType[]>(() => {
-    if (questions === undefined || questions.length === 0) return [{ id: -1, question: "" }];
-
     let res: { id: number; question: string }[] = [];
-    for (let i = 0; i < questions.length; i++) {
-      res.push({ id: i, question: questions[i].question });
+
+    if (questions === undefined || questions.length === 0) {
+      for (let i = 0; i < 5; i++) {
+        res.push({ id: i, question: "" });
+      }
+    } else {
+      for (let i = 0; i < questions.length; i++) {
+        res.push({ id: i, question: questions[i].question });
+      }
     }
+
     return res;
   });
 
@@ -68,7 +74,7 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
   }, []);
 
   const showDeleteQuestionInputModal = (id: number) => {
-    if (questionInputs.length > 1) {
+    if (questionInputs.length > 5) {
       setId(id);
       setShow(true);
     } else {
@@ -77,7 +83,7 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
   };
 
   const handleDelete = () => {
-    if (questionInputs.length > 1) {
+    if (questionInputs.length > 5) {
       setQuestionInputs((prevQuestionInputs: QuestionInputType[]) => prevQuestionInputs.filter((questionInput: QuestionInputType) => questionInput.id !== id));
     }
 
@@ -99,7 +105,7 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
 
       <Alert variant="danger" onClose={() => setShowError(false)} show={showError} transition={true} dismissible>
         <Alert.Heading>{e("error_title")}</Alert.Heading>
-        <span>{t("minimum_one_question")}</span>
+        <span>{t("minimum_five_questions")}</span>
       </Alert>
 
       <Form onSubmit={onSubmit} style={{ maxWidth: "48rem" }}>
