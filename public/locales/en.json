@@ -88,7 +88,8 @@
     "feedback_add": "Add feedback",
     "feedback_add_success": "Feedback added successfully",
     "search": "Search job interviews",
-    "search_placeholder": "Student's name or title of job interview"
+    "search_placeholder": "Student's name or title of job interview",
+    "favorite_video": "Favorite"
   },
   "users": {
     "name": "Name",

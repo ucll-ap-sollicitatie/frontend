@@ -88,7 +88,8 @@
     "feedback_add": "Feedback toevoegen",
     "feedback_add_success": "Feedback succesvol toegevoegd.",
     "search": "Sollicitaties zoeken",
-    "search_placeholder": "Naam van student of titel sollicitatie"
+    "search_placeholder": "Naam van student of titel sollicitatie",
+    "favorite_video": "Favoriet"
   },
   "users": {
     "name": "Naam",

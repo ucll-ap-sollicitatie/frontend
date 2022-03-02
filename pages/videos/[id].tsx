@@ -1,6 +1,6 @@
 import next, { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Breadcrumb, Button, Card, Col, Row, Stack } from "react-bootstrap";
+import { Breadcrumb, Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
 import { useSWRConfig } from "swr";
 import React, { FormEvent, useEffect, useState } from "react";
 import router from "next/router";
@@ -86,6 +86,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [showUpdate, setShowUpdate] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
   const [videoLiked, setVideoLiked] = useState(false);
+  const [videoFavorited, setVideoFavorited] = useState(false);
   const [commentId, setCommentId] = useState(0);
   const [likes, setLikes] = useState<number>(video.likes > 0 ? video.likes : 0);
   const [currentComment, setCurrentComment] = useState<Comment | null>(comments == null ? null : comments[0]);
@@ -107,6 +108,20 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         setVideoLiked(true);
       } else {
         setVideoLiked(false);
+      }
+      const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video.video_id}/check`, {
+        method: "POST",
+        body: JSON.stringify({
+          email: session?.user?.email,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (res2.ok) {
+        setVideoFavorited(true);
+      } else {
+        setVideoFavorited(false);
       }
     };
     fetchTest();
@@ -137,6 +152,29 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     });
     setVideoLiked(false);
     setLikes(likes - 1);
+  };
+
+  const handleFavoriteVideo = async () => {
+    if (!videoFavorited) {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video.video_id}/favorite`, {
+      method: "POST",
+      body: JSON.stringify({ email: user.email }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      });
+      setVideoFavorited(true);
+    } else {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video.video_id}/unfavorite`, {
+        method: "POST",
+        body: JSON.stringify({ email: user.email }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        });
+        setVideoFavorited(false);      
+    }
+
   };
 
   const handleAddFeedback = async (event: FormEvent) => {
@@ -319,24 +357,29 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
             </div>
             <hr />
             <div>
-              <Stack gap={2} className="col-5">
-                {user.role == "Lector" && (
-                  <Button variant="outline-success" onClick={handleShowFeedback}>
-                    {t("feedback_add")}
-                  </Button>
-                )}
+              {user.role == "Lector" && (
+                <Button variant="outline-success" onClick={handleShowFeedback}>
+                  {t("feedback_add")}
+                </Button>
+              )}
                 {videoLiked ? (
-                  <Button variant="outline-secondary" onClick={handleUnlikeVideo}>
+                  <Button variant="outline-secondary" className="ms-2" onClick={handleUnlikeVideo}>
                     {t("dislike_video")}
                   </Button>
                 ) : (
-                  <Button variant="outline-primary" onClick={handleLikeVideo}>
+                  <Button variant="outline-primary" className="ms-2" onClick={handleLikeVideo}>
                     {t("like_video")}
                   </Button>
                 )}
-              </Stack>
-            </div>
-            {likes > 0 && <span className="text-muted">Likes: {likes}</span>}
+                {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
+                {user.role == "Lector" && (
+                <Form>
+                  <Form.Group className="mb-3" controlId="favoriteCheckbox">
+                    <Form.Check type="checkbox" label={t("favorite_video")} checked={videoFavorited} onChange={handleFavoriteVideo}/>
+                  </Form.Group>
+                </Form>
+                )}
+              </div>
           </Col>
         </div>
 
