@@ -142,7 +142,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       },
     });
     setVideoLiked(true);
-    setLikes(likes + 1);
+    setLikes(+likes + +1);
   };
 
   const handleUnlikeVideo = async () => {
@@ -154,7 +154,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       },
     });
     setVideoLiked(false);
-    setLikes(likes - 1);
+    setLikes(+likes - +1);
   };
 
   const handleFavoriteVideo = async () => {
@@ -361,21 +361,23 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               <span>{new Date(video.date).toLocaleString()}</span>
             </div>
             <hr />
-            <div className="d-flex">
+            <div className="d-flex gap-2">
+              {videoLiked ? (
+                <Button variant="outline-secondary" onClick={handleUnlikeVideo}>
+                  {t("dislike_video")}
+                </Button>
+              ) : (
+                <Button variant="outline-primary" onClick={handleLikeVideo}>
+                  {t("like_video")}
+                </Button>
+              )}
               {user.role == "Lector" && (
                 <Button variant="outline-success" onClick={handleShowFeedback}>
                   {t("feedback_add")}
                 </Button>
               )}
-              {videoLiked ? (
-                <Button variant="outline-secondary" className="ms-2" onClick={handleUnlikeVideo}>
-                  {t("dislike_video")}
-                </Button>
-              ) : (
-                <Button variant="outline-primary" className="ms-2" onClick={handleLikeVideo}>
-                  {t("like_video")}
-                </Button>
-              )}
+            </div>
+            <div className="d-flex gap-5">
               {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
               {user.role == "Lector" && (
                 <Form>

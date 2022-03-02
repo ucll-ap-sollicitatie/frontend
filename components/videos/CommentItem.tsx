@@ -59,7 +59,7 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
       },
     });
     setLiked(false);
-    setLikes(likes - 1);
+    setLikes(+likes - +1);
   };
 
   const handleAddLike = async () => {
@@ -71,7 +71,7 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
       },
     });
     setLiked(true);
-    setLikes(likes + 1);
+    setLikes(+likes + +1);
   };
 
   return (
