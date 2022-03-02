@@ -9,6 +9,7 @@ import Video from "../../interfaces/Video";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
+import BreadcrumbComponent from "../BreadcrumbComponent";
 
 export async function getStaticProps({ locale }) {
   return {
