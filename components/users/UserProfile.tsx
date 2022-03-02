@@ -44,15 +44,17 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
       </Breadcrumb>
 
       <Row>
-        <Col>
+        <Col lg={4}>
           <h1>
-            {t("user_profile")} {user.name}
+            {user.name}
+            {t("user_profile")}
           </h1>
           <ProfileCard user={user} />
         </Col>
         <Col>
           <h1>
-            {t("user_videos")} {user.name}
+            {user.name}
+            {t("user_videos")}
           </h1>
           <OwnVideoOverview videos={publicVideos} />
         </Col>
