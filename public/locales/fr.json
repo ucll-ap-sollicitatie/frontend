@@ -191,7 +191,7 @@
     "interview_error_exists": "Cette catégorie existe déjà",
     "question_remove": "Supprimer la question",
     "question_remove_confirm": "Êtes-vous sûr de vouloir supprimer cette question ?",
-    "minimum_one_question": "Vous devez avoir au moins cinq questions pour créer une catégorie.",
+    "minimum_five_questions": "Vous devez avoir au moins cinq questions pour créer un entretien d'embauche.",
     "category": "Catégorie",
     "amount_of_questions": "Nombre de questions",
     "question_add": "Ajouter une question",

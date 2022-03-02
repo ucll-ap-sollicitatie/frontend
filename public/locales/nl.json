@@ -192,7 +192,7 @@
     "interview_error_exists": "Categorie bestaat al",
     "question_remove": "Vraag verwijderen",
     "question_remove_confirm": "Bent u zeker dat u deze vraag wilt verwijderen?",
-    "minimum_one_question": "U moet minimaal vijf vraag invullen om een categorie aan te maken.",
+    "minimum_five_questions": "U moet minimaal vijf vragen invullen om een sollicitatie aan te maken.",
     "category": "Categorie",
     "amount_of_questions": "Aantal vragen",
     "question_add": "Vraag toevoegen",
