@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { Breadcrumb, Row, Col } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import User from "../../interfaces/User";
 import Layout from "../layout/Layout";
 import OwnVideoOverview from "../videos/ProfileVideoOverview";
@@ -7,11 +7,8 @@ import ProfileCard from "../profile/ProfileCard";
 import { useEffect, useState } from "react";
 import Video from "../../interfaces/Video";
 import { useTranslations } from "next-intl";
-<<<<<<< HEAD
-import BreadcrumbComponent from "../BreadcrumbComponent";
-=======
 import Head from "next/head";
->>>>>>> main
+import BreadcrumbComponent from "../BreadcrumbComponent";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -46,17 +43,11 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
 
   return (
     <Layout>
-<<<<<<< HEAD
-      <BreadcrumbComponent items={breadcrumb_items} />
-=======
       <Head>
         <title>{`${h("title_short")} | ${t("user_profile")} ${user.name} ${user.surname}`}</title>
       </Head>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>{`Gebruiker ${user.email}`}</Breadcrumb.Item>
-      </Breadcrumb>
->>>>>>> main
+
+      <BreadcrumbComponent items={breadcrumb_items} />
 
       <Row>
         <Col lg={4}>
