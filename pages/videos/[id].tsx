@@ -378,7 +378,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               )}
             </div>
             <div className="d-flex gap-5">
-              {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
+              {likes > 0 && <span className="text-muted">Likes: {likes}</span>}
               {user.role == "Lector" && (
                 <Form>
                   <Form.Group className="mb-3" controlId="favoriteCheckbox">
