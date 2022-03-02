@@ -1,5 +1,5 @@
-import { GetStaticProps, NextPage } from "next";
-import { Breadcrumb } from "react-bootstrap";
+import { NextPage } from "next";
+import { Breadcrumb, Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import User from "../../interfaces/User";
 import Layout from "../layout/Layout";
@@ -45,12 +45,16 @@ const MyProfile: NextPage<Props> = ({ user, videos }) => {
         <Breadcrumb.Item active>Profiel</Breadcrumb.Item>
       </Breadcrumb>
 
-      <h1>{t("my_profile")}</h1>
-      <ProfileCard user={user} />
-      <br />
-
-      <h2 className="h2">{t("my_videos")}</h2>
-      <OwnVideoOverview videos={myVideos} />
+      <Row>
+        <Col lg={4}>
+          <h1>{t("my_profile")}</h1>
+          <ProfileCard user={user} />
+        </Col>
+        <Col>
+          <h1>{t("my_videos")}</h1>
+          <OwnVideoOverview videos={myVideos} />
+        </Col>
+      </Row>
     </Layout>
   );
 };

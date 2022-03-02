@@ -27,7 +27,10 @@ const Contact: NextPage = () => {
       <p>
         {t("contact_us")}
         <br />
-        UCLL mail: leuven@ucll.be
+        UCLL email:{" "}
+        <a className="link-primary" href="mailto:leuven@ucll.be">
+          leuven@ucll.be
+        </a>
       </p>
       <br />
 

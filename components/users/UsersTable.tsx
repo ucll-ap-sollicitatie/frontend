@@ -19,6 +19,7 @@ export async function getStaticProps({ locale }) {
 
 const UsersTable: NextPage = () => {
   const t = useTranslations("users");
+  const d = useTranslations("dashboard");
 
   const columns = [
     {
@@ -104,7 +105,7 @@ const UsersTable: NextPage = () => {
         <Modal.Header closeButton>
           <Modal.Title>{t("remove_user")}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>{t("users_delete_confirm")}</Modal.Body>
+        <Modal.Body>{d("users_delete_confirm")}</Modal.Body>
         <Modal.Footer className="justify-content-center">
           <ConfirmCloseButton handleClose={handleClose} />
           <ConfirmRemoveButton handleDelete={handleDelete} />

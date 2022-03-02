@@ -49,8 +49,8 @@ const CommentsReactTable: NextPage<Props> = ({ columns, data, url, id, handleSho
     <>
       <Table {...getTableProps()} bordered hover responsive>
         <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.id}>
+          {headerGroups.map((headerGroup, index) => (
+            <tr {...headerGroup.getHeaderGroupProps()} key={index}>
               {headerGroup.headers.map((column, index) => (
                 <th key={index} {...column.getHeaderProps(column.getSortByToggleProps())} className="no-wrap">
                   {column.render("Header")}
