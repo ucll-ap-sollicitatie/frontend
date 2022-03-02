@@ -1,6 +1,7 @@
 {
   "home": {
     "title": "Malin en entretien d'embauche",
+    "title_short": "MED",
     "welcome": "Bienvenue",
     "login": "Se connecter",
     "logout": "Se déconnecter",
@@ -195,6 +196,7 @@
     "interview_remove_confirm": "Êtes-vous sûr de vouloir supprimer cette catégorie ?",
     "interview_remove_success": "Catégorie supprimée avec succès",
     "interview_error_exists": "Cette catégorie existe déjà",
+    "interview_view": "Voir la catégorie",
     "question_remove": "Supprimer la question",
     "question_remove_confirm": "Êtes-vous sûr de vouloir supprimer cette question ?",
     "minimum_five_questions": "Vous devez avoir au moins cinq questions pour créer un entretien d'embauche.",
@@ -221,8 +223,8 @@
     "comments_overview": "Aperçu des commentaires",
     "amount_of_comments": "Nombre de commentaires",
     "amount_of_feedback": "Nombre de feedback",
-    "videos": "Vidéos",
-    "amount_of_videos": "Nombre de vidéos",
+    "videos": "Entretiens d'embauche",
+    "amount_of_videos": "Nombre des entretiens d'embauche",
     "tasks": "Tâches",
     "task_add": "Ajouter une tâche"
   },

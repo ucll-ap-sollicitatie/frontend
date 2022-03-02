@@ -6,7 +6,7 @@ import UserProfile from "../../components/users/UserProfile";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
   const users = await data.json();
 

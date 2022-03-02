@@ -1,11 +1,11 @@
 import { NextPage } from "next";
-import { Breadcrumb } from "react-bootstrap";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import AddInterviewForm from "../../components/interviews/AddInterviewForm";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Layout from "../../components/layout/Layout";
+import Head from "next/head";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -17,6 +17,7 @@ export async function getStaticProps({ locale }) {
 
 const AddInterview: NextPage = () => {
   const t = useTranslations("interviews");
+  const h = useTranslations("home");
 
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
@@ -25,6 +26,10 @@ const AddInterview: NextPage = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("interview_add")}`}</title>
+      </Head>
+
       <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("interview_add")}</h1>

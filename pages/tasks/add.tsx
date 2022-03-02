@@ -5,6 +5,7 @@ import Unauthenticated from "../../components/Unauthenticated";
 import AddTaskForm from "../../components/tasks/AddTaskForm";
 import { useTranslations } from "next-intl";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Head from "next/head";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -16,6 +17,7 @@ export async function getStaticProps({ locale }) {
 
 const AddTask: NextPage = () => {
   const t = useTranslations("tasks");
+  const h = useTranslations("home");
 
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
@@ -24,7 +26,13 @@ const AddTask: NextPage = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("title")}`}</title>
+      </Head>
+
       <BreadcrumbComponent items={breadcrumb_items} />
+
+      <h1>{t("task_add")}</h1>
 
       <h1>{t("task_add")}</h1>
       <AddTaskForm />

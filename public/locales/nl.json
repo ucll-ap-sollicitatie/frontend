@@ -1,6 +1,7 @@
 {
   "home": {
     "title": "Slim op sollicitatie",
+    "title_short": "SOS",
     "welcome": "Welkom",
     "login": "Inloggen",
     "logout": "Uitloggen",
@@ -195,6 +196,7 @@
     "interview_remove_confirm": "Bent u zeker dat u deze categorie wilt verwijderen?",
     "interview_remove_success": "Categorie succesvol verwijderd",
     "interview_error_exists": "Categorie bestaat al",
+    "interview_view": "Categorie bekijken",
     "question_remove": "Vraag verwijderen",
     "question_remove_confirm": "Bent u zeker dat u deze vraag wilt verwijderen?",
     "minimum_five_questions": "U moet minimaal vijf vragen invullen om een sollicitatie aan te maken.",

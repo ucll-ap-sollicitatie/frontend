@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { Breadcrumb } from "react-bootstrap";
+import Head from "next/head";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import UpdateInterviewButton from "../../components/interviews/UpdateInterviewButton";
 import Layout from "../../components/layout/Layout";
@@ -12,7 +12,7 @@ import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 import User from "../../interfaces/User";
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
   const categories = await data.json();
 
@@ -62,7 +62,7 @@ interface Props {
 
 const Interviews: NextPage<Props> = ({ questions, category }) => {
   const t = useTranslations("interviews");
-  const c = useTranslations("carousel");
+  const h = useTranslations("home");
 
   const { data: session } = useSession();
   if (!session || session.user === undefined) return <Unauthenticated />;
@@ -73,6 +73,10 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
   return (
     <>
       <Layout>
+        <Head>
+          <title>{`${h("title_short")} | ${t("interview_view")}`}</title>
+        </Head>
+
         <BreadcrumbComponent items={breadcrumb_items} />
 
         <h1>

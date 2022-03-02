@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import { Carousel, Image } from "react-bootstrap";
-import { Question } from "../../interfaces/Question";
+import Question from "../../interfaces/Question";
 
 export async function getStaticProps({ locale }) {
   return {

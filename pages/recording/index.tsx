@@ -2,7 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import { FormEvent, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRef, useCallback } from "react";
-import { Breadcrumb, Button, Stack, Alert } from "react-bootstrap";
+import { Button, Stack, Alert } from "react-bootstrap";
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
 import { useTranslations } from "next-intl";
@@ -21,6 +21,7 @@ import SpinnerComponent from "../../components/SpinnerComponent";
 import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Head from "next/head";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
@@ -48,6 +49,7 @@ const webCamConstraints = {
 const Recording: NextPage<Props> = ({ categories }) => {
   const t = useTranslations("recording");
   const e = useTranslations("errors");
+  const h = useTranslations("home");
 
   const webcamRef = useRef<Webcam | null>(null);
   webcamRef.current?.stream?.getVideoTracks()[0].applyConstraints(webCamConstraints);
@@ -277,6 +279,10 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("title")}`}</title>
+      </Head>
+
       <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("title")}</h1>
@@ -291,7 +297,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
       {!choosingQuestions && !ready && (
         <div>
           <Stack direction="horizontal">
-            <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded" audio={true} height={480} ref={webcamRef} width={640} muted />
+            <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded" audio={true} ref={webcamRef} muted />
             {viewCarousel()}
           </Stack>
           <div className="w-50 d-flex justify-content-between mt-3">

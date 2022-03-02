@@ -1,6 +1,6 @@
-import next, { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Breadcrumb, Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
+import { Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
 import { useSWRConfig } from "swr";
 import React, { FormEvent, useEffect, useState } from "react";
 import router from "next/router";
@@ -19,8 +19,9 @@ import CommentList from "../../components/videos/CommentList";
 import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Head from "next/head";
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
   const videos = await data.json();
 
@@ -79,6 +80,7 @@ interface Props {
 
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const t = useTranslations("videos");
+  const h = useTranslations("home");
 
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = useState(0);
@@ -324,6 +326,10 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       />
 
       <Layout>
+        <Head>
+          <title>{`${h("title_short")} | ${video.title}`}</title>
+        </Head>
+
         <BreadcrumbComponent items={breadcrumb_items} />
 
         <h1>
@@ -355,7 +361,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               <span>{new Date(video.date).toLocaleString()}</span>
             </div>
             <hr />
-            <div>
+            <div className="d-flex">
               {user.role == "Lector" && (
                 <Button variant="outline-success" onClick={handleShowFeedback}>
                   {t("feedback_add")}

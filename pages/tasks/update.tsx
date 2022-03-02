@@ -7,6 +7,7 @@ import Error from "../_error";
 import UpdateTaskForm from "../../components/tasks/UpdateTaskForm";
 import { useTranslations } from "next-intl";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Head from "next/head";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -18,6 +19,7 @@ export async function getStaticProps({ locale }) {
 
 const UpdateInterview: NextPage = () => {
   const t = useTranslations("tasks");
+  const h = useTranslations("home");
 
   const router = useRouter();
   const query = router.query as { task_id: string };
@@ -29,7 +31,13 @@ const UpdateInterview: NextPage = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("task_update")}`}</title>
+      </Head>
+
       <BreadcrumbComponent items={breadcrumb_items} />
+
+      <h1>{t("task_update")}</h1>
 
       <h1>{t("task_update")}</h1>
       <UpdateTaskForm task_id={query.task_id} />
