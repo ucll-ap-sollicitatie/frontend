@@ -61,8 +61,10 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
       </Card.Body>
 
       <Card.Body className="border-top">
-        {updateComponent()}
-        {updatePreferences()}
+        <Stack>
+          {updateComponent()}
+          {updatePreferences()}
+        </Stack>
       </Card.Body>
     </Card>
   );
