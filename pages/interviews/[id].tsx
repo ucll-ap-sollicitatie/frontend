@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { Breadcrumb } from "react-bootstrap";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import UpdateInterviewButton from "../../components/interviews/UpdateInterviewButton";
 import Layout from "../../components/layout/Layout";
 import CarouselNoQuestions from "../../components/recording/CarouselNoQuestions";
@@ -9,6 +10,7 @@ import CarouselWithQuestions from "../../components/recording/CarouselWithQuesti
 import Unauthenticated from "../../components/Unauthenticated";
 import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
+import User from "../../interfaces/User";
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
@@ -63,23 +65,21 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
   const c = useTranslations("carousel");
 
   const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const user = session.user as User;
+
+  const breadcrumb_items = [{ href: "/interviews", text: t("title") }, { text: category.category }];
 
   return (
     <>
       <Layout>
-        <Breadcrumb>
-          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-          <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
-          <Breadcrumb.Item active>{category.category}</Breadcrumb.Item>
-        </Breadcrumb>
+        <BreadcrumbComponent items={breadcrumb_items} />
 
         <h1>
           {t("title")}: {category.category}
         </h1>
 
-        {session?.user?.role !== "Student" && <UpdateInterviewButton question_category_id={category.question_category_id} />}
-
+        {user.role !== "Student" && <UpdateInterviewButton question_category_id={category.question_category_id} />}
         {questions.length === 0 ? <CarouselNoQuestions /> : <CarouselWithQuestions questions={questions} />}
       </Layout>
     </>

@@ -20,6 +20,7 @@ import User from "../../interfaces/User";
 import SpinnerComponent from "../../components/SpinnerComponent";
 import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
@@ -272,12 +273,11 @@ const Recording: NextPage<Props> = ({ categories }) => {
     }
   };
 
+  const breadcrumb_items = [{ text: t("title") }];
+
   return (
     <Layout>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Interview opname</Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("title")}</h1>
 

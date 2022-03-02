@@ -8,6 +8,7 @@ import AllVideoOverview from "../../components/videos/AllVideoOverview";
 import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
 import FavoriteVideoOverview from "../../components/videos/FavoriteVideoOverview";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   let props = {
@@ -38,16 +39,15 @@ const FavoriteVideos: NextPage<Props> = ({ videos }) => {
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
 
-  videos.forEach(element => {
-    console.log(element.favorite_email)
+  videos.forEach((element) => {
+    console.log(element.favorite_email);
   });
+
+  const breadcrumb_items = [{ text: t("all") }];
 
   return (
     <Layout>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Video&apos;s</Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("favorite_title")}</h1>
       <FavoriteVideoOverview videos={videos} user={user} />

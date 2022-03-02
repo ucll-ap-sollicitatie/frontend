@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Alert, Breadcrumb, Button, Form, Stack } from "react-bootstrap";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import Preference from "../../interfaces/Preference";
@@ -32,6 +33,7 @@ interface Props {
 
 const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
   const t = useTranslations("preferences");
+  const u = useTranslations("users");
 
   const router = useRouter();
   const [show, setShow] = useState(false);
@@ -77,13 +79,12 @@ const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
     }
   };
 
+  const breadcrumb_items = [{ href: `/users/${user.email}`, text: u("profile") }, { text: t("title") }];
+
   return (
     <Layout>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item href={`/users/${user.email}`}>Profiel</Breadcrumb.Item>
-        <Breadcrumb.Item active>Mijn preferenties</Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbComponent items={breadcrumb_items} />
+
       <h1>{t("title")}</h1>
       <p>{t("form_title")}</p>
 

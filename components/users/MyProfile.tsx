@@ -8,6 +8,7 @@ import ProfileCard from "../profile/ProfileCard";
 import Video from "../../interfaces/Video";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import BreadcrumbComponent from "../BreadcrumbComponent";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -38,12 +39,11 @@ const MyProfile: NextPage<Props> = ({ user, videos }) => {
     setVideos(temp);
   }, [videos, session?.user?.email]);
 
+  const breadcrumb_items = [{ text: t("my_profile") }];
+
   return (
     <Layout>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Profiel</Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbComponent items={breadcrumb_items} />
 
       <Row>
         <Col lg={4}>

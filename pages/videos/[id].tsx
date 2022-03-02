@@ -18,6 +18,7 @@ import Unauthorized from "../../components/Unauthorized";
 import CommentList from "../../components/videos/CommentList";
 import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
@@ -157,11 +158,11 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const handleFavoriteVideo = async () => {
     if (!videoFavorited) {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video.video_id}/favorite`, {
-      method: "POST",
-      body: JSON.stringify({ email: user.email }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+        method: "POST",
+        body: JSON.stringify({ email: user.email }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
       setVideoFavorited(true);
     } else {
@@ -171,10 +172,9 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        });
-        setVideoFavorited(false);      
+      });
+      setVideoFavorited(false);
     }
-
   };
 
   const handleAddFeedback = async (event: FormEvent) => {
@@ -300,6 +300,8 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     }
   };
 
+  const breadcrumb_items = [{ href: "/videos", text: t("all") }, { text: video.title }];
+
   return (
     <>
       <DeleteCommentModal comment={currentComment} showDelete={showDelete} handleClose={handleClose} handleDeleteComment={handleDeleteComment} />
@@ -320,12 +322,9 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         handleAddFeedback={handleAddFeedback}
         setMaxChars={setMaxChars}
       />
+
       <Layout>
-        <Breadcrumb>
-          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-          <Breadcrumb.Item href="/videos">Video&apos;s</Breadcrumb.Item>
-          <Breadcrumb.Item active>{video.title}</Breadcrumb.Item>
-        </Breadcrumb>
+        <BreadcrumbComponent items={breadcrumb_items} />
 
         <h1>
           {t("title")}: {video.title}
@@ -362,24 +361,24 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
                   {t("feedback_add")}
                 </Button>
               )}
-                {videoLiked ? (
-                  <Button variant="outline-secondary" className="ms-2" onClick={handleUnlikeVideo}>
-                    {t("dislike_video")}
-                  </Button>
-                ) : (
-                  <Button variant="outline-primary" className="ms-2" onClick={handleLikeVideo}>
-                    {t("like_video")}
-                  </Button>
-                )}
-                {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
-                {user.role == "Lector" && (
+              {videoLiked ? (
+                <Button variant="outline-secondary" className="ms-2" onClick={handleUnlikeVideo}>
+                  {t("dislike_video")}
+                </Button>
+              ) : (
+                <Button variant="outline-primary" className="ms-2" onClick={handleLikeVideo}>
+                  {t("like_video")}
+                </Button>
+              )}
+              {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
+              {user.role == "Lector" && (
                 <Form>
                   <Form.Group className="mb-3" controlId="favoriteCheckbox">
-                    <Form.Check type="checkbox" label={t("favorite_video")} checked={videoFavorited} onChange={handleFavoriteVideo}/>
+                    <Form.Check type="checkbox" label={t("favorite_video")} checked={videoFavorited} onChange={handleFavoriteVideo} />
                   </Form.Group>
                 </Form>
-                )}
-              </div>
+              )}
+            </div>
           </Col>
         </div>
 

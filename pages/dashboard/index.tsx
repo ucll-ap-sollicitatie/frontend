@@ -15,6 +15,7 @@ import Task from "../../interfaces/Task";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 
 interface Props {
   users: User[];
@@ -49,7 +50,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
   const t = useTranslations("dashboard");
-  const router = useRouter();
+
   const { data: session } = useSession();
   const user = session?.user as User;
   if (!session || user === undefined) return <Unauthenticated />;
@@ -71,12 +72,11 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
     return 0;
   };
 
+  const breadcrumb_items = [{ text: t("title") }];
+
   return (
     <Layout>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Dashboard</Breadcrumb.Item>
-      </Breadcrumb>
+      <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("title")}</h1>
       {user.role === "Admin" && (

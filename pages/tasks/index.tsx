@@ -8,6 +8,7 @@ import SpinnerComponent from "../../components/SpinnerComponent";
 import TasksReactTable from "../../components/TasksReactTable";
 import Layout from "../../components/layout/Layout";
 import { useTranslations } from "next-intl";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
@@ -59,8 +60,12 @@ const TasksIndex: NextPage<Props> = ({ tasks }) => {
   if (loading) return <SpinnerComponent />;
   if (tasks.length < 1) return <p>{t("no_tasks_found")}</p>;
 
+  const breadcrumb_items = [{ text: t("my_tasks") }];
+
   return (
     <Layout>
+      <BreadcrumbComponent items={breadcrumb_items} />
+
       <h1>{t("my_tasks")}</h1>
       <TasksReactTable columns={columns} data={tasks} url={"/tasks"} id="task_id" />
     </Layout>

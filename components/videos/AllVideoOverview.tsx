@@ -41,13 +41,13 @@ const AllVideoOverview: NextPage<Props> = ({ videos, user }) => {
 
   return (
     <>
-      <div className="d-flex flex-wrap col-12">
-        <Form.Group controlId="search" className="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+      <div className="d-flex flex-wrap gap-2">
+        <Form.Group controlId="search" className="col-lg-6 col-sm-12">
           <Form.Label>{t("search")}</Form.Label>
           <Form.Control onChange={handleSearch} type="text" placeholder={t("search_placeholder")} required />
         </Form.Group>
         <Link href={"/recording"} passHref>
-          <Button variant="primary" className="h-25 mt-auto ms-auto col-xl-3 col-lg-3 col-md-4 col-sm-12">
+          <Button variant="primary" className="h-25 mt-auto">
             {r("title")}
           </Button>
         </Link>
