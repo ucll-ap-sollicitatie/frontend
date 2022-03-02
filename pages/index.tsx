@@ -50,7 +50,7 @@ const Home: NextPage = () => {
           <span>
             U heeft uw preferenties nog niet aangepast. <br />
             <Link href={`/preferences`} passHref>
-              Klik hier om dat te doen
+              <a className="link-success">Dit kan gedaan worden in uw profiel.</a>
             </Link>
           </span>
         )}
