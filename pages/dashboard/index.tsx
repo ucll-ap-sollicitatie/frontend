@@ -87,17 +87,17 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
                 <Accordion.Header>{t("users")}</Accordion.Header>
                 <Accordion.Body>
                   {t("amount_of_users")}: {users ? users.length : t("none")}
-                  <div className="d-flex justify-content-between mt-3">
-                    <div>
+                  <ul className="mt-3 mb-0">
+                    <li>
                       {t("amount_of_admins")}: {countRole("Admin")}
-                    </div>
-                    <div>
+                    </li>
+                    <li>
                       {t("amount_of_lecturers")}: {countRole("Lector")}
-                    </div>
-                    <div>
+                    </li>
+                    <li>
                       {t("amount_of_students")}: {countRole("Student")}
-                    </div>
-                  </div>
+                    </li>
+                  </ul>
                 </Accordion.Body>
               </Accordion.Item>
 

@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from "next";
+import { NextPage } from "next";
 import { Breadcrumb, Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import User from "../../interfaces/User";
