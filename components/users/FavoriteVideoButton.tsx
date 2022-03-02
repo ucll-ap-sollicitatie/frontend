@@ -20,7 +20,7 @@ const FavoriteVideoButton: NextPage<Props> = ({ email }) => {
 
   return (
     <Link href={`/profile/favoriteVideos`} passHref>
-      <Button variant="primary">{t("profile_favorites")}</Button>
+      <Button className="mt-2" variant="primary">{t("profile_favorites")}</Button>
     </Link>
   );
 };

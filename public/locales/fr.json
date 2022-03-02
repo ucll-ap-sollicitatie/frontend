@@ -114,7 +114,7 @@
     "remove_user": "Supprimer l'utilisateur",
     "remove_user_confirm": "Êtes-vous sûr de vouloir supprimer cet utilisateur ?",
     "remove_user_success": "Utilisateur supprimé avec succès",
-    "profile_favorites": "Entretiens d'embauche favoris",
+    "profile_favorites": "Entretiens d'embauche favoris"
   },
   "students": {
     "error": "Erreur lors de la récupération des étudiants",
