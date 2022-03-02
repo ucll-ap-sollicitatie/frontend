@@ -3,8 +3,8 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
-import { Formation } from "../../interfaces/Formation";
-import { Role } from "../../interfaces/Role";
+import Formation from "../../interfaces/Formation";
+import Role from "../../interfaces/Role";
 import UserForm from "./UserForm";
 
 export async function getStaticProps({ locale }) {

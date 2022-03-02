@@ -41,7 +41,7 @@ const AllVideoOverview: NextPage<Props> = ({ videos, user }) => {
     <>
       <Form.Group controlId="search" className="col-4">
         <Form.Label>{t("search")}</Form.Label>
-        <Form.Control onChange={handleSearch} type="text" placeholder={t("search")} required />
+        <Form.Control onChange={handleSearch} type="text" placeholder={t("search_placeholder")} required />
       </Form.Group>
       <br />
 
