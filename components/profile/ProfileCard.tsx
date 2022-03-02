@@ -4,6 +4,7 @@ import { Card, Stack } from "react-bootstrap";
 import User from "../../interfaces/User";
 import DarkModeToggle from "../buttons/DarkModeToggle";
 import LocaleDropdown from "../buttons/LocaleDropdown";
+import FavoriteVideoButton from "../users/FavoriteVideoButton";
 import UpdatePreferencesButton from "../users/UpdatePreferencesButton";
 import UpdateUserButton from "../users/UpdateUserButton";
 
@@ -35,6 +36,12 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
     }
   };
 
+  const favoriteVideosComponent = () => {
+    if (session_user.role !== "Student") {
+      return <FavoriteVideoButton email={user.email} />;
+    }
+  }
+
   return (
     <Card style={{ maxWidth: "22rem" }}>
       <Card.Img variant="top" src={user.image} />
@@ -64,6 +71,7 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
         <Stack>
           {updateComponent()}
           {updatePreferences()}
+          {favoriteVideosComponent()}
         </Stack>
       </Card.Body>
     </Card>

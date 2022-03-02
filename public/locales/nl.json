@@ -89,7 +89,8 @@
     "feedback_add_success": "Feedback succesvol toegevoegd.",
     "search": "Sollicitaties zoeken",
     "search_placeholder": "Naam van student of titel sollicitatie",
-    "favorite_video": "Favoriet"
+    "favorite_video": "Favoriet",
+    "favorite_title": "Uw favoriete job interviews"
   },
   "users": {
     "name": "Naam",
@@ -112,7 +113,12 @@
     "users_loading_failed": "Er is een probleem opgetreden bij het laden van de gebruikers.",
     "remove_user": "Gebruiker verwijderen",
     "remove_user_confirm": "Bent u zeker dat u deze gebruiker wilt verwijderen?",
+<<<<<<< HEAD
     "remove_user_success": "De gebruiker is succesvol verwijderd."
+=======
+    "remove_user_success": "De gebruiker is succesvol verwijderd",
+    "profile_favorites": "Favoriete job interviews"
+>>>>>>> d6ed043... favorites overview
   },
   "students": {
     "error": "Er is een probleem opgetreden bij het laden van uw studenten.",

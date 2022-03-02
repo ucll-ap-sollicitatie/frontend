@@ -9,4 +9,5 @@ export default interface Video {
   name: string;
   surname: string;
   likes: number;
+  favorite_email: string;
 }
