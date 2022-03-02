@@ -52,6 +52,15 @@ export function milisecondsToReadableTime(ms: number): string {
 
 //export function is24Hours(date: Date): boolean {}
 
+// Locale
+export function getLocale(): string {
+  return localStorage.getItem("locale") || "nl";
+}
+
+export function setLocale(locale: string): void {
+  localStorage.setItem("locale", locale);
+}
+
 // Dark mode
 export function isDarkMode(): boolean {
   return localStorage.getItem("darkMode") === "true";

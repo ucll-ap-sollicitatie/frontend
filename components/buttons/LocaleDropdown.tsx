@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { Dropdown, DropdownButton } from "react-bootstrap";
+import { setLocale } from "../../helpers/helperFunctions";
 
 const LocaleDropdown: NextPage = () => {
   const t = useTranslations("home");
@@ -9,7 +10,8 @@ const LocaleDropdown: NextPage = () => {
   const router = useRouter();
 
   const changeLanguage = (lang: string) => {
-    router.push(`${router.pathname}`, `${router.pathname}`, { locale: lang });
+    setLocale(lang);
+    router.push(`${router.asPath}`, `${router.asPath}`, { locale: lang });
   };
 
   return (

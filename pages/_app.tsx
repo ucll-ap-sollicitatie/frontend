@@ -14,7 +14,7 @@ import { Container } from "react-bootstrap";
 import { useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { initializeDarkMode } from "../helpers/helperFunctions";
+import { getLocale, initializeDarkMode } from "../helpers/helperFunctions";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
@@ -22,6 +22,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap");
     initializeDarkMode();
+    router.push(`${router.asPath}`, `${router.asPath}`, { locale: getLocale() });
   }, []);
 
   return (

@@ -111,7 +111,7 @@ const StudentsReactTable: NextPage<Props> = ({ columns, data, url, id }) => {
           onChange={(e) => {
             setPageSize(Number(e.target.value));
           }}
-          style={{ maxWidth: "120px" }}
+          style={{ maxWidth: "136px" }}
         >
           {[5, 10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
