@@ -1,10 +1,10 @@
-import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap-dark-5/dist/css/bootstrap-nightshade.css";
 import "../styles/globals.css";
 
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 
-import { SessionProvider, useSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import { NextIntlProvider } from "next-intl";
 
 import Head from "next/head";
@@ -14,11 +14,14 @@ import { Container } from "react-bootstrap";
 import { useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { initializeDarkMode } from "../helpers/helperFunctions";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
+
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap");
+    initializeDarkMode();
   }, []);
 
   return (
@@ -33,6 +36,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
             <Head>
               <title>Slim op sollicitatie</title>
               <meta name="description" content="Slim op sollicitatie" />
+              <meta name="viewport" content="width=device-width, initial-scale=1" />
+              <meta name="color-scheme" content="light dark" />
               <link rel="icon" href="/test.ico" />
             </Head>
 

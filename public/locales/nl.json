@@ -20,7 +20,8 @@
     "preferences": "Voorkeuren",
     "profile": "Profiel",
     "contact": "Contact",
-    "language": "Taal"
+    "language": "Taal",
+    "dark_mode": "Donkere modus"
   },
   "table": {
     "update": "Aanpassen",

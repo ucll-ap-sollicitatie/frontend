@@ -20,7 +20,8 @@
     "preferences": "Préférences",
     "profile": "Profile",
     "contact": "Contact",
-    "language": "Langue"
+    "language": "Langue",
+    "dark_mode": "Mode sombre"
   },
   "table": {
     "update": "Modifier",

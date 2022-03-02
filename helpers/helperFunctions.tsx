@@ -51,3 +51,25 @@ export function milisecondsToReadableTime(ms: number): string {
 }
 
 //export function is24Hours(date: Date): boolean {}
+
+// Dark mode
+export function isDarkMode(): boolean {
+  return localStorage.getItem("darkMode") === "true";
+}
+
+export function toggleDarkMode(): void {
+  const darkMode = !isDarkMode();
+  if (darkMode) {
+    document.children[0].classList.add("dark");
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  } else {
+    document.children[0].classList.remove("dark");
+    localStorage.removeItem("darkMode");
+  }
+}
+
+export function initializeDarkMode(): void {
+  if (isDarkMode()) {
+    document.children[0].classList.add("dark");
+  }
+}

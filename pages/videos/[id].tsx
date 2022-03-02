@@ -324,16 +324,16 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
                 </Button>
               )}
               {videoLiked ? (
-                <Button variant="outline-secondary" className="ms-2" onClick={handleUnlikeVideo}>
+                <Button variant="outline-secondary" onClick={handleUnlikeVideo}>
                   {t("dislike_video")}
                 </Button>
               ) : (
-                <Button variant="outline-primary" className="ms-2" onClick={handleLikeVideo}>
+                <Button variant="outline-primary" onClick={handleLikeVideo}>
                   {t("like_video")}
                 </Button>
               )}
             </div>
-            {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
+            {likes > 0 && <span className="text-muted">Likes: {likes}</span>}
           </Col>
         </div>
 

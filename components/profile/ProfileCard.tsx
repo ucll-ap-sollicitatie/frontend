@@ -1,7 +1,9 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Card } from "react-bootstrap";
+import { Card, Stack } from "react-bootstrap";
 import User from "../../interfaces/User";
+import DarkModeToggle from "../buttons/DarkModeToggle";
+import LocaleDropdown from "../buttons/LocaleDropdown";
 import UpdatePreferencesButton from "../users/UpdatePreferencesButton";
 import UpdateUserButton from "../users/UpdateUserButton";
 
@@ -38,17 +40,27 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
       <Card.Img variant="top" src={user.image} />
 
       <Card.Body>
-        <Card.Title>
-          {user.name} {user.surname}
-        </Card.Title>
-        <Card.Subtitle className="mb-2 text-muted fst-italic">
-          {user.role} - {user.formation}
-        </Card.Subtitle>
+        <Card.Text>
+          <Card.Title>
+            {user.name} {user.surname}
+          </Card.Title>
+          <Card.Subtitle className="mb-2 text-muted fst-italic">
+            {user.role} - {user.formation}
+          </Card.Subtitle>
+        </Card.Text>
+
+        <Card.Text>{user.r_u_number}</Card.Text>
+        <Card.Text>{user.email}</Card.Text>
       </Card.Body>
 
       <Card.Body className="border-top">
-        <Card.Text>{user.r_u_number}</Card.Text>
-        <Card.Text>{user.email}</Card.Text>
+        <Stack gap={3}>
+          <DarkModeToggle />
+          <LocaleDropdown />
+        </Stack>
+      </Card.Body>
+
+      <Card.Body className="border-top">
         {updateComponent()}
         {updatePreferences()}
       </Card.Body>
