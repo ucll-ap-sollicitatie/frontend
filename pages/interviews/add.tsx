@@ -5,7 +5,7 @@ import Unauthenticated from "../../components/Unauthenticated";
 import AddInterviewForm from "../../components/interviews/AddInterviewForm";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Layout from "../../components/layout/Layout";
-import Head from "next/head";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -17,8 +17,7 @@ export async function getStaticProps({ locale }) {
 
 const AddInterview: NextPage = () => {
   const t = useTranslations("interviews");
-  const h = useTranslations("home");
-
+  const title = t("interview_add");
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
@@ -26,10 +25,7 @@ const AddInterview: NextPage = () => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("interview_add")}`}</title>
-      </Head>
-
+      <PageTitleComponent title={title} />
       <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("interview_add")}</h1>

@@ -7,6 +7,7 @@ import { FormEvent, useState } from "react";
 import { Alert, Button, Form, Stack } from "react-bootstrap";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Layout from "../../components/layout/Layout";
+import PageTitleComponent from "../../components/PageTitleComponent";
 import Unauthenticated from "../../components/Unauthenticated";
 import Preference from "../../interfaces/Preference";
 import QuestionCategory from "../../interfaces/QuestionCategory";
@@ -35,7 +36,7 @@ interface Props {
 const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
   const t = useTranslations("preferences");
   const u = useTranslations("users");
-  const h = useTranslations("home");
+  const title = t("title");
 
   const router = useRouter();
   const [show, setShow] = useState(false);
@@ -85,12 +86,8 @@ const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("title")}`}</title>
-      </Head>
-
+      <PageTitleComponent title={title} />
       <BreadcrumbComponent items={breadcrumb_items} />
-
       <h1>{t("title")}</h1>
       <p>{t("form_title")}</p>
 

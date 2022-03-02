@@ -19,8 +19,10 @@ const FavoriteVideoButton: NextPage<Props> = ({ email }) => {
   const t = useTranslations("users");
 
   return (
-    <Link href={`/profile/favoriteVideos`} passHref>
-      <Button className="mt-2" variant="primary">{t("profile_favorites")}</Button>
+    <Link href={`/profile/favorites`} passHref>
+      <Button className="mt-2" variant="primary">
+        {t("profile_favorites")}
+      </Button>
     </Link>
   );
 };

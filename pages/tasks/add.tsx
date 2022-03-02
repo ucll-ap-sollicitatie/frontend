@@ -1,11 +1,11 @@
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import AddTaskForm from "../../components/tasks/AddTaskForm";
-import { useTranslations } from "next-intl";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import Head from "next/head";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -17,8 +17,7 @@ export async function getStaticProps({ locale }) {
 
 const AddTask: NextPage = () => {
   const t = useTranslations("tasks");
-  const h = useTranslations("home");
-
+  const title = t("title");
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
@@ -26,11 +25,8 @@ const AddTask: NextPage = () => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("title")}`}</title>
-      </Head>
-
       <BreadcrumbComponent items={breadcrumb_items} />
+      <PageTitleComponent title={title} />
 
       <h1>{t("task_add")}</h1>
 

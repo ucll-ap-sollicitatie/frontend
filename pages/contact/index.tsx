@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
-import Head from "next/head";
 import { Table } from "react-bootstrap";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Layout from "../../components/layout/Layout";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -15,16 +15,13 @@ export async function getStaticProps({ locale }) {
 
 const Contact: NextPage = () => {
   const t = useTranslations("contact");
-  const h = useTranslations("home");
+  const title = t("title");
 
   const breadcrumb_items = [{ text: t("title") }];
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("title")}`}</title>
-      </Head>
-
+      <PageTitleComponent title={title} />
       <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("title")}</h1>

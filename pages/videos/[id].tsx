@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
 import { useSWRConfig } from "swr";
+import { useTranslations } from "next-intl";
 import React, { FormEvent, useEffect, useState } from "react";
 import router from "next/router";
 import Layout from "../../components/layout/Layout";
@@ -17,9 +18,8 @@ import FeedbackList from "../../components/videos/FeedbackList";
 import Unauthorized from "../../components/Unauthorized";
 import CommentList from "../../components/videos/CommentList";
 import User from "../../interfaces/User";
-import { useTranslations } from "next-intl";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import Head from "next/head";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
@@ -80,8 +80,7 @@ interface Props {
 
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const t = useTranslations("videos");
-  const h = useTranslations("home");
-
+  const title = video.title;
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = useState(0);
   const [error, setError] = useState("");
@@ -326,11 +325,8 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       />
 
       <Layout>
-        <Head>
-          <title>{`${h("title_short")} | ${video.title}`}</title>
-        </Head>
-
         <BreadcrumbComponent items={breadcrumb_items} />
+        <PageTitleComponent title={title} />
 
         <h1>
           {t("title")}: {video.title}

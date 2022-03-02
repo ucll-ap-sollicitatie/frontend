@@ -39,7 +39,6 @@ const Home: NextPage<Props> = ({ videos }) => {
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>Profiel</Breadcrumb.Item>
       </Breadcrumb>
-
       <Row>
         <Col>
           <h1>{t("my_profile")}</h1>

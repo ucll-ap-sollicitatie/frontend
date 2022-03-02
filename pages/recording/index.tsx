@@ -21,7 +21,7 @@ import SpinnerComponent from "../../components/SpinnerComponent";
 import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import Head from "next/head";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
@@ -70,6 +70,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const [subtitleCount, setSubtitleCount] = useState<number>(1);
   const [subtitles, setSubtitles] = useState<string>("");
   const { data: session } = useSession();
+  const title = t("title");
 
   const handleDataAvailable = useCallback(
     ({ data }) => {
@@ -279,11 +280,8 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("title")}`}</title>
-      </Head>
-
       <BreadcrumbComponent items={breadcrumb_items} />
+      <PageTitleComponent title={title} />
 
       <h1>{t("title")}</h1>
 

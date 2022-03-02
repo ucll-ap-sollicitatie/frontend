@@ -1,10 +1,10 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import Head from "next/head";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import UpdateInterviewButton from "../../components/interviews/UpdateInterviewButton";
 import Layout from "../../components/layout/Layout";
+import PageTitleComponent from "../../components/PageTitleComponent";
 import CarouselNoQuestions from "../../components/recording/CarouselNoQuestions";
 import CarouselWithQuestions from "../../components/recording/CarouselWithQuestions";
 import Unauthenticated from "../../components/Unauthenticated";
@@ -62,8 +62,7 @@ interface Props {
 
 const Interviews: NextPage<Props> = ({ questions, category }) => {
   const t = useTranslations("interviews");
-  const h = useTranslations("home");
-
+  const title = t("interview_view");
   const { data: session } = useSession();
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
@@ -73,10 +72,7 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
   return (
     <>
       <Layout>
-        <Head>
-          <title>{`${h("title_short")} | ${t("interview_view")}`}</title>
-        </Head>
-
+        <PageTitleComponent title={title} />
         <BreadcrumbComponent items={breadcrumb_items} />
 
         <h1>

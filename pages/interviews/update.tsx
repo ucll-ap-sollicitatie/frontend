@@ -8,6 +8,7 @@ import UpdateInterviewForm from "../../components/interviews/UpdateInterviewForm
 import Error from "../_error";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Head from "next/head";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -19,8 +20,7 @@ export async function getStaticProps({ locale }) {
 
 const UpdateInterview: NextPage = () => {
   const t = useTranslations("interviews");
-  const h = useTranslations("home");
-
+  const title = t("interview_update");
   const router = useRouter();
   const query = router.query as { id: string };
   const { data: session } = useSession();
@@ -31,10 +31,7 @@ const UpdateInterview: NextPage = () => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("interview_update")}`}</title>
-      </Head>
-
+      <PageTitleComponent title={title} />
       <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("interview_update")}</h1>

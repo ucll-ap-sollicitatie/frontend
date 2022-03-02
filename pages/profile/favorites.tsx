@@ -7,7 +7,7 @@ import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
 import FavoriteVideoOverview from "../../components/videos/FavoriteVideoOverview";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import Head from "next/head";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   let props = {
@@ -33,8 +33,7 @@ interface Props {
 
 const FavoriteVideos: NextPage<Props> = ({ videos }) => {
   const t = useTranslations("videos");
-  const h = useTranslations("home");
-
+  const title = t("favorite_title");
   const { data: session } = useSession();
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
@@ -47,11 +46,8 @@ const FavoriteVideos: NextPage<Props> = ({ videos }) => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("favorite_title")}`}</title>
-      </Head>
-
       <BreadcrumbComponent items={breadcrumb_items} />
+      <PageTitleComponent title={title} />
 
       <h1>{t("favorite_title")}</h1>
       <FavoriteVideoOverview videos={videos} user={user} />

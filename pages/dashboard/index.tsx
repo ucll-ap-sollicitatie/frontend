@@ -15,7 +15,7 @@ import Video from "../../interfaces/Video";
 import Task from "../../interfaces/Task";
 import Link from "next/link";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import Head from "next/head";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 interface Props {
   users: User[];
@@ -50,8 +50,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
   const t = useTranslations("dashboard");
-  const h = useTranslations("home");
-
+  const title = t("title");
   const { data: session } = useSession();
   const user = session?.user as User;
   if (!session || user === undefined) return <Unauthenticated />;
@@ -77,10 +76,7 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("title")}`}</title>
-      </Head>
-
+      <PageTitleComponent title={title} />
       <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("title")}</h1>

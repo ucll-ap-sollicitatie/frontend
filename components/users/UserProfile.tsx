@@ -1,14 +1,14 @@
 import { NextPage } from "next";
 import { Row, Col } from "react-bootstrap";
+import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import User from "../../interfaces/User";
 import Layout from "../layout/Layout";
 import OwnVideoOverview from "../videos/ProfileVideoOverview";
 import ProfileCard from "../profile/ProfileCard";
-import { useEffect, useState } from "react";
 import Video from "../../interfaces/Video";
-import { useTranslations } from "next-intl";
-import Head from "next/head";
 import BreadcrumbComponent from "../BreadcrumbComponent";
+import PageTitleComponent from "../PageTitleComponent";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -25,8 +25,7 @@ interface Props {
 
 const UserProfile: NextPage<Props> = ({ user, videos }) => {
   const t = useTranslations("users");
-  const h = useTranslations("home");
-
+  const title = t("user_profile");
   const [publicVideos, setPublicVideos] = useState<Video[]>([]);
 
   useEffect(() => {
@@ -43,11 +42,8 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("user_profile")} ${user.name} ${user.surname}`}</title>
-      </Head>
-
       <BreadcrumbComponent items={breadcrumb_items} />
+      <PageTitleComponent title={title} />
 
       <Row>
         <Col lg={4}>

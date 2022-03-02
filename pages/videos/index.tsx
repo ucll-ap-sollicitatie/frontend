@@ -8,6 +8,7 @@ import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Head from "next/head";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   let props = {
@@ -33,8 +34,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({ videos }) => {
   const t = useTranslations("videos");
-  const h = useTranslations("home");
-
+  const title = t("all");
   const { data: session } = useSession();
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
@@ -43,11 +43,8 @@ const Home: NextPage<Props> = ({ videos }) => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("all")}`}</title>
-      </Head>
-
       <BreadcrumbComponent items={breadcrumb_items} />
+      <PageTitleComponent title={title} />
 
       <h1>{t("all")}</h1>
       <AllVideoOverview videos={videos} user={user} />

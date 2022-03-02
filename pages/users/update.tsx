@@ -1,13 +1,14 @@
 import { NextPage } from "next";
-import Layout from "../../components/layout/Layout";
 import { useSession } from "next-auth/react";
-import Unauthenticated from "../../components/Unauthenticated";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
+import Unauthenticated from "../../components/Unauthenticated";
 import Error from "../_error";
 import UpdateUserForm from "../../components/users/UpdateUserForm";
-import { useTranslations } from "next-intl";
+import Layout from "../../components/layout/Layout";
+
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import Head from "next/head";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -19,8 +20,7 @@ export async function getStaticProps({ locale }) {
 
 const UpdateInterview: NextPage = () => {
   const t = useTranslations("users");
-  const h = useTranslations("home");
-
+  const title = t("update_profile");
   const router = useRouter();
   const query = router.query as { email: string };
   const { data: session } = useSession();
@@ -31,12 +31,8 @@ const UpdateInterview: NextPage = () => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("update_profile")}`}</title>
-      </Head>
-
       <BreadcrumbComponent items={breadcrumb_items} />
-
+      <PageTitleComponent title={title} />
       <h1>{t("update_profile")}</h1>
 
       <UpdateUserForm email={query.email} />

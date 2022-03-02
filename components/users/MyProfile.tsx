@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
 import BreadcrumbComponent from "../BreadcrumbComponent";
+import PageTitleComponent from "../PageTitleComponent";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -26,8 +27,7 @@ interface Props {
 
 const MyProfile: NextPage<Props> = ({ user, videos }) => {
   const t = useTranslations("users");
-  const h = useTranslations("home");
-
+  const title = t("my_profile");
   const [myVideos, setVideos] = useState<Video[]>([]);
   const { data: session } = useSession();
 
@@ -45,10 +45,7 @@ const MyProfile: NextPage<Props> = ({ user, videos }) => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("my_profile")}`}</title>
-      </Head>
-
+      <PageTitleComponent title={title} />
       <BreadcrumbComponent items={breadcrumb_items} />
 
       <Row>

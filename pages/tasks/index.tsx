@@ -1,15 +1,15 @@
 import type { GetStaticProps, NextPage } from "next";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import Task from "../../interfaces/Task";
 import Unauthorized from "../../components/Unauthorized";
 import User from "../../interfaces/User";
 import SpinnerComponent from "../../components/SpinnerComponent";
 import TasksReactTable from "../../components/TasksReactTable";
 import Layout from "../../components/layout/Layout";
-import { useTranslations } from "next-intl";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import Head from "next/head";
+import PageTitleComponent from "../../components/PageTitleComponent";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
@@ -28,7 +28,7 @@ interface Props {
 
 const TasksIndex: NextPage<Props> = ({ tasks }) => {
   const t = useTranslations("tasks");
-  const h = useTranslations("home");
+  const title = t("task_add");
 
   const columns = [
     {
@@ -66,11 +66,8 @@ const TasksIndex: NextPage<Props> = ({ tasks }) => {
 
   return (
     <Layout>
-      <Head>
-        <title>{`${h("title_short")} | ${t("task_add")}`}</title>
-      </Head>
-
       <BreadcrumbComponent items={breadcrumb_items} />
+      <PageTitleComponent title={title} />
 
       <h1>{t("my_tasks")}</h1>
       <TasksReactTable columns={columns} data={tasks} url={"/tasks"} id="task_id" />
