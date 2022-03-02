@@ -23,7 +23,7 @@ const NavBar: NextPage = () => {
 
   return (
     <header>
-      <Navbar bg="bg-light" expand="lg">
+      <Navbar expand="lg">
         <Container>
           <Link href="/" passHref>
             <Navbar.Brand href="/" className="d-flex">
@@ -78,6 +78,7 @@ const NavBar: NextPage = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <hr className="m-0" />
     </header>
   );
 };
