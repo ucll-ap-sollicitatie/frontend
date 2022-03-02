@@ -1,11 +1,9 @@
 import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { ChangeEvent, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
-import Unauthenticated from "../Unauthenticated";
 import VideoCard from "./VideoCard";
 
 export async function getStaticProps({ locale }) {
@@ -21,7 +19,7 @@ interface Props {
   user: User;
 }
 
-const AllVideoOverview: NextPage<Props> = ({ videos, user }) => {
+const FavoriteVideoOverview: NextPage<Props> = ({ videos, user }) => {
   const t = useTranslations("videos");
 
   const [videosFiltered, setVideosFiltered] = useState(videos);
@@ -38,14 +36,14 @@ const AllVideoOverview: NextPage<Props> = ({ videos, user }) => {
     <>
       <Form.Group controlId="search">
         <Form.Label>{t("search")}</Form.Label>
-        <Form.Control onChange={handleSearch} type="text" placeholder={t("search")} required />
+        <Form.Control onChange={handleSearch} type="text" placeholder={t("search_placeholder")} required />
       </Form.Group>
       <br />
 
       <Row className="g-4">
         {videosFiltered.map(
           (video: Video) =>
-            (user.email === video.favorite_email) && (
+            user.email === video.favorite_email && (
               <div className="col-md-6 col-lg-4 col-xl-3" key={video.video_id}>
                 <VideoCard video={video} />
               </div>
@@ -56,4 +54,4 @@ const AllVideoOverview: NextPage<Props> = ({ videos, user }) => {
   );
 };
 
-export default AllVideoOverview;
+export default FavoriteVideoOverview;
