@@ -22,7 +22,9 @@
     "profile": "Mon profil",
     "contact": "Contact",
     "language": "Français",
-    "dark_mode": "Mode sombre"
+    "dark_mode": "Mode sombre",
+    "preferences_not_adjusted": "Vous n'avez pas encore ajusté vos préférences.",
+    "preferences_profile": "Vous pouvez le faire dans votre profil."
   },
   "table": {
     "update": "Modifier",
@@ -168,7 +170,8 @@
     "change_preferences": "Vous pouvez toujours modifier vos préférences dans votre profil.",
     "random_questions": "Questions aléatoires de mes préférences",
     "record_interview": "Passez à l'action et répondez aux questions uniquement sur le thème de votre choix !",
-    "record_interview_questions": "Vous devrez répondre à 5 questions choisies au hasard dans la catégorie choisie."
+    "record_interview_questions": "Vous devrez répondre à 5 questions choisies au hasard dans la catégorie choisie.",
+    "choose_category_button": "Choisissez une catégorie de questions"
   },
   "comments": {
     "comment": "Commentaire",

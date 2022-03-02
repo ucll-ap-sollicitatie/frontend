@@ -7,7 +7,6 @@ import Layout from "../components/layout/Layout";
 import Unauthenticated from "../components/Unauthenticated";
 import User from "../interfaces/User";
 import Link from "next/link";
-import { Button } from "react-bootstrap";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -48,9 +47,9 @@ const Home: NextPage = () => {
         {t("welcome")}, {user.name || user.email}! <br />
         {!edited && (
           <span>
-            U heeft uw preferenties nog niet aangepast. <br />
+            {t("preferences_not_adjusted")} <br />
             <Link href={`/preferences`} passHref>
-              <a className="link-success">Dit kan gedaan worden in uw profiel.</a>
+              <a className="link-success">{t("preferences_profile")}</a>
             </Link>
           </span>
         )}

@@ -31,7 +31,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths.push(
       { params: { id: video.video_id.toString() }, locale: "en" },
       { params: { id: video.video_id.toString() }, locale: "fr" },
-      { params: { id: video.video_id.toString() }, locale: "nl" }
+      { params: { id: video.video_id.toString() }, locale: "nl" },
+      { params: { id: video.video_id.toString() }, locale: "pl" }
     );
   });
 

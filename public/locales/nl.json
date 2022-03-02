@@ -22,7 +22,9 @@
     "profile": "Mijn profiel",
     "contact": "Contact",
     "language": "Nederlands",
-    "dark_mode": "Donkere modus"
+    "dark_mode": "Donkere modus",
+    "preferences_not_adjusted": "Je hebt je preferenties nog niet aangepast.",
+    "preferences_profile": "Dit kunt u doen in uw profiel."
   },
   "table": {
     "update": "Aanpassen",
@@ -168,7 +170,8 @@
     "change_preferences": "Je kan altijd jouw preferenties veranderen in jouw profiel.",
     "random_questions": "Willekeurige vragen uit mijn preferenties",
     "record_interview": "Ga voor het echte ding en beantwoord vragen enkel uit een thema die jij zelf kiest!",
-    "record_interview_questions": "Je krijgt steeds 5 willekeurige vragen uit de gekozen categorie die je moet beantwoorden."
+    "record_interview_questions": "Je krijgt steeds 5 willekeurige vragen uit de gekozen categorie die je moet beantwoorden.",
+    "choose_category_button": "Kies categorie van vragen"
   },
   "comments": {
     "comment": "Commentaar",

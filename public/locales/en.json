@@ -21,8 +21,10 @@
     "preferences": "Preferences",
     "profile": "My profile",
     "contact": "Contact",
-    "language": "Engels",
-    "dark_mode": "Dark mode"
+    "language": "English",
+    "dark_mode": "Dark mode",
+    "preferences_not_adjusted": "You haven't adjusted your preferences yet.",
+    "preferences_profile": "This can be done in your profile."
   },
   "table": {
     "update": "Update",
@@ -45,9 +47,9 @@
     "view": "View"
   },
   "errors": {
-    "error_title": "Smart on job interviews",
+    "error_title": "Inteligentnie na rozmowie o pracę",
     "password_mismatch": "The passwords do not match.",
-    "update_failed": "Updating has failed",
+    "update_failed": "Updating has failed.",
     "status_code": "Error code",
     "404": "Page not found",
     "500": "An error occurred",
@@ -149,7 +151,7 @@
     "recording_title": "Title",
     "recording_description": "Description",
     "title_example": "e.g. My job interview recording",
-    "characters": "Characters",
+    "characters": "characters",
     "recording_private": "Private: only teachers can view your job interview.",
     "recording_private_radio": "Private",
     "upload": "Upload",
@@ -168,7 +170,8 @@
     "change_preferences": "You can always change your preferences in your profile.",
     "random_questions": "Random questions from my preferences",
     "record_interview": "Try the real thing and answer questions that only come from the category of your choice.",
-    "record_interview_questions": "You always get 5 random questions from the chosen category that you have to answer."
+    "record_interview_questions": "You always get 5 random questions from the chosen category that you have to answer.",
+    "choose_category_button": "Choose category of questions"
   },
   "comments": {
     "comment": "Comment",
@@ -183,7 +186,7 @@
     "preference": "Preference",
     "preferences_update": "Adjust preferences",
     "error": "An error occurred during the adjustment of your preferences.",
-    "error_title": "Smart on job applications",
+    "error_title": "Smart on job interviews",
     "preferences_update_success": "Your preferences have been adjusted successfully"
   },
   "interviews": {
@@ -223,7 +226,7 @@
     "comments_overview": "Comments overview",
     "amount_of_comments": "Amount of comments",
     "amount_of_feedback": "Amount of feedback",
-    "videos": "Job applications",
+    "videos": "Job interviews",
     "amount_of_videos": "Amount of job interviews",
     "tasks": "Assignments",
     "task_add": "Add assignment"

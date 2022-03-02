@@ -23,7 +23,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths.push(
       { params: { id: category.question_category_id.toString() }, locale: "en" },
       { params: { id: category.question_category_id.toString() }, locale: "fr" },
-      { params: { id: category.question_category_id.toString() }, locale: "nl" }
+      { params: { id: category.question_category_id.toString() }, locale: "nl" },
+      { params: { id: category.question_category_id.toString() }, locale: "pl" }
     );
   });
 

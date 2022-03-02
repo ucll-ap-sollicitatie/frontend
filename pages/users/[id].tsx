@@ -13,7 +13,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   let paths = [] as any;
 
   users.map((user: User) => {
-    paths.push({ params: { id: user.email }, locale: "en" }, { params: { id: user.email }, locale: "fr" }, { params: { id: user.email }, locale: "nl" });
+    paths.push(
+      { params: { id: user.email }, locale: "en" },
+      { params: { id: user.email }, locale: "fr" },
+      { params: { id: user.email }, locale: "nl" },
+      { params: { id: user.email }, locale: "pl" }
+    );
   });
 
   return {

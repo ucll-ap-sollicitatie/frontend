@@ -42,7 +42,7 @@ const ChoosingQuestions: NextPage<Props> = ({ handleRandomClick, categories, han
           <br />
           {t("record_interview_questions")}
         </span>
-        <DropdownButton variant="outline-primary" title="Categorie van vragen kiezen" className="ms-auto me-1">
+        <DropdownButton variant="outline-primary" title={t("choose_category_button")} className="ms-auto me-1">
           {categories.map((category: QuestionCategory, index) => (
             <Dropdown.Item key={index} onClick={() => handleCategoryClick(category)}>
               {category.category}

@@ -22,7 +22,7 @@ import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import PageTitleComponent from "../../components/PageTitleComponent";
-import CountDown from "./Countdown";
+import CountDown from "../../components/recording/Countdown";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);

@@ -2,11 +2,11 @@ import { useState, FormEvent, useEffect } from "react";
 import { NextPage } from "next";
 import { Alert } from "react-bootstrap";
 import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import SpinnerComponent from "../SpinnerComponent";
 import UserForm from "./UserForm";
 import User from "../../interfaces/User";
-import { useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
 
 export async function getStaticProps({ locale }) {
   return {

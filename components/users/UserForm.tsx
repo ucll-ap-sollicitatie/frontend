@@ -2,8 +2,8 @@ import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import { FormEvent, useEffect, useState } from "react";
 import { Button, Form, Stack } from "react-bootstrap";
-import { Formation } from "../../interfaces/Formation";
-import { Role } from "../../interfaces/Role";
+import Formation from "../../interfaces/Formation";
+import Role from "../../interfaces/Role";
 import User from "../../interfaces/User";
 
 export async function getStaticProps({ locale }) {
@@ -59,7 +59,7 @@ const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
             </Form.Group>
 
             <Form.Group controlId="r_u_number">
-              <Form.Label>R/U-nummer</Form.Label>
+              <Form.Label>r numerke kekw</Form.Label>
               <Form.Control type="text" placeholder="R/U-nummer" defaultValue={user !== undefined ? user.r_u_number : ""} required />
             </Form.Group>
 
