@@ -33,10 +33,12 @@ const FeedbackModal: NextPage<Props> = ({ maxChars, user, showFeedback, handleCl
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={handleAddFeedback} className="col-md-12 col-lg-10 col-xl-8">
+        <Form onSubmit={handleAddFeedback}>
           <div className="gap-4 flex-wrap">
             <Form.Group controlId="comment">
-              <Form.Label>{t("feedback_form_label")}</Form.Label>
+              <Form.Label>
+                {t("feedback_form_label")} <br /> {t("feedback_privacy")}
+              </Form.Label>
               <Form.Control
                 onChange={(e) => setMaxChars(e.target.value.length)}
                 maxLength={510}
