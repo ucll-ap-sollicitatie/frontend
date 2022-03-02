@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
-import { Alert, Button, Form, Stack } from "react-bootstrap";
+import { Alert, Breadcrumb, Button, Form, Stack } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import Preference from "../../interfaces/Preference";
@@ -79,6 +79,11 @@ const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
 
   return (
     <Layout>
+      <Breadcrumb>
+        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+        <Breadcrumb.Item href={`/users/${user.email}`}>Profiel</Breadcrumb.Item>
+        <Breadcrumb.Item active>Mijn preferenties</Breadcrumb.Item>
+      </Breadcrumb>
       <h1>{t("title")}</h1>
       <p>{t("form_title")}</p>
 

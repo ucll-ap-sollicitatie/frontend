@@ -14,11 +14,11 @@
     "copyright": "© 2022 UCLL, Inc",
     "dashboard": "Tableau de bord",
     "my_tasks": "Mes tâches",
-    "interviews": "Entretiens d'embauche",
-    "recording": "S'enregistrer",
-    "videos": "Videos",
+    "interviews": "Catégories",
+    "recording": "Enregistrer l'entretien d'embauche",
+    "videos": "Entretiens d'embauche",
     "preferences": "Préférences",
-    "profile": "Profile",
+    "profile": "Mon profil",
     "contact": "Contact",
     "language": "Langue",
     "dark_mode": "Mode sombre"
@@ -45,8 +45,8 @@
   },
   "errors": {
     "error_title": "Malin en entretien d'embauche",
-    "password_mismatch": "Les mots de passe ne correspondent pas",
-    "update_failed": "Erreur lors de la mise à jour",
+    "password_mismatch": "Les mots de passe ne correspondent pas.",
+    "update_failed": "Erreur lors de la mise à jour.",
     "status_code": "Code d'erreur",
     "404": "Page non trouvée",
     "500": "Erreur interne du serveur",
@@ -56,7 +56,7 @@
     "success": "Succes"
   },
   "videos": {
-    "all": "Toutes les videos",
+    "all": "Toutes les entretiens d'embauche",
     "title": "Titre",
     "information": "Information",
     "description": "Description",
@@ -64,9 +64,10 @@
     "date": "Date",
     "feedback": "Feedback",
     "feedback_to": "Feedback à",
-    "feedback_form_label": "Veuiller ajouter votre feedback ci dessous",
-    "no_videos": "Aucune video trouvée",
-    "no_videos_user": "Cette utilisateur n'a pas encore téléchargé de video",
+    "feedback_form_label": "Veuiller ajouter votre feedback ci dessous.",
+    "feedback_privacy": "Le feedback n'est visible que pour l'élève et les autres enseignants.",
+    "no_videos": "Aucun entretien d'embauche trouvé",
+    "no_videos_user": "Cette utilisateur n'a pas encore téléchargé d'entretiens d'embauche",
     "comment": "Commentaires",
     "no_comments": "Aucun commentaire.",
     "comment_add": "Ajouter un commentaire",
@@ -86,7 +87,7 @@
     "comment_remove_success": "Commentaire supprimé avec succès",
     "feedback_add": "Ajouter un feedback",
     "feedback_add_success": "Feedback ajouté avec succès",
-    "search": "Rechercher des videos"
+    "search": "Rechercher d'entretiens d'embauche"
   },
   "users": {
     "name": "Prénom",
@@ -142,7 +143,7 @@
     "recording_description": "Description",
     "title_example": "e.g. Mon entretien d'embauche",
     "characters": "Caractères",
-    "recording_private": "Privé: seul le formateur peut voir cette vidéo",
+    "recording_private": "Privé: seul le formateur peut voir cet entretien d'embauche",
     "recording_private_radio": "Privé",
     "upload": "Télécharger",
     "uploading": "Téléchargement en cours",
@@ -179,14 +180,14 @@
     "preferences_update_success": "Préférences modifiées avec succès"
   },
   "interviews": {
-    "title": "Entretiens d'embauche",
-    "interview_add": "Ajouter un entretien d'embauche",
-    "interview_add_success": "Entretien d'embauche ajouté avec succès",
-    "interview_update": "Modifier l'entretien d'embauche",
-    "interview_update_success": "Entretien d'embauche modifié avec succès",
-    "interview_remove": "Supprimer l'entretien d'embauche",
-    "interview_remove_confirm": "Êtes-vous sûr de vouloir supprimer cet entretien d'embauche ?",
-    "interview_remove_success": "Entretien d'embauche supprimé avec succès",
+    "title": "Catégories",
+    "interview_add": "Ajouter une catégorie",
+    "interview_add_success": "Catégorie ajoutée avec succès",
+    "interview_update": "Modifier la catégorie",
+    "interview_update_success": "Catégorie modifiée avec succès",
+    "interview_remove": "Supprimer la catégorie",
+    "interview_remove_confirm": "Êtes-vous sûr de vouloir supprimer cette catégorie ?",
+    "interview_remove_success": "Catégorie supprimée avec succès",
     "interview_error_exists": "Cette catégorie existe déjà",
     "question_remove": "Supprimer la question",
     "question_remove_confirm": "Êtes-vous sûr de vouloir supprimer cette question ?",
@@ -194,9 +195,9 @@
     "category": "Catégorie",
     "amount_of_questions": "Nombre de questions",
     "question_add": "Ajouter une question",
-    "interviews_error_loading": "Erreur lors du chargement des entretiens d'embauche.",
-    "interview_error_loading": "Erreur lors du chargement de l'entretien d'embauche.",
-    "no_interviews_found": "Aucun entretien d'embauche de trouvé"
+    "interviews_error_loading": "Erreur lors du chargement des catégories.",
+    "interview_error_loading": "Erreur lors du chargement de la catégorie.",
+    "no_interviews_found": "Aucune catégorie trouvée"
   },
   "dashboard": {
     "title": "Dashboard",
