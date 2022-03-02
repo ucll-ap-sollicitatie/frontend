@@ -9,7 +9,7 @@ const LocaleDropdown: NextPage = () => {
   const router = useRouter();
 
   const changeLanguage = (lang: string) => {
-    router.push(`${router.pathname}`, `${router.pathname}`, { locale: lang });
+    router.push(`${router.asPath}`, `${router.asPath}`, { locale: lang });
   };
 
   return (
