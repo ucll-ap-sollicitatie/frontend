@@ -1,6 +1,7 @@
 import { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Alert, Breadcrumb, Button, Form, Stack } from "react-bootstrap";
@@ -32,6 +33,7 @@ interface Props {
 
 const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
   const t = useTranslations("preferences");
+  const h = useTranslations("home");
 
   const router = useRouter();
   const [show, setShow] = useState(false);
@@ -79,6 +81,9 @@ const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("title")}`}</title>
+      </Head>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item href={`/users/${user.email}`}>Profiel</Breadcrumb.Item>

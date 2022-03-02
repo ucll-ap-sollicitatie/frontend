@@ -1,6 +1,8 @@
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { Accordion, Breadcrumb, Button, Tab, Tabs } from "react-bootstrap";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import Unauthorized from "../../components/Unauthorized";
@@ -12,9 +14,8 @@ import Comment from "../../interfaces/Comment";
 import CommentsTable from "../../components/comments/CommentsTable";
 import Video from "../../interfaces/Video";
 import Task from "../../interfaces/Task";
-import { useTranslations } from "next-intl";
-import { useRouter } from "next/router";
 import Link from "next/link";
+import Head from "next/head";
 
 interface Props {
   users: User[];
@@ -49,6 +50,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
 const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
   const t = useTranslations("dashboard");
+  const h = useTranslations("home");
   const router = useRouter();
   const { data: session } = useSession();
   const user = session?.user as User;
@@ -73,6 +75,9 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("title")}`}</title>
+      </Head>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>Dashboard</Breadcrumb.Item>

@@ -8,6 +8,7 @@ import SpinnerComponent from "../../components/SpinnerComponent";
 import TasksReactTable from "../../components/TasksReactTable";
 import Layout from "../../components/layout/Layout";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
@@ -26,6 +27,7 @@ interface Props {
 
 const TasksIndex: NextPage<Props> = ({ tasks }) => {
   const t = useTranslations("tasks");
+  const h = useTranslations("home");
 
   const columns = [
     {
@@ -61,6 +63,9 @@ const TasksIndex: NextPage<Props> = ({ tasks }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("task_add")}`}</title>
+      </Head>
       <h1>{t("my_tasks")}</h1>
       <TasksReactTable columns={columns} data={tasks} url={"/tasks"} id="task_id" />
     </Layout>

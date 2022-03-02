@@ -8,6 +8,7 @@ import ProfileCard from "../profile/ProfileCard";
 import Video from "../../interfaces/Video";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -24,6 +25,7 @@ interface Props {
 
 const MyProfile: NextPage<Props> = ({ user, videos }) => {
   const t = useTranslations("users");
+  const h = useTranslations("home");
 
   const [myVideos, setVideos] = useState<Video[]>([]);
   const { data: session } = useSession();
@@ -40,6 +42,9 @@ const MyProfile: NextPage<Props> = ({ user, videos }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("my_profile")}`}</title>
+      </Head>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>Profiel</Breadcrumb.Item>

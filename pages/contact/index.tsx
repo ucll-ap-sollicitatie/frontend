@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 import { Breadcrumb, Table } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 
@@ -13,9 +14,13 @@ export async function getStaticProps({ locale }) {
 
 const Contact: NextPage = () => {
   const t = useTranslations("contact");
+  const h = useTranslations("home");
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("title")}`}</title>
+      </Head>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>Contact</Breadcrumb.Item>

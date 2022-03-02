@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Error from "../_error";
 import UpdateUserForm from "../../components/users/UpdateUserForm";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -17,6 +18,7 @@ export async function getStaticProps({ locale }) {
 
 const UpdateInterview: NextPage = () => {
   const t = useTranslations("users");
+  const h = useTranslations("home");
 
   const router = useRouter();
   const query = router.query as { email: string };
@@ -26,6 +28,9 @@ const UpdateInterview: NextPage = () => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("update_profile")}`}</title>
+      </Head>
       <h1>{t("update_profile")}</h1>
 
       <UpdateUserForm email={query.email} />

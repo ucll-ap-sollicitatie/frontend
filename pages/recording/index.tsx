@@ -20,6 +20,7 @@ import User from "../../interfaces/User";
 import SpinnerComponent from "../../components/SpinnerComponent";
 import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
+import Head from "next/head";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
@@ -47,6 +48,7 @@ const webCamConstraints = {
 const Recording: NextPage<Props> = ({ categories }) => {
   const t = useTranslations("recording");
   const e = useTranslations("errors");
+  const h = useTranslations("home");
 
   const webcamRef = useRef<Webcam | null>(null);
   webcamRef.current?.stream?.getVideoTracks()[0].applyConstraints(webCamConstraints);
@@ -274,6 +276,9 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("title")}`}</title>
+      </Head>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>Interview opname</Breadcrumb.Item>

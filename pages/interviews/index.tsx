@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 import { Breadcrumb } from "react-bootstrap";
 import AddInterviewButton from "../../components/interviews/AddInterviewButton";
 import InterviewsTable from "../../components/interviews/InterviewsTable";
@@ -17,12 +18,16 @@ export async function getStaticProps({ locale }) {
 
 const Interviews: NextPage = () => {
   const t = useTranslations("interviews");
+  const h = useTranslations("home");
 
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("title")}`}</title>
+      </Head>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>Sollicitaties</Breadcrumb.Item>

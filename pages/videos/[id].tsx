@@ -18,6 +18,7 @@ import Unauthorized from "../../components/Unauthorized";
 import CommentList from "../../components/videos/CommentList";
 import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
@@ -78,6 +79,7 @@ interface Props {
 
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const t = useTranslations("videos");
+  const h = useTranslations("home");
 
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = useState(0);
@@ -321,6 +323,9 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         setMaxChars={setMaxChars}
       />
       <Layout>
+        <Head>
+          <title>{`${h("title_short")} | ${video.title}`}</title>
+        </Head>
         <Breadcrumb>
           <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
           <Breadcrumb.Item href="/videos">Video&apos;s</Breadcrumb.Item>

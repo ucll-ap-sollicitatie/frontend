@@ -7,6 +7,7 @@ import ProfileCard from "../profile/ProfileCard";
 import { useEffect, useState } from "react";
 import Video from "../../interfaces/Video";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -23,6 +24,7 @@ interface Props {
 
 const UserProfile: NextPage<Props> = ({ user, videos }) => {
   const t = useTranslations("users");
+  const h = useTranslations("home");
 
   const [publicVideos, setPublicVideos] = useState<Video[]>([]);
 
@@ -38,6 +40,9 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
 
   return (
     <Layout>
+      <Head>
+        <title>{`${h("title_short")} | ${t("user_profile")} ${user.name} ${user.surname}`}</title>
+      </Head>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>{`Gebruiker ${user.email}`}</Breadcrumb.Item>
@@ -46,15 +51,13 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
       <Row>
         <Col lg={4}>
           <h1>
-            {user.name}
-            {t("user_profile")}
+            {t("user_profile")} {user.name}
           </h1>
           <ProfileCard user={user} />
         </Col>
         <Col>
           <h1>
-            {user.name}
-            {t("user_videos")}
+            {t("user_videos")} {user.name}
           </h1>
           <OwnVideoOverview videos={publicVideos} />
         </Col>

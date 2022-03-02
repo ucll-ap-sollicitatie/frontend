@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 import { Breadcrumb, Col, Row } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import ProfileCard from "../../components/profile/ProfileCard";
@@ -27,6 +28,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({ videos }) => {
   const t = useTranslations("users");
+  const h = useTranslations("home");
 
   const { data: session } = useSession();
   if (!session || session.user === undefined) return <Unauthenticated />;
