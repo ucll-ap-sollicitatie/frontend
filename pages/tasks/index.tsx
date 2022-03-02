@@ -8,6 +8,7 @@ import SpinnerComponent from "../../components/SpinnerComponent";
 import TasksReactTable from "../../components/TasksReactTable";
 import Layout from "../../components/layout/Layout";
 import { useTranslations } from "next-intl";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Head from "next/head";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -61,11 +62,16 @@ const TasksIndex: NextPage<Props> = ({ tasks }) => {
   if (loading) return <SpinnerComponent />;
   if (tasks.length < 1) return <p>{t("no_tasks_found")}</p>;
 
+  const breadcrumb_items = [{ text: t("my_tasks") }];
+
   return (
     <Layout>
       <Head>
         <title>{`${h("title_short")} | ${t("task_add")}`}</title>
       </Head>
+
+      <BreadcrumbComponent items={breadcrumb_items} />
+
       <h1>{t("my_tasks")}</h1>
       <TasksReactTable columns={columns} data={tasks} url={"/tasks"} id="task_id" />
     </Layout>

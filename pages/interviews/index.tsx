@@ -2,11 +2,12 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
-import { Breadcrumb } from "react-bootstrap";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import AddInterviewButton from "../../components/interviews/AddInterviewButton";
 import InterviewsTable from "../../components/interviews/InterviewsTable";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
+import User from "../../interfaces/User";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -21,21 +22,22 @@ const Interviews: NextPage = () => {
   const h = useTranslations("home");
 
   const { data: session } = useSession();
-  if (!session) return <Unauthenticated />;
+  if (!session || session.user === undefined) return <Unauthenticated />;
+  const user = session.user as User;
+
+  const breadcrumb_items = [{ text: t("title") }];
 
   return (
     <Layout>
       <Head>
         <title>{`${h("title_short")} | ${t("title")}`}</title>
       </Head>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Sollicitaties</Breadcrumb.Item>
-      </Breadcrumb>
+
+      <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("title")}</h1>
 
-      {session?.user?.role !== "Student" && <AddInterviewButton />}
+      {user.role !== "Student" && <AddInterviewButton />}
 
       <InterviewsTable />
     </Layout>

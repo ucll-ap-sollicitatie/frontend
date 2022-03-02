@@ -2,7 +2,7 @@ import type { GetStaticProps, NextPage } from "next";
 import { FormEvent, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRef, useCallback } from "react";
-import { Breadcrumb, Button, Stack, Alert } from "react-bootstrap";
+import { Button, Stack, Alert } from "react-bootstrap";
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
 import { useTranslations } from "next-intl";
@@ -20,6 +20,7 @@ import User from "../../interfaces/User";
 import SpinnerComponent from "../../components/SpinnerComponent";
 import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Head from "next/head";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -274,15 +275,15 @@ const Recording: NextPage<Props> = ({ categories }) => {
     }
   };
 
+  const breadcrumb_items = [{ text: t("title") }];
+
   return (
     <Layout>
       <Head>
         <title>{`${h("title_short")} | ${t("title")}`}</title>
       </Head>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Interview opname</Breadcrumb.Item>
-      </Breadcrumb>
+
+      <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("title")}</h1>
 

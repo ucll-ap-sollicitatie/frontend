@@ -1,9 +1,9 @@
 import { NextPage } from "next";
-import { Breadcrumb } from "react-bootstrap";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Unauthenticated from "../../components/Unauthenticated";
 import AddInterviewForm from "../../components/interviews/AddInterviewForm";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Layout from "../../components/layout/Layout";
 import Head from "next/head";
 
@@ -22,19 +22,17 @@ const AddInterview: NextPage = () => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
+  const breadcrumb_items = [{ href: "/interviews", text: t("title") }, { text: t("interview_add") }];
+
   return (
     <Layout>
       <Head>
         <title>{`${h("title_short")} | ${t("interview_add")}`}</title>
       </Head>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item href="/interviews">Sollicitaties</Breadcrumb.Item>
-        <Breadcrumb.Item active>Toevoegen</Breadcrumb.Item>
-      </Breadcrumb>
+
+      <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("interview_add")}</h1>
-
       <AddInterviewForm />
     </Layout>
   );

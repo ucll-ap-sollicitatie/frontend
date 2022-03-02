@@ -1,6 +1,6 @@
-import next, { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Breadcrumb, Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
+import { Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
 import { useSWRConfig } from "swr";
 import React, { FormEvent, useEffect, useState } from "react";
 import router from "next/router";
@@ -18,9 +18,10 @@ import Unauthorized from "../../components/Unauthorized";
 import CommentList from "../../components/videos/CommentList";
 import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Head from "next/head";
 
-export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
   const videos = await data.json();
 
@@ -301,6 +302,8 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     }
   };
 
+  const breadcrumb_items = [{ href: "/videos", text: t("all") }, { text: video.title }];
+
   return (
     <>
       <DeleteCommentModal comment={currentComment} showDelete={showDelete} handleClose={handleClose} handleDeleteComment={handleDeleteComment} />
@@ -321,15 +324,13 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         handleAddFeedback={handleAddFeedback}
         setMaxChars={setMaxChars}
       />
+
       <Layout>
         <Head>
           <title>{`${h("title_short")} | ${video.title}`}</title>
         </Head>
-        <Breadcrumb>
-          <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-          <Breadcrumb.Item href="/videos">Video&apos;s</Breadcrumb.Item>
-          <Breadcrumb.Item active>{video.title}</Breadcrumb.Item>
-        </Breadcrumb>
+
+        <BreadcrumbComponent items={breadcrumb_items} />
 
         <h1>
           {t("title")}: {video.title}
@@ -377,8 +378,8 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               )}
               {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
               {user.role == "Lector" && (
-                <Form className="mt-auto ms-2">
-                  <Form.Group controlId="favoriteCheckbox">
+                <Form>
+                  <Form.Group className="mb-3" controlId="favoriteCheckbox">
                     <Form.Check type="checkbox" label={t("favorite_video")} checked={videoFavorited} onChange={handleFavoriteVideo} />
                   </Form.Group>
                 </Form>

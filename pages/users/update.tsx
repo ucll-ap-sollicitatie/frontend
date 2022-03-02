@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Error from "../_error";
 import UpdateUserForm from "../../components/users/UpdateUserForm";
 import { useTranslations } from "next-intl";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Head from "next/head";
 
 export async function getStaticProps({ locale }) {
@@ -26,11 +27,16 @@ const UpdateInterview: NextPage = () => {
   if (query.email === undefined) return <Error statusCode={404} />;
   if (!session) return <Unauthenticated />;
 
+  const breadcrumb_items = [{ href: "/profile", text: t("profile") }, { text: t("update_profile") }];
+
   return (
     <Layout>
       <Head>
         <title>{`${h("title_short")} | ${t("update_profile")}`}</title>
       </Head>
+
+      <BreadcrumbComponent items={breadcrumb_items} />
+
       <h1>{t("update_profile")}</h1>
 
       <UpdateUserForm email={query.email} />

@@ -6,6 +6,7 @@ import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import UpdateInterviewForm from "../../components/interviews/UpdateInterviewForm";
 import Error from "../_error";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Head from "next/head";
 
 export async function getStaticProps({ locale }) {
@@ -26,13 +27,19 @@ const UpdateInterview: NextPage = () => {
   if (query.id === undefined) return <Error statusCode={404} />;
   if (!session) return <Unauthenticated />;
 
+  const breadcrumb_items = [{ href: "/interviews", text: t("title") }, { text: t("interview_update") }];
+
   return (
     <Layout>
       <Head>
         <title>{`${h("title_short")} | ${t("interview_update")}`}</title>
       </Head>
+
+      <BreadcrumbComponent items={breadcrumb_items} />
+
       <h1>{t("interview_update")}</h1>
 
+      <h1>{t("interview_update")}</h1>
       <UpdateInterviewForm id={query.id} />
     </Layout>
   );

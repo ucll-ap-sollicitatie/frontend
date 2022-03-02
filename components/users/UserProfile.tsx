@@ -7,7 +7,11 @@ import ProfileCard from "../profile/ProfileCard";
 import { useEffect, useState } from "react";
 import Video from "../../interfaces/Video";
 import { useTranslations } from "next-intl";
+<<<<<<< HEAD
+import BreadcrumbComponent from "../BreadcrumbComponent";
+=======
 import Head from "next/head";
+>>>>>>> main
 
 export async function getStaticProps({ locale }) {
   return {
@@ -38,8 +42,13 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
     setPublicVideos(temp);
   }, [videos, user.email]);
 
+  const breadcrumb_items = [{ text: user.email }];
+
   return (
     <Layout>
+<<<<<<< HEAD
+      <BreadcrumbComponent items={breadcrumb_items} />
+=======
       <Head>
         <title>{`${h("title_short")} | ${t("user_profile")} ${user.name} ${user.surname}`}</title>
       </Head>
@@ -47,6 +56,7 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
         <Breadcrumb.Item active>{`Gebruiker ${user.email}`}</Breadcrumb.Item>
       </Breadcrumb>
+>>>>>>> main
 
       <Row>
         <Col lg={4}>

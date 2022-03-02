@@ -1,12 +1,12 @@
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Breadcrumb } from "react-bootstrap";
 import Video from "../../interfaces/Video";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import AllVideoOverview from "../../components/videos/AllVideoOverview";
 import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Head from "next/head";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -39,15 +39,15 @@ const Home: NextPage<Props> = ({ videos }) => {
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
 
+  const breadcrumb_items = [{ text: t("all") }];
+
   return (
     <Layout>
       <Head>
         <title>{`${h("title_short")} | ${t("all")}`}</title>
       </Head>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Video&apos;s</Breadcrumb.Item>
-      </Breadcrumb>
+
+      <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("all")}</h1>
       <AllVideoOverview videos={videos} user={user} />

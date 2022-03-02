@@ -1,7 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import Head from "next/head";
 import { Breadcrumb, Col, Row } from "react-bootstrap";
 import Layout from "../../components/layout/Layout";
 import ProfileCard from "../../components/profile/ProfileCard";

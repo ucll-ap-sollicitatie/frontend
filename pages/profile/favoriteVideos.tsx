@@ -1,12 +1,12 @@
 import type { GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Breadcrumb } from "react-bootstrap";
 import Video from "../../interfaces/Video";
 import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
 import FavoriteVideoOverview from "../../components/videos/FavoriteVideoOverview";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Head from "next/head";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
@@ -43,15 +43,15 @@ const FavoriteVideos: NextPage<Props> = ({ videos }) => {
     console.log(element.favorite_email);
   });
 
+  const breadcrumb_items = [{ text: t("all") }];
+
   return (
     <Layout>
       <Head>
         <title>{`${h("title_short")} | ${t("favorite_title")}`}</title>
       </Head>
-      <Breadcrumb>
-        <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Video&apos;s</Breadcrumb.Item>
-      </Breadcrumb>
+
+      <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("favorite_title")}</h1>
       <FavoriteVideoOverview videos={videos} user={user} />
