@@ -159,11 +159,11 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const handleFavoriteVideo = async () => {
     if (!videoFavorited) {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video.video_id}/favorite`, {
-      method: "POST",
-      body: JSON.stringify({ email: user.email }),
-      headers: {
-        "Content-Type": "application/json",
-      },
+        method: "POST",
+        body: JSON.stringify({ email: user.email }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
       setVideoFavorited(true);
     } else {
@@ -173,10 +173,9 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        });
-        setVideoFavorited(false);      
+      });
+      setVideoFavorited(false);
     }
-
   };
 
   const handleAddFeedback = async (event: FormEvent) => {
@@ -361,30 +360,30 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               <span>{new Date(video.date).toLocaleString()}</span>
             </div>
             <hr />
-            <div>
+            <div className="d-flex">
               {user.role == "Lector" && (
                 <Button variant="outline-success" onClick={handleShowFeedback}>
                   {t("feedback_add")}
                 </Button>
               )}
-                {videoLiked ? (
-                  <Button variant="outline-secondary" className="ms-2" onClick={handleUnlikeVideo}>
-                    {t("dislike_video")}
-                  </Button>
-                ) : (
-                  <Button variant="outline-primary" className="ms-2" onClick={handleLikeVideo}>
-                    {t("like_video")}
-                  </Button>
-                )}
-                {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
-                {user.role == "Lector" && (
-                <Form>
-                  <Form.Group className="mb-3" controlId="favoriteCheckbox">
-                    <Form.Check type="checkbox" label={t("favorite_video")} checked={videoFavorited} onChange={handleFavoriteVideo}/>
+              {videoLiked ? (
+                <Button variant="outline-secondary" className="ms-2" onClick={handleUnlikeVideo}>
+                  {t("dislike_video")}
+                </Button>
+              ) : (
+                <Button variant="outline-primary" className="ms-2" onClick={handleLikeVideo}>
+                  {t("like_video")}
+                </Button>
+              )}
+              {likes > 0 && <span className="ms-2 text-muted">Likes: {likes}</span>}
+              {user.role == "Lector" && (
+                <Form className="mt-auto ms-2">
+                  <Form.Group controlId="favoriteCheckbox">
+                    <Form.Check type="checkbox" label={t("favorite_video")} checked={videoFavorited} onChange={handleFavoriteVideo} />
                   </Form.Group>
                 </Form>
-                )}
-              </div>
+              )}
+            </div>
           </Col>
         </div>
 

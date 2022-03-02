@@ -296,7 +296,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
       {!choosingQuestions && !ready && (
         <div>
           <Stack direction="horizontal">
-            <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded" audio={true} height={480} ref={webcamRef} width={640} muted />
+            <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded" audio={true} ref={webcamRef} muted />
             {viewCarousel()}
           </Stack>
           <div className="w-50 d-flex justify-content-between mt-3">

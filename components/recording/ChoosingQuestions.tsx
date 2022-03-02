@@ -25,7 +25,7 @@ const ChoosingQuestions: NextPage<Props> = ({ handleRandomClick, categories, han
       <p className="mt-5">{t("choosing_category_description")}</p>
       <p>{t("choosing_category")}</p>
 
-      <Stack direction="horizontal" gap={3} className="mt-4 p-2 border rounded">
+      <Stack direction="horizontal" gap={3} className="mt-4 p-2 border rounded flex-wrap">
         <span className="ms-1">
           {t("warmup")}
           <br />
@@ -36,7 +36,7 @@ const ChoosingQuestions: NextPage<Props> = ({ handleRandomClick, categories, han
         </Button>
       </Stack>
 
-      <Stack direction="horizontal" gap={3} className="mt-4 p-2 border rounded">
+      <Stack direction="horizontal" gap={3} className="mt-4 p-2 border rounded flex-wrap">
         <span className="ms-1">
           {t("record_interview")}
           <br />
