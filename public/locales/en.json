@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "Smart on job applications",
+    "title": "Smart on job interviews",
     "welcome": "Welcome",
     "login": "Log in",
     "logout": "Log out",
@@ -15,8 +15,8 @@
     "dashboard": "Dashboard",
     "my_tasks": "My assignments",
     "interviews": "Categories",
-    "recording": "Take a job application",
-    "videos": "Job applications",
+    "recording": "Take a job interview",
+    "videos": "Job interviews",
     "preferences": "Preferences",
     "profile": "My profile",
     "contact": "Contact",
@@ -44,7 +44,7 @@
     "view": "View"
   },
   "errors": {
-    "error_title": "Smart on job applications",
+    "error_title": "Smart on job interviews",
     "password_mismatch": "The passwords do not match.",
     "update_failed": "Updating has failed",
     "status_code": "Error code",
@@ -56,7 +56,7 @@
     "success": "Success"
   },
   "videos": {
-    "all": "All job applications",
+    "all": "All job interviews",
     "title": "Title",
     "information": "Information",
     "description": "Description",
@@ -79,16 +79,16 @@
     "options": "Options",
     "likes": "Likes",
     "like_comment": "Like comment",
-    "like_video": "Like video",
+    "like_video": "Like job interview",
     "dislike_comment": "Unlike comment",
-    "dislike_video": "Unlike video",
+    "dislike_video": "Unlike job interview",
     "comment_remove": "Delete comment",
     "comment_remove_confirm": "Are you sure you want to delete this comment?",
     "comment_remove_success": "Comment deleted successfully",
     "feedback_add": "Add feedback",
     "feedback_add_success": "Feedback added successfully",
-    "search": "Search job applications",
-    "search_placeholder": "Student's name or title of job application"
+    "search": "Search job interviews",
+    "search_placeholder": "Student's name or title of job interview"
   },
   "users": {
     "name": "Name",
@@ -139,17 +139,17 @@
     "carousel_question": "Question"
   },
   "recording": {
-    "title": "Take a job application",
+    "title": "Take a job interview",
     "recording_title": "Title",
     "recording_description": "Description",
     "title_example": "e.g. My job interview recording",
     "characters": "Characters",
-    "recording_private": "Private: only teachers can view your job application.",
+    "recording_private": "Private: only teachers can view your job interview.",
     "recording_private_radio": "Private",
     "upload": "Upload",
     "uploading": "Uploading...",
-    "upload_failed": "Uploading job application failed.",
-    "upload_success": "Job application uploaded successfully!",
+    "upload_failed": "Uploading job interview failed.",
+    "upload_success": "Job interview uploaded successfully!",
     "back": "Back",
     "recording_error_title": "Title cannot contain '?' or '#'.",
     "start_recording": "Start recording",
@@ -217,7 +217,7 @@
     "amount_of_comments": "Amount of comments",
     "amount_of_feedback": "Amount of feedback",
     "videos": "Job applications",
-    "amount_of_videos": "Amount of job applications",
+    "amount_of_videos": "Amount of job interviews",
     "tasks": "Assignments",
     "task_add": "Add assignment"
   },
