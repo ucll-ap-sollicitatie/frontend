@@ -87,6 +87,7 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
                 <Accordion.Header>{t("users")}</Accordion.Header>
                 <Accordion.Body>
                   {t("amount_of_users")}: {users ? users.length : t("none")}
+                  <hr />
                   <ul className="mt-3 mb-0">
                     <li>
                       {t("amount_of_admins")}: {countRole("Admin")}
@@ -104,21 +105,25 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
               <Accordion.Item eventKey="1">
                 <Accordion.Header>{t("comments")}</Accordion.Header>
                 <Accordion.Body>
-                  <div className="d-flex justify-content-between">
-                    <div>
+                  <ul className="mb-0">
+                    <li>
                       {t("amount_of_comments")}: {comments ? comments.length - countFeedback() : "Geen"}
-                    </div>
-                    <div>
+                    </li>
+                    <li>
                       {t("amount_of_feedback")}: {countFeedback()}
-                    </div>
-                  </div>
+                    </li>
+                  </ul>
                 </Accordion.Body>
               </Accordion.Item>
 
               <Accordion.Item eventKey="2">
                 <Accordion.Header>{t("videos")}</Accordion.Header>
                 <Accordion.Body>
-                  {t("amount_of_videos")}: {videos ? videos.length : "Geen"}
+                  <ul className="mb-0">
+                    <li>
+                      {t("amount_of_videos")}: {videos ? videos.length : "Geen"}
+                    </li>
+                  </ul>
                 </Accordion.Body>
               </Accordion.Item>
             </Accordion>

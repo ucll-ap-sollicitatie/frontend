@@ -315,23 +315,26 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
             </div>
             <div>
               <h4>{t("date")}</h4>
-              <p>{new Date(video.date).toLocaleString()}</p>
+              <span>{new Date(video.date).toLocaleString()}</span>
             </div>
+            <hr />
             <div>
-              {user.role == "Lector" && (
-                <Button variant="outline-success" onClick={handleShowFeedback}>
-                  {t("feedback_add")}
-                </Button>
-              )}
-              {videoLiked ? (
-                <Button variant="outline-secondary" onClick={handleUnlikeVideo}>
-                  {t("dislike_video")}
-                </Button>
-              ) : (
-                <Button variant="outline-primary" onClick={handleLikeVideo}>
-                  {t("like_video")}
-                </Button>
-              )}
+              <Stack gap={2} className="col-5">
+                {user.role == "Lector" && (
+                  <Button variant="outline-success" onClick={handleShowFeedback}>
+                    {t("feedback_add")}
+                  </Button>
+                )}
+                {videoLiked ? (
+                  <Button variant="outline-secondary" onClick={handleUnlikeVideo}>
+                    {t("dislike_video")}
+                  </Button>
+                ) : (
+                  <Button variant="outline-primary" onClick={handleLikeVideo}>
+                    {t("like_video")}
+                  </Button>
+                )}
+              </Stack>
             </div>
             {likes > 0 && <span className="text-muted">Likes: {likes}</span>}
           </Col>
