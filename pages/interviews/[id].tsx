@@ -1,6 +1,7 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { Carousel } from "react-bootstrap";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import UpdateInterviewButton from "../../components/interviews/UpdateInterviewButton";
 import Layout from "../../components/layout/Layout";

@@ -1,8 +1,8 @@
 import type { GetStaticProps, NextPage } from "next";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRef, useCallback } from "react";
-import { Button, Stack, Alert } from "react-bootstrap";
+import { Button, Stack, Alert, Col, Row } from "react-bootstrap";
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
 import { useTranslations } from "next-intl";
@@ -22,6 +22,7 @@ import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import PageTitleComponent from "../../components/PageTitleComponent";
+import CountDown from "./Countdown";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
@@ -49,7 +50,6 @@ const webCamConstraints = {
 const Recording: NextPage<Props> = ({ categories }) => {
   const t = useTranslations("recording");
   const e = useTranslations("errors");
-  const h = useTranslations("home");
 
   const webcamRef = useRef<Webcam | null>(null);
   webcamRef.current?.stream?.getVideoTracks()[0].applyConstraints(webCamConstraints);
@@ -104,7 +104,6 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
   const handleStartCaptureClick = () => {
     if (webcamRef.current === null || webcamRef.current.stream === null) return;
-    setCapturing(true);
     mediaRecorderRef.current = new MediaRecorder(webcamRef.current.stream, {
       mimeType: "video/webm",
     });
@@ -112,6 +111,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
     mediaRecorderRef.current.start();
     stopwatch.current = new Stopwatch();
     stopwatch.current.start(true);
+    setCapturing(true);
     setSubtitleCount(1);
     setSubtitles("");
     setPreviousTime(0);
@@ -119,8 +119,8 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
   const handleStopCaptureClick = () => {
     if (mediaRecorderRef.current !== null && stopwatch.current !== null) {
-      mediaRecorderRef.current.stop();
       setCapturing(false);
+      mediaRecorderRef.current.stop();
       stopwatch.current.stop();
       let data = `${subtitleCount}\n${milisecondsToReadableTime(previousTime)} --> ${milisecondsToReadableTime(stopwatch.current.getTime())}\nVraag ${
         previousQuestion + 1
@@ -259,12 +259,23 @@ const Recording: NextPage<Props> = ({ categories }) => {
     if (!capturing) {
       return (
         <>
-          <Button variant="primary" className="w-25" onClick={handleStartCaptureClick}>
-            {t("start_recording")}
-          </Button>
-          <Button variant="light" onClick={handleGoToQuestionsClick}>
-            {t("back_to_categories")}
-          </Button>
+          <div className="d-flex justify-content-between flex-wrap mt-3">
+            <Button variant="primary" onClick={handleStartCaptureClick}>
+              {t("start_recording")}
+            </Button>
+            <Button variant="light" onClick={handleGoToQuestionsClick}>
+              {t("back_to_categories")}
+            </Button>
+            {recordedChunks.length > 0 && webCamReady ? (
+              <Button variant="primary" onClick={handleUploadClick}>
+                {t("continue")}
+              </Button>
+            ) : (
+              <Button variant="primary" onClick={handleUploadClick} disabled>
+                {t("continue")}
+              </Button>
+            )}
+          </div>
         </>
       );
     } else {
@@ -282,8 +293,9 @@ const Recording: NextPage<Props> = ({ categories }) => {
     <Layout>
       <BreadcrumbComponent items={breadcrumb_items} />
       <PageTitleComponent title={title} />
-
-      <h1>{t("title")}</h1>
+      <h1>
+        {t("title")} {capturing && <CountDown handleStopCaptureClick={handleStopCaptureClick} />}
+      </h1>
 
       {viewChoosingQuestions()}
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
@@ -291,22 +303,14 @@ const Recording: NextPage<Props> = ({ categories }) => {
         <span>{error}</span>
       </Alert>
       {readyToUpload()}
-
       {!choosingQuestions && !ready && (
-        <div>
-          <Stack direction="horizontal">
+        <Stack direction="horizontal">
+          <div>
             <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded" audio={true} ref={webcamRef} muted />
-            {viewCarousel()}
-          </Stack>
-          <div className="w-50 d-flex justify-content-between mt-3">
             {captureButtons()}
-            {recordedChunks.length > 0 && webCamReady && (
-              <Button variant="primary" onClick={handleUploadClick}>
-                {t("continue")}
-              </Button>
-            )}
           </div>
-        </div>
+          {viewCarousel()}
+        </Stack>
       )}
     </Layout>
   );

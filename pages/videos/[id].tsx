@@ -332,7 +332,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
           {t("title")}: {video.title}
         </h1>
 
-        <div className="d-flex flex-wrap gap-3 gap-lg-5">
+        <div className="d-flex flex-wrap gap-3 gap-lg-5 text-break">
           <Col sm={12} lg={8}>
             <VideoPlayer userEmail={video.email} videoTitle={video.title} />
           </Col>
@@ -374,10 +374,10 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               )}
             </div>
             <div className="d-flex gap-5">
-              {likes > 0 && <span className="text-muted">Likes: {likes}</span>}
+              <span className="text-muted">Likes: {likes}</span>
               {user.role == "Lector" && (
                 <Form>
-                  <Form.Group className="mb-3" controlId="favoriteCheckbox">
+                  <Form.Group controlId="favoriteCheckbox">
                     <Form.Check type="checkbox" label={t("favorite_video")} checked={videoFavorited} onChange={handleFavoriteVideo} />
                   </Form.Group>
                 </Form>

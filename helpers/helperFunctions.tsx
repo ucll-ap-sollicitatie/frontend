@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 export function capitalize(word: string): string {
   if (word === undefined || word.length === 0) return word;
 
@@ -49,8 +51,6 @@ export function milisecondsToReadableTime(ms: number): string {
   }
   return hours + ":" + minutes + ":" + seconds + "," + milliseconds;
 }
-
-//export function is24Hours(date: Date): boolean {}
 
 // Locale
 export function getLocale(): string {
