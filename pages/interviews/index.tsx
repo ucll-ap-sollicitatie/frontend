@@ -30,9 +30,7 @@ const Interviews: NextPage = () => {
 
       <h1>{t("title")}</h1>
 
-      <AddInterviewButton />
-      <br />
-      <br />
+      {session?.user?.role !== "Student" && <AddInterviewButton />}
 
       <InterviewsTable />
     </Layout>

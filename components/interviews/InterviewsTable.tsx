@@ -2,11 +2,11 @@ import type { NextPage } from "next";
 import { Modal, Spinner } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { QuestionCategory } from "../../interfaces/QuestionCategory";
+import { useTranslations } from "next-intl";
 import ReactTable from "../ReactTable";
 import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
-import { useTranslations } from "next-intl";
+import QuestionCategory from "../../interfaces/QuestionCategory";
 
 export async function getStaticProps({ locale }) {
   return {

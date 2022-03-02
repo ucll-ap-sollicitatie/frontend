@@ -19,9 +19,13 @@ const UpdateInterviewButton: NextPage<Props> = ({ question_category_id }) => {
   const t = useTranslations("interviews");
 
   return (
-    <Link href={`/interviews/update/?id=${question_category_id}`} passHref>
-      <Button variant="primary">{t("interview_update")}</Button>
-    </Link>
+    <>
+      <Link href={`/interviews/update/?id=${question_category_id}`} passHref>
+        <Button variant="primary">{t("interview_update")}</Button>
+      </Link>
+      <br />
+      <br />
+    </>
   );
 };
 
