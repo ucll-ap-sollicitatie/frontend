@@ -45,15 +45,18 @@ const Home: NextPage = () => {
 
       <p>
         {t("welcome")}, {user.name || user.email}! <br />
-        {!edited && (
-          <span>
-            U heeft uw preferenties nog niet aangepast. <br />
-            <Link href={`/users/${session.user.email}`} passHref>
-              Klik hier om dat te doen
-            </Link>
-          </span>
-        )}
       </p>
+
+      {!edited && (
+        <p>
+          U heeft uw preferenties nog niet aangepast. <br />
+          <Link href={`/users/${session.user.email}`} passHref>
+            <span>
+              Klik <a className="link-primary cursor-pointer">hier</a> om dat te doen
+            </span>
+          </Link>
+        </p>
+      )}
     </Layout>
   );
 };

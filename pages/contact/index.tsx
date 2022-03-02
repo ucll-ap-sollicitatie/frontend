@@ -43,22 +43,38 @@ const Contact: NextPage = () => {
         <tbody>
           <tr>
             <td>Joran Van Grunderbeek</td>
-            <td><a style={{color: "blue"}} href="mailto:joran.vangrunderbeek@student.ucll.be">joran.vangrunderbeek@student.ucll.be</a></td>
+            <td>
+              <a className="link-primary" href="mailto:joran.vangrunderbeek@student.ucll.be">
+                joran.vangrunderbeek@student.ucll.be
+              </a>
+            </td>
             <td>r0709770</td>
           </tr>
           <tr>
             <td>Lorenzo Catalano</td>
-            <td><a style={{color: "blue"}} href="mailto:lorenzo.catalano@student.ucll.be">lorenzo.catalano@student.ucll.be</a></td>
+            <td>
+              <a className="link-primary" href="mailto:lorenzo.catalano@student.ucll.be">
+                lorenzo.catalano@student.ucll.be
+              </a>
+            </td>
             <td>r0790963</td>
           </tr>
           <tr>
             <td>Maarten Van Briel</td>
-            <td><a style={{color: "blue"}} href="mailto:maarten.vanbriel@student.ucll.be">maarten.vanbriel@student.ucll.be</a></td>
+            <td>
+              <a className="link-primary" href="mailto:maarten.vanbriel@student.ucll.be">
+                maarten.vanbriel@student.ucll.be
+              </a>
+            </td>
             <td>r0746926</td>
           </tr>
           <tr>
             <td>Szymon Nidecki</td>
-            <td><a style={{color: "blue"}} href="mailto:szymon.nidecki@student.ucll.be">szymon.nidecki@student.ucll.be</a></td>
+            <td>
+              <a className="link-primary" href="mailto:szymon.nidecki@student.ucll.be">
+                szymon.nidecki@student.ucll.be
+              </a>
+            </td>
             <td>r0790938</td>
           </tr>
         </tbody>

@@ -25,23 +25,23 @@ const ChoosingQuestions: NextPage<Props> = ({ handleRandomClick, categories, han
       <p className="mt-5">{t("choosing_category_description")}</p>
       <p>{t("choosing_category")}</p>
 
-      <Stack direction="horizontal" gap={3} className="mt-5 bg-light border rounded">
-        <p className="ms-1">
+      <Stack direction="horizontal" gap={3} className="mt-4 p-2 border rounded">
+        <span className="ms-1">
           {t("warmup")}
           <br />
           {t("change_preferences")}
-        </p>
+        </span>
         <Button variant="outline-success" onClick={handleRandomClick} className="ms-auto me-1">
           {t("random_questions")}
         </Button>
       </Stack>
 
-      <Stack direction="horizontal" gap={3} className="mt-5 bg-light border rounded">
-        <p className="ms-1">
+      <Stack direction="horizontal" gap={3} className="mt-4 p-2 border rounded">
+        <span className="ms-1">
           {t("record_interview")}
           <br />
           {t("record_interview_questions")}
-        </p>
+        </span>
         <DropdownButton variant="outline-primary" title="Categorie van vragen kiezen" className="ms-auto me-1">
           {categories.map((category: QuestionCategory, index) => (
             <Dropdown.Item key={index} onClick={() => handleCategoryClick(category)}>

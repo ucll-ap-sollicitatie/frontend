@@ -280,6 +280,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
       </Breadcrumb>
 
       <h1>{t("title")}</h1>
+
       {viewChoosingQuestions()}
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
         <Alert.Heading>{e("error_title")}</Alert.Heading>

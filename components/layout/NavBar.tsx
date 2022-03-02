@@ -3,8 +3,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { Container, Dropdown, DropdownButton, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import User from "../../interfaces/User";
 import LogoutButton from "../auth/LogoutButton";
 
@@ -22,15 +21,9 @@ const NavBar: NextPage = () => {
   const { data: session } = useSession();
   const user = session?.user as User;
 
-  const router = useRouter();
-
-  const changeLanguage = (lang: string) => {
-    router.push(`${router.pathname}`, `${router.pathname}`, { locale: lang });
-  };
-
   return (
-    <header className="bg-light">
-      <Navbar bg="light" expand="lg">
+    <header>
+      <Navbar bg="bg-light" expand="lg">
         <Container>
           <Link href="/" passHref>
             <Navbar.Brand href="/" className="d-flex">
@@ -79,11 +72,7 @@ const NavBar: NextPage = () => {
               <Link href={"/contact"} passHref>
                 <Nav.Link href="/">{t("contact")}</Nav.Link>
               </Link>
-              <DropdownButton variant="outline-secondary" className="ms-2" title={t("language")}>
-                <Dropdown.Item onClick={() => changeLanguage("nl")}>Nederlands</Dropdown.Item>
-                <Dropdown.Item onClick={() => changeLanguage("en")}>English</Dropdown.Item>
-                <Dropdown.Item onClick={() => changeLanguage("fr")}>Français</Dropdown.Item>
-              </DropdownButton>
+
               {session && <LogoutButton />}
             </Nav>
           </Navbar.Collapse>
