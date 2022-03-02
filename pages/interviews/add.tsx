@@ -1,10 +1,10 @@
 import { NextPage } from "next";
-import Layout from "../../components/layout/Layout";
 import { Breadcrumb } from "react-bootstrap";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import Layout from "../../components/layout/Layout";
 import Unauthenticated from "../../components/Unauthenticated";
 import AddInterviewForm from "../../components/interviews/AddInterviewForm";
-import { useTranslations } from "next-intl";
 
 export async function getStaticProps({ locale }) {
   return {

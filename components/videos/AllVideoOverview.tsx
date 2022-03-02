@@ -2,11 +2,12 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { ChangeEvent, useState } from "react";
-import { Form, Row } from "react-bootstrap";
+import { Button, Form, Row } from "react-bootstrap";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
 import Unauthenticated from "../Unauthenticated";
 import VideoCard from "./VideoCard";
+import Link from "next/link";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -23,6 +24,7 @@ interface Props {
 
 const AllVideoOverview: NextPage<Props> = ({ videos, user }) => {
   const t = useTranslations("videos");
+  const r = useTranslations("recording");
 
   const [videosFiltered, setVideosFiltered] = useState(videos);
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,10 +41,17 @@ const AllVideoOverview: NextPage<Props> = ({ videos, user }) => {
 
   return (
     <>
-      <Form.Group controlId="search" className="col-4">
-        <Form.Label>{t("search")}</Form.Label>
-        <Form.Control onChange={handleSearch} type="text" placeholder={t("search_placeholder")} required />
-      </Form.Group>
+      <div className="d-flex flex-wrap col-12">
+        <Form.Group controlId="search" className="col-xl-3 col-lg-3 col-md-4 col-sm-12">
+          <Form.Label>{t("search")}</Form.Label>
+          <Form.Control onChange={handleSearch} type="text" placeholder={t("search_placeholder")} required />
+        </Form.Group>
+        <Link href={"/recording"} passHref>
+          <Button variant="primary" className="h-25 mt-auto ms-auto col-xl-3 col-lg-3 col-md-4 col-sm-12">
+            {r("title")}
+          </Button>
+        </Link>
+      </div>
       <br />
 
       <Row className="g-4">

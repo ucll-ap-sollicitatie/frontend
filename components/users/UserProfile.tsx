@@ -40,7 +40,7 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
     <Layout>
       <Breadcrumb>
         <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
-        <Breadcrumb.Item active>Profiel</Breadcrumb.Item>
+        <Breadcrumb.Item active>{`Gebruiker ${user.email}`}</Breadcrumb.Item>
       </Breadcrumb>
 
       <Row>

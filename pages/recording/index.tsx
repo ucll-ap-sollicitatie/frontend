@@ -3,10 +3,9 @@ import { FormEvent, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRef, useCallback } from "react";
 import { Breadcrumb, Button, Stack, Alert } from "react-bootstrap";
-import { Question } from "../../interfaces/Question";
-import { QuestionCategory } from "../../interfaces/QuestionCategory";
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
+import { useTranslations } from "next-intl";
 import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
 import axios from "axios";
@@ -19,7 +18,8 @@ import CarouselNoQuestions from "../../components/recording/CarouselNoQuestions"
 import CarouselWithQuestions from "../../components/recording/CarouselWithQuestions";
 import User from "../../interfaces/User";
 import SpinnerComponent from "../../components/SpinnerComponent";
-import { useTranslations } from "next-intl";
+import Question from "../../interfaces/Question";
+import QuestionCategory from "../../interfaces/QuestionCategory";
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);

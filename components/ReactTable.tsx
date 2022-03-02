@@ -6,6 +6,7 @@ import { useTable, useSortBy, usePagination } from "react-table";
 import RemoveButton from "./buttons/RemoveButton";
 import ShowButton from "./buttons/ShowButton";
 import { useTranslations } from "next-intl";
+import { useSession } from "next-auth/react";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -25,6 +26,7 @@ interface Props {
 
 const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => {
   const t = useTranslations("table");
+  const { data: session } = useSession();
 
   const {
     getTableProps,
@@ -59,7 +61,7 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
                 </th>
               ))}
               <th>{t("view")}</th>
-              <th>{t("remove")}</th>
+              {session?.user?.role !== "Student" && <th>{t("remove")}</th>}
             </tr>
           ))}
         </thead>
@@ -74,9 +76,11 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
                 <td>
                   <ShowButton url={`${url}/${row.original[id]}`} />
                 </td>
-                <td>
-                  <RemoveButton handleShow={handleShow} id={row.original[id]} />
-                </td>
+                {session?.user?.role !== "Student" && (
+                  <td>
+                    <RemoveButton handleShow={handleShow} id={row.original[id]} />
+                  </td>
+                )}
               </tr>
             );
           })}

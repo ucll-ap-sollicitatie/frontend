@@ -19,6 +19,8 @@ const AddInterviewButton: NextPage = () => {
       <Link href={"/interviews/add"} passHref>
         <Button variant="primary">{t("interview_add")}</Button>
       </Link>
+      <br />
+      <br />
     </>
   );
 };

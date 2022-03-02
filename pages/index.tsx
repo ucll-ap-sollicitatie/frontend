@@ -7,6 +7,7 @@ import Layout from "../components/layout/Layout";
 import Unauthenticated from "../components/Unauthenticated";
 import User from "../interfaces/User";
 import Link from "next/link";
+import { Button } from "react-bootstrap";
 
 export async function getStaticProps({ locale }) {
   return {

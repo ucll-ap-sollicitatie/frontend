@@ -43,6 +43,13 @@ const NavBar: NextPage = () => {
                 </>
               ) : (
                 <>
+                  {user.role !== "Student" && (
+                    <Link href={"/dashboard"} passHref>
+                      <Nav.Link href="/" className="border rounded">
+                        {t("dashboard")}
+                      </Nav.Link>
+                    </Link>
+                  )}
                   <Link href="/recording" passHref>
                     <Nav.Link href="/">{t("recording")}</Nav.Link>
                   </Link>
@@ -52,13 +59,6 @@ const NavBar: NextPage = () => {
                   <Link href={"/interviews"} passHref>
                     <Nav.Link href="/">{t("interviews")}</Nav.Link>
                   </Link>
-                  {user.role !== "Student" && (
-                    <Link href={"/dashboard"} passHref>
-                      <Nav.Link href="/" className="border rounded">
-                        {t("dashboard")}
-                      </Nav.Link>
-                    </Link>
-                  )}
                   {user.role === "Student" && (
                     <Link href={"/tasks"} passHref>
                       <Nav.Link href="/">{t("my_tasks")}</Nav.Link>
