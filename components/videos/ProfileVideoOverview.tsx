@@ -15,7 +15,7 @@ export async function getStaticProps({ locale }) {
 }
 
 interface Props {
-  videos: Video[] | null;
+  videos?: Video[];
 }
 
 const ProfileVideoOverview: NextPage<Props> = ({ videos }) => {
@@ -23,8 +23,7 @@ const ProfileVideoOverview: NextPage<Props> = ({ videos }) => {
 
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
-
-  if (!videos) return <p>{t("no_videos_user")}</p>;
+  if (!videos || videos.length < 1) return <p>{t("no_videos_user")}</p>;
 
   return (
     <Row className="g-4">

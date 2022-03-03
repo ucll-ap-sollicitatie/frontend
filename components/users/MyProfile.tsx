@@ -1,14 +1,13 @@
 import { NextPage } from "next";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import User from "../../interfaces/User";
 import Layout from "../layout/Layout";
 import OwnVideoOverview from "../videos/ProfileVideoOverview";
 import ProfileCard from "../profile/ProfileCard";
 import Video from "../../interfaces/Video";
-import { useSession } from "next-auth/react";
-import { useTranslations } from "next-intl";
-import Head from "next/head";
 import BreadcrumbComponent from "../BreadcrumbComponent";
 import PageTitleComponent from "../PageTitleComponent";
 
@@ -22,24 +21,25 @@ export async function getStaticProps({ locale }) {
 
 interface Props {
   user: User;
-  videos: Video[];
 }
 
-const MyProfile: NextPage<Props> = ({ user, videos }) => {
+const MyProfile: NextPage<Props> = ({ user }) => {
   const t = useTranslations("users");
   const title = t("my_profile");
   const [myVideos, setVideos] = useState<Video[]>([]);
-  const { data: session } = useSession();
+
+  const fetchData = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/email/${user.email}`);
+    const data = await res.json();
+
+    if (res.ok) {
+      setVideos(data);
+    }
+  };
 
   useEffect(() => {
-    let temp: Video[] = [];
-    videos.forEach((video) => {
-      if (video.email === session?.user?.email) {
-        temp.push(video);
-      }
-    });
-    setVideos(temp);
-  }, [videos, session?.user?.email]);
+    fetchData();
+  }, []);
 
   const breadcrumb_items = [{ text: t("my_profile") }];
 

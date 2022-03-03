@@ -64,7 +64,7 @@ const NavBar: NextPage = () => {
                       <Nav.Link href="/">{t("my_tasks")}</Nav.Link>
                     </Link>
                   )}
-                  <Link href={`/users/${user.email}`} passHref>
+                  <Link href={`/profile`} passHref>
                     <Nav.Link href="/">{t("profile")}</Nav.Link>
                   </Link>
                 </>

@@ -40,8 +40,10 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     const videosRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
     const videos = await videosRes.json();
 
+    if (videosRes.ok) {
+      props.videos = videos;
+    }
     props.user = user;
-    props.videos = videos;
   }
 
   return {
@@ -51,16 +53,14 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
 interface Props {
   user: User;
-  videos: Video[];
+  videos: Video[] | null;
 }
 
 const UserDetails: NextPage<Props> = ({ user, videos }) => {
   const { data: session } = useSession();
   if (!session || session.user === undefined) return <Unauthenticated />;
-  const session_user = session.user as User;
 
-  if (session_user.email !== user.email) return <UserProfile user={user} videos={videos} />;
-  return <MyProfile user={session_user} videos={videos} />;
+  return <UserProfile user={user} videos={videos} />;
 };
 
 export default UserDetails;

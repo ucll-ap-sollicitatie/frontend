@@ -9,6 +9,7 @@ import ProfileCard from "../profile/ProfileCard";
 import Video from "../../interfaces/Video";
 import BreadcrumbComponent from "../BreadcrumbComponent";
 import PageTitleComponent from "../PageTitleComponent";
+import ProfileVideoOverview from "../videos/ProfileVideoOverview";
 
 export async function getStaticProps({ locale }) {
   return {

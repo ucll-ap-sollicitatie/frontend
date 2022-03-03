@@ -24,7 +24,7 @@ const OwnVideoOverview: NextPage<Props> = ({ videos }) => {
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
 
-  if (!videos) return <p>{t("no_videos_user")}</p>;
+  if (!videos || videos.length < 1) return <p>{t("no_videos_user")}</p>;
   return (
     <Row>
       {videos.map(

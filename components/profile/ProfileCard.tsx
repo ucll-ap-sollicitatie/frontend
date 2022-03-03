@@ -4,6 +4,7 @@ import { Card, Stack } from "react-bootstrap";
 import User from "../../interfaces/User";
 import DarkModeToggle from "../buttons/DarkModeToggle";
 import LocaleDropdown from "../buttons/LocaleDropdown";
+import DeleteAccountButton from "../users/DeleteAccountButton";
 import FavoriteVideoButton from "../users/FavoriteVideoButton";
 import UpdatePreferencesButton from "../users/UpdatePreferencesButton";
 import UpdateUserButton from "../users/UpdateUserButton";
@@ -42,6 +43,12 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
     }
   };
 
+  const deleteAccount = () => {
+    if (session_user.email === user.email) {
+      return <DeleteAccountButton />;
+    }
+  };
+
   return (
     <Card style={{ maxWidth: "22rem" }}>
       <Card.Img variant="top" src={user.image} />
@@ -74,6 +81,7 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
           {updateComponent()}
           {updatePreferences()}
           {favoriteVideosComponent()}
+          {deleteAccount()}
         </Stack>
       </Card.Body>
     </Card>
