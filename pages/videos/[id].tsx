@@ -20,6 +20,7 @@ import CommentList from "../../components/videos/CommentList";
 import User from "../../interfaces/User";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import PageTitleComponent from "../../components/PageTitleComponent";
+import Link from "next/link";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
@@ -350,7 +351,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
             <div>
               <h4>{t("uploaded_by")}</h4>
               <p>
-                {video.name} {video.surname}
+              <Link href={`/users/${video.email}`}><a className="link-primary" >{video.name} {video.surname}</a></Link>
               </p>
             </div>
             <div>
