@@ -33,8 +33,9 @@ const Home: NextPage = () => {
         setEdited(false);
       }
     };
+
     fetchPrefEdited();
-  }, [session?.user?.email]);
+  }, [session?.user]);
 
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;

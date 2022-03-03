@@ -12,17 +12,20 @@ interface Props {
 const BreadcrumpComponent: NextPage<Props> = ({ items }) => {
   return (
     <Breadcrumb>
-      <Breadcrumb.Item href="/">Home</Breadcrumb.Item>
+      <Link href="/" passHref>
+        <Breadcrumb.Item>Home</Breadcrumb.Item>
+      </Link>
+
       {items.map((item, index) => {
-        if (index === items.length - 1) {
+        if (item.href === undefined) {
           return (
-            <Breadcrumb.Item active key={item.text}>
+            <Breadcrumb.Item active key={index}>
               {item.text}
             </Breadcrumb.Item>
           );
         } else {
           return (
-            <Link href={item.href} passHref key={item.text}>
+            <Link href={item.href} passHref key={index}>
               <Breadcrumb.Item>{item.text}</Breadcrumb.Item>
             </Link>
           );

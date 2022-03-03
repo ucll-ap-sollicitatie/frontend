@@ -1,7 +1,6 @@
 import type { GetStaticProps, GetStaticPaths, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
-import MyProfile from "../../components/users/MyProfile";
 import UserProfile from "../../components/users/UserProfile";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
@@ -53,7 +52,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
 interface Props {
   user: User;
-  videos: Video[] | null;
+  videos: Video[];
 }
 
 const UserDetails: NextPage<Props> = ({ user, videos }) => {
