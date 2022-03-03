@@ -10,14 +10,6 @@ import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
 import { useTranslations } from "next-intl";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
   category?: QuestionCategory | undefined;

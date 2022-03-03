@@ -3,17 +3,10 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { FormEvent, useEffect, useState } from "react";
 import { Button, Form, OverlayTrigger, Stack, Tooltip } from "react-bootstrap";
+import { BsQuestionCircle } from "react-icons/bs";
 import Formation from "../../interfaces/Formation";
 import Role from "../../interfaces/Role";
 import User from "../../interfaces/User";
-
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
 
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
@@ -74,18 +67,19 @@ const UserForm: NextPage<Props> = ({ onSubmit, activateUser, user }) => {
               <>
                 <Form.Group controlId="password">
                   <Form.Label>{t("password")}</Form.Label>
+                  <OverlayTrigger placement="top" overlay={<Tooltip>{t("password_info")}</Tooltip>}>
+                    <div className="d-inline-block ms-1">
+                      <BsQuestionCircle className="mb-1" />
+                    </div>
+                  </OverlayTrigger>
+
                   <Form.Control type="password" placeholder={t("password")} required />
                 </Form.Group>
 
-                <OverlayTrigger
-                  placement="top"
-                  overlay={<Tooltip id="button-tooltip-2">Wachtwoord minstens 8 karakters, 1 hoofdletter, 1 nummer en 1 speciaal teken.</Tooltip>}
-                >
-                  <Form.Group controlId="password_check">
-                    <Form.Label>{t("password_confirmation")}</Form.Label>
-                    <Form.Control type="password" placeholder={t("password_confirmation")} required />
-                  </Form.Group>
-                </OverlayTrigger>
+                <Form.Group controlId="password_check">
+                  <Form.Label>{t("password_confirmation")}</Form.Label>
+                  <Form.Control type="password" placeholder={t("password_confirmation")} required />
+                </Form.Group>
               </>
             )}
 

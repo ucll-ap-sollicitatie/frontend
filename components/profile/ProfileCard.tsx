@@ -9,14 +9,6 @@ import FavoriteVideoButton from "../users/FavoriteVideoButton";
 import UpdatePreferencesButton from "../users/UpdatePreferencesButton";
 import UpdateUserButton from "../users/UpdateUserButton";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   user: User;
 }

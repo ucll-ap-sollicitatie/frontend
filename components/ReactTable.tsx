@@ -8,14 +8,6 @@ import ShowButton from "./buttons/ShowButton";
 import { useTranslations } from "next-intl";
 import { useSession } from "next-auth/react";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   columns: any;
   data: any;

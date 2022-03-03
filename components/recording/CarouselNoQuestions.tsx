@@ -3,14 +3,6 @@ import { useTranslations } from "next-intl";
 import { Carousel, Image } from "react-bootstrap";
 import { isDarkMode } from "../../helpers/helperFunctions";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 const CarouselNoQuestions: NextPage = () => {
   const t = useTranslations("carousel");
 

@@ -3,14 +3,6 @@ import { useTranslations } from "next-intl";
 import { FormEvent } from "react";
 import { Button, Form } from "react-bootstrap";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   handleAddComment: (event: FormEvent) => void;
   setMaxChars: Function;

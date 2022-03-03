@@ -135,7 +135,8 @@
     "account_delete_confirm": "Ik begrijp en bevestig",
     "account_delete_button": "Verwijder mijn account",
     "account_delete_cancel": "Nee, haal me hier weg",
-    "user_activation_success": "Gebruiker geactiveerd"
+    "user_activation_success": "Gebruiker geactiveerd",
+    "password_info": "Het wachtwoord moet minstens 8 karakters, 1 hoofdletter, 1 nummer en 1 speciaal teken bevatten."
   },
   "students": {
     "error": "Er is een probleem opgetreden bij het laden van uw studenten.",

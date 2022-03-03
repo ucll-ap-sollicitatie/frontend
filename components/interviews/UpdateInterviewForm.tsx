@@ -8,14 +8,6 @@ import InterviewForm from "./InterviewForm";
 import Question from "../../interfaces/Question";
 import { useTranslations } from "next-intl";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   id: string;
 }

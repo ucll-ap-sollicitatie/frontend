@@ -4,14 +4,6 @@ import LoginButton from "./auth/LoginButton";
 import RegisterButton from "./auth/RegisterButton";
 import Layout from "./layout/Layout";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 const Unauthorized: NextPage = () => {
   const t = useTranslations("home");
 

@@ -4,14 +4,6 @@ import Comment from "../../interfaces/Comment";
 import User from "../../interfaces/User";
 import CommentItem from "./CommentItem";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   comments: Comment[];
   user: User;

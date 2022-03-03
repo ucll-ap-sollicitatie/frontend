@@ -9,14 +9,6 @@ import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
 import { useTranslations } from "next-intl";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 const UsersTable: NextPage = () => {
   const t = useTranslations("users");
   const d = useTranslations("dashboard");

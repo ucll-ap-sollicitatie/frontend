@@ -7,14 +7,6 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import User from "../../interfaces/User";
 import LogoutButton from "../auth/LogoutButton";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 const NavBar: NextPage = () => {
   const t = useTranslations("home");
 

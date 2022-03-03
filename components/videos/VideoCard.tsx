@@ -4,14 +4,6 @@ import Link from "next/link";
 import { Card } from "react-bootstrap";
 import Video from "../../interfaces/Video";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   video: Video;
 }

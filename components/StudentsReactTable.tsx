@@ -6,14 +6,6 @@ import { useTable, useSortBy, usePagination } from "react-table";
 import ShowButton from "./buttons/ShowButton";
 import { useTranslations } from "next-intl";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   columns: any;
   data: any;

@@ -11,14 +11,6 @@ import Video from "../../interfaces/Video";
 import BreadcrumbComponent from "../BreadcrumbComponent";
 import PageTitleComponent from "../PageTitleComponent";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   user: User;
 }

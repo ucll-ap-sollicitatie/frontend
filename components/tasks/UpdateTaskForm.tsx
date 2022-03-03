@@ -9,14 +9,6 @@ import User from "../../interfaces/User";
 import SpinnerComponent from "../SpinnerComponent";
 import TaskForm from "./TaskForm";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   task_id: string;
 }

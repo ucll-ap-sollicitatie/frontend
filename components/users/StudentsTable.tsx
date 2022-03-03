@@ -5,14 +5,6 @@ import User from "../../interfaces/User";
 import SpinnerComponent from "../SpinnerComponent";
 import StudentsReactTable from "../StudentsReactTable";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 const StudentsTable: NextPage = () => {
   const t = useTranslations("students");
   const u = useTranslations("users");

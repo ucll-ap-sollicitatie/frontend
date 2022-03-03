@@ -9,14 +9,6 @@ import Unauthenticated from "../Unauthenticated";
 import VideoCard from "./VideoCard";
 import Link from "next/link";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   videos: Video[];
   user: User;

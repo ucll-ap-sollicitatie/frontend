@@ -7,14 +7,6 @@ interface Props {
   question_category_id: number | string;
 }
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 const UpdateInterviewButton: NextPage<Props> = ({ question_category_id }) => {
   const t = useTranslations("interviews");
 
