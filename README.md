@@ -1,6 +1,6 @@
 # Frontend 'Slim op sollicitatie'
 
-Frontend repository of 'Slim op sollicitatie'.
+Frontend for 'Slim op sollicitatie'.
 
 ## Prerequisites
 
