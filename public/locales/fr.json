@@ -4,6 +4,8 @@
     "title_short": "MED",
     "welcome": "Bienvenue",
     "login": "Se connecter",
+    "login_success": "Vous êtes connecté avec succès",
+    "already_logged_in": "Vous êtes déjà connecté.",
     "logout": "Se déconnecter",
     "register": "S'inscrire",
     "register_new_account": "Créer un nouveau compte",
@@ -49,6 +51,8 @@
   "errors": {
     "error_title": "Malin en entretien d'embauche",
     "password_mismatch": "Les mots de passe ne correspondent pas.",
+    "login_error": "Email ou mot de passe incorrect.",
+    "login_unexpected_error": "Une erreur inattendue s'est produite lors de la connexion",
     "update_failed": "Erreur lors de la mise à jour.",
     "status_code": "Code d'erreur",
     "404": "Page non trouvée",

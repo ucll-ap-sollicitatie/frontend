@@ -5,6 +5,8 @@
     "welcome": "Welkom",
     "login": "Inloggen",
     "logout": "Uitloggen",
+    "login_success": "U bent succesvol ingelogd",
+    "already_logged_in": "U bent al ingelogd.",
     "register": "Registreren",
     "register_new_account": "Account registeren",
     "register_new_account_error": "Er is een fout opgetreden bij het registreren van uw account.",
@@ -49,6 +51,8 @@
   "errors": {
     "error_title": "Slim op sollicitatie",
     "password_mismatch": "De wachtwoorden komen niet overeen.",
+    "login_error": "E-mail of wachtwoord is onjuist.",
+    "login_unexpected_error": "Er is een fout opgetreden bij het inloggen.",
     "update_failed": "Het aanpassen van is mislukt.",
     "status_code": "Foutcode",
     "404": "Pagina niet gevonden.",

@@ -4,6 +4,8 @@
     "title_short": "SOJI",
     "welcome": "Welcome",
     "login": "Log in",
+    "login_success": "Login successful",
+    "already_logged_in": "You are already logged in.",
     "logout": "Log out",
     "register": "Register",
     "register_new_account": "Register new account",
@@ -47,8 +49,10 @@
     "view": "View"
   },
   "errors": {
-    "error_title": "Inteligentnie na rozmowie o pracę",
+    "error_title": "Smart on job interviews",
     "password_mismatch": "The passwords do not match.",
+    "login_error": "The username or password is incorrect.",
+    "login_unexpected_error": "An unexpected error occurred when logging in.",
     "update_failed": "Updating has failed.",
     "status_code": "Error code",
     "404": "Page not found",
