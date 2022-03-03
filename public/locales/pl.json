@@ -4,10 +4,10 @@
     "title_short": "INROP",
     "welcome": "Witamy",
     "login": "Zaloguj się",
-    "login_success": "TODOOOOOOOOOOOO",
-    "already_logged_in": "TODOOOOOOOOOOOO",
+    "login_success": "Logowanie powiodło się",
+    "already_logged_in": "Jesteś już zalogowany/a.",
     "logout": "Wyloguj się",
-    "logout_success": "TODOOOOOOOOOOOO",
+    "logout_success": "Wylogowanie powiodło się",
     "register": "Rejestracja",
     "register_new_account": "Rejestracja nowego konta",
     "register_new_account_error": "Błąd podczas tworzenia konta.",
@@ -53,8 +53,8 @@
   "errors": {
     "error_title": "Inteligentnie na rozmowie o pracę",
     "password_mismatch": "Hasła nie są zgodne.",
-    "login_error": "TODOOOOOOOOOOOOOOOOOO",
-    "login_unexpected_error": "TODOOOOOOOOOOOOOOOOOO",
+    "login_error": "Nazwa użytkownika lub hasło są nieprawidłowe.",
+    "login_unexpected_error": "Wystąpił nieoczekiwany błąd podczas logowania.",
     "update_failed": "Aktualizacja nie powiodła się.",
     "status_code": "Kod błędu",
     "404": "Nie znaleziono strony",
@@ -138,7 +138,7 @@
     "account_delete_button": "Usuń moje konto",
     "account_delete_cancel": "Nie, zabierz mnie stąd",
     "user_activation_success": "Aktywacja użytkownika udana",
-    "password_info": "TODOOOOOOOOOOOOOOOOOOOOO"
+    "password_info": "Hasło musi zawierać co najmniej 8 znaków, 1 dużą literę, 1 cyfrę i 1 znak specjalny."
   },
   "students": {
     "error": "Wystąpił błąd podczas ładowania uczniów.",

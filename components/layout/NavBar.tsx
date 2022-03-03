@@ -1,9 +1,9 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { Container, Nav, Navbar } from "react-bootstrap";
 import Image from "next/image";
 import Link from "next/link";
-import { Container, Nav, Navbar } from "react-bootstrap";
 import User from "../../interfaces/User";
 import LogoutButton from "../auth/LogoutButton";
 
