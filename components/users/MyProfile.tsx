@@ -28,18 +28,18 @@ const MyProfile: NextPage<Props> = ({ user }) => {
   const title = t("my_profile");
   const [myVideos, setVideos] = useState<Video[]>([]);
 
-  const fetchData = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/email/${user.email}`);
-    const data = await res.json();
-
-    if (res.ok) {
-      setVideos(data);
-    }
-  };
-
   useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/email/${user.email}`);
+      const data = await res.json();
+
+      if (res.ok) {
+        setVideos(data);
+      }
+    };
+
     fetchData();
-  }, []);
+  }, [user.email]);
 
   const breadcrumb_items = [{ text: t("my_profile") }];
 

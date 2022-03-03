@@ -2,10 +2,10 @@ import { useState, FormEvent, useEffect } from "react";
 import { NextPage } from "next";
 import { Alert } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { QuestionCategory } from "../../interfaces/QuestionCategory";
+import QuestionCategory from "../../interfaces/QuestionCategory";
 import SpinnerComponent from "../SpinnerComponent";
 import InterviewForm from "./InterviewForm";
-import { Question } from "../../interfaces/Question";
+import Question from "../../interfaces/Question";
 import { useTranslations } from "next-intl";
 
 export async function getStaticProps({ locale }) {

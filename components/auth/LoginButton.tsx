@@ -7,7 +7,7 @@ const LoginButton: NextPage = () => {
   const t = useTranslations("home");
 
   return (
-    <Link href="/auth/login">
+    <Link href="/auth/login" passHref>
       <Button variant="primary">{t("login")}</Button>
     </Link>
   );

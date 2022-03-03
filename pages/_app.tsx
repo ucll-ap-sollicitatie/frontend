@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { getLocale, initializeDarkMode } from "../helpers/helperFunctions";
+import Amogus from "../components/Amogus";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
@@ -32,7 +33,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           <DndProvider backend={HTML5Backend}>
             <NextNProgress options={{ showSpinner: false }} />
 
-            {/* <Amogus url={"/amogus.mp3"} /> */}
+            <Amogus url={"/amogus.mp3"} />
 
             <Head>
               <title>Slim op sollicitatie</title>
