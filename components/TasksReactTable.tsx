@@ -7,14 +7,6 @@ import RemoveButton from "./buttons/RemoveButton";
 import UpdateButton from "./buttons/UpdateButton";
 import { useTranslations } from "next-intl";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   columns: any;
   data: any;

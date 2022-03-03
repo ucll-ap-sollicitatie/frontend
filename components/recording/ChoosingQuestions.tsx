@@ -3,14 +3,6 @@ import { useTranslations } from "next-intl";
 import { Button, DropdownButton, Dropdown, Stack } from "react-bootstrap";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   handleRandomClick: () => void;
   categories: QuestionCategory[];

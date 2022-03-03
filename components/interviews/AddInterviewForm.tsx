@@ -5,14 +5,6 @@ import { FormEvent, useState } from "react";
 import { Alert } from "react-bootstrap";
 import InterviewForm from "./InterviewForm";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 const AddInterviewForm: NextPage = () => {
   const t = useTranslations("interviews");
   const e = useTranslations("errors");

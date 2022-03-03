@@ -6,14 +6,6 @@ import Comment from "../../interfaces/Comment";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   feedback: Comment[];
   user: User;

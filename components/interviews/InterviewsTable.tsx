@@ -8,14 +8,6 @@ import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 const InterviewsTable: NextPage = () => {
   const t = useTranslations("interviews");
 

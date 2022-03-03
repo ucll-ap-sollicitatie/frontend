@@ -4,14 +4,6 @@ import { FormEvent } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import User from "../../interfaces/User";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   maxChars: number;
   user: User;

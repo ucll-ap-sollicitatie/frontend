@@ -6,14 +6,6 @@ import { Row } from "react-bootstrap";
 import VideoCard from "./VideoCard";
 import { useTranslations } from "next-intl";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   videos: Video[];
 }

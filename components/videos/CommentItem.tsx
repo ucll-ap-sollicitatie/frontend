@@ -6,14 +6,6 @@ import { timeSince } from "../../helpers/helperFunctions";
 import Comment from "../../interfaces/Comment";
 import User from "../../interfaces/User";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   comment: Comment;
   user: User;

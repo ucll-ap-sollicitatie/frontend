@@ -1,14 +1,6 @@
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 const Footer: NextPage = () => {
   const t = useTranslations("home");
 

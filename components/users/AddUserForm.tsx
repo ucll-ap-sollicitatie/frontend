@@ -8,14 +8,6 @@ import Formation from "../../interfaces/Formation";
 import Role from "../../interfaces/Role";
 import UserForm from "./UserForm";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 const AddUserForm: NextPage = () => {
   const t = useTranslations("errors");
 

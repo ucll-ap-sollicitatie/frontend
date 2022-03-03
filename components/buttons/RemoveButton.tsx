@@ -2,14 +2,6 @@ import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import { BsFillTrashFill } from "react-icons/bs";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   handleShow: (id: string | number) => void;
   id: string | number;

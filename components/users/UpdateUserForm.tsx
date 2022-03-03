@@ -9,14 +9,6 @@ import SpinnerComponent from "../SpinnerComponent";
 import UserForm from "./UserForm";
 import User from "../../interfaces/User";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   email: string;
 }

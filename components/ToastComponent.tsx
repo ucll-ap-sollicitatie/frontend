@@ -3,14 +3,6 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Badge, Toast } from "react-bootstrap";
 
-export async function getStaticProps({ locale }) {
-  return {
-    props: {
-      messages: (await import(`../public/locales/${locale}.json`)).default,
-    },
-  };
-}
-
 interface Props {
   message: string;
 }
