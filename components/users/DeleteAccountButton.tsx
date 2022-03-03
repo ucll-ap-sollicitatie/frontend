@@ -17,7 +17,7 @@ const DeleteAccountButton: NextPage = () => {
   return (
     <Link href={`/profile/delete`} passHref>
       <Button className="mt-2" variant="outline-danger">
-        Delete account
+        {t("account_delete_title")}
       </Button>
     </Link>
   );

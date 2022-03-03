@@ -112,8 +112,8 @@
     "update_profile_success": "Profil modifié avec succès",
     "preferences_edit": "Modifier les préférences",
     "profile:": "Profil",
-    "my_profile": "Votre profil",
-    "my_videos": "Vos videos",
+    "my_profile": "Mon profil",
+    "my_videos": "Mes videos",
     "profile_edit": "Modifier le profil",
     "user_profile": "Profile de",
     "user_videos": "Videos de",
@@ -122,7 +122,13 @@
     "remove_user": "Supprimer l'utilisateur",
     "remove_user_confirm": "Êtes-vous sûr de vouloir supprimer cet utilisateur ?",
     "remove_user_success": "Utilisateur supprimé avec succès",
-    "profile_favorites": "Entretiens d'embauche favoris"
+    "profile_favorites": "Entretiens d'embauche favoris",
+    "account_delete_title": "Suppression du compte",
+    "account_delete_heading": "Attention, la suppression de votre compte est irréversible et toute donnée ne peut être restaurée. Etes-vous sûr de cette décision ?",
+    "account_delete_span": "outes les informations vous concernant seront supprimées. Cela inclut, sans s'y limiter, tous les enregistrements, commentaires et données.",
+    "account_delete_confirm": "Je comprends et je confirme",
+    "account_delete_button": "Supprimer mon compte",
+    "account_delete_cancel": "Non, faites-moi sortir d'ici"
   },
   "students": {
     "error": "Erreur lors de la récupération des étudiants",

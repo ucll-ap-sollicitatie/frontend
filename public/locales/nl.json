@@ -112,8 +112,8 @@
     "update_profile_success": "Uw profiel is succesvol aangepast.",
     "preferences_edit": "Preferenties aanpassen",
     "profile:": "Profiel",
-    "my_profile": "Uw profiel",
-    "my_videos": "Uw sollicitaties",
+    "my_profile": "Mijn profiel",
+    "my_videos": "Mijn sollicitaties",
     "profile_edit": "Profiel aanpassen",
     "user_profile": "Profiel van",
     "user_videos": "Video's van",
@@ -122,7 +122,13 @@
     "remove_user": "Gebruiker verwijderen",
     "remove_user_confirm": "Bent u zeker dat u deze gebruiker wilt verwijderen?",
     "remove_user_success": "De gebruiker is succesvol verwijderd",
-    "profile_favorites": "Favoriete job interviews"
+    "profile_favorites": "Favoriete job interviews",
+    "account_delete_title": "Account verwijderen",
+    "account_delete_heading": "Waarschuwing, het verwijderen van uw account is onomkeerbaar en eventuele gegevens kunnen niet worden hersteld. Bent u zeker van deze beslissing?",
+    "account_delete_span": "Alle informatie over en van u zal worden verwijderd. Dit omvat maar is niet beperkt tot alle opnames, opmerkingen en gegevens.",
+    "account_delete_confirm": "Ik begrijp en bevestig",
+    "account_delete_button": "Verwijder mijn account",
+    "account_delete_cancel": "Nee, haal me hier weg"
   },
   "students": {
     "error": "Er is een probleem opgetreden bij het laden van uw studenten.",

@@ -118,7 +118,13 @@
     "remove_user": "Usuń użytkownika",
     "remove_user_confirm": "Czy na pewno chcesz usunąć tego użytkownika?",
     "remove_user_success": "Użytkownik usunięty pomyślnie",
-    "profile_favorites": "Ulubione rozmowy o pracę"
+    "profile_favorites": "Ulubione rozmowy o pracę",
+    "account_delete_title": "Usunięcie konta",
+    "account_delete_heading": "Ostrzeżenie, usunięcie konta jest nieodwracalne, wszelkie dane nie mogą zostać przywrócone. Czy jesteś pewien tej decyzji?",
+    "account_delete_span": "Wszelkie informacje o Tobie i o Tobie zostaną usunięte. Dotyczy to między innymi wszystkich nagrań, komentarzy i danych.",
+    "account_delete_confirm": "Rozumiem i potwierdzam",
+    "account_delete_button": "Usuń moje konto",
+    "account_delete_cancel": "Nie, zabierz mnie stąd"
   },
   "students": {
     "error": "Wystąpił błąd podczas ładowania uczniów.",

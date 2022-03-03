@@ -19,15 +19,14 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 };
 
 const DeleteAccount: NextPage = () => {
-  const t = useTranslations("preferences");
   const u = useTranslations("users");
-  const title = t("title");
+  const title = u("account_delete_title");
   const { data: session } = useSession();
   const [confirmed, setConfirmed] = useState<boolean>(false);
 
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session?.user as User;
-  const breadcrumb_items = [{ href: `/users/${user.email}`, text: u("my_profile") }, { text: t("title") }];
+  const breadcrumb_items = [{ href: `/users/${user.email}`, text: u("my_profile") }, { text: title }];
 
   const deleteAccount = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -43,24 +42,24 @@ const DeleteAccount: NextPage = () => {
     <Layout>
       <PageTitleComponent title={title} />
       <BreadcrumbComponent items={breadcrumb_items} />
-      <h1>Account deletion</h1>
+      <h1>{title}</h1>
 
       <Alert variant="danger" transition={true}>
-        <Alert.Heading>Warning, deleting your account is irreversible and any data cannot be restored. Are you sure of this decision?</Alert.Heading>
-        <span>Any and all information about, and of you will be deleted. This includes but is not limited to all recordings, comments and data.</span>
+        <Alert.Heading>{u("account_delete_heading")}</Alert.Heading>
+        <span>{u("account_delete_span")}</span>
       </Alert>
 
       <Form onSubmit={deleteAccount}>
         <div className="d-flex gap-2 mb-2 align-items-center">
           <Form.Group controlId="privateCheckbox">
-            <Form.Check type="checkbox" label="I understand and confirm" onChange={() => setConfirmed(!confirmed)} />
+            <Form.Check type="checkbox" label={u("account_delete_confirm")} onChange={() => setConfirmed(!confirmed)} />
           </Form.Group>
           <Button type="submit" variant="text" className="link-danger" disabled={!confirmed}>
-            Delete my account
+            {u("account_delete_button")}
           </Button>
         </div>
         <Link href="/profile" passHref>
-          <Button variant="primary">No, get me out of here</Button>
+          <Button variant="primary">{u("account_delete_cancel")}</Button>
         </Link>
       </Form>
     </Layout>
