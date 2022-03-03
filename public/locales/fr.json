@@ -57,7 +57,13 @@
     "status_code": "Code d'erreur",
     "404": "Page non trouvée",
     "500": "Erreur interne du serveur",
-    "unexpected_error": "Erreur inattendue"
+    "unexpected_error": "Erreur inattendue",
+    "email_invalid": "L'adresse électronique n'est pas valide.",
+    "password_too_short": "Le mot de passe est plus court que 8 caractères.",
+    "password_too_long": "Le mot de passe comporte plus de 50 caractères.",
+    "password_no_number": "Le mot de passe doit contenir un chiffre.",
+    "password_no_letter": "Le mot de passe doit contenir une lettre.",
+    "password_bad_char": "Le mot de passe ne peut pas contenir de caractères spéciaux autres que '?' et '!'."
   },
   "toasts": {
     "success": "Succes"

@@ -6,7 +6,7 @@
     "login": "Zaloguj się",
     "logout": "Wyloguj się",
     "register": "Rejestracja",
-    "register_new_account": "Rejestracia nowego konta",
+    "register_new_account": "Rejestracja nowego konta",
     "register_new_account_error": "Błąd podczas tworzenia konta.",
     "register_success": "Rejestracja udana, proszę aktywować swoje konto używając emaila.",
     "unauthenticated": "Proszę się zalogować by kontynnuowac",
@@ -53,7 +53,13 @@
     "status_code": "Kod błędu",
     "404": "Nie znaleziono strony",
     "500": "Wystąpił błąd",
-    "unexpected_error": "Wystąpił nieoczekiwany błąd"
+    "unexpected_error": "Wystąpił nieoczekiwany błąd",
+    "email_invalid": "Email jest nieprawidłowy.",
+    "password_too_short": "Hasło jest krótsze niż 8 znaków.",
+    "password_too_long": "Hasło jest dłuższe niż 50 znaków.",
+    "password_no_number": "Hasło musi zawierać liczbę.",
+    "password_no_letter": "Hasło musi zawierać literę.",
+    "password_bad_char": "Hasło nie może zawierać znaków specjalnych oprócz '?' i '!'."
   },
   "toasts": {
     "success": "Sukces"

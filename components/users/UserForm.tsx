@@ -17,7 +17,7 @@ export async function getStaticProps({ locale }) {
 
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  activateUser: (e: FormEvent<HTMLFormElement>) => void;
+  activateUser?: (e: FormEvent<HTMLFormElement>) => void;
   user?: User;
 }
 

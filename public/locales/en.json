@@ -57,7 +57,13 @@
     "status_code": "Error code",
     "404": "Page not found",
     "500": "An error occurred",
-    "unexpected_error": "An unexpected error occurred"
+    "unexpected_error": "An unexpected error occurred",
+    "email_invalid": "Email is invalid.",
+    "password_too_short": "Password is shorter than 8 characters.",
+    "password_too_long": "Password is longer than 50 characters.",
+    "password_no_number": "Password must contain a number.",
+    "password_no_letter": "Password must contain a letter.",
+    "password_bad_char": "Password cannot contain special characters besides '?' and '!'."
   },
   "toasts": {
     "success": "Success"
