@@ -128,7 +128,8 @@
     "account_delete_span": "outes les informations vous concernant seront supprimées. Cela inclut, sans s'y limiter, tous les enregistrements, commentaires et données.",
     "account_delete_confirm": "Je comprends et je confirme",
     "account_delete_button": "Supprimer mon compte",
-    "account_delete_cancel": "Non, faites-moi sortir d'ici"
+    "account_delete_cancel": "Non, faites-moi sortir d'ici",
+    "user_activation_success": "Utilisateur activé"
   },
   "students": {
     "error": "Erreur lors de la récupération des étudiants",

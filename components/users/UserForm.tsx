@@ -17,10 +17,11 @@ export async function getStaticProps({ locale }) {
 
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  activateUser: (e: FormEvent<HTMLFormElement>) => void;
   user?: User;
 }
 
-const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
+const UserForm: NextPage<Props> = ({ onSubmit, activateUser, user }) => {
   const t = useTranslations("users");
   const h = useTranslations("home");
 
@@ -118,6 +119,14 @@ const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
           {user ? t("profile_edit") : h("register")}
         </Button>
       </Form>
+
+      {user != undefined && current_user.role === "Admin" && user.activation_token != null && (
+        <Form onSubmit={activateUser}>
+          <Button variant="text" className="link-warning" type="submit">
+            Activate user
+          </Button>
+        </Form>
+      )}
     </>
   );
 };

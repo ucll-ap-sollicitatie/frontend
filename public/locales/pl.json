@@ -6,7 +6,7 @@
     "login": "Zaloguj się",
     "logout": "Wyloguj się",
     "register": "Rejestracja",
-    "register_new_account": "Rejestracia nowego konta.",
+    "register_new_account": "Rejestracia nowego konta",
     "register_new_account_error": "Błąd podczas tworzenia konta.",
     "register_success": "Rejestracja udana, proszę aktywować swoje konto używając emaila.",
     "unauthenticated": "Proszę się zalogować by kontynnuowac",
@@ -124,7 +124,8 @@
     "account_delete_span": "Wszelkie informacje o Tobie i o Tobie zostaną usunięte. Dotyczy to między innymi wszystkich nagrań, komentarzy i danych.",
     "account_delete_confirm": "Rozumiem i potwierdzam",
     "account_delete_button": "Usuń moje konto",
-    "account_delete_cancel": "Nie, zabierz mnie stąd"
+    "account_delete_cancel": "Nie, zabierz mnie stąd",
+    "user_activation_success": "Aktywacja użytkownika udana"
   },
   "students": {
     "error": "Wystąpił błąd podczas ładowania uczniów.",

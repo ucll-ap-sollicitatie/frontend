@@ -128,7 +128,8 @@
     "account_delete_span": "Alle informatie over en van u zal worden verwijderd. Dit omvat maar is niet beperkt tot alle opnames, opmerkingen en gegevens.",
     "account_delete_confirm": "Ik begrijp en bevestig",
     "account_delete_button": "Verwijder mijn account",
-    "account_delete_cancel": "Nee, haal me hier weg"
+    "account_delete_cancel": "Nee, haal me hier weg",
+    "user_activation_success": "Gebruiker geactiveerd"
   },
   "students": {
     "error": "Er is een probleem opgetreden bij het laden van uw studenten.",
