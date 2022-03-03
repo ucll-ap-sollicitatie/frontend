@@ -128,7 +128,8 @@
     "account_delete_span": "Any and all information about, and of you will be deleted. This includes but is not limited to all recordings, comments and data.",
     "account_delete_confirm": "I understand and confirm",
     "account_delete_button": "Delete my account",
-    "account_delete_cancel": "No, get me out of here"
+    "account_delete_cancel": "No, get me out of here",
+    "password_info": "The password must contain at least 8 characters, 1 capital letter, 1 number and 1 special character."
   },
   "students": {
     "error": "An error occurred during loading of students.",
