@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
-import { isPasswordValid } from "../../helpers/helperFunctions";
+import { isPasswordValid, validateEmail } from "../../helpers/helperFunctions";
 import Formation from "../../interfaces/Formation";
 import Role from "../../interfaces/Role";
 import UserForm from "./UserForm";
@@ -39,11 +39,19 @@ const AddUserForm: NextPage = () => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const password = target.password.value;
+    const email = target.email.value;
 
     // check password
     const checkPassword = isPasswordValid(password, target.password_check.value);
     if (checkPassword !== "password_ok") {
       setError(t(checkPassword));
+      setShow(true);
+      return;
+    }
+
+    const checkEmail = validateEmail(email);
+    if (!checkEmail) {
+      setError(t("email_invalid"));
       setShow(true);
       return;
     }

@@ -15,6 +15,7 @@ interface Props {
 
 const UpdateUserForm: NextPage<Props> = ({ email }) => {
   const t = useTranslations("errors");
+  const u = useTranslations("users");
 
   const router = useRouter();
   const session = useSession();
@@ -106,6 +107,20 @@ const UpdateUserForm: NextPage<Props> = ({ email }) => {
     );
   };
 
+  const activateUser = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/activation/${user?.user_id}/admin`, {
+      method: "PUT",
+    });
+    router.push(
+      {
+        pathname: `/dashboard`,
+        query: { toast: u("user_activation_success") },
+      },
+      `/dashboard`
+    );
+  };
+
   if (loading) return <SpinnerComponent />;
 
   return (
@@ -115,7 +130,7 @@ const UpdateUserForm: NextPage<Props> = ({ email }) => {
         <span>{error}</span>
       </Alert>
 
-      <UserForm onSubmit={onSubmit} user={user} />
+      <UserForm onSubmit={onSubmit} user={user} activateUser={activateUser} />
     </>
   );
 };

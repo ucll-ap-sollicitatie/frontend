@@ -57,7 +57,13 @@
     "status_code": "Foutcode",
     "404": "Pagina niet gevonden.",
     "500": "Er is een fout opgetreden.",
-    "unexpected_error": "Er is een onverwachte fout opgetreden."
+    "unexpected_error": "Er is een onverwachte fout opgetreden.",
+    "email_invalid": "Email is ongeldig.",
+    "password_too_short": "Wachtwoord is korter dan 8 tekens.",
+    "password_too_long": "Wachtwoord is langer dan 50 tekens.",
+    "password_no_number": "Wachtwoord moet een nummer bevatten.",
+    "password_no_letter": "Wachtwoord moet een letter bevatten.",
+    "password_bad_char": "Wachtwoord mag geen speciale tekens bevatten behalve '?' en '!'."
   },
   "toasts": {
     "success": "Succes"
@@ -129,6 +135,7 @@
     "account_delete_confirm": "Ik begrijp en bevestig",
     "account_delete_button": "Verwijder mijn account",
     "account_delete_cancel": "Nee, haal me hier weg",
+    "user_activation_success": "Gebruiker geactiveerd",
     "password_info": "Het wachtwoord moet minstens 8 karakters, 1 hoofdletter, 1 nummer en 1 speciaal teken bevatten."
   },
   "students": {
