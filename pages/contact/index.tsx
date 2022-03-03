@@ -43,7 +43,6 @@ const Contact: NextPage = () => {
           <tr>
             <th>{t("name")}</th>
             <th>{t("email")}</th>
-            <th>{t("r_number")}</th>
           </tr>
         </thead>
         <tbody>

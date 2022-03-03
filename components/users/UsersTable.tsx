@@ -23,10 +23,6 @@ const UsersTable: NextPage = () => {
 
   const columns = [
     {
-      Header: "R/U-nummer",
-      accessor: "r_u_number",
-    },
-    {
       Header: t("name"),
       accessor: "name",
     },

@@ -1,13 +1,13 @@
 import { NextPage } from "next";
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 interface Props {
   handleStopCaptureClick: () => void;
 }
 
 const CountDown: NextPage<Props> = ({ handleStopCaptureClick }) => {
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(5);
+  const [minutes, setMinutes] = useState(10);
+  const [seconds, setSeconds] = useState(0);
   useEffect(() => {
     let myInterval = setInterval(() => {
       if (seconds > 0) {

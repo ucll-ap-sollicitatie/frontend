@@ -99,7 +99,7 @@
     "name": "Imie",
     "surname": "Nazwisko",
     "email": "Adres email",
-    "password": "Haslo",
+    "password": "Hasło",
     "password_confirmation": "Potwierdź hasło",
     "role": "Rola",
     "formation": "Formacja",
@@ -242,7 +242,6 @@
     "team": "Zespół",
     "name": "Imię i nazwisko",
     "email": "Email",
-    "r_number": "Numer R",
     "contact_description": "Zawsze możesz skontaktować się z zespołem odpowiedzialnym za stworzenie tej aplikacji internetowej.",
     "contact_us": "Zapraszamy do kontaktu z UC Leuven-Limburg w dowolnym momencie."
   }

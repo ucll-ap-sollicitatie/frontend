@@ -25,26 +25,40 @@ interface Props {
 }
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  let props = {
+    users: null,
+    comments: null,
+    videos: null,
+    tasks: null,
+    messages: (await import(`../../public/locales/${locale}.json`)).default,
+  };
+
   const usersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
   const usersJson = await usersRes.json();
+  if (usersRes.ok) {
+    props.users = usersJson;
+  }
 
   const commentsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
-  const commentsJson = (await commentsRes.json()) as Comment[];
+  const commentsJson = await commentsRes.json();
+  if (commentsRes.ok) {
+    props.comments = commentsJson;
+  }
 
   const videosRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
   const videosJson = await videosRes.json();
+  if (videosRes.ok) {
+    props.videos = videosJson;
+  }
 
   const tasksRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
   const tasksJson = await tasksRes.json();
+  if (tasksRes.ok) {
+    props.tasks = tasksJson;
+  }
 
   return {
-    props: {
-      users: usersJson,
-      comments: commentsJson,
-      videos: videosJson,
-      tasks: tasksJson,
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
+    props,
   };
 };
 
@@ -108,10 +122,10 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
                 <Accordion.Body>
                   <ul className="mb-0">
                     <li>
-                      {t("amount_of_comments")}: {comments ? comments.length - countFeedback() : "Geen"}
+                      {t("amount_of_comments")}: {comments !== null ? comments.length - countFeedback() : <p>{t("none")}</p>}
                     </li>
                     <li>
-                      {t("amount_of_feedback")}: {countFeedback()}
+                      {t("amount_of_feedback")}: {comments !== null ? countFeedback() : <p>{t("none")}</p>}
                     </li>
                   </ul>
                 </Accordion.Body>
@@ -122,7 +136,7 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
                 <Accordion.Body>
                   <ul className="mb-0">
                     <li>
-                      {t("amount_of_videos")}: {videos ? videos.length : "Geen"}
+                      {t("amount_of_videos")}: {videos !== null ? videos.length : <p>{t("none")}</p>}
                     </li>
                   </ul>
                 </Accordion.Body>
@@ -133,7 +147,8 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
             <UsersTable />
           </Tab>
           <Tab eventKey="contact" title={t("comments_overview")}>
-            <CommentsTable comments={comments} />
+            {comments === null && <p>{t("none")}</p>}
+            {comments !== null && <CommentsTable comments={comments} />}
           </Tab>
         </Tabs>
       )}

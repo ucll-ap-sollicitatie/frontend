@@ -101,6 +101,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
+  console.log(user);
 
   const handleStartCaptureClick = () => {
     if (webcamRef.current === null || webcamRef.current.stream === null) return;
@@ -152,8 +153,6 @@ const Recording: NextPage<Props> = ({ categories }) => {
     event.preventDefault();
     setUploading(true);
 
-    setUploading(true);
-
     if (recordedChunks.length) {
       const blob = new Blob(recordedChunks, {
         type: "video/webm",
@@ -176,8 +175,8 @@ const Recording: NextPage<Props> = ({ categories }) => {
       formData.set("description", description);
       formData.set("title", fileName);
       formData.set("private", prive);
-      formData.set("r_u_number", user.r_u_number);
       formData.set("email", user.email);
+      formData.set("user_id", user.user_id.toString());
       formData.set("subtitles", subtitles);
 
       axios({

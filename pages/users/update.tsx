@@ -27,7 +27,7 @@ const UpdateInterview: NextPage = () => {
   if (query.email === undefined) return <Error statusCode={404} />;
   if (!session) return <Unauthenticated />;
 
-  const breadcrumb_items = [{ href: "/profile", text: t("profile") }, { text: t("update_profile") }];
+  const breadcrumb_items = [{ href: "/profile", text: t("my_profile") }, { text: t("update_profile") }];
 
   return (
     <Layout>

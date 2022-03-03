@@ -9,4 +9,5 @@ export default interface Comment {
   feedback: boolean;
   likes: number;
   video_id: number;
+  author_email: string;
 }

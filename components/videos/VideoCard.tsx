@@ -26,7 +26,7 @@ const VideoCard: NextPage<Props> = ({ video }) => {
       <Card className="hover cursor-pointer">
         <Card.Img
           variant="top"
-          src={`https://res.cloudinary.com/dou4tgpae/video/upload/w_640,h_480/v1645438283/SOS/${video.email}/${video.title}.jpg`}
+          src={`https://res.cloudinary.com/dou4tgpae/video/upload/w_640,h_480/v1645438283/SOS/${video.user_id}/${video.title}.jpg`}
           alt={video.title}
         ></Card.Img>
 

@@ -31,7 +31,7 @@ const FeedbackList: NextPage<Props> = ({ feedback, user, video, handleSelect, ha
     <Stack gap={3}>
       {feedback.map(
         (feedback: Comment) =>
-          (video.r_u_number === user.r_u_number || user.role !== "Student") && (
+          (video.email === user.email || user.role !== "Student") && (
             <Card border="success" key={feedback.comment_id}>
               <Card.Header>
                 <Nav variant="tabs" defaultActiveKey="0" onSelect={(e) => handleSelect(e, feedback.comment_id)} className="d-flex justify-content-between">
@@ -41,7 +41,7 @@ const FeedbackList: NextPage<Props> = ({ feedback, user, video, handleSelect, ha
                         <strong>{t("feedback")}</strong>
                       </Nav.Link>
                     </Nav.Item>
-                    {feedback.author === user.r_u_number && (
+                    {feedback.author_email === user.email && (
                       <Nav.Item>
                         <Nav.Link eventKey="1">{t("options")}</Nav.Link>
                       </Nav.Item>

@@ -189,7 +189,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const text = target.comment.value;
-    const author = user.r_u_number;
+    const author = user.email;
     const video_id = video.video_id;
     const body = {
       text: text,
@@ -336,7 +336,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
 
         <div className="d-flex flex-wrap gap-3 gap-lg-5 text-break">
           <Col sm={12} lg={8}>
-            <VideoPlayer userEmail={video.email} videoTitle={video.title} />
+            <VideoPlayer user_id={video.user_id} videoTitle={video.title} />
           </Col>
           <Col className="d-flex flex-column gap-2">
             <h2 className="h2 mt-0">{t("information")}</h2>
@@ -351,7 +351,11 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
             <div>
               <h4>{t("uploaded_by")}</h4>
               <p>
-              <Link href={`/users/${video.email}`}><a className="link-primary" >{video.name} {video.surname}</a></Link>
+                <Link href={`/users/${video.user_id}`}>
+                  <a className="link-primary">
+                    {video.name} {video.surname}
+                  </a>
+                </Link>
               </p>
             </div>
             <div>

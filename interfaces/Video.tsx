@@ -2,7 +2,6 @@ export default interface Video {
   video_id: number;
   title: string;
   date: Date;
-  r_u_number: string;
   email: string;
   description: string;
   private: boolean;
@@ -10,4 +9,5 @@ export default interface Video {
   surname: string;
   likes: number;
   favorite_email: string;
+  user_id: number;
 }

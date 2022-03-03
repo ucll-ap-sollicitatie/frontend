@@ -30,7 +30,7 @@ const DeleteAccount: NextPage = () => {
 
   const deleteAccount = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.r_u_number}`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.user_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

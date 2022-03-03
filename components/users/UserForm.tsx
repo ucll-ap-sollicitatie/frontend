@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { FormEvent, useEffect, useState } from "react";
-import { Button, Form, Stack } from "react-bootstrap";
+import { Button, Form, OverlayTrigger, Stack, Tooltip } from "react-bootstrap";
 import Formation from "../../interfaces/Formation";
 import Role from "../../interfaces/Role";
 import User from "../../interfaces/User";
@@ -23,6 +24,8 @@ const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
   const t = useTranslations("users");
   const h = useTranslations("home");
 
+  const { data: session } = useSession();
+  const current_user = session?.user as User;
   const [roles, setRoles] = useState<Role[]>([]);
   const [formations, setFormations] = useState<Formation[]>([]);
 
@@ -58,38 +61,45 @@ const UserForm: NextPage<Props> = ({ onSubmit, user }) => {
               <Form.Control type="text" placeholder={t("surname")} defaultValue={user !== undefined ? user.surname : ""} required />
             </Form.Group>
 
-            <Form.Group controlId="r_u_number">
-              <Form.Label>r numerke kekw</Form.Label>
-              <Form.Control type="text" placeholder="R/U-nummer" defaultValue={user !== undefined ? user.r_u_number : ""} required />
-            </Form.Group>
-
-            <Form.Group controlId="email">
-              <Form.Label>{t("email")}</Form.Label>
-              <Form.Control type="email" placeholder={t("email")} defaultValue={user !== undefined ? user.email : ""} required />
-            </Form.Group>
+            {!session && (
+              <Form.Group controlId="email">
+                <Form.Label>{t("email")}</Form.Label>
+                <Form.Control type="email" placeholder={t("email")} defaultValue={user !== undefined ? user.email : ""} required />
+              </Form.Group>
+            )}
           </Stack>
-
           <Stack gap={3}>
-            <Form.Group controlId="password">
-              <Form.Label>{t("password")}</Form.Label>
-              <Form.Control type="password" placeholder={t("password")} required />
-            </Form.Group>
+            {user?.email === current_user?.email && (
+              <>
+                <Form.Group controlId="password">
+                  <Form.Label>{t("password")}</Form.Label>
+                  <Form.Control type="password" placeholder={t("password")} required />
+                </Form.Group>
 
-            <Form.Group controlId="password_check">
-              <Form.Label>{t("password_confirmation")}</Form.Label>
-              <Form.Control type="password" placeholder={t("password_confirmation")} required />
-            </Form.Group>
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip id="button-tooltip-2">Wachtwoord minstens 8 karakters, 1 hoofdletter, 1 nummer en 1 speciaal teken.</Tooltip>}
+                >
+                  <Form.Group controlId="password_check">
+                    <Form.Label>{t("password_confirmation")}</Form.Label>
+                    <Form.Control type="password" placeholder={t("password_confirmation")} required />
+                  </Form.Group>
+                </OverlayTrigger>
+              </>
+            )}
 
-            <Form.Group controlId="role_id">
-              <Form.Label>{t("role")}</Form.Label>
-              <Form.Select required>
-                {roles.map((role) => (
-                  <option key={role.role_id} value={role.role_id} selected={user !== undefined && user.role === role.role}>
-                    {role.role}
-                  </option>
-                ))}
-              </Form.Select>
-            </Form.Group>
+            {session && (
+              <Form.Group controlId="role_id">
+                <Form.Label>{t("role")}</Form.Label>
+                <Form.Select required disabled={current_user?.role !== "Admin"}>
+                  {roles.map((role) => (
+                    <option key={role.role_id} value={role.role_id} selected={user !== undefined && user.role === role.role}>
+                      {role.role}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+            )}
 
             <Form.Group controlId="formation_id">
               <Form.Label>{t("formation")}</Form.Label>

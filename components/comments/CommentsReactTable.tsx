@@ -83,7 +83,7 @@ const CommentsReactTable: NextPage<Props> = ({ columns, data, url, id, handleSho
                 {handleShow != null && (
                   <>
                     <td>
-                      <UpdateButton url={`${url}/update?task_id=${row.original[id]}`} />
+                      <UpdateButton url={`${url}/update?comment_id=${row.original[id]}`} />
                     </td>
                     <td>
                       <RemoveButton handleShow={handleShow} id={row.original[id]} />

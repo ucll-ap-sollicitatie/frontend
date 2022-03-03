@@ -82,3 +82,21 @@ export function initializeDarkMode(): void {
     document.children[0].classList.add("dark");
   }
 }
+
+export function isPasswordValid(password: string, password_check: string): string {
+  if (password !== password_check) {
+    return "password_mismatch";
+  } else if (password.length < 8) {
+    return "password_too_short";
+  } else if (password.length > 50) {
+    return "password_too_long";
+  } else if (password.search(/\d/) == -1) {
+    return "password_no_number";
+  } else if (password.search(/[a-zA-Z]/) == -1) {
+    return "password_no_letter";
+  } else if (password.search(/[^a-zA-Z0-9\@\#\$\%\^\&\*\(\)\_\+]/) == -1) {
+    return "password_bad_char";
+  } else {
+    return "password_ok";
+  }
+}

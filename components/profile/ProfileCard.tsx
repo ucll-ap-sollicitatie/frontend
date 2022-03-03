@@ -62,11 +62,7 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
         </Card.Subtitle>
 
         <Card.Text></Card.Text>
-        <Card.Text>
-          {user.r_u_number}
-          <br />
-          {user.email}
-        </Card.Text>
+        <Card.Text>{user.email}</Card.Text>
       </Card.Body>
 
       <Card.Body className="border-top">

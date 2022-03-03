@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
+import { isPasswordValid } from "../../helpers/helperFunctions";
 import Formation from "../../interfaces/Formation";
 import Role from "../../interfaces/Role";
 import UserForm from "./UserForm";
@@ -45,9 +46,12 @@ const AddUserForm: NextPage = () => {
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
+    const password = target.password.value;
 
-    if (target.password.value != target.password_check.value) {
-      setError(t("password_mismatch"));
+    // check password
+    const checkPassword = isPasswordValid(password, target.password_check.value);
+    if (checkPassword !== "password_ok") {
+      setError(t(checkPassword));
       setShow(true);
       return;
     }
@@ -56,10 +60,8 @@ const AddUserForm: NextPage = () => {
       body: JSON.stringify({
         name: target.user_name.value,
         surname: target.surname.value,
-        r_u_number: target.r_u_number.value,
         email: target.email.value,
         password: target.password.value,
-        role_id: target.role_id.value,
         formation_id: target.formation_id.value,
       }),
       headers: {

@@ -4,6 +4,7 @@ import { Alert } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { isPasswordValid } from "../../helpers/helperFunctions";
 import SpinnerComponent from "../SpinnerComponent";
 import UserForm from "./UserForm";
 import User from "../../interfaces/User";
@@ -20,11 +21,12 @@ interface Props {
   email: string;
 }
 
-const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
+const UpdateUserForm: NextPage<Props> = ({ email }) => {
   const t = useTranslations("errors");
 
   const router = useRouter();
   const session = useSession();
+  const current_user = session.data?.user as User;
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -46,24 +48,39 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
 
-    // Check passwords
-    if (target.password.value != target.password_check.value) {
-      setError(t("password_mismatch"));
-      setShow(true);
-      return;
+    let body: string;
+    let requestUrl: string;
+
+    if (current_user.email === user?.email) {
+      // check password
+      const password = target.password.value;
+      const checkPassword = isPasswordValid(password, target.password_check.value);
+      if (checkPassword !== "password_ok") {
+        setError(t(checkPassword));
+        setShow(true);
+        return;
+      }
+      requestUrl = `${process.env.NEXT_PUBLIC_API_URL}/users/${email}`;
+      body = JSON.stringify({
+        name: target.user_name.value,
+        surname: target.surname.value,
+        password: password,
+        role_id: target.role_id.value,
+        formation_id: target.formation_id.value,
+      });
+    } else {
+      requestUrl = `${process.env.NEXT_PUBLIC_API_URL}/users/${email}/admin`;
+      body = JSON.stringify({
+        name: target.user_name.value,
+        surname: target.surname.value,
+        role_id: target.role_id.value,
+        formation_id: target.formation_id.value,
+      });
     }
 
     // Update
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${email}`, {
-      body: JSON.stringify({
-        name: target.user_name.value,
-        surname: target.surname.value,
-        r_u_number: target.r_u_number.value,
-        email: target.email.value,
-        password: target.password.value,
-        role_id: target.role_id.value,
-        formation_id: target.formation_id.value,
-      }),
+    const res = await fetch(requestUrl, {
+      body: body,
       headers: {
         "Content-Type": "application/json",
       },
@@ -83,16 +100,17 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
       setShow(true);
       return;
     }
-    const user = await user_res.json();
-    if (session.data !== null) session.data.user = user;
+    const new_user = await user_res.json();
+
+    if (current_user.email === email && session.data !== null) session.data.user = new_user;
 
     // Redirect to /profile
     router.push(
       {
-        pathname: `/users/${user.email}`,
+        pathname: `/users/${new_user.email}`,
         query: { toast: t("update_profile_success") },
       },
-      `/users/${user.email}`
+      `/users/${new_user.email}`
     );
   };
 
@@ -101,7 +119,7 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
   return (
     <>
       <Alert variant="danger" onClose={() => setShow(false)} show={show} transition={true} dismissible>
-        <Alert.Heading>{t("title")}</Alert.Heading>
+        <Alert.Heading>{t("error_title")}</Alert.Heading>
         <span>{error}</span>
       </Alert>
 
@@ -110,4 +128,4 @@ const UpdateInterviewForm: NextPage<Props> = ({ email }) => {
   );
 };
 
-export default UpdateInterviewForm;
+export default UpdateUserForm;
