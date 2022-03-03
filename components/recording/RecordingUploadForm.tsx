@@ -28,7 +28,9 @@ const RecordingUploadForm: NextPage<Props> = ({ handleUpload, setMaxChars, maxCh
         <Form.Group controlId="description">
           <Form.Label>{t("recording_description")}</Form.Label>
           <Form.Control onChange={(e) => setMaxChars(e.target.value.length)} as="textarea" rows={4} maxLength={255} placeholder={t("recording_description")} />
-          <Form.Text className="text-muted">Karakters: {255 - maxChars}/255</Form.Text>
+          <Form.Text className="text-muted">
+            {t("characters")}: {255 - maxChars}/255
+          </Form.Text>
         </Form.Group>
       </div>
       <div className="d-flex gap-4 flex-wrap">
@@ -45,8 +47,7 @@ const RecordingUploadForm: NextPage<Props> = ({ handleUpload, setMaxChars, maxCh
       )}
       {uploading && (
         <Button variant="primary" className="mt-3" disabled>
-          <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" />
-          {t("uploading")}
+          <Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> {t("uploading")}
         </Button>
       )}
       <Button variant="light" className="mt-3 ms-2" onClick={handleBackClick}>

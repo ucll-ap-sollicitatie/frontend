@@ -258,7 +258,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
     if (!capturing) {
       return (
         <>
-          <div className="d-flex justify-content-between flex-wrap mt-3">
+          <div className="d-flex justify-content-between flex-wrap">
             <Button variant="primary" onClick={handleStartCaptureClick}>
               {t("start_recording")}
             </Button>
@@ -279,7 +279,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
       );
     } else {
       return (
-        <Button variant="primary" className="w-25" onClick={handleStopCaptureClick}>
+        <Button variant="primary" onClick={handleStopCaptureClick}>
           {t("stop_recording")}
         </Button>
       );
@@ -291,7 +291,9 @@ const Recording: NextPage<Props> = ({ categories }) => {
   return (
     <Layout>
       <BreadcrumbComponent items={breadcrumb_items} />
+
       <PageTitleComponent title={title} />
+
       <h1>
         {t("title")} {capturing && <CountDown handleStopCaptureClick={handleStopCaptureClick} />}
       </h1>
@@ -305,7 +307,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
       {!choosingQuestions && !ready && (
         <Stack direction="horizontal">
           <div>
-            <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded" audio={true} ref={webcamRef} muted />
+            <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded mb-2" audio={true} ref={webcamRef} muted />
             {captureButtons()}
           </div>
           {viewCarousel()}

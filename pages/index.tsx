@@ -47,15 +47,16 @@ const Home: NextPage = () => {
 
       <p>
         {t("welcome")}, {user.name || user.email}! <br />
-        {!edited && (
-          <span>
-            {t("preferences_not_adjusted")} <br />
-            <Link href={`/preferences`} passHref>
-              <a className="link-success">{t("preferences_profile")}</a>
-            </Link>
-          </span>
-        )}
       </p>
+
+      {!edited && (
+        <p>
+          {t("preferences_not_adjusted")} <br />
+          <Link href={`/preferences`} passHref>
+            <a className="link-success">{t("preferences_profile")}</a>
+          </Link>
+        </p>
+      )}
     </Layout>
   );
 };
