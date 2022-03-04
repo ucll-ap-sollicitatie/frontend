@@ -73,7 +73,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
   return {
     props: props,
-    revalidate: 5,
+    revalidate: 1,
   };
 };
 

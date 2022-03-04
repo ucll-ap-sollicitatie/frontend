@@ -34,7 +34,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   if (params === undefined || params.id === undefined) {
     return { props: { questions: [], category: null } };
   }
@@ -54,33 +54,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
       category: category,
       messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
-    // revalidate: 5,
+    revalidate: 1,
   };
 };
-
-// export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-//   if (params === undefined || params.id === undefined) {
-//     return { props: { questions: [], category: null } };
-//   }
-
-//   const category_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories/${params.id}`);
-//   const category = await category_res.json();
-
-//   const questions_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/category/${params.id}`);
-//   if (questions_res.status !== 200) {
-//     return { props: { questions: [], category: category } };
-//   }
-//   const questions = await questions_res.json();
-
-//   return {
-//     props: {
-//       questions: questions,
-//       category: category,
-//       messages: (await import(`../../public/locales/${locale}.json`)).default,
-//     },
-//     revalidate: 5,
-//   };
-// };
 
 interface Props {
   questions: Question[];
