@@ -28,7 +28,7 @@
     "dark_mode": "Tryb ciemny",
     "preferences_not_adjusted": "Nie zmieniono jeszcze swoich preferencji.",
     "preferences_profile": "Można to zrobić w swoim profilu.",
-    "favorites_title": "Oto kilka ulubionych przez nauczycieli."
+    "favorites_title": "Polecane przez nauczycieli"
   },
   "table": {
     "update": "Aktualizowac",
@@ -193,6 +193,7 @@
     "upload_success": "Rozmowa o pracę zakończona sukcesem!",
     "back": "Powrót",
     "recording_error_title": "Tytuł nie może zawierać znaku '?' ani '#'.",
+    "recording_error_duplicate": " Przesłałeś już film o takim tytule.",
     "start_recording": "Rozpocznij nagrywanie",
     "stop_recording": "Zatrzymaj nagrywanie",
     "back_to_categories": "Powrót do kategorii",

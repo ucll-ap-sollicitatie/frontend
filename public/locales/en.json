@@ -28,7 +28,7 @@
     "dark_mode": "Dark mode",
     "preferences_not_adjusted": "You haven't adjusted your preferences yet.",
     "preferences_profile": "This can be done in your profile.",
-    "favorites_title": "Here are some favorites of the teachers."
+    "favorites_title": "Recommended by teachers"
   },
   "table": {
     "update": "Update",
@@ -195,6 +195,7 @@
     "upload_success": "Job interview uploaded successfully!",
     "back": "Back",
     "recording_error_title": "Title cannot contain '?' or '#'.",
+    "recording_error_duplicate": "You already made a video with such title.",
     "start_recording": "Start recording",
     "stop_recording": "Stop recording",
     "back_to_categories": "Back to categories",

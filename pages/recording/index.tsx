@@ -170,8 +170,6 @@ const Recording: NextPage<Props> = ({ categories }) => {
         return;
       }
 
-      console.log(user);
-
       formData.append("newRecording", blob, fileName);
       formData.set("description", description);
       formData.set("title", fileName);
@@ -201,7 +199,13 @@ const Recording: NextPage<Props> = ({ categories }) => {
             `/videos`
           );
         })
-        .catch(() => {
+        .catch((err) => {
+          if (err.response.status === 409) {
+            setUploading(false);
+            setError(t("recording_error_duplicate"));
+            setShow(true);
+            return;
+          }
           setUploading(false);
           window.URL.revokeObjectURL(url);
           setReady(false);

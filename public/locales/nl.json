@@ -28,7 +28,7 @@
     "dark_mode": "Donkere modus",
     "preferences_not_adjusted": "Je hebt je preferenties nog niet aangepast.",
     "preferences_profile": "Dit kunt u doen in uw profiel.",
-    "favorites_title": "Hier zijn wat favorieten van de lectoren."
+    "favorites_title": "Aanbevolen door leraren"
   },
   "table": {
     "update": "Aanpassen",
@@ -195,6 +195,7 @@
     "upload_success": "Uw video is succesvol geüpload!",
     "back": "Terug",
     "recording_error_title": "De titel mag geen '?' of '#' bevatten.",
+    "recording_error_duplicate": "U heeft al een video gemaakt met een dergelijke titel.",
     "start_recording": "Opnemen starten",
     "stop_recording": "Opnemen stoppen",
     "back_to_categories": "Terug naar categorieën",

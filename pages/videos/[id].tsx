@@ -136,7 +136,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   }, [session?.user?.email, video?.video_id]);
 
   if (!session || session.user === undefined) return <Unauthenticated />;
-  if (video?.private && user.role === "Student") return <Unauthorized />;
+  if (user.email !== video?.email && video?.private && user.role === "Student") return <Unauthorized />;
 
   const handleLikeVideo = async () => {
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video?.video_id}/like`, {
@@ -353,8 +353,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       headers: {
         "Content-Type": "application/json",
       },
-    })
-    .then(() => {
+    }).then(() => {
       router.push(
         {
           pathname: `/profile`,
@@ -362,9 +361,8 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         },
         `/profile`
       );
-    })
-
-  }
+    });
+  };
 
   const breadcrumb_items = [{ href: "/videos", text: t("all") }, { text: video.title }];
 
@@ -405,14 +403,14 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
           <h1>
             {t("title")}: {video.title}
           </h1>
-          {user.user_id === video.user_id &&(
-          <Button variant="outline-success" onClick={handleShowUpdateVideo}>
-            {t("edit_video")}
-          </Button>)}
+          {user.user_id === video.user_id && (
+            <Button variant="outline-success" onClick={handleShowUpdateVideo}>
+              {t("edit_video")}
+            </Button>
+          )}
         </div>
-        
-        <div className="d-flex flex-wrap gap-3 gap-lg-5 text-break">
 
+        <div className="d-flex flex-wrap gap-3 gap-lg-5 text-break">
           <Col sm={12} lg={8}>
             <VideoPlayer user_id={video?.user_id} videoTitle={title} />
           </Col>

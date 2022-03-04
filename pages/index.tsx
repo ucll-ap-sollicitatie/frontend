@@ -35,7 +35,6 @@ interface Props {
 
 const Home: NextPage<Props> = ({ videos }) => {
   const t = useTranslations("home");
-  const router = useRouter();
   const { data: session } = useSession();
   const [introduced, setIntroduced] = useState<boolean>(true);
   const [edited, setEdited] = useState<boolean>(true);
@@ -79,7 +78,7 @@ const Home: NextPage<Props> = ({ videos }) => {
         {t("welcome")}, {user.name || user.email}!
       </h1>
       {chooseIntroduction()}
-      <h2>{t("favorites_title")}</h2>
+      <h3>{t("favorites_title")}</h3>
       <RandomFavoritesOverview videos={videos} user={user} />
     </Layout>
   );
