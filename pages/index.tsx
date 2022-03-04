@@ -73,7 +73,7 @@ const Home: NextPage<Props> = ({ videos }) => {
     };
 
     fetchPrefIntroduced();
-  }, [session?.user]);
+  });
 
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
