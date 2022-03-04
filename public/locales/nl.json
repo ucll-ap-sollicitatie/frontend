@@ -110,8 +110,8 @@
     "video_delete_succes": "Interview succesvol verwijderd"
   },
   "users": {
-    "name": "Naam",
-    "surname": "Familienaam",
+    "name": "Voornaam",
+    "surname": "Naam",
     "email": "E-mail adres",
     "password": "Wachtwoord",
     "password_confirmation": "Wachtwoord bevestigen",
