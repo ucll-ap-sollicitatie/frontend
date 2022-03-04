@@ -9,7 +9,6 @@ import ProfileCard from "../profile/ProfileCard";
 import Video from "../../interfaces/Video";
 import BreadcrumbComponent from "../BreadcrumbComponent";
 import PageTitleComponent from "../PageTitleComponent";
-import ProfileVideoOverview from "../videos/ProfileVideoOverview";
 
 interface Props {
   user: User;

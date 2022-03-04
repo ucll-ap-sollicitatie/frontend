@@ -74,10 +74,10 @@ const UsersTable: NextPage = () => {
     handleClose();
     router.push(
       {
-        pathname: "/users",
+        pathname: "/dashboard",
         query: { toast: t("remove_user_success") },
       },
-      "/users"
+      "/dashboard"
     );
 
     fetchData();
@@ -100,7 +100,7 @@ const UsersTable: NextPage = () => {
         </Modal.Footer>
       </Modal>
 
-      <ReactTable columns={columns} data={users} url={"/users"} id="email" handleShow={handleShow} />
+      <ReactTable columns={columns} data={users} url={"/dashboard"} id="user_id" handleShow={handleShow} />
     </>
   );
 };
