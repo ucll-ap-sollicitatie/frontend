@@ -38,22 +38,21 @@ const AllVideoOverview: NextPage<Props> = ({ videos, user }) => {
           <Form.Label>{t("search")}</Form.Label>
           <Form.Control onChange={handleSearch} type="text" placeholder={t("search_placeholder")} required />
         </Form.Group>
-        <Link href={"/recording"} passHref>
-          <Button variant="primary" className="h-25 mt-auto">
-            {r("title")}
-          </Button>
-        </Link>
       </div>
       <br />
 
       <Row className="g-4">
-        {videosFiltered.map(
-          (video: Video) =>
-            (!video.private || user.role != "Student") && (
-              <div className="col-md-6 col-lg-4 col-xl-3" key={video.video_id}>
-                <VideoCard video={video} />
-              </div>
-            )
+        {videosFiltered.length > 0 ? (
+          videosFiltered.map(
+            (video: Video) =>
+              (!video.private || user.role != "Student") && (
+                <div className="col-md-6 col-lg-4 col-xl-3" key={video.video_id}>
+                  <VideoCard video={video} />
+                </div>
+              )
+          )
+        ) : (
+          <p>{t("no_videos")}</p>
         )}
       </Row>
     </>
