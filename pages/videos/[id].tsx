@@ -49,7 +49,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
     comments: null,
     feedback: null,
     messages: (await import(`../../public/locales/${locale}.json`)).default,
-    revalidate: 5,
   };
 
   if (params !== undefined) {
@@ -71,7 +70,10 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   }
 
   return {
-    props,
+    props: {
+      props,
+    },
+    revalidate: 5,
   };
 };
 
