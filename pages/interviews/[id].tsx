@@ -31,7 +31,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: paths,
     fallback: true,
-    revalidate: 5,
   };
 };
 
@@ -55,6 +54,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
       category: category,
       messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
+    revalidate: 5,
   };
 };
 
