@@ -10,6 +10,7 @@ import RandomFavoritesOverview from "../components/videos/RandomFavoritesOvervie
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import IntroductionNotEditedComponent from "../components/home/IntroductionNotEditedComponent";
 import IntroductionComponent from "../components/home/IntroductionComponent";
+import { Session } from "../interfaces/Session";
 
 // export async function getStaticProps({ locale }) {
 //   let props = {

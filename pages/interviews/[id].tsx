@@ -78,7 +78,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
       category: category,
       messages: (await import(`../../public/locales/${locale}.json`)).default,
     },
-    revalidate: 1,
   };
 };
 
