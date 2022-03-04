@@ -10,4 +10,5 @@ export default interface User {
   activation_token: string;
   token_expiration_date: string;
   last_login: Date;
+  introduced: boolean;
 }

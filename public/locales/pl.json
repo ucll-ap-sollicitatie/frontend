@@ -105,7 +105,10 @@
     "search": "Szukaj rozmow o pracę",
     "search_placeholder": "E-mail ucznia lub tytuł rozmowy o pracę",
     "favorite_video": "Ulubione",
-    "favorite_title": "Ulubione rozmowy o pracę"
+    "favorite_title": "Ulubione rozmowy o pracę",
+    "feedback_placeholder": "p. Dobra robota, Maarten! Proszę uważać na swój oficjalny język",
+    "from": "Czas od",
+    "to": "Czas do"
   },
   "users": {
     "name": "Imie",
@@ -138,7 +141,15 @@
     "account_delete_button": "Usuń moje konto",
     "account_delete_cancel": "Nie, zabierz mnie stąd",
     "user_activation_success": "Aktywacja użytkownika udana",
-    "password_info": "Hasło musi zawierać co najmniej 8 znaków, 1 dużą literę, 1 cyfrę i 1 znak specjalny."
+    "password_info": "Hasło musi zawierać co najmniej 8 znaków, 1 dużą literę, 1 cyfrę i 1 znak specjalny.",
+    "toggle_introduction": "Wyłącz wprowadzenie",
+    "student_index_positions": "Jako student masz możliwość wzięcia udziału w rozmowie kwalifikacyjnej lub obejrzenia innych jej prób. Istnieje również lista kategorii, które można przejrzeć przed przystąpieniem do egzaminu. W każdej kategorii znajduje się co najmniej 5 pytań. Dla ułatwienia wprowadziliśmy również preferencje, dzięki czemu użytkownik ma do dyspozycji szerszy zakres pytań",
+    "student_index": "Każdemu nagraniu można nadać nazwę i opis, a także opcję nadania mu charakteru prywatnego, co w tym przypadku oznacza, że widzą je tylko wykładowcy. Wykładowca może skomentować każde nagranie, a wszyscy użytkownicy mogą komentować nagrania, o ile rozmowa jest ustawiona jako publiczna",
+    "teacher_index_possibilities": "Jako nauczyciel masz możliwość przeglądania rozmów kwalifikacyjnych wszystkich uczniów, udzielania informacji zwrotnej lub komentowania ich. Istnieje również lista kategorii, którą można przejrzeć, aby zorientować się, jakiego rodzaju pytania są zadawane - w każdej kategorii znajduje się co najmniej 5 pytań. Można również utworzyć własną kategorię. Wywiad można również nagrać samodzielnie. Przede wszystkim dostępny jest pulpit nawigacyjny, na którym można zobaczyć wszystkich uczniów oraz tworzyć, modyfikować i usuwać zadania",
+    "teacher_index": "Każde nagranie ma swoją nazwę i opis oraz opcję nadania mu charakteru prywatnego, co w tym przypadku oznacza, że tylko Ty i inni nauczyciele mogą je zobaczyć. Zawsze możesz wyrazić swoją opinię na temat każdego nagrania, która jest widoczna tylko dla Ciebie i ucznia, który je nagrał",
+    "admin_index": "Jako administrator masz możliwość przeglądania wszystkich danych, a także ich edytowania i usuwania. Istnieje pulpit nawigacyjny ze wszystkimi możliwymi opcjami.",
+    "refer_to_profile": "Na początek możesz zmienić swoje preferencje i zastosować drobne personalizacje, takie jak zmiana języka lub przełączenie na tryb ciemny.",
+    "refer_to_dashboard": "Na początek możesz przyjrzeć się tablicy rozdzielczej, aby się z nią zapoznać."
   },
   "students": {
     "error": "Wystąpił błąd podczas ładowania uczniów.",

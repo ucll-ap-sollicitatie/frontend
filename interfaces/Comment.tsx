@@ -7,6 +7,8 @@ export default interface Comment {
   surname: string;
   author: string;
   feedback: boolean;
+  start_feedback: string;
+  end_feedback: string;
   likes: number;
   video_id: number;
   author_email: string;

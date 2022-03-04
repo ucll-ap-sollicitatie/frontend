@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
 import Unauthenticated from "../components/Unauthenticated";
 import User from "../interfaces/User";
-import Link from "next/link";
 import Video from "../interfaces/Video";
 import RandomFavoritesOverview from "../components/videos/RandomFavoritesOverview";
-import AllVideoOverview from "../components/videos/AllVideoOverview";
+import BreadcrumbComponent from "../components/BreadcrumbComponent";
+import IntroductionNotEditedComponent from "../components/home/IntroductionNotEditedComponent";
+import IntroductionComponent from "../components/home/IntroductionComponent";
 
 export async function getStaticProps({ locale }) {
   let props = {
@@ -36,42 +37,48 @@ const Home: NextPage<Props> = ({ videos }) => {
   const t = useTranslations("home");
   const router = useRouter();
   const { data: session } = useSession();
+  const [introduced, setIntroduced] = useState<boolean>(true);
   const [edited, setEdited] = useState<boolean>(true);
 
   useEffect(() => {
-    const fetchPrefEdited = async () => {
+    const fetchPrefIntroduced = async () => {
       if (!session?.user) {
         return;
       }
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences/${session?.user?.email}`);
-      const prefEdited = await res.json();
-      if (!prefEdited.edited) {
+      const prefs = await res.json();
+      if (!prefs.introduced) {
+        setIntroduced(false);
+      }
+      if (!prefs.edited) {
         setEdited(false);
       }
     };
 
-    fetchPrefEdited();
+    fetchPrefIntroduced();
   }, [session?.user]);
 
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
+  const breadcrumb_items = [{ text: t("title") }];
+
+  const chooseIntroduction = () => {
+    if (!introduced) {
+      if (!edited) {
+        return <IntroductionNotEditedComponent session_user={user} />;
+      } else {
+        return <IntroductionComponent session_user={user} />;
+      }
+    }
+  };
 
   return (
     <Layout>
-      <h1>{t("title")}</h1>
-
-      <p>
-        {t("welcome")}, {user.name || user.email}! <br />
-      </p>
-
-      {!edited && (
-        <p>
-          {t("preferences_not_adjusted")} <br />
-          <Link href={`/preferences`} passHref>
-            <a className="link-success">{t("preferences_profile")}</a>
-          </Link>
-        </p>
-      )}
+      <BreadcrumbComponent items={breadcrumb_items} />
+      <h1>
+        {t("welcome")}, {user.name || user.email}!
+      </h1>
+      {chooseIntroduction()}
       <h2>{t("favorites_title")}</h2>
       <RandomFavoritesOverview videos={videos} user={user} />
     </Layout>

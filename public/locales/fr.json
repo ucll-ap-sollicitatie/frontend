@@ -107,7 +107,10 @@
     "favorite_video": "Favorite",
     "favorite_title": "Vos entretiens d'embauche favoris",
     "edit_video": "Modifier les informations relatives à l'entretien",
-    "video_delete_succes": "Entretien supprimé avec succès"
+    "video_delete_succes": "Entretien supprimé avec succès",
+    "feedback_placeholder": "Par exemple : Bravo, Maarten ! Essayez de surveiller votre langage formel.",
+    "from": "Temps de",
+    "to": "Temps à"
   },
   "users": {
     "name": "Prénom",
@@ -140,7 +143,15 @@
     "account_delete_button": "Supprimer mon compte",
     "account_delete_cancel": "Non, faites-moi sortir d'ici",
     "user_activation_success": "Utilisateur activé",
-    "password_info": "Le mot de passe doit contenir au moins 8 caractères, 1 lettre majuscule, 1 chiffre et 1 caractère spécial."
+    "password_info": "Le mot de passe doit contenir au moins 8 caractères, 1 lettre majuscule, 1 chiffre et 1 caractère spécial.",
+    "toggle_introduction": "Éteindre l'introduction",
+    "student_index_possibilities": "En tant qu'étudiant, vous avez la possibilité de participer à un entretien d'embauche ou de voir d'autres tentatives d'emploi. Il existe également une liste de catégories que vous pouvez consulter avant de tenter la vôtre. Chaque catégorie comporte un minimum de 5 questions. Pour vous faciliter la tâche, nous avons également mis en place des préférences afin de vous proposer un plus large éventail de questions.",
+    "student_index": "Vous pouvez donner à chaque enregistrement un nom et une description et l'option de le rendre privé, ce qui signifie dans ce cas que seuls les conférenciers peuvent le voir. Un enseignant peut donner son avis sur chaque enregistrement, tandis que tous les utilisateurs peuvent laisser des commentaires sur les enregistrements, pour autant que l'entretien soit défini comme public.",
+    "teacher_index_possibilities": "En tant que tuteur, vous avez la possibilité de visionner les entretiens d'embauche de tous les étudiants, de leur donner votre avis ou de les commenter. Il existe également une liste de catégories que vous pouvez consulter pour avoir une bonne idée du type de questions posées. Chaque catégorie comporte un minimum de 5 questions. Vous pouvez également créer votre propre catégorie. Vous pouvez également enregistrer vous-même une interview. Surtout, un tableau de bord est disponible où vous pouvez voir tous les étudiants et créer, modifier ou supprimer des tâches.",
+    "teacher_index": "Chaque enregistrement a un nom et une description ainsi que l'option de le rendre privé, ce qui signifie dans ce cas que seuls vous et les autres professeurs peuvent le voir. Vous pouvez toujours donner votre avis sur chaque enregistrement, qui n'est visible que par vous et par l'élève qui a réalisé l'enregistrement.",
+    "admin_index": "En tant qu'administrateur, vous avez la possibilité de voir toutes les données ainsi que de les modifier ou même de les supprimer. Il existe un tableau de bord avec toutes les options possibles.",
+    "refer_to_profile": "Pour commencer, vous pouvez modifier vos préférences et appliquer de petites personnalisations telles que le changement de langue ou le passage en mode sombre.",
+    "refer_to_dashboard": "Pour commencer, vous pouvez jeter un coup d'œil au tableau de bord pour vous faire une idée."
   },
   "students": {
     "error": "Erreur lors de la récupération des étudiants",

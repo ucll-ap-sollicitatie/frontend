@@ -36,13 +36,61 @@ const FeedbackModal: NextPage<Props> = ({ maxChars, user, showFeedback, handleCl
                 maxLength={510}
                 as="textarea"
                 rows={3}
-                placeholder="e.g. Goed gedaan, Maarten! Probeer wel op uw formeel taalgebruik te letten."
+                placeholder={t("feedback_placeholder")}
                 required
               />
               <Form.Text className="text-muted">
                 {t("characters")}: {510 - maxChars}/510
               </Form.Text>
             </Form.Group>
+            <div className="d-flex mt-2 gap-5">
+              <Form.Group controlId="van">
+                <Form.Label>{t("from")}</Form.Label>
+                <div className="d-flex gap-1">
+                  <Form.Control
+                    onChange={(e) => setMaxChars(e.target.value.length)}
+                    maxLength={510}
+                    type="number"
+                    max={10}
+                    min={0}
+                    placeholder="Min"
+                    required
+                  />
+                  <Form.Control
+                    onChange={(e) => setMaxChars(e.target.value.length)}
+                    maxLength={510}
+                    type="number"
+                    max={59}
+                    min={0}
+                    placeholder="Sec"
+                    required
+                  />
+                </div>
+              </Form.Group>
+              <Form.Group controlId="tot">
+                <Form.Label>{t("to")}</Form.Label>
+                <div className="d-flex gap-1">
+                  <Form.Control
+                    onChange={(e) => setMaxChars(e.target.value.length)}
+                    maxLength={510}
+                    type="number"
+                    max={10}
+                    min={0}
+                    placeholder="Min"
+                    required
+                  />
+                  <Form.Control
+                    onChange={(e) => setMaxChars(e.target.value.length)}
+                    maxLength={510}
+                    type="number"
+                    max={59}
+                    min={0}
+                    placeholder="Sec"
+                    required
+                  />
+                </div>
+              </Form.Group>
+            </div>
             <Button variant="success" type="submit" className="mt-3">
               {m("add")}
             </Button>

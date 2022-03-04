@@ -107,7 +107,10 @@
     "favorite_video": "Favorite",
     "favorite_title": "Favorite job interviews",
     "edit_video": "Edit interview information",
-    "video_delete_succes": "Interview succesfully deleted"
+    "video_delete_succes": "Interview succesfully deleted",
+    "feedback_placeholder": "e.g. Well done, Maarten! Do try to watch your formal language.",
+    "from": "Time from",
+    "to": "Time till"
   },
   "users": {
     "name": "Name",
@@ -140,7 +143,15 @@
     "account_delete_button": "Delete my account",
     "account_delete_cancel": "No, get me out of here",
     "user_activation_success": "User activated",
-    "password_info": "The password must contain at least 8 characters, 1 capital letter, 1 number and 1 special character."
+    "password_info": "The password must contain at least 8 characters, 1 capital letter, 1 number and 1 special character.",
+    "toggle_introduction": "Turn off introduction",
+    "student_index_possibilities": "As a student, you have the option to enter into a job interview or view other their attempts. There is also a list of categories that you can view before entering an attempt yourself, each category has a minimum number of 5 questions. To make things a little easier we have also implemented preferences so that there is a wider range of questions available to you.",
+    "student_index": "Each recording you can give a name and description as well as the option to make it private, which in this case means that only lecturers may see it. A lecturer can give each recording feedback while all users may leave comments on recordings, as long as the interview is set public.",
+    "teacher_index_possibilities": "As a lecturer, you have the ability to view job interviews of all students, provide feedback or comment on them. There is also a list of categories that you can view to have a good idea of what kind of questions are asked, each category has a minimum number of 5 questions. One can also create their own category. Of course, you can also record an interview yourself. Above all, a dashboard is available where you can see all students and create, modify or delete tasks.",
+    "teacher_index": "Each recording has a name and give a description as well as the option to make it private, which in this case means that only you and other lecturers can see it. You can always provide feedback on each recording that is only visible to you and the student who made the recording.",
+    "admin_index": "As an admin you have the ability to see all data as well as modify or delete it if necessary. There is a dashboard present with all possible options.",
+    "refer_to_profile": "To begin with, you can change your preferences and apply small personalizations such as changing the language or switching to dark mode.",
+    "refer_to_dashboard": "To begin with, you can take a look at the dashboard to get a feel for it."
   },
   "students": {
     "error": "An error occurred during loading of students.",

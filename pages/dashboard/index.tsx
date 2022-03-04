@@ -101,7 +101,7 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
               <Accordion.Item eventKey="0" className="rounded-0">
                 <Accordion.Header>{t("users")}</Accordion.Header>
                 <Accordion.Body>
-                  {t("amount_of_users")}: {users ? users.length : t("none")}
+                  {t("amount_of_users")}: {users !== null ? users.length : t("none")}
                   <hr />
                   <ul className="mt-3 mb-0">
                     <li>

@@ -3,6 +3,7 @@ import { useSession } from "next-auth/react";
 import { Card, Stack } from "react-bootstrap";
 import User from "../../interfaces/User";
 import DarkModeToggle from "../buttons/DarkModeToggle";
+import IntroductionToggle from "../buttons/IntroductionToggle";
 import LocaleDropdown from "../buttons/LocaleDropdown";
 import DeleteAccountButton from "../users/DeleteAccountButton";
 import FavoriteVideoButton from "../users/FavoriteVideoButton";
@@ -60,6 +61,7 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
       <Card.Body className="border-top">
         <Stack gap={3}>
           <DarkModeToggle />
+          <IntroductionToggle session_user={session_user} />
           <LocaleDropdown />
         </Stack>
       </Card.Body>

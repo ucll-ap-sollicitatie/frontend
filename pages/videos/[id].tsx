@@ -1,6 +1,6 @@
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
+import { Button, Card, Col, Form, OverlayTrigger, Row, Stack, Tooltip } from "react-bootstrap";
 import { useSWRConfig } from "swr";
 import { useTranslations } from "next-intl";
 import React, { FormEvent, useEffect, useState } from "react";
@@ -201,8 +201,12 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       video_id: video_id,
     };
 
+    const van = new Date(0, 0, 0, 0, target.van[0].value, target.van[1].value, 0);
+    const tot = new Date(0, 0, 0, 0, target.tot[0].value, target.tot[1].value, 0);
     if (feedback) {
       Object.assign(body, { feedback: true });
+      Object.assign(body, { start_feedback: van });
+      Object.assign(body, { end_feedback: tot });
     } else {
       Object.assign(body, { feedback: false });
     }
@@ -448,9 +452,11 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
                 </Button>
               )}
               {user.role == "Lector" && (
-                <Button variant="outline-success" onClick={handleShowFeedback}>
-                  {t("feedback_add")}
-                </Button>
+                <OverlayTrigger placement="top" overlay={<Tooltip id="button-tooltip-2">{t("feedback_privacy")}</Tooltip>}>
+                  <Button variant="outline-success" onClick={handleShowFeedback}>
+                    {t("feedback_add")}
+                  </Button>
+                </OverlayTrigger>
               )}
             </div>
             <div className="d-flex gap-5">
@@ -472,7 +478,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
           <Col>
             <AddComment handleAddComment={handleAddComment} setMaxChars={setMaxChars} maxChars={maxChars} />
             <br />
-
             <Stack gap={3}>
               {feedback && (
                 <FeedbackList

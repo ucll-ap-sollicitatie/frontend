@@ -39,7 +39,9 @@ const FeedbackList: NextPage<Props> = ({ feedback, user, video, handleSelect, ha
                       </Nav.Item>
                     )}
                     <Nav.Item>
-                      <Nav.Link disabled>{t("feedback_privacy")}</Nav.Link>
+                      <Nav.Link disabled>
+                        {feedback.start_feedback.substring(3)} - {feedback.end_feedback.substring(3)}
+                      </Nav.Link>
                     </Nav.Item>
                   </div>
                   <Nav.Item>
