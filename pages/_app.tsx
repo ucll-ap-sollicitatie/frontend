@@ -26,9 +26,13 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     router.push(`${router.asPath}`, `${router.asPath}`, { locale: getLocale() });
   }, []);
 
+  const myCustomErrorFunction = (error: any) => {
+    // Yeet the error
+  };
+
   return (
     <>
-      <NextIntlProvider messages={pageProps.messages}>
+      <NextIntlProvider messages={pageProps.messages} onError={myCustomErrorFunction}>
         <SessionProvider session={session}>
           <DndProvider backend={HTML5Backend}>
             <NextNProgress options={{ showSpinner: false }} />

@@ -26,14 +26,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
   const videos = await data.json();
 
+  console.log(videos);
+
   let paths = [] as any;
 
   videos.map((video: Video) => {
     paths.push(
-      { params: { id: video.video_id.toString() }, locale: "en" },
-      { params: { id: video.video_id.toString() }, locale: "fr" },
-      { params: { id: video.video_id.toString() }, locale: "nl" },
-      { params: { id: video.video_id.toString() }, locale: "pl" }
+      { params: { id: video?.video_id.toString() }, locale: "en" },
+      { params: { id: video?.video_id.toString() }, locale: "fr" },
+      { params: { id: video?.video_id.toString() }, locale: "nl" },
+      { params: { id: video?.video_id.toString() }, locale: "pl" }
     );
   });
 
@@ -82,7 +84,7 @@ interface Props {
 
 const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const t = useTranslations("videos");
-  const title = video.title;
+  const title = video?.title;
   const { mutate } = useSWRConfig();
   const [maxChars, setMaxChars] = useState(0);
   const [error, setError] = useState("");
@@ -92,14 +94,14 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [videoLiked, setVideoLiked] = useState(false);
   const [videoFavorited, setVideoFavorited] = useState(false);
   const [commentId, setCommentId] = useState(0);
-  const [likes, setLikes] = useState<number>(video.likes > 0 ? video.likes : 0);
+  const [likes, setLikes] = useState<number>(video?.likes > 0 ? video?.likes : 0);
   const [currentComment, setCurrentComment] = useState<Comment | null>(comments == null ? null : comments[0]);
   const { data: session } = useSession();
   const user = session?.user as User;
 
   useEffect(() => {
     const fetchTest = async () => {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video.video_id}/check`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video?.video_id}/check`, {
         method: "POST",
         body: JSON.stringify({
           email: session?.user?.email,
@@ -113,7 +115,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       } else {
         setVideoLiked(false);
       }
-      const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video.video_id}/check`, {
+      const res2 = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video?.video_id}/check`, {
         method: "POST",
         body: JSON.stringify({
           email: session?.user?.email,
@@ -129,13 +131,13 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       }
     };
     fetchTest();
-  }, [session?.user?.email, video.video_id]);
+  }, [session?.user?.email, video?.video_id]);
 
   if (!session || session.user === undefined) return <Unauthenticated />;
-  if (video.private && user.role === "Student") return <Unauthorized />;
+  if (video?.private && user.role === "Student") return <Unauthorized />;
 
   const handleLikeVideo = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video.video_id}/like`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video?.video_id}/like`, {
       method: "POST",
       body: JSON.stringify({ email: user.email }),
       headers: {
@@ -147,7 +149,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   };
 
   const handleUnlikeVideo = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video.video_id}/unlike`, {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/likes/${video?.video_id}/unlike`, {
       method: "POST",
       body: JSON.stringify({ email: user.email }),
       headers: {
@@ -160,7 +162,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
 
   const handleFavoriteVideo = async () => {
     if (!videoFavorited) {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video.video_id}/favorite`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video?.video_id}/favorite`, {
         method: "POST",
         body: JSON.stringify({ email: user.email }),
         headers: {
@@ -169,7 +171,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       });
       setVideoFavorited(true);
     } else {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video.video_id}/unfavorite`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/${video?.video_id}/unfavorite`, {
         method: "POST",
         body: JSON.stringify({ email: user.email }),
         headers: {
@@ -190,7 +192,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     const target = event.target as HTMLFormElement;
     const text = target.comment.value;
     const author = user.email;
-    const video_id = video.video_id;
+    const video_id = video?.video_id;
     const body = {
       text: text,
       author: author,
@@ -219,10 +221,10 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       handleClose();
       router.push(
         {
-          pathname: `/videos/${video.video_id}`,
+          pathname: `/videos/${video?.video_id}`,
           query: { toast: `${feedback ? t("feedback_add_success") : t("comment_add_success")}` },
         },
-        `/videos/${video.video_id}`
+        `/videos/${video?.video_id}`
       );
     }
   };
@@ -236,10 +238,10 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     mutate(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
     router.push(
       {
-        pathname: `/videos/${video.video_id}`,
+        pathname: `/videos/${video?.video_id}`,
         query: { toast: t("comment_remove_success") },
       },
-      `/videos/${video.video_id}`
+      `/videos/${video?.video_id}`
     );
   };
 
@@ -262,10 +264,10 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     mutate(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
     router.push(
       {
-        pathname: `/videos/${video.video_id}`,
+        pathname: `/videos/${video?.video_id}`,
         query: { toast: t("comment_update_success") },
       },
-      `/videos/${video.video_id}`
+      `/videos/${video?.video_id}`
     );
   };
 
@@ -303,7 +305,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     }
   };
 
-  const breadcrumb_items = [{ href: "/videos", text: t("all") }, { text: video.title }];
+  const breadcrumb_items = [{ href: "/videos", text: t("all") }, { text: title }];
 
   return (
     <>
@@ -331,36 +333,36 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         <PageTitleComponent title={title} />
 
         <h1>
-          {t("title")}: {video.title}
+          {t("title")}: {title}
         </h1>
 
         <div className="d-flex flex-wrap gap-3 gap-lg-5 text-break">
           <Col sm={12} lg={8}>
-            <VideoPlayer user_id={video.user_id} videoTitle={video.title} />
+            <VideoPlayer user_id={video?.user_id} videoTitle={title} />
           </Col>
           <Col className="d-flex flex-column gap-2">
             <h2 className="h2 mt-0">{t("information")}</h2>
             <div>
               <h4>{t("title")}</h4>
-              <p>{video.title}</p>
+              <p>{title}</p>
             </div>
             <div>
               <h4>{t("description")}</h4>
-              <p>{video.description}</p>
+              <p>{video?.description}</p>
             </div>
             <div>
               <h4>{t("uploaded_by")}</h4>
               <p>
-                <Link href={`/users/${video.user_id}`}>
+                <Link href={`/users/${video?.user_id}`}>
                   <a className="link-primary">
-                    {video.name} {video.surname}
+                    {video?.name} {video?.surname}
                   </a>
                 </Link>
               </p>
             </div>
             <div>
               <h4>{t("date")}</h4>
-              <span>{new Date(video.date).toLocaleString()}</span>
+              <span>{new Date(video?.date).toLocaleString()}</span>
             </div>
             <hr />
             <div className="d-flex gap-2">
