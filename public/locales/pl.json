@@ -4,6 +4,8 @@
     "title_short": "INROP",
     "welcome": "Witamy",
     "login": "Zaloguj się",
+    "login_success": "TODOOOOOOOOOOOO",
+    "already_logged_in": "TODOOOOOOOOOOOO",
     "logout": "Wyloguj się",
     "register": "Rejestracja",
     "register_new_account": "Rejestracja nowego konta",
@@ -49,6 +51,8 @@
   "errors": {
     "error_title": "Inteligentnie na rozmowie o pracę",
     "password_mismatch": "Hasła nie są zgodne.",
+    "login_error": "TODOOOOOOOOOOOOOOOOOO",
+    "login_unexpected_error": "TODOOOOOOOOOOOOOOOOOO",
     "update_failed": "Aktualizacja nie powiodła się.",
     "status_code": "Kod błędu",
     "404": "Nie znaleziono strony",
@@ -131,7 +135,8 @@
     "account_delete_confirm": "Rozumiem i potwierdzam",
     "account_delete_button": "Usuń moje konto",
     "account_delete_cancel": "Nie, zabierz mnie stąd",
-    "user_activation_success": "Aktywacja użytkownika udana"
+    "user_activation_success": "Aktywacja użytkownika udana",
+    "password_info": "TODOOOOOOOOOOOOOOOOOOOOO"
   },
   "students": {
     "error": "Wystąpił błąd podczas ładowania uczniów.",
