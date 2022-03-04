@@ -28,7 +28,9 @@ const NavBar: NextPage = () => {
             <Nav className="d-flex align-items-center">
               {!session ? (
                 <>
-                  <Nav.Link onClick={() => signIn()}>Login</Nav.Link>
+                  <Link href="/auth/login" passHref>
+                    <Nav.Link href="/">{t("login")}</Nav.Link>
+                  </Link>
                   <Link href="/auth/register" passHref>
                     <Nav.Link href="/">{t("register")}</Nav.Link>
                   </Link>
