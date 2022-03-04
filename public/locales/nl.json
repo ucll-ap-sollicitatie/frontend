@@ -151,7 +151,9 @@
     "teacher_index": "Elk opname heeft een naam en een beschrijving geven alsook de optie om het privé te maken, wat in dit geval betekent dat enkel u en andere lectoren het mogen zien. U kan steeds op elk opname feedback geven die enkel zichtbaar is voor u en de student die de opname gemaakt heeft.",
     "admin_index": "Als admin heeft u de mogelijkheid om alle data te zien alsook aanpassen of desnoods verwijderen. Er is een dashboard aanwezig met alle mogelijke opties.",
     "refer_to_profile": "Om te beginnen kan u uw preferenties veranderen en kleine personalisaties toepassen zoals de taal veranderen of naar donkere modus schakelen.",
-    "refer_to_dashboard": "Om te beginnen kan u een kijkje nemen naar de dashboard om er een gevoel voor te krijgen."
+    "refer_to_dashboard": "Om te beginnen kan u een kijkje nemen naar de dashboard om er een gevoel voor te krijgen.",
+    "profile_picture_update": "Update profielfoto",
+    "profile_picture_upload": "Upload profielfoto"
   },
   "students": {
     "error": "Er is een probleem opgetreden bij het laden van uw studenten.",

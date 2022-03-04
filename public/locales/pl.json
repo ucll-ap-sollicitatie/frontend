@@ -149,7 +149,9 @@
     "teacher_index": "Każde nagranie ma swoją nazwę i opis oraz opcję nadania mu charakteru prywatnego, co w tym przypadku oznacza, że tylko Ty i inni nauczyciele mogą je zobaczyć. Zawsze możesz wyrazić swoją opinię na temat każdego nagrania, która jest widoczna tylko dla Ciebie i ucznia, który je nagrał",
     "admin_index": "Jako administrator masz możliwość przeglądania wszystkich danych, a także ich edytowania i usuwania. Istnieje pulpit nawigacyjny ze wszystkimi możliwymi opcjami.",
     "refer_to_profile": "Na początek możesz zmienić swoje preferencje i zastosować drobne personalizacje, takie jak zmiana języka lub przełączenie na tryb ciemny.",
-    "refer_to_dashboard": "Na początek możesz przyjrzeć się tablicy rozdzielczej, aby się z nią zapoznać."
+    "refer_to_dashboard": "Na początek możesz przyjrzeć się tablicy rozdzielczej, aby się z nią zapoznać.",
+    "profile_picture_update": "Zaktualizuj zdjęcie profilowe",
+    "profile_picture_upload": "Prześlij zdjęcie profilowe"
   },
   "students": {
     "error": "Wystąpił błąd podczas ładowania uczniów.",

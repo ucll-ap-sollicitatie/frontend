@@ -1,7 +1,8 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Card, Stack } from "react-bootstrap";
+import { Button, Card, Stack } from "react-bootstrap";
 import User from "../../interfaces/User";
+import ChangeImageButton from "../buttons/ChangeImageButton";
 import DarkModeToggle from "../buttons/DarkModeToggle";
 import IntroductionToggle from "../buttons/IntroductionToggle";
 import LocaleDropdown from "../buttons/LocaleDropdown";
@@ -12,9 +13,11 @@ import UpdateUserButton from "../users/UpdateUserButton";
 
 interface Props {
   user: User;
+  showUpload: boolean;
+  showUploadModal: () => void;
 }
 
-const ProfileCard: NextPage<Props> = ({ user }) => {
+const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
   const { data: session } = useSession();
   const session_user = session?.user as User;
 
@@ -62,7 +65,10 @@ const ProfileCard: NextPage<Props> = ({ user }) => {
         <Stack gap={3}>
           <DarkModeToggle />
           <IntroductionToggle session_user={session_user} />
-          <LocaleDropdown />
+          <div className="d-flex gap-2">
+            <LocaleDropdown />
+            <ChangeImageButton showUploadModal={showUploadModal} />
+          </div>
         </Stack>
       </Card.Body>
 

@@ -151,7 +151,9 @@
     "teacher_index": "Chaque enregistrement a un nom et une description ainsi que l'option de le rendre privé, ce qui signifie dans ce cas que seuls vous et les autres professeurs peuvent le voir. Vous pouvez toujours donner votre avis sur chaque enregistrement, qui n'est visible que par vous et par l'élève qui a réalisé l'enregistrement.",
     "admin_index": "En tant qu'administrateur, vous avez la possibilité de voir toutes les données ainsi que de les modifier ou même de les supprimer. Il existe un tableau de bord avec toutes les options possibles.",
     "refer_to_profile": "Pour commencer, vous pouvez modifier vos préférences et appliquer de petites personnalisations telles que le changement de langue ou le passage en mode sombre.",
-    "refer_to_dashboard": "Pour commencer, vous pouvez jeter un coup d'œil au tableau de bord pour vous faire une idée."
+    "refer_to_dashboard": "Pour commencer, vous pouvez jeter un coup d'œil au tableau de bord pour vous faire une idée.",
+    "profile_picture_update": "Mise à jour de la photo de profil",
+    "profile_picture_upload": "Télécharger une photo de profil"
   },
   "students": {
     "error": "Erreur lors de la récupération des étudiants",

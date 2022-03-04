@@ -151,7 +151,9 @@
     "teacher_index": "Each recording has a name and give a description as well as the option to make it private, which in this case means that only you and other lecturers can see it. You can always provide feedback on each recording that is only visible to you and the student who made the recording.",
     "admin_index": "As an admin you have the ability to see all data as well as modify or delete it if necessary. There is a dashboard present with all possible options.",
     "refer_to_profile": "To begin with, you can change your preferences and apply small personalizations such as changing the language or switching to dark mode.",
-    "refer_to_dashboard": "To begin with, you can take a look at the dashboard to get a feel for it."
+    "refer_to_dashboard": "To begin with, you can take a look at the dashboard to get a feel for it.",
+    "profile_picture_update": "Update profile picture",
+    "profile_picture_upload": "Upload profile picture"
   },
   "students": {
     "error": "An error occurred during loading of students.",
