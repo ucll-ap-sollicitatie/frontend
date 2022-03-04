@@ -26,8 +26,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
   const videos = await data.json();
 
-  console.log(videos);
-
   let paths = [] as any;
 
   videos.map((video: Video) => {
@@ -42,6 +40,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: paths,
     fallback: true,
+    revalidate: 5,
   };
 };
 
@@ -249,7 +248,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const text = target.comment.value;
-    console.log(text);
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}`, {
       method: "PUT",
       headers: {
