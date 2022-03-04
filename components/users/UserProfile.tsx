@@ -30,7 +30,7 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
     setPublicVideos(temp);
   }, [videos, user.email]);
 
-  const breadcrumb_items = [{ text: user.email }];
+  const breadcrumb_items = [{ text: `${user.name} ${user.surname}` }];
 
   return (
     <Layout>

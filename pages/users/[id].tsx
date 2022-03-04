@@ -13,10 +13,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   users.map((user: User) => {
     paths.push(
-      { params: { id: user.email }, locale: "en" },
-      { params: { id: user.email }, locale: "fr" },
-      { params: { id: user.email }, locale: "nl" },
-      { params: { id: user.email }, locale: "pl" }
+      { params: { id: user.user_id.toString() }, locale: "en" },
+      { params: { id: user.user_id.toString() }, locale: "fr" },
+      { params: { id: user.user_id.toString() }, locale: "nl" },
+      { params: { id: user.user_id.toString() }, locale: "pl" }
     );
   });
 
@@ -34,7 +34,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
   };
 
   if (params !== undefined) {
-    const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/email/${params.id}`);
+    const userRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${params.id}`);
     const user = await userRes.json();
     const videosRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
     const videos = await videosRes.json();

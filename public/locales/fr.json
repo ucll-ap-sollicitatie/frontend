@@ -7,6 +7,7 @@
     "login_success": "Vous êtes connecté avec succès",
     "already_logged_in": "Vous êtes déjà connecté.",
     "logout": "Se déconnecter",
+    "logout_success": "Vous êtes déconnecté avec succès",
     "register": "S'inscrire",
     "register_new_account": "Créer un nouveau compte",
     "register_new_account_error": "Erreur lors de la création du compte",

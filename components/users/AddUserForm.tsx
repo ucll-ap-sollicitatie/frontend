@@ -10,6 +10,7 @@ import UserForm from "./UserForm";
 
 const AddUserForm: NextPage = () => {
   const t = useTranslations("errors");
+  const h = useTranslations("home");
 
   const router = useRouter();
 
@@ -76,7 +77,7 @@ const AddUserForm: NextPage = () => {
     } else {
       router.push({
         pathname: "/preferences",
-        query: { toast: t("register_success") },
+        query: { toast: h("register_success") },
       });
     }
   };

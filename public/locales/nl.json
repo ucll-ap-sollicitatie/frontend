@@ -5,6 +5,7 @@
     "welcome": "Welkom",
     "login": "Inloggen",
     "logout": "Uitloggen",
+    "logout_success": "U bent succesvol uitgelogd",
     "login_success": "U bent succesvol ingelogd",
     "already_logged_in": "U bent al ingelogd.",
     "register": "Registreren",

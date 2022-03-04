@@ -101,7 +101,6 @@ const Recording: NextPage<Props> = ({ categories }) => {
 
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
-  console.log(user);
 
   const handleStartCaptureClick = () => {
     if (webcamRef.current === null || webcamRef.current.stream === null) return;

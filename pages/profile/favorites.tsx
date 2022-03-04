@@ -38,10 +38,6 @@ const FavoriteVideos: NextPage<Props> = ({ videos }) => {
   if (!session || session.user === undefined) return <Unauthenticated />;
   const user = session.user as User;
 
-  videos.forEach((element) => {
-    console.log(element.favorite_email);
-  });
-
   const breadcrumb_items = [{ text: t("all") }];
 
   return (
