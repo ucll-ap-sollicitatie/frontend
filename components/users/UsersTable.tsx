@@ -71,7 +71,6 @@ const UsersTable: NextPage = () => {
       method: "DELETE",
     });
 
-    handleClose();
     router.push(
       {
         pathname: "/dashboard",
@@ -81,6 +80,7 @@ const UsersTable: NextPage = () => {
     );
 
     fetchData();
+    handleClose();
   };
 
   if (error) return <div>{t("users_loading_failed")}</div>;
