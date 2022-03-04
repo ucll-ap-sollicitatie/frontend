@@ -67,9 +67,12 @@ const UsersTable: NextPage = () => {
   }, []);
 
   const handleDelete = async () => {
+    console.log("help");
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, {
       method: "DELETE",
     });
+
+    handleClose();
 
     router.push(
       {
@@ -80,7 +83,6 @@ const UsersTable: NextPage = () => {
     );
 
     fetchData();
-    handleClose();
   };
 
   if (error) return <div>{t("users_loading_failed")}</div>;
