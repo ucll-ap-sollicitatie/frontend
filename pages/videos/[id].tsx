@@ -21,6 +21,8 @@ import User from "../../interfaces/User";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import PageTitleComponent from "../../components/PageTitleComponent";
 import Link from "next/link";
+import Head from "next/head";
+import UpdateVideoModal from "../../components/videos/UpdateVideoModal";
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
@@ -90,6 +92,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [showDelete, setShowDelete] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [showUpdateVideo, setShowUpdateVideo] = useState(false);
   const [videoLiked, setVideoLiked] = useState(false);
   const [videoFavorited, setVideoFavorited] = useState(false);
   const [commentId, setCommentId] = useState(0);
@@ -269,10 +272,42 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     );
   };
 
+  const handleUpdateVideo = async (event: FormEvent) => {
+    event.preventDefault();
+    const target = event.target as HTMLFormElement;
+    const fileName = target.file_title.value;
+    const description = target.description.value;
+    const prive = target.privateCheckbox.checked;
+    console.log(description);
+
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/${video.video_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: fileName,
+        description: description,
+        prive: prive,
+      }),
+    });
+
+    handleClose();
+    mutate(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
+    router.push(
+      {
+        pathname: `/videos/${video.video_id}`,
+        query: { toast: t("comment_update_success") },
+      },
+      `/videos/${video.video_id}`
+    );
+  };
+
   const handleClose = () => {
     setShowDelete(false);
     setShowUpdate(false);
     setShowFeedback(false);
+    setShowUpdateVideo(false);
   };
 
   const handleShowDelete = (comment_id: number, comment: Comment) => {
@@ -289,6 +324,10 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
 
   const handleShowFeedback = () => {
     setShowFeedback(true);
+  };
+
+  const handleShowUpdateVideo = () => {
+    setShowUpdateVideo(true);
   };
 
   const handleSelect = (eventKey: string | null, comment_id: number) => {
@@ -325,7 +364,14 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         handleAddFeedback={handleAddFeedback}
         setMaxChars={setMaxChars}
       />
-
+      <UpdateVideoModal
+        user={user}
+        maxChars={maxChars}
+        showUpdateVideo={showUpdateVideo}
+        handleClose={handleClose}
+        handleUpdateVideo={handleUpdateVideo}
+        setMaxChars={setMaxChars}
+      />
       <Layout>
         <BreadcrumbComponent items={breadcrumb_items} />
         <PageTitleComponent title={title} />
@@ -335,6 +381,9 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         </h1>
 
         <div className="d-flex flex-wrap gap-3 gap-lg-5 text-break">
+        <Button variant="outline-success" onClick={handleShowUpdateVideo}>
+                  {t("edit_video")}
+                </Button>
           <Col sm={12} lg={8}>
             <VideoPlayer user_id={video?.user_id} videoTitle={title} />
           </Col>
