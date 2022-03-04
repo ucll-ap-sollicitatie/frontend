@@ -13,8 +13,7 @@ import UpdateUserButton from "../users/UpdateUserButton";
 
 interface Props {
   user: User;
-  showUpload: boolean;
-  showUploadModal: () => void;
+  showUploadModal?: () => void;
 }
 
 const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
@@ -45,6 +44,12 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
     }
   };
 
+  const updateProfileImage = () => {
+    if (session_user.email === user.email) {
+      <ChangeImageButton showUploadModal={showUploadModal} />;
+    }
+  };
+
   return (
     <Card style={{ maxWidth: "22rem" }}>
       <Card.Img variant="top" src={user.image} />
@@ -67,7 +72,7 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
           <IntroductionToggle session_user={session_user} />
           <div className="d-flex gap-2">
             <LocaleDropdown />
-            <ChangeImageButton showUploadModal={showUploadModal} />
+            {updateProfileImage()}
           </div>
         </Stack>
       </Card.Body>
