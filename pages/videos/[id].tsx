@@ -201,9 +201,9 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       video_id: video_id,
     };
 
-    const van = new Date(0, 0, 0, 0, target.van[0].value, target.van[1].value, 0);
-    const tot = new Date(0, 0, 0, 0, target.tot[0].value, target.tot[1].value, 0);
     if (feedback) {
+      const van = new Date(0, 0, 0, 0, target.van[0].value, target.van[1].value, 0);
+      const tot = new Date(0, 0, 0, 0, target.tot[0].value, target.tot[1].value, 0);
       Object.assign(body, { feedback: true });
       Object.assign(body, { start_feedback: van });
       Object.assign(body, { end_feedback: tot });
@@ -427,11 +427,19 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
             <div>
               <h4>{t("uploaded_by")}</h4>
               <p>
-                <Link href={`/users/${video?.user_id}`}>
-                  <a className="link-primary">
-                    {video?.name} {video?.surname}
-                  </a>
-                </Link>
+                {video.email === user.email ? (
+                  <Link href={`/profile`}>
+                    <a className="link-primary">
+                      {video?.name} {video?.surname}
+                    </a>
+                  </Link>
+                ) : (
+                  <Link href={`/users/${video?.user_id}`}>
+                    <a className="link-primary">
+                      {video?.name} {video?.surname}
+                    </a>
+                  </Link>
+                )}
               </p>
             </div>
             <div>
