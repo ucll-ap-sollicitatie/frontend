@@ -60,6 +60,7 @@ const InterviewsTable: NextPage = () => {
     });
 
     handleClose();
+
     router.push(
       {
         pathname: "/interviews",
