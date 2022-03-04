@@ -278,7 +278,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     const fileName = target.file_title.value;
     const description = target.description.value;
     const prive = target.privateCheckbox.checked;
-    console.log(description);
 
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/${video.video_id}`, {
       method: "PUT",
@@ -286,9 +285,11 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: fileName,
+        new_title: fileName,
         description: description,
-        prive: prive,
+        private: prive,
+        old_title: video.title,
+        user_id: user.user_id,
       }),
     });
 
@@ -342,7 +343,26 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     }
   };
 
-  const breadcrumb_items = [{ href: "/videos", text: t("all") }, { text: title }];
+  const handleDeleteVideo = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/${video.video_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    .then(() => {
+      router.push(
+        {
+          pathname: `/profile`,
+          query: { toast: t("video_delete_succes") },
+        },
+        `/profile`
+      );
+    })
+
+  }
+
+  const breadcrumb_items = [{ href: "/videos", text: t("all") }, { text: video.title }];
 
   return (
     <>
@@ -371,19 +391,24 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
         handleClose={handleClose}
         handleUpdateVideo={handleUpdateVideo}
         setMaxChars={setMaxChars}
+        video={video}
+        handleDeleteVideo={handleDeleteVideo}
       />
       <Layout>
         <BreadcrumbComponent items={breadcrumb_items} />
         <PageTitleComponent title={title} />
-
-        <h1>
-          {t("title")}: {title}
-        </h1>
-
+        <div className="d-flex justify-content-between">
+          <h1>
+            {t("title")}: {video.title}
+          </h1>
+          {user.user_id === video.user_id &&(
+          <Button variant="outline-success" onClick={handleShowUpdateVideo}>
+            {t("edit_video")}
+          </Button>)}
+        </div>
+        
         <div className="d-flex flex-wrap gap-3 gap-lg-5 text-break">
-        <Button variant="outline-success" onClick={handleShowUpdateVideo}>
-                  {t("edit_video")}
-                </Button>
+
           <Col sm={12} lg={8}>
             <VideoPlayer user_id={video?.user_id} videoTitle={title} />
           </Col>

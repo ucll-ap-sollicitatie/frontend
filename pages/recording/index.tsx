@@ -170,6 +170,8 @@ const Recording: NextPage<Props> = ({ categories }) => {
         return;
       }
 
+      console.log(user);
+
       formData.append("newRecording", blob, fileName);
       formData.set("description", description);
       formData.set("title", fileName);

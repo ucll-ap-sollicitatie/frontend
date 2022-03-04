@@ -104,7 +104,9 @@
     "search": "Rechercher des entretiens d'embauche",
     "search_placeholder": "Email de l'étudiant ou titre de la demande d'emploi",
     "favorite_video": "Favorite",
-    "favorite_title": "Vos entretiens d'embauche favoris"
+    "favorite_title": "Vos entretiens d'embauche favoris",
+    "edit_video": "Modifier les informations relatives à l'entretien",
+    "video_delete_succes": "Entretien supprimé avec succès"
   },
   "users": {
     "name": "Prénom",

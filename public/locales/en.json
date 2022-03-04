@@ -104,7 +104,9 @@
     "search": "Search job interviews",
     "search_placeholder": "Student's email or title of job interview",
     "favorite_video": "Favorite",
-    "favorite_title": "Favorite job interviews"
+    "favorite_title": "Favorite job interviews",
+    "edit_video": "Edit interview information",
+    "video_delete_succes": "Interview succesfully deleted"
   },
   "users": {
     "name": "Name",

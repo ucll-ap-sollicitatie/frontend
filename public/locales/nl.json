@@ -104,7 +104,9 @@
     "search": "Sollicitaties zoeken",
     "search_placeholder": "Email van student of titel sollicitatie",
     "favorite_video": "Favoriet",
-    "favorite_title": "Uw favoriete job interviews"
+    "favorite_title": "Uw favoriete job interviews",
+    "edit_video": "Pas interview info aan",
+    "video_delete_succes": "Interview succesvol verwijderd"
   },
   "users": {
     "name": "Naam",
@@ -167,7 +169,7 @@
   },
   "recording": {
     "title": "Sollicitatie afnemen",
-    "recording_title": "Title",
+    "recording_title": "Titel",
     "recording_description": "Beschrijving",
     "title_example": "e.g. Mijn jobinterview",
     "characters": "Karakters",
