@@ -27,7 +27,8 @@
     "language": "Nederlands",
     "dark_mode": "Donkere modus",
     "preferences_not_adjusted": "Je hebt je preferenties nog niet aangepast.",
-    "preferences_profile": "Dit kunt u doen in uw profiel."
+    "preferences_profile": "Dit kunt u doen in uw profiel.",
+    "favorites_title": "Hier zijn wat favorieten van de lectoren."
   },
   "table": {
     "update": "Aanpassen",

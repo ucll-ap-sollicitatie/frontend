@@ -27,7 +27,8 @@
     "language": "English",
     "dark_mode": "Dark mode",
     "preferences_not_adjusted": "You haven't adjusted your preferences yet.",
-    "preferences_profile": "This can be done in your profile."
+    "preferences_profile": "This can be done in your profile.",
+    "favorites_title": "Here are some favorites of the teachers."
   },
   "table": {
     "update": "Update",

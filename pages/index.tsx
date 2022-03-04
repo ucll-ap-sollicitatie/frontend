@@ -7,16 +7,32 @@ import Layout from "../components/layout/Layout";
 import Unauthenticated from "../components/Unauthenticated";
 import User from "../interfaces/User";
 import Link from "next/link";
+import Video from "../interfaces/Video";
+import RandomFavoritesOverview from "../components/videos/RandomFavoritesOverview";
+import AllVideoOverview from "../components/videos/AllVideoOverview";
 
 export async function getStaticProps({ locale }) {
+  let props = {
+    videos: null,
+    messages: (await import(`../public/locales/${locale}.json`)).default,
+  };
+
+  const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/random/random`);
+  const data = await result.json();
+
+  if (result.status !== 404 && result.status !== 500) {
+    props.videos = data;
+  }
+
   return {
-    props: {
-      messages: (await import(`../public/locales/${locale}.json`)).default,
-    },
+    props,
   };
 }
+interface Props {
+  videos: Video[];
+}
 
-const Home: NextPage = () => {
+const Home: NextPage<Props> = ({ videos }) => {
   const t = useTranslations("home");
   const router = useRouter();
   const { data: session } = useSession();
@@ -56,6 +72,8 @@ const Home: NextPage = () => {
           </Link>
         </p>
       )}
+      <h2>{t("favorites_title")}</h2>
+      <RandomFavoritesOverview videos={videos} user={user} />
     </Layout>
   );
 };

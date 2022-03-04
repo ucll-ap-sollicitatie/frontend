@@ -27,7 +27,8 @@
     "language": "Français",
     "dark_mode": "Mode sombre",
     "preferences_not_adjusted": "Vous n'avez pas encore ajusté vos préférences.",
-    "preferences_profile": "Vous pouvez le faire dans votre profil."
+    "preferences_profile": "Vous pouvez le faire dans votre profil.",
+    "favorites_title": "Voici quelques coups de cœur des enseignants."
   },
   "table": {
     "update": "Modifier",
