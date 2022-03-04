@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { Accordion, Button, Tab, Tabs } from "react-bootstrap";
 import { useTranslations } from "next-intl";
@@ -24,7 +24,45 @@ interface Props {
   tasks: Task[];
 }
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+// export const getStaticProps: GetStaticProps = async ({ locale }) => {
+//   let props = {
+//     users: null,
+//     comments: null,
+//     videos: null,
+//     tasks: null,
+//     messages: (await import(`../../public/locales/${locale}.json`)).default,
+//   };
+
+//   const usersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+//   const usersJson = await usersRes.json();
+//   if (usersRes.ok) {
+//     props.users = usersJson;
+//   }
+
+//   const commentsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
+//   const commentsJson = await commentsRes.json();
+//   if (commentsRes.ok) {
+//     props.comments = commentsJson;
+//   }
+
+//   const videosRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
+//   const videosJson = await videosRes.json();
+//   if (videosRes.ok) {
+//     props.videos = videosJson;
+//   }
+
+//   const tasksRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
+//   const tasksJson = await tasksRes.json();
+//   if (tasksRes.ok) {
+//     props.tasks = tasksJson;
+//   }
+
+//   return {
+//     props,
+//   };
+// };
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let props = {
     users: null,
     comments: null,

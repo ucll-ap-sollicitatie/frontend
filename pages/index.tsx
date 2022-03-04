@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Layout from "../components/layout/Layout";
 import Unauthenticated from "../components/Unauthenticated";
@@ -12,7 +11,25 @@ import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import IntroductionNotEditedComponent from "../components/home/IntroductionNotEditedComponent";
 import IntroductionComponent from "../components/home/IntroductionComponent";
 
-export async function getStaticProps({ locale }) {
+// export async function getStaticProps({ locale }) {
+//   let props = {
+//     videos: null,
+//     messages: (await import(`../public/locales/${locale}.json`)).default,
+//   };
+
+//   const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/random/random`);
+//   const data = await result.json();
+
+//   if (result.status !== 404 && result.status !== 500) {
+//     props.videos = data;
+//   }
+
+//   return {
+//     props,
+//   };
+// }
+
+export async function getServerSideProps({ locale }) {
   let props = {
     videos: null,
     messages: (await import(`../public/locales/${locale}.json`)).default,
@@ -29,6 +46,7 @@ export async function getStaticProps({ locale }) {
     props,
   };
 }
+
 interface Props {
   videos: Video[];
 }

@@ -7,7 +7,6 @@ import Error from "../_error";
 import UpdateTaskForm from "../../components/tasks/UpdateTaskForm";
 import { useTranslations } from "next-intl";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import Head from "next/head";
 import PageTitleComponent from "../../components/PageTitleComponent";
 
 export async function getStaticProps({ locale }) {
