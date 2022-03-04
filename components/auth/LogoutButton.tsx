@@ -10,7 +10,7 @@ const LogoutButton: NextPage = () => {
   const t = useTranslations("home");
 
   const handleLogout = () => {
-    signOut();
+    signOut({ redirect: false });
 
     router.push(
       {
