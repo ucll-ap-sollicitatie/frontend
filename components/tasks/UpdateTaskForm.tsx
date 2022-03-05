@@ -43,8 +43,8 @@ const UpdateTaskForm: NextPage<Props> = ({ task_id }) => {
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
       body: JSON.stringify({
-        title: target.task_title.value,
-        description: target.description.value,
+        title: target.task_title.value.trim(),
+        description: target.description.value.trim(),
         deadline: target.deadline.value,
       }),
       headers: {

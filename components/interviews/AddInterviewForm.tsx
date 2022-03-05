@@ -21,7 +21,7 @@ const AddInterviewForm: NextPage = () => {
     // Category
     const category_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`, {
       body: JSON.stringify({
-        category: target.category.value,
+        category: target.category.value.trim(),
       }),
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ const AddInterviewForm: NextPage = () => {
     for (const question_input of questions_inputs) {
       await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions`, {
         body: JSON.stringify({
-          question: question_input.value,
+          question: question_input.value.trim(),
           question_category_id: question_category_id,
         }),
         headers: {

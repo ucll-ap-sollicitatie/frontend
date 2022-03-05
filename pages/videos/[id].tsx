@@ -222,7 +222,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const handleAddComment = async (event: FormEvent, feedback: boolean = false) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
-    const text = target.comment.value;
+    const text = target.comment.value.trim();
     const author = user.email;
     const video_id = video?.video_id;
     const body = {
@@ -232,8 +232,8 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     };
 
     if (feedback) {
-      const van = new Date(0, 0, 0, 0, target.van[0].value, target.van[1].value, 0);
-      const tot = new Date(0, 0, 0, 0, target.tot[0].value, target.tot[1].value, 0);
+      const van = new Date(0, 0, 0, 0, target.van[0].trim().value, target.van[1].trim().value, 0);
+      const tot = new Date(0, 0, 0, 0, target.tot[0].trim().value, target.tot[1].trim().value, 0);
       Object.assign(body, { feedback: true });
       Object.assign(body, { start_feedback: van });
       Object.assign(body, { end_feedback: tot });
@@ -284,7 +284,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const handleUpdateComment = async (event: FormEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
-    const text = target.comment.value;
+    const text = target.comment.value.trim();
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}`, {
       method: "PUT",
       headers: {
@@ -309,8 +309,8 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const handleUpdateVideo = async (event: FormEvent) => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
-    const fileName = target.file_title.value;
-    const description = target.description.value;
+    const fileName = target.file_title.value.trim();
+    const description = target.description.value.trim();
     const prive = target.privateCheckbox.checked;
 
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/${video.video_id}`, {

@@ -40,7 +40,7 @@ const AddUserForm: NextPage = () => {
     event.preventDefault();
     const target = event.target as HTMLFormElement;
     const password = target.password.value;
-    const email = target.email.value;
+    const email = target.email.value.trim();
 
     // check password
     const checkPassword = isPasswordValid(password, target.password_check.value);
@@ -59,9 +59,9 @@ const AddUserForm: NextPage = () => {
 
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`, {
       body: JSON.stringify({
-        name: target.user_name.value,
-        surname: target.surname.value,
-        email: target.email.value,
+        name: target.user_name.value.trim(),
+        surname: target.surname.value.trim(),
+        email: target.email.value.trim(),
         password: target.password.value,
         formation_id: target.formation_id.value,
       }),

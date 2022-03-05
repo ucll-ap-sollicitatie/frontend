@@ -171,8 +171,8 @@ const Recording: NextPage<Props> = ({ categories }) => {
       const url = URL.createObjectURL(blob);
       const target = event.target as HTMLFormElement;
       const formData = new FormData();
-      const fileName = target.file_title.value;
-      const description = target.description.value;
+      const fileName = target.file_title.value.trim();
+      const description = target.description.value.trim();
       const prive = target.privateCheckbox.checked;
 
       if (fileName.includes("#") || fileName.includes("?")) {

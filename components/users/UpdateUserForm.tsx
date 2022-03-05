@@ -55,8 +55,8 @@ const UpdateUserForm: NextPage<Props> = ({ email }) => {
       }
       requestUrl = `${process.env.NEXT_PUBLIC_API_URL}/users/${email}`;
       body = JSON.stringify({
-        name: target.user_name.value,
-        surname: target.surname.value,
+        name: target.user_name.value.trim(),
+        surname: target.surname.value.trim(),
         password: password,
         role_id: target.role_id.value,
         formation_id: target.formation_id.value,
@@ -64,8 +64,8 @@ const UpdateUserForm: NextPage<Props> = ({ email }) => {
     } else {
       requestUrl = `${process.env.NEXT_PUBLIC_API_URL}/users/${email}/admin`;
       body = JSON.stringify({
-        name: target.user_name.value,
-        surname: target.surname.value,
+        name: target.user_name.value.trim(),
+        surname: target.surname.value.trim(),
         role_id: target.role_id.value,
         formation_id: target.formation_id.value,
       });
