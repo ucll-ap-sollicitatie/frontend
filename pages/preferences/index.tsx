@@ -1,4 +1,4 @@
-import { GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import Head from "next/head";
@@ -13,7 +13,22 @@ import Preference from "../../interfaces/Preference";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 import User from "../../interfaces/User";
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+// export const getStaticProps: GetStaticProps = async ({ locale }) => {
+//   const question_categories_response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
+//   const question_categories = await question_categories_response.json();
+//   const preferencesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences/`);
+//   const preferences = await preferencesRes.json();
+
+//   return {
+//     props: {
+//       question_categories: question_categories,
+//       preferences: preferences,
+//       messages: (await import(`../../public/locales/${locale}.json`)).default,
+//     },
+//   };
+// };
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const question_categories_response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
   const question_categories = await question_categories_response.json();
   const preferencesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences/`);

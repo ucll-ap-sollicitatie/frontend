@@ -20,9 +20,6 @@ const MyProfile: NextPage<Props> = ({ user }) => {
   const [myVideos, setVideos] = useState<Video[]>([]);
   const [showUpload, setShowUpload] = useState<boolean>(false);
   const [image, setImage] = useState<Blob>();
-  const [uploadError, setUploadError] = useState<string>("");
-  const [showError, setShowError] = useState<boolean>(false);
-
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/email/${user.email}`);
@@ -86,7 +83,7 @@ const MyProfile: NextPage<Props> = ({ user }) => {
       <Row>
         <Col lg={4}>
           <h1>{t("my_profile")}</h1>
-          <ProfileCard user={user} showUploadModal={showUploadModal} showUpload={showUpload} />
+          <ProfileCard user={user} showUploadModal={showUploadModal} />
         </Col>
         <Col>
           <h1>{t("my_videos")}</h1>

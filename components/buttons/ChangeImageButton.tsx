@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "react-bootstrap";
 
 interface Props {
-  showUploadModal: () => void;
+  showUploadModal: (() => void) | undefined;
 }
 
 const ChangeImageButton: NextPage<Props> = ({ showUploadModal }) => {

@@ -1,4 +1,4 @@
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { Button, Card, Col, Form, OverlayTrigger, Row, Stack, Tooltip } from "react-bootstrap";
 import { useSWRConfig } from "swr";
@@ -21,31 +21,62 @@ import User from "../../interfaces/User";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import PageTitleComponent from "../../components/PageTitleComponent";
 import Link from "next/link";
-import Head from "next/head";
 import UpdateVideoModal from "../../components/videos/UpdateVideoModal";
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
-  const videos = await data.json();
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
+//   const videos = await data.json();
 
-  let paths = [] as any;
+//   let paths = [] as any;
 
-  videos.map((video: Video) => {
-    paths.push(
-      { params: { id: video?.video_id.toString() }, locale: "en" },
-      { params: { id: video?.video_id.toString() }, locale: "fr" },
-      { params: { id: video?.video_id.toString() }, locale: "nl" },
-      { params: { id: video?.video_id.toString() }, locale: "pl" }
-    );
-  });
+//   videos.map((video: Video) => {
+//     paths.push(
+//       { params: { id: video?.video_id.toString() }, locale: "en" },
+//       { params: { id: video?.video_id.toString() }, locale: "fr" },
+//       { params: { id: video?.video_id.toString() }, locale: "nl" },
+//       { params: { id: video?.video_id.toString() }, locale: "pl" }
+//     );
+//   });
 
-  return {
-    paths: paths,
-    fallback: true,
-  };
-};
+//   return {
+//     paths: paths,
+//     fallback: true,
+//   };
+// };
 
-export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+// export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+//   const props = {
+//     video: null,
+//     comments: null,
+//     feedback: null,
+//     messages: (await import(`../../public/locales/${locale}.json`)).default,
+//   };
+
+//   if (params !== undefined) {
+//     const video_id = params.id;
+//     const videoRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/${video_id}`);
+//     const video = await videoRes.json();
+//     const commentRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/video/${video_id}`);
+//     const comments = await commentRes.json();
+//     const feedbackRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/video/${video_id}/feedback`);
+//     const feedback = await feedbackRes.json();
+
+//     props.video = video;
+//     if (commentRes.ok) {
+//       props.comments = comments;
+//     }
+//     if (feedbackRes.ok) {
+//       props.feedback = feedback;
+//     }
+//   }
+
+//   return {
+//     props: props,
+//     revalidate: 1,
+//   };
+// };
+
+export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   const props = {
     video: null,
     comments: null,
@@ -73,7 +104,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
   return {
     props: props,
-    revalidate: 5,
   };
 };
 

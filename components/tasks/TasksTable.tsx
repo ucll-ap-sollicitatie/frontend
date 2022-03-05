@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import { Modal } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";

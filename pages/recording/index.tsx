@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
 import { FormEvent, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRef, useCallback } from "react";
@@ -24,7 +24,19 @@ import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import PageTitleComponent from "../../components/PageTitleComponent";
 import CountDown from "../../components/recording/Countdown";
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+// export const getStaticProps: GetStaticProps = async ({ locale }) => {
+//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
+//   const categories: QuestionCategory[] = await res.json();
+
+//   return {
+//     props: {
+//       categories: categories,
+//       messages: (await import(`../../public/locales/${locale}.json`)).default,
+//     },
+//   };
+// };
+
+export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
   const categories: QuestionCategory[] = await res.json();
 
