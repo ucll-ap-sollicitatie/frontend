@@ -10,7 +10,7 @@ import User from "../../interfaces/User";
 
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;
-  activateUser?: (e: FormEvent<HTMLFormElement>) => void;
+  activateUser?: () => void;
   user?: User;
 }
 
@@ -109,18 +109,17 @@ const UserForm: NextPage<Props> = ({ onSubmit, activateUser, user }) => {
           </Stack>
         </div>
 
-        <Button variant="primary" type="submit" className="mt-3">
-          {user ? t("profile_edit") : h("register")}
-        </Button>
-      </Form>
-
-      {user != undefined && current_user.role === "Admin" && user.activation_token != null && (
-        <Form onSubmit={activateUser}>
-          <Button variant="text" className="link-warning" type="submit">
-            Activate user
+        <div className="d-flex align-items-center mt-3 gap-2">
+          <Button variant="primary" type="submit">
+            {user ? t("profile_edit") : h("register")}
           </Button>
-        </Form>
-      )}
+          {user != undefined && current_user.role === "Admin" && user.activation_token != null && (
+            <Button variant="outline-secondary" onClick={activateUser} type="submit">
+              Activate user
+            </Button>
+          )}
+        </div>
+      </Form>
     </>
   );
 };

@@ -100,25 +100,17 @@ const UpdateUserForm: NextPage<Props> = ({ email }) => {
     // Redirect to /profile
     router.push(
       {
-        pathname: `/users/${new_user.email}`,
-        query: { toast: t("update_profile_success") },
+        pathname: `/users/${new_user.user_id}`,
+        query: { toast: u("update_user_success") },
       },
-      `/users/${new_user.email}`
+      `/users/${new_user.user_id}`
     );
   };
 
-  const activateUser = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const activateUser = async () => {
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/activation/${user?.user_id}/admin`, {
       method: "PUT",
     });
-    router.push(
-      {
-        pathname: `/dashboard`,
-        query: { toast: u("user_activation_success") },
-      },
-      `/dashboard`
-    );
   };
 
   if (loading) return <SpinnerComponent />;

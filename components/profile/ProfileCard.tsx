@@ -33,7 +33,7 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
   };
 
   const favoriteVideosComponent = () => {
-    if (session_user.role !== "Student") {
+    if (user.role === "Lector") {
       return <FavoriteVideoButton email={user.email} />;
     }
   };
@@ -66,16 +66,18 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
         <Card.Text>{user.email}</Card.Text>
       </Card.Body>
 
-      <Card.Body className="border-top">
-        <Stack gap={3}>
-          <DarkModeToggle />
-          <IntroductionToggle session_user={session_user} />
-          <div className="d-flex gap-2">
-            <LocaleDropdown />
-            {updateProfileImage()}
-          </div>
-        </Stack>
-      </Card.Body>
+      {session_user.email === user.email && (
+        <Card.Body className="border-top">
+          <Stack gap={3}>
+            <DarkModeToggle />
+            <IntroductionToggle session_user={session_user} />
+            <div className="d-flex gap-2">
+              <LocaleDropdown />
+              {updateProfileImage()}
+            </div>
+          </Stack>
+        </Card.Body>
+      )}
 
       <Card.Body className="border-top">
         <Stack>

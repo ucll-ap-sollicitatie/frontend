@@ -47,7 +47,7 @@ const MyProfile: NextPage<Props> = ({ user }) => {
     if (image?.type === "image/jpeg" && image?.size <= 1e7) {
       const body = new FormData();
       body.append("newImage", image);
-      const response = await fetch(`http://localhost:3001/users/${user.user_id}/image`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.user_id}/image`, {
         method: "PUT",
         body,
       });

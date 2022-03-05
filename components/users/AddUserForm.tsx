@@ -72,7 +72,7 @@ const AddUserForm: NextPage = () => {
     });
 
     if (!res.ok) {
-      setError(t("500"));
+      setError(t("account_already_exists"));
       setShow(true);
     } else {
       router.push({

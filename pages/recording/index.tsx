@@ -233,7 +233,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   };
 
   const handleCategoryClick = async (category: QuestionCategory) => {
-    const res = await fetch(`http://localhost:3001/questions/category/${category.question_category_id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/category/${category.question_category_id}`);
     const data = await res.json();
     setQuestions(data);
     setChoosingQuestions(false);

@@ -35,7 +35,7 @@ const DeleteAccount: NextPage = () => {
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(await signOut({ callbackUrl: `/?toast=Account deleted` }));
+    }).then(await signOut({ callbackUrl: `${process.env.NEXT_PUBLIC_API_URL}/?toast=Account deleted` }));
   };
 
   return (

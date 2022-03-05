@@ -10,6 +10,10 @@ interface Props {
 const CommentsTable: NextPage<Props> = ({ comments }) => {
   const t = useTranslations("comments");
 
+  comments.forEach((comment) => {
+    comment.date_string = new Date(comment.date).toLocaleString();
+  });
+
   const columns = [
     {
       Header: t("comment"),
