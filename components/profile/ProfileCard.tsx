@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Button, Card, Stack } from "react-bootstrap";
+import { Card, Stack } from "react-bootstrap";
 import User from "../../interfaces/User";
 import ChangeImageButton from "../buttons/ChangeImageButton";
 import DarkModeToggle from "../buttons/DarkModeToggle";

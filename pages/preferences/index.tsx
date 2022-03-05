@@ -97,7 +97,7 @@ const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
     }
   };
 
-  const breadcrumb_items = [{ href: `/users/${user.email}`, text: u("profile") }, { text: t("title") }];
+  const breadcrumb_items = [{ href: `/users/${user.email}`, text: u("my_profile") }, { text: t("title") }];
 
   return (
     <Layout>
