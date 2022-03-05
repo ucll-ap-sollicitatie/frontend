@@ -68,7 +68,8 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
                 <td>
                   <ShowButton url={`${url}/${row.original[id]}`} />
                 </td>
-                {session?.user?.role !== "Student" && (
+                {/* 2 = id van Algemeen, deze is de standaard categorie en mag dus niet verwijderd worden*/}
+                {(session?.user?.role !== "Student" && row.original[id] !== 2) && (
                   <td>
                     <RemoveButton handleShow={handleShow} id={row.original[id]} />
                   </td>
