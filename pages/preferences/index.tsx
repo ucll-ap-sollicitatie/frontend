@@ -76,7 +76,7 @@ const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
       setShow(true);
     } else {
       router.push({
-        pathname: `/users/${session?.user?.email}`,
+        pathname: `/users/${user.user_id}`,
         query: { toast: t("preferences_update_success") },
       });
     }
