@@ -6,48 +6,11 @@ In this repository, all the files regarding the frontend of the 'Slim op sollici
 
 Log in or register with a new account. Choose your preferred categories, turn on your camera and you're ready to go!
 
-## Prerequisites
-
-Create a `.env.local` file in the root of the project with following content:
-
-```
-GITHUB_CLIENT_ID="your_github_client_id"
-GITHUB_CLIENT_SECRET="your_github_client_secret"
-GOOGLE_ID="your_google_id"
-GOOGLE_SECRET="your_google_secret"
-AUTH_SECRET="your_random_auth_key"
-JWT_SECRET="your_random_jwt_secret"
-```
-
-## Commands
-
-```bash
-# Install packages
-npm install
-
-# Start server
-npm run dev
-
-# Format project files
-npm run format
-```
-
-Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Prerequisites
-
-To start up the application you need:
-
-- **[npm](https://www.npmjs.com/)** (v8.5.0 or later)
-- **[Node.js](https://nodejs.org/en/)** (v16.13.1 or later)
-- **[PostgreSQL](https://www.postgresql.org/)** (14 or later)
-
-To install npm and node.js please refer to a tutorial. (**[Linux](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/)** | **[Windows](https://phoenixnap.com/kb/install-node-js-npm-on-windows)** | **[Mac](https://www.newline.co/@Adele/how-to-install-nodejs-and-npm-on-macos--22782681)**)
-
-An installation guide for PostgreSQL is provided on their official **[website](https://www.postgresql.org/)**.
-You may choose how to host the database server, this could be local or using a service.
+**[Pages](#Pages) | [Installation](#Installation) | [Prerequisites](#Prerequisites) | [FAQ](#FAQ) | [Secret](#Secret)**
 
 ## Pages
+
+**[Home page](#Home page) | [Dashboard](#Dashboard) | [Take a job interview](#Take a job interview) | [Job interviews](#Job interviews) | [Categories](#Categories) | [My assignments](#My assignments) | [My profile](#My profile) | [Contact](#Contact)** 
 
 ### Home page
 
@@ -89,3 +52,44 @@ Dark mode can also be turned on/off on here.
 ### Contact
 
 A simple page with an overview of all the people you can contact in case you have any problems when using the website.
+
+## Secret
+
+Create a `.env.local` file in the root of the project with following content:
+
+```
+GITHUB_CLIENT_ID="your_github_client_id"
+GITHUB_CLIENT_SECRET="your_github_client_secret"
+GOOGLE_ID="your_google_id"
+GOOGLE_SECRET="your_google_secret"
+AUTH_SECRET="your_random_auth_key"
+JWT_SECRET="your_random_jwt_secret"
+```
+
+## Installation
+
+```bash
+# Install packages
+npm install
+
+# Start server
+npm run dev
+
+# Format project files
+npm run format
+```
+
+Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Prerequisites
+
+To start up the application you need:
+
+- **[npm](https://www.npmjs.com/)** (v8.5.0 or later)
+- **[Node.js](https://nodejs.org/en/)** (v16.13.1 or later)
+- **[PostgreSQL](https://www.postgresql.org/)** (14 or later)
+
+To install npm and node.js please refer to a tutorial. (**[Linux](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/)** | **[Windows](https://phoenixnap.com/kb/install-node-js-npm-on-windows)** | **[Mac](https://www.newline.co/@Adele/how-to-install-nodejs-and-npm-on-macos--22782681)**)
+
+An installation guide for PostgreSQL is provided on their official **[website](https://www.postgresql.org/)**.
+You may choose how to host the database server, this could be local or using a service.
