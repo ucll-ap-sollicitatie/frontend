@@ -275,7 +275,7 @@
     "team": "The team",
     "name": "Name",
     "email": "Email",
-    "contact_description": "You may always contact the team responsible for creating this web application.",
+    "contact_description": "In case you encounter any problems or have questions about this web application, you may always contact our team.",
     "contact_us": "We invite you to contact UC Leuven-Limburg at any moment."
   }
 }
