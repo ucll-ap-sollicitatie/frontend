@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import User from "../../interfaces/User";
 import LogoutButton from "../auth/LogoutButton";
+import LocaleDropdown from "../buttons/LocaleDropdown";
 
 const NavBar: NextPage = () => {
   const t = useTranslations("home");
@@ -66,7 +67,7 @@ const NavBar: NextPage = () => {
               <Link href={"/contact"} passHref>
                 <Nav.Link href="/">{t("contact")}</Nav.Link>
               </Link>
-
+              {!session && <LocaleDropdown />}
               {session && <LogoutButton />}
             </Nav>
           </Navbar.Collapse>
