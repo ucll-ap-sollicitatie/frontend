@@ -1,5 +1,6 @@
 import "bootstrap-dark-5/dist/css/bootstrap-nightshade.css";
 import "../styles/globals.css";
+import "../node_modules/video-react/dist/video-react.css";
 
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";

@@ -1,11 +1,12 @@
-import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
-import { FormEvent, useEffect, useState } from "react";
+import type { GetServerSideProps, NextPage } from "next";
+import { FormEvent, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRef, useCallback } from "react";
-import { Button, Stack, Alert, Col, Row } from "react-bootstrap";
+import { Button, Stack, Alert } from "react-bootstrap";
 import { Stopwatch } from "ts-stopwatch";
 import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
 import { useTranslations } from "next-intl";
+import { Player } from "video-react";
 import Webcam from "react-webcam";
 import Layout from "../../components/layout/Layout";
 import axios from "axios";
@@ -58,7 +59,6 @@ const webCamConstraints = {
   width: 640,
 };
 
-// @ts-ignore
 const Recording: NextPage<Props> = ({ categories }) => {
   const t = useTranslations("recording");
   const e = useTranslations("errors");
