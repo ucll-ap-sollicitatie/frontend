@@ -22,6 +22,7 @@ const AddInterviewForm: NextPage = () => {
     const category_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`, {
       body: JSON.stringify({
         category: target.category.value.trim(),
+        description: target.description.value.trim(),
       }),
       headers: {
         "Content-Type": "application/json",

@@ -105,6 +105,10 @@ const Interviews: NextPage<Props> = ({ questions, category }) => {
           {t("title")}: {category.category}
         </h1>
 
+        <p>
+          {t("description")}: {category.description}
+        </p>
+
         {user.role !== "Student" && <UpdateInterviewButton question_category_id={category.question_category_id} />}
         {questions.length === 0 ? <CarouselNoQuestions /> : <CarouselWithQuestions questions={questions} />}
       </Layout>

@@ -228,6 +228,8 @@
   },
   "interviews": {
     "title": "Kategorie",
+    "description": "Opis",
+    "questions": "Pytania",
     "interview_add": "Dodaj kategorię",
     "interview_add_success": "Kategoria została dodana pomyślnie",
     "interview_update": "Edytuj kategorię",
