@@ -230,6 +230,8 @@
   },
   "interviews": {
     "title": "Categories",
+    "description": "Description",
+    "questions": "Questions",
     "interview_add": "Add a category",
     "interview_add_success": "Category added successfully",
     "interview_update": "Edit category",

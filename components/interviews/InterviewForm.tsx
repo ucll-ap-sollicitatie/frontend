@@ -107,16 +107,26 @@ const InterviewForm: NextPage<Props> = ({ onSubmit, category, questions }) => {
             <Form.Control type="text" placeholder={t("category")} defaultValue={category !== undefined ? category.category : ""} required />
           </Form.Group>
 
-          {questionInputs.map((questionInput: QuestionInputType, index) => (
-            <QuestionInput
-              key={questionInput.id}
-              id={questionInput.id}
-              index={index}
-              question={questionInput.question}
-              moveQuestionInput={moveQuestionInput}
-              showDeleteQuestionInputModal={showDeleteQuestionInputModal}
-            />
-          ))}
+          <Form.Group controlId="description">
+            <Form.Label>{t("description")}</Form.Label>
+            <Form.Control type="text" placeholder={t("description")} defaultValue={category !== undefined ? category.description : ""} required />
+          </Form.Group>
+
+          <div>
+            <Form.Label>{t("questions")}</Form.Label>
+            <Stack className="mb-2" gap={3}>
+              {questionInputs.map((questionInput: QuestionInputType, index) => (
+                <QuestionInput
+                  key={questionInput.id}
+                  id={questionInput.id}
+                  index={index}
+                  question={questionInput.question}
+                  moveQuestionInput={moveQuestionInput}
+                  showDeleteQuestionInputModal={showDeleteQuestionInputModal}
+                />
+              ))}
+            </Stack>
+          </div>
         </Stack>
 
         <Button variant="link" size="sm" onClick={addQuestionInput} className="d-block p-0">

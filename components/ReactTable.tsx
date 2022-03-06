@@ -65,15 +65,13 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
                 {row.cells.map((cell, index) => {
                   return <td key={index}>{cell.render("Cell")}</td>;
                 })}
+
                 <td>
                   <ShowButton url={`${url}/${row.original[id]}`} />
                 </td>
-                {/* 2 = id van Algemeen, deze is de standaard categorie en mag dus niet verwijderd worden*/}
-                {(session?.user?.role !== "Student" && row.original[id] !== 2) && (
-                  <td>
-                    <RemoveButton handleShow={handleShow} id={row.original[id]} />
-                  </td>
-                )}
+
+                {/* Algemeen is standaard categorie met id 0 en mag niet verwijderd worden, ja het is brak :) */}
+                <td>{session?.user?.role !== "Student" && row.original[id] !== 0 && <RemoveButton handleShow={handleShow} id={row.original[id]} />}</td>
               </tr>
             );
           })}

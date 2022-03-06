@@ -61,6 +61,7 @@ const webCamConstraints = {
 
 const Recording: NextPage<Props> = ({ categories }) => {
   const t = useTranslations("recording");
+  const i = useTranslations("interviews");
   const e = useTranslations("errors");
 
   const webcamRef = useRef<Webcam | null>(null);
@@ -77,6 +78,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   const [webCamReady, setWebCamReady] = useState(false);
   const [choosingQuestions, setChoosingQuestions] = useState(true);
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [category, setCategory] = useState<QuestionCategory>();
   const [previousTime, setPreviousTime] = useState(0);
   const [previousQuestion, setPreviousQuestion] = useState(0);
   const [subtitleCount, setSubtitleCount] = useState<number>(1);
@@ -233,6 +235,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
   };
 
   const handleCategoryClick = async (category: QuestionCategory) => {
+    setCategory(category);
     const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/questions/category/${category.question_category_id}`);
     const data = await res.json();
     setQuestions(data);
@@ -322,13 +325,22 @@ const Recording: NextPage<Props> = ({ categories }) => {
       </Alert>
       {readyToUpload()}
       {!choosingQuestions && !ready && (
-        <Stack direction="horizontal">
-          <div>
-            <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded mb-2" audio={true} ref={webcamRef} muted />
-            {captureButtons()}
-          </div>
-          {viewCarousel()}
-        </Stack>
+        <>
+          <span>
+            {i("category")}: {category?.category}
+          </span>
+          <p>
+            {i("description")}: {category?.description}
+          </p>
+
+          <Stack direction="horizontal">
+            <div>
+              <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded mb-2" audio={true} ref={webcamRef} muted />
+              {captureButtons()}
+            </div>
+            {viewCarousel()}
+          </Stack>
+        </>
       )}
     </Layout>
   );

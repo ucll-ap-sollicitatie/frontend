@@ -17,6 +17,10 @@ const InterviewsTable: NextPage = () => {
       accessor: "category",
     },
     {
+      Header: t("description"),
+      accessor: "description",
+    },
+    {
       Header: t("amount_of_questions"),
       accessor: "amount_of_questions",
       sortInverted: true,

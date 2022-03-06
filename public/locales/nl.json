@@ -230,6 +230,8 @@
   },
   "interviews": {
     "title": "Categorieën",
+    "description": "Bescrijving",
+    "questions": "Vragen",
     "interview_add": "Categorie toevoegen",
     "interview_add_success": "Categorie succesvol toegevoegd",
     "interview_update": "Categorie aanpassen",

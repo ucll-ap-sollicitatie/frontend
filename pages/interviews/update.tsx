@@ -36,7 +36,6 @@ const UpdateInterview: NextPage = () => {
 
       <h1>{t("interview_update")}</h1>
 
-      <h1>{t("interview_update")}</h1>
       <UpdateInterviewForm id={query.id} />
     </Layout>
   );
