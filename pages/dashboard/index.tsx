@@ -1,19 +1,13 @@
 import type { GetServerSideProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
-import { Accordion, Button, Tab, Tabs } from "react-bootstrap";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import CommentsTable from "../../components/comments/CommentsTable";
 import AdminView from "../../components/dashboard/AdminView";
 import TeacherView from "../../components/dashboard/TeacherView";
 import Layout from "../../components/layout/Layout";
 import PageTitleComponent from "../../components/PageTitleComponent";
-import TasksTable from "../../components/tasks/TasksTable";
 import Unauthenticated from "../../components/Unauthenticated";
 import Unauthorized from "../../components/Unauthorized";
-import StudentsTable from "../../components/users/StudentsTable";
-import UsersTable from "../../components/users/UsersTable";
 import Comment from "../../interfaces/Comment";
 import Task from "../../interfaces/Task";
 import User from "../../interfaces/User";
@@ -64,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   };
 };
 
-const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
+const Dashboard: NextPage<Props> = ({ users, comments, tasks }) => {
   const t = useTranslations("dashboard");
   const title = t("title");
   const { data: session } = useSession();

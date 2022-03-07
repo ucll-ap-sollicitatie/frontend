@@ -1,7 +1,7 @@
 import "bootstrap-dark-5/dist/css/bootstrap-nightshade.css";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlProvider } from "next-intl";
-import type { AppContext, AppProps } from "next/app";
+import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import NextNProgress from "nextjs-progressbar";
@@ -23,7 +23,9 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap");
     initializeDarkMode();
-    router.push(`${router.asPath}`, `${router.asPath}`, { locale: getLocale() });
+
+    // To fix an infinite loop when going to /_error.tsx for some reason
+    if (router.route !== "/_error") router.push("/", "/", { locale: getLocale() });
   }, []);
 
   return (
