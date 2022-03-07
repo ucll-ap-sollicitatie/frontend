@@ -9,6 +9,7 @@ import ProfileCard from "../profile/ProfileCard";
 import Video from "../../interfaces/Video";
 import BreadcrumbComponent from "../BreadcrumbComponent";
 import PageTitleComponent from "../PageTitleComponent";
+import { useSession } from "next-auth/react";
 
 interface Props {
   user: User;
@@ -19,11 +20,13 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
   const t = useTranslations("users");
   const title = t("user_profile");
   const [publicVideos, setPublicVideos] = useState<Video[]>([]);
+  const { data: session } = useSession();
+  const current_user = session?.user as User;
 
   useEffect(() => {
     let temp: Video[] = [];
     videos.forEach((video) => {
-      if (video.email === user.email && !video.private) {
+      if (video.email === user.email && (!video.private || current_user.role !== "Student")) {
         temp.push(video);
       }
     });

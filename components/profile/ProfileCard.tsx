@@ -46,7 +46,7 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
 
   const updateProfileImage = () => {
     if (session_user.email === user.email) {
-      <ChangeImageButton showUploadModal={showUploadModal} />;
+      return <ChangeImageButton showUploadModal={showUploadModal} />;
     }
   };
 
@@ -71,7 +71,7 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
           <Stack gap={3}>
             <DarkModeToggle />
             <IntroductionToggle session_user={session_user} />
-            <div className="d-flex gap-2">
+            <div className="d-flex gap-2 justify-content-between">
               <LocaleDropdown />
               {updateProfileImage()}
             </div>

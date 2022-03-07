@@ -55,7 +55,7 @@ const StudentsTable: NextPage = () => {
 
   return (
     <>
-      <StudentsReactTable columns={columns} data={users} url={"/users"} id="email" />
+      <StudentsReactTable columns={columns} data={users} url={"/users"} id="user_id" />
     </>
   );
 };
