@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
-import { Card, Nav, Stack, Button } from "react-bootstrap";
+import { Button, Card, Nav, Stack } from "react-bootstrap";
 import { timeSince } from "../../helpers/helperFunctions";
 import Comment from "../../interfaces/Comment";
 import User from "../../interfaces/User";
@@ -109,7 +109,7 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
           )}
           {!liked && (
             <Button variant="outline-primary" onClick={handleAddLike} className="ms-auto">
-              {t("like_comment")}
+              <strong>{t("like_comment")}</strong>
             </Button>
           )}
         </Stack>

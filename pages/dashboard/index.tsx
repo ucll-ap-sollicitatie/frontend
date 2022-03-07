@@ -1,21 +1,23 @@
-import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import { Accordion, Button, Tab, Tabs } from "react-bootstrap";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+import { Accordion, Button, Tab, Tabs } from "react-bootstrap";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import CommentsTable from "../../components/comments/CommentsTable";
+import AdminView from "../../components/dashboard/AdminView";
+import TeacherView from "../../components/dashboard/TeacherView";
 import Layout from "../../components/layout/Layout";
+import PageTitleComponent from "../../components/PageTitleComponent";
+import TasksTable from "../../components/tasks/TasksTable";
 import Unauthenticated from "../../components/Unauthenticated";
 import Unauthorized from "../../components/Unauthorized";
 import StudentsTable from "../../components/users/StudentsTable";
 import UsersTable from "../../components/users/UsersTable";
-import TasksTable from "../../components/tasks/TasksTable";
-import User from "../../interfaces/User";
 import Comment from "../../interfaces/Comment";
-import CommentsTable from "../../components/comments/CommentsTable";
-import Video from "../../interfaces/Video";
 import Task from "../../interfaces/Task";
-import Link from "next/link";
-import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import PageTitleComponent from "../../components/PageTitleComponent";
+import User from "../../interfaces/User";
+import Video from "../../interfaces/Video";
 
 interface Props {
   users: User[];
@@ -23,44 +25,6 @@ interface Props {
   videos: Video[];
   tasks: Task[];
 }
-
-// export const getStaticProps: GetStaticProps = async ({ locale }) => {
-//   let props = {
-//     users: null,
-//     comments: null,
-//     videos: null,
-//     tasks: null,
-//     messages: (await import(`../../public/locales/${locale}.json`)).default,
-//   };
-
-//   const usersRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
-//   const usersJson = await usersRes.json();
-//   if (usersRes.ok) {
-//     props.users = usersJson;
-//   }
-
-//   const commentsRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments`);
-//   const commentsJson = await commentsRes.json();
-//   if (commentsRes.ok) {
-//     props.comments = commentsJson;
-//   }
-
-//   const videosRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
-//   const videosJson = await videosRes.json();
-//   if (videosRes.ok) {
-//     props.videos = videosJson;
-//   }
-
-//   const tasksRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
-//   const tasksJson = await tasksRes.json();
-//   if (tasksRes.ok) {
-//     props.tasks = tasksJson;
-//   }
-
-//   return {
-//     props,
-//   };
-// };
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let props = {
@@ -108,22 +72,6 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
   if (!session || user === undefined) return <Unauthenticated />;
   if (user.role === "Student") return <Unauthorized />;
 
-  const countRole = (role: string) => {
-    if (users.length > 0) {
-      const temp = users.filter((user: User) => user.role === role);
-      return temp.length;
-    }
-    return 0;
-  };
-
-  const countFeedback = () => {
-    if (comments.length > 0) {
-      const temp = comments.filter((comment: Comment) => comment.feedback);
-      return temp.length;
-    }
-    return 0;
-  };
-
   const breadcrumb_items = [{ text: t("title") }];
 
   return (
@@ -132,77 +80,8 @@ const Dashboard: NextPage<Props> = ({ users, comments, videos, tasks }) => {
       <BreadcrumbComponent items={breadcrumb_items} />
 
       <h1>{t("title")}</h1>
-      {user.role === "Admin" && (
-        <Tabs defaultActiveKey="start" id="uncontrolled-tab">
-          <Tab eventKey="start" title={t("server_information")}>
-            <Accordion>
-              <Accordion.Item eventKey="0" className="rounded-0">
-                <Accordion.Header>{t("users")}</Accordion.Header>
-                <Accordion.Body>
-                  {t("amount_of_users")}: {users !== null ? users.length : t("none")}
-                  <hr />
-                  <ul className="mt-3 mb-0">
-                    <li>
-                      {t("amount_of_admins")}: {countRole("Admin")}
-                    </li>
-                    <li>
-                      {t("amount_of_lecturers")}: {countRole("Lector")}
-                    </li>
-                    <li>
-                      {t("amount_of_students")}: {countRole("Student")}
-                    </li>
-                  </ul>
-                </Accordion.Body>
-              </Accordion.Item>
-
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>{t("comments")}</Accordion.Header>
-                <Accordion.Body>
-                  <ul className="mb-0">
-                    <li>
-                      {t("amount_of_comments")}: {comments !== null ? comments.length - countFeedback() : <p>{t("none")}</p>}
-                    </li>
-                    <li>
-                      {t("amount_of_feedback")}: {comments !== null ? countFeedback() : <p>{t("none")}</p>}
-                    </li>
-                  </ul>
-                </Accordion.Body>
-              </Accordion.Item>
-
-              <Accordion.Item eventKey="2">
-                <Accordion.Header>{t("videos")}</Accordion.Header>
-                <Accordion.Body>
-                  <ul className="mb-0">
-                    <li>
-                      {t("amount_of_videos")}: {videos !== null ? videos.length : <p>{t("none")}</p>}
-                    </li>
-                  </ul>
-                </Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-          </Tab>
-          <Tab eventKey="profile" title={t("users_overview")}>
-            <UsersTable />
-          </Tab>
-          <Tab eventKey="contact" title={t("comments_overview")}>
-            {comments === null && <p>{t("none")}</p>}
-            {comments !== null && <CommentsTable comments={comments} />}
-          </Tab>
-        </Tabs>
-      )}
-      {user.role === "Lector" && (
-        <Tabs defaultActiveKey="students" id="uncontrolled-tab" className="mb-3">
-          <Tab eventKey="students" title={t("my_students")}>
-            <StudentsTable />
-          </Tab>
-          <Tab eventKey="tasks" title={t("tasks")}>
-            <Link href={`/tasks/add`} passHref>
-              <Button className="mb-3">{t("task_add")}</Button>
-            </Link>
-            <TasksTable allTasks={tasks} />
-          </Tab>
-        </Tabs>
-      )}
+      {user.role === "Admin" && <AdminView users={users} comments={comments} t={t} />}
+      {user.role === "Lector" && <TeacherView tasks={tasks} t={t} />}
     </Layout>
   );
 };

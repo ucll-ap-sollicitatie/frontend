@@ -1,41 +1,26 @@
-import type { GetServerSideProps, NextPage } from "next";
-import { FormEvent, useState } from "react";
-import { useSession } from "next-auth/react";
-import { useRef, useCallback } from "react";
-import { Button, Stack, Alert } from "react-bootstrap";
-import { Stopwatch } from "ts-stopwatch";
-import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
-import { useTranslations } from "next-intl";
-import { Player } from "video-react";
-import Webcam from "react-webcam";
-import Layout from "../../components/layout/Layout";
 import axios from "axios";
+import type { GetServerSideProps, NextPage } from "next";
+import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import router from "next/router";
-import Unauthenticated from "../../components/Unauthenticated";
-import React from "react";
-import ChoosingQuestions from "../../components/recording/ChoosingQuestions";
-import RecordingUploadForm from "../../components/recording/RecordingUploadForm";
+import { FormEvent, useCallback, useRef, useState } from "react";
+import { Alert, Button, Stack } from "react-bootstrap";
+import Webcam from "react-webcam";
+import { Stopwatch } from "ts-stopwatch";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Layout from "../../components/layout/Layout";
+import PageTitleComponent from "../../components/PageTitleComponent";
 import CarouselNoQuestions from "../../components/recording/CarouselNoQuestions";
 import CarouselWithQuestions from "../../components/recording/CarouselWithQuestions";
-import User from "../../interfaces/User";
+import ChoosingQuestions from "../../components/recording/ChoosingQuestions";
+import CountDown from "../../components/recording/Countdown";
+import RecordingUploadForm from "../../components/recording/RecordingUploadForm";
 import SpinnerComponent from "../../components/SpinnerComponent";
+import Unauthenticated from "../../components/Unauthenticated";
+import { milisecondsToReadableTime } from "../../helpers/helperFunctions";
 import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
-import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import PageTitleComponent from "../../components/PageTitleComponent";
-import CountDown from "../../components/recording/Countdown";
-
-// export const getStaticProps: GetStaticProps = async ({ locale }) => {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);
-//   const categories: QuestionCategory[] = await res.json();
-
-//   return {
-//     props: {
-//       categories: categories,
-//       messages: (await import(`../../public/locales/${locale}.json`)).default,
-//     },
-//   };
-// };
+import User from "../../interfaces/User";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/question-categories`);

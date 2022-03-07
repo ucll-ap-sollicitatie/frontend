@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
-import CommentsReactTable from "./CommentsReactTable";
-import Comment from "../../interfaces/Comment";
 import { useTranslations } from "next-intl";
+import Comment from "../../interfaces/Comment";
+import CommentsReactTable from "./CommentsReactTable";
 
 interface Props {
   comments: Comment[];

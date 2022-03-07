@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import { FormEvent } from "react";
-import { Form, OverlayTrigger, Tooltip, Button, Spinner } from "react-bootstrap";
+import { Button, Form, OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
 
 interface Props {
   handleUpload: (event: FormEvent<HTMLFormElement>) => void;

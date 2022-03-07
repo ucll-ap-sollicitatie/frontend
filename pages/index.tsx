@@ -2,45 +2,31 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import BreadcrumbComponent from "../components/BreadcrumbComponent";
+import IntroductionComponent from "../components/home/IntroductionComponent";
+import IntroductionNotEditedComponent from "../components/home/IntroductionNotEditedComponent";
 import Layout from "../components/layout/Layout";
 import Unauthenticated from "../components/Unauthenticated";
+import RandomFavoritesOverview from "../components/videos/RandomFavoritesOverview";
 import User from "../interfaces/User";
 import Video from "../interfaces/Video";
-import RandomFavoritesOverview from "../components/videos/RandomFavoritesOverview";
-import BreadcrumbComponent from "../components/BreadcrumbComponent";
-import IntroductionNotEditedComponent from "../components/home/IntroductionNotEditedComponent";
-import IntroductionComponent from "../components/home/IntroductionComponent";
-
-// export async function getStaticProps({ locale }) {
-//   let props = {
-//     videos: null,
-//     messages: (await import(`../public/locales/${locale}.json`)).default,
-//   };
-
-//   const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/random/random`);
-//   const data = await result.json();
-
-//   if (result.status !== 404 && result.status !== 500) {
-//     props.videos = data;
-//   }
-
-//   return {
-//     props,
-//   };
-// }
 
 export async function getServerSideProps({ locale }) {
   let props = {
-    videos: null,
+    favoriteVideos: null,
     messages: (await import(`../public/locales/${locale}.json`)).default,
   };
 
-  const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/random/random`);
-  const data = await result.json();
+  const favResult = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/random/random`);
+  const favoriteVideos = await favResult.json();
 
-  if (result.status !== 404 && result.status !== 500) {
-    props.videos = data;
+  if (favResult.status === 404) {
+    return {
+      notFound: true,
+    };
   }
+
+  props.favoriteVideos = favoriteVideos;
 
   return {
     props,
@@ -48,10 +34,10 @@ export async function getServerSideProps({ locale }) {
 }
 
 interface Props {
-  videos: Video[];
+  favoriteVideos: Video[];
 }
 
-const Home: NextPage<Props> = ({ videos }) => {
+const Home: NextPage<Props> = ({ favoriteVideos }) => {
   const t = useTranslations("home");
   const { data: session } = useSession();
   const [introduced, setIntroduced] = useState<boolean>(true);
@@ -96,8 +82,8 @@ const Home: NextPage<Props> = ({ videos }) => {
         {t("welcome")}, {user.name || user.email}!
       </h1>
       {chooseIntroduction()}
-      <h3>{t("favorites_title")}</h3>
-      <RandomFavoritesOverview videos={videos} user={user} />
+      <h2 className="mt-3">{t("favorites_title")}</h2>
+      <RandomFavoritesOverview videos={favoriteVideos} user={user} />
     </Layout>
   );
 };

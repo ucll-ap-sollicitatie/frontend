@@ -1,31 +1,13 @@
-import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
-import Video from "../../interfaces/Video";
-import Layout from "../../components/layout/Layout";
-import Unauthenticated from "../../components/Unauthenticated";
-import User from "../../interfaces/User";
 import { useTranslations } from "next-intl";
-import FavoriteVideoOverview from "../../components/videos/FavoriteVideoOverview";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Layout from "../../components/layout/Layout";
 import PageTitleComponent from "../../components/PageTitleComponent";
-
-// export const getStaticProps: GetStaticProps = async ({ locale }) => {
-//   let props = {
-//     videos: null,
-//     messages: (await import(`../../public/locales/${locale}.json`)).default,
-//   };
-
-//   const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites`);
-//   const data = await result.json();
-
-//   if (result.status !== 404 && result.status !== 500) {
-//     props.videos = data;
-//   }
-
-//   return {
-//     props,
-//   };
-// };
+import Unauthenticated from "../../components/Unauthenticated";
+import FavoriteVideoOverview from "../../components/videos/FavoriteVideoOverview";
+import User from "../../interfaces/User";
+import Video from "../../interfaces/Video";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   let props = {
@@ -36,9 +18,13 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites`);
   const data = await result.json();
 
-  if (result.status !== 404 && result.status !== 500) {
-    props.videos = data;
+  if (result.status === 404) {
+    return {
+      notFound: true,
+    };
   }
+
+  props.videos = data;
 
   return {
     props,

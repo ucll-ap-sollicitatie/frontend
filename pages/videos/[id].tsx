@@ -1,80 +1,27 @@
-import { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
+import Link from "next/link";
+import router from "next/router";
+import { FormEvent, useEffect, useState } from "react";
 import { Button, Card, Col, Form, OverlayTrigger, Row, Stack, Tooltip } from "react-bootstrap";
 import { useSWRConfig } from "swr";
-import { useTranslations } from "next-intl";
-import React, { FormEvent, useEffect, useState } from "react";
-import router from "next/router";
-import Layout from "../../components/layout/Layout";
-import Unauthenticated from "../../components/Unauthenticated";
-import VideoPlayer from "../../components/videos/VideoPlayer";
-import DeleteCommentModal from "../../components/videos/DeleteCommentModal";
-import UpdateCommentModal from "../../components/videos/UpdateCommentModal";
-import AddComment from "../../components/videos/AddComment";
-import FeedbackModal from "../../components/videos/FeedbackModal";
-import Video from "../../interfaces/Video";
-import Comment from "../../interfaces/Comment";
-import FeedbackList from "../../components/videos/FeedbackList";
-import Unauthorized from "../../components/Unauthorized";
-import CommentList from "../../components/videos/CommentList";
-import User from "../../interfaces/User";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Layout from "../../components/layout/Layout";
 import PageTitleComponent from "../../components/PageTitleComponent";
-import Link from "next/link";
+import Unauthenticated from "../../components/Unauthenticated";
+import Unauthorized from "../../components/Unauthorized";
+import AddComment from "../../components/videos/AddComment";
+import CommentList from "../../components/videos/CommentList";
+import DeleteCommentModal from "../../components/videos/DeleteCommentModal";
+import FeedbackList from "../../components/videos/FeedbackList";
+import FeedbackModal from "../../components/videos/FeedbackModal";
+import UpdateCommentModal from "../../components/videos/UpdateCommentModal";
 import UpdateVideoModal from "../../components/videos/UpdateVideoModal";
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const data = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos`);
-//   const videos = await data.json();
-
-//   let paths = [] as any;
-
-//   videos.map((video: Video) => {
-//     paths.push(
-//       { params: { id: video?.video_id.toString() }, locale: "en" },
-//       { params: { id: video?.video_id.toString() }, locale: "fr" },
-//       { params: { id: video?.video_id.toString() }, locale: "nl" },
-//       { params: { id: video?.video_id.toString() }, locale: "pl" }
-//     );
-//   });
-
-//   return {
-//     paths: paths,
-//     fallback: true,
-//   };
-// };
-
-// export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
-//   const props = {
-//     video: null,
-//     comments: null,
-//     feedback: null,
-//     messages: (await import(`../../public/locales/${locale}.json`)).default,
-//   };
-
-//   if (params !== undefined) {
-//     const video_id = params.id;
-//     const videoRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/${video_id}`);
-//     const video = await videoRes.json();
-//     const commentRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/video/${video_id}`);
-//     const comments = await commentRes.json();
-//     const feedbackRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/video/${video_id}/feedback`);
-//     const feedback = await feedbackRes.json();
-
-//     props.video = video;
-//     if (commentRes.ok) {
-//       props.comments = comments;
-//     }
-//     if (feedbackRes.ok) {
-//       props.feedback = feedback;
-//     }
-//   }
-
-//   return {
-//     props: props,
-//     revalidate: 1,
-//   };
-// };
+import VideoPlayer from "../../components/videos/VideoPlayer";
+import Comment from "../../interfaces/Comment";
+import User from "../../interfaces/User";
+import Video from "../../interfaces/Video";
 
 export const getServerSideProps: GetServerSideProps = async ({ params, locale }) => {
   const props = {
@@ -87,6 +34,11 @@ export const getServerSideProps: GetServerSideProps = async ({ params, locale })
   if (params !== undefined) {
     const video_id = params.id;
     const videoRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/videos/${video_id}`);
+    if (videoRes.status === 404) {
+      return {
+        notFound: true,
+      };
+    }
     const video = await videoRes.json();
     const commentRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/comments/video/${video_id}`);
     const comments = await commentRes.json();
@@ -232,8 +184,8 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
     };
 
     if (feedback) {
-      const van = new Date(0, 0, 0, 0, target.van[0].trim().value, target.van[1].trim().value, 0);
-      const tot = new Date(0, 0, 0, 0, target.tot[0].trim().value, target.tot[1].trim().value, 0);
+      const van = new Date(0, 0, 0, 0, target.van[0].value, target.van[1].value, 0);
+      const tot = new Date(0, 0, 0, 0, target.tot[0].value, target.tot[1].value, 0);
       Object.assign(body, { feedback: true });
       Object.assign(body, { start_feedback: van });
       Object.assign(body, { end_feedback: tot });
@@ -484,13 +436,13 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
                 </Button>
               ) : (
                 <Button variant="outline-primary" onClick={handleLikeVideo}>
-                  {t("like_video")}
+                  <strong>{t("like_video")}</strong>
                 </Button>
               )}
               {user.role == "Lector" && (
                 <OverlayTrigger placement="top" overlay={<Tooltip id="button-tooltip-2">{t("feedback_privacy")}</Tooltip>}>
                   <Button variant="outline-success" onClick={handleShowFeedback}>
-                    {t("feedback_add")}
+                    <strong>{t("feedback_add")}</strong>
                   </Button>
                 </OverlayTrigger>
               )}

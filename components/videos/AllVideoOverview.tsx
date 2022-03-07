@@ -2,12 +2,11 @@ import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { ChangeEvent, useState } from "react";
-import { Button, Form, Row } from "react-bootstrap";
+import { Form, Row } from "react-bootstrap";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
 import Unauthenticated from "../Unauthenticated";
 import VideoCard from "./VideoCard";
-import Link from "next/link";
 
 interface Props {
   videos: Video[];

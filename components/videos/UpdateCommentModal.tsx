@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import { FormEvent } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import Comment from "../../interfaces/Comment";
 
 interface Props {

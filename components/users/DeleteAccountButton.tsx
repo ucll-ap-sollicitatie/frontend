@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
-import { Button } from "react-bootstrap";
 import Link from "next/link";
+import { Button } from "react-bootstrap";
 
 const DeleteAccountButton: NextPage = () => {
   const t = useTranslations("users");

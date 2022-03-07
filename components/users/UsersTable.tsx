@@ -1,13 +1,13 @@
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import User from "../../interfaces/User";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import ReactTable from "../ReactTable";
-import SpinnerComponent from "../SpinnerComponent";
 import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
-import { useTranslations } from "next-intl";
+import ReactTable from "../ReactTable";
+import SpinnerComponent from "../SpinnerComponent";
 
 const UsersTable: NextPage = () => {
   const t = useTranslations("users");

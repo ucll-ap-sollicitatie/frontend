@@ -74,6 +74,7 @@
   },
   "videos": {
     "all": "Alle sollicitaties",
+    "all_public": "Alle openbare sollicitatiegesprekken",
     "title": "Titel",
     "information": "Informatie",
     "description": "Beschrijving",
@@ -124,13 +125,13 @@
     "formation": "Richting",
     "users": "Gebruikers",
     "update_profile": "Profiel aanpassen",
+    "update_profile_confirm": "Profiel opslaan",
     "update_profile_success": "Uw profiel is succesvol aangepast.",
     "update_user_succes": "Gebruiker is bewerkt",
     "preferences_edit": "Preferenties aanpassen",
     "profile:": "Profiel",
     "my_profile": "Mijn profiel",
     "my_videos": "Mijn sollicitaties",
-    "profile_edit": "Profiel aanpassen",
     "user_profile": "Profiel van",
     "user_videos": "Video's van",
     "no_users": "Geen gebruikers gevonden.",
@@ -178,7 +179,8 @@
     "task_remove_confirm": "Bent u zeker dat u deze taak wilt verwijderen?",
     "task_remove_success": "Taak succesvol verwijderd",
     "task_update_failed": "Er is een probleem opgetreden bij het aanpassen van de taak.",
-    "task_update_unauthorized": "U bent niet gemachtigd om deze taak aan te passen."
+    "task_update_unauthorized": "U bent niet gemachtigd om deze taak aan te passen.",
+    "tasks_index": "Alle taken gegeven door je leraren"
   },
   "carousel": {
     "carousel_no_questions": "Deze categorie bevat geen vragen.",
@@ -208,7 +210,7 @@
     "warmup": "Je kan opwarmen door jezelf uit te dagen om willekeurige vragen uit jou geprefereerde categorieën proberen te beantwoorden!",
     "change_preferences": "Je kan altijd jouw preferenties veranderen in jouw profiel.",
     "random_questions": "Willekeurige vragen uit mijn preferenties",
-    "record_interview": "Ga voor het echte ding en beantwoord vragen enkel uit een thema die jij zelf kiest!",
+    "record_interview": "Leg een volledig interview af met verschillende vragen op basis van het thema dat je zelf kan kiezen!",
     "record_interview_questions": "Je krijgt steeds 5 willekeurige vragen uit de gekozen categorie die je moet beantwoorden.",
     "choose_category_button": "Kies categorie van vragen"
   },
@@ -223,7 +225,7 @@
     "title": "Voorkeuren",
     "form_title": "Kies 3 categorieën waarover je interviews wilt krijgen.",
     "preference": "Voorkeur",
-    "preferences_update": "Voorkeuren aanpassen",
+    "preferences_update": "Preferenties opslaan",
     "error": "Er is een probleem opgetreden bij het aanpassen van uw preferenties.",
     "error_title": "Slim op sollicitatie",
     "preferences_update_success": "Uw voorkeuren zijn succesvol aangepast."
@@ -249,7 +251,8 @@
     "question_add": "Vraag toevoegen",
     "interviews_error_loading": "Er is een probleem opgetreden bij het laden van de categorieën.",
     "interview_error_loading": "Er is een probleem opgetreden bij het laden van de categorieën.",
-    "no_interviews_found": "Geen categorieën gevonden."
+    "no_interviews_found": "Geen categorieën gevonden.",
+    "interviews_index": "Bekijk alle beschikbare categorieën"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -270,7 +273,12 @@
     "videos": "Sollicitaties",
     "amount_of_videos": "Aantal sollicitaties",
     "tasks": "Taken",
-    "task_add": "Taak aanmaken"
+    "task_add": "Taak aanmaken",
+    "teacher_view_index": "Dit dashboard bevat alle leerlingen die onder uw toezicht staan en is de plek om taken te beheren",
+    "admin_view_index": "Dit dashboard bevat informatie over de gegevens van de server, evenals een overzicht van alle gebruikers en commentaar",
+    "admin_role": "Admin",
+    "teacher_role": "Lector",
+    "student_role": "Student"
   },
   "contact": {
     "title": "Contact",

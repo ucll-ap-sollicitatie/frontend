@@ -1,15 +1,15 @@
 import { NextPage } from "next";
-import { Row, Col } from "react-bootstrap";
+import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
+import { Col, Row } from "react-bootstrap";
 import User from "../../interfaces/User";
-import Layout from "../layout/Layout";
-import OwnVideoOverview from "../videos/ProfileVideoOverview";
-import ProfileCard from "../profile/ProfileCard";
 import Video from "../../interfaces/Video";
 import BreadcrumbComponent from "../BreadcrumbComponent";
+import Layout from "../layout/Layout";
 import PageTitleComponent from "../PageTitleComponent";
-import { useSession } from "next-auth/react";
+import ProfileCard from "../profile/ProfileCard";
+import OwnVideoOverview from "../videos/ProfileVideoOverview";
 
 interface Props {
   user: User;
@@ -18,7 +18,7 @@ interface Props {
 
 const UserProfile: NextPage<Props> = ({ user, videos }) => {
   const t = useTranslations("users");
-  const title = t("user_profile");
+  const title = `${t("user_profile")} ${user.name}`;
   const [publicVideos, setPublicVideos] = useState<Video[]>([]);
   const { data: session } = useSession();
   const current_user = session?.user as User;

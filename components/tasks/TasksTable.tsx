@@ -1,14 +1,14 @@
 import type { NextPage } from "next";
-import { Modal } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import SpinnerComponent from "../SpinnerComponent";
-import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
-import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
-import Task from "../../interfaces/Task";
-import TasksReactTable from "../TasksReactTable";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Modal } from "react-bootstrap";
+import Task from "../../interfaces/Task";
+import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
+import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
+import SpinnerComponent from "../SpinnerComponent";
+import TasksReactTable from "../TasksReactTable";
 
 interface Props {
   allTasks: Task[];

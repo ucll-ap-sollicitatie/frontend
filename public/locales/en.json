@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "Smart on job interviews",
-    "title_short": "SOJI",
+    "title": "Intelligent job interviews",
+    "title_short": "IJI",
     "welcome": "Welcome",
     "login": "Log in",
     "login_success": "Login successful",
@@ -51,7 +51,7 @@
     "view": "View"
   },
   "errors": {
-    "error_title": "Smart on job interviews",
+    "error_title": "Intelligent job interviews",
     "password_mismatch": "The passwords do not match.",
     "login_error": "The username or password is incorrect.",
     "login_unexpected_error": "An unexpected error occurred when logging in.",
@@ -74,6 +74,7 @@
   },
   "videos": {
     "all": "All job interviews",
+    "all_public": "All public job interviews",
     "title": "Title",
     "information": "Information",
     "description": "Description",
@@ -124,6 +125,7 @@
     "formation": "Formation",
     "users": "Users",
     "update_profile": "Edit profile",
+    "update_profile_confirm": "Save profile",
     "update_profile_success": "Your profile has been edited",
     "update_user_success": " User has been edited",
     "preferences_edit": "Edit preferences",
@@ -156,7 +158,10 @@
     "refer_to_profile": "To begin with, you can change your preferences and apply small personalizations such as changing the language or switching to dark mode.",
     "refer_to_dashboard": "To begin with, you can take a look at the dashboard to get a feel for it.",
     "profile_picture_update": "Update profile picture",
-    "profile_picture_upload": "Upload profile picture"
+    "profile_picture_upload": "Upload profile picture",
+    "admin_role": "Admin",
+    "teacher_role": "Teacher",
+    "student_role": "Student"
   },
   "students": {
     "error": "An error occurred during loading of students.",
@@ -178,7 +183,8 @@
     "task_remove_confirm": "Are you sure you want to delete this assignment?",
     "task_remove_success": "Assignment deleted successfully",
     "task_update_failed": "An error occurred during update of assignment",
-    "task_update_unauthorized": "You are unauthorized to update this task."
+    "task_update_unauthorized": "You are unauthorized to update this task.",
+    "tasks_index": "All tasks given by your teachers"
   },
   "carousel": {
     "carousel_no_questions": "This category does not contain any questions.",
@@ -208,7 +214,7 @@
     "warmup": "You can warm up by challenging yourself answering questions from your preferred categories!",
     "change_preferences": "You can always change your preferences in your profile.",
     "random_questions": "Random questions from my preferences",
-    "record_interview": "Try the real thing and answer questions that only come from the category of your choice.",
+    "record_interview": "Conduct a full interview with different questions based on the theme you can choose!",
     "record_interview_questions": "You always get 5 random questions from the chosen category that you have to answer.",
     "choose_category_button": "Choose category of questions"
   },
@@ -223,9 +229,9 @@
     "title": "Preferences",
     "form_title": "Choose 3 categories you want to answer questions about.",
     "preference": "Preference",
-    "preferences_update": "Adjust preferences",
+    "preferences_update": "Save preferences",
     "error": "An error occurred during the adjustment of your preferences.",
-    "error_title": "Smart on job interviews",
+    "error_title": "Intelligent job interviews",
     "preferences_update_success": "Your preferences have been adjusted successfully"
   },
   "interviews": {
@@ -249,7 +255,8 @@
     "question_add": "Add question",
     "interviews_error_loading": "An error occurred when loading categories.",
     "interview_error_loading": "An error occurred when loading category.",
-    "no_interviews_found": "No job interviews found."
+    "no_interviews_found": "No job interviews found.",
+    "interviews_index": "View all available questions categories"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -270,7 +277,9 @@
     "videos": "Job interviews",
     "amount_of_videos": "Amount of job interviews",
     "tasks": "Assignments",
-    "task_add": "Add assignment"
+    "task_add": "Add assignment",
+    "teacher_view_index": "This dashboard contains all the students under your supervision and is the place to manage tasks",
+    "admin_view_index": "This dashboard contains information about the server's data, as well as an overview of all users and comments"
   },
   "contact": {
     "title": "Contact",

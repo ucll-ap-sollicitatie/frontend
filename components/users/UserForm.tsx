@@ -111,7 +111,7 @@ const UserForm: NextPage<Props> = ({ onSubmit, activateUser, user }) => {
 
         <div className="d-flex align-items-center mt-3 gap-2">
           <Button variant="primary" type="submit">
-            {user ? t("profile_edit") : h("register")}
+            {user ? t("update_profile_confirm") : h("register")}
           </Button>
           {user != undefined && current_user.role === "Admin" && user.activation_token != null && (
             <Button variant="outline-secondary" onClick={activateUser} type="submit">

@@ -1,12 +1,12 @@
-import { useState, FormEvent, useEffect } from "react";
 import { NextPage } from "next";
-import { Alert } from "react-bootstrap";
+import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
+import { FormEvent, useEffect, useState } from "react";
+import { Alert } from "react-bootstrap";
+import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 import SpinnerComponent from "../SpinnerComponent";
 import InterviewForm from "./InterviewForm";
-import Question from "../../interfaces/Question";
-import { useTranslations } from "next-intl";
 
 interface Props {
   id: string;

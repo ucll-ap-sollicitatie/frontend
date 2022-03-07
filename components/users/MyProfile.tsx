@@ -1,14 +1,14 @@
 import { NextPage } from "next";
-import { Col, Modal, Row } from "react-bootstrap";
-import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { Col, Modal, Row } from "react-bootstrap";
 import User from "../../interfaces/User";
-import Layout from "../layout/Layout";
-import OwnVideoOverview from "../videos/ProfileVideoOverview";
-import ProfileCard from "../profile/ProfileCard";
 import Video from "../../interfaces/Video";
 import BreadcrumbComponent from "../BreadcrumbComponent";
+import Layout from "../layout/Layout";
 import PageTitleComponent from "../PageTitleComponent";
+import ProfileCard from "../profile/ProfileCard";
+import OwnVideoOverview from "../videos/ProfileVideoOverview";
 
 interface Props {
   user: User;

@@ -1,12 +1,12 @@
 // @ts-nocheck :)
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
-import { useTable, useSortBy, usePagination } from "react-table";
+import { usePagination, useSortBy, useTable } from "react-table";
 import RemoveButton from "./buttons/RemoveButton";
 import ShowButton from "./buttons/ShowButton";
-import { useTranslations } from "next-intl";
-import { useSession } from "next-auth/react";
 
 interface Props {
   columns: any;

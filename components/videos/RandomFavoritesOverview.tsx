@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { Button, Form, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
 import Unauthenticated from "../Unauthenticated";

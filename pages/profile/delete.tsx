@@ -1,9 +1,9 @@
 import { GetStaticProps, NextPage } from "next";
 import { signOut, useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { Alert, Button, Form } from "react-bootstrap";
-import { FormEvent, useState } from "react";
 import Link from "next/link";
+import { FormEvent, useState } from "react";
+import { Alert, Button, Form } from "react-bootstrap";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
 import Layout from "../../components/layout/Layout";
 import PageTitleComponent from "../../components/PageTitleComponent";

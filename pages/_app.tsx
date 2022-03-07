@@ -1,25 +1,24 @@
 import "bootstrap-dark-5/dist/css/bootstrap-nightshade.css";
-import "../styles/globals.css";
-import "../node_modules/video-react/dist/video-react.css";
-
-import type { AppProps } from "next/app";
-import { useRouter } from "next/router";
-
 import { SessionProvider } from "next-auth/react";
 import { NextIntlProvider } from "next-intl";
-
+import type { AppContext, AppProps } from "next/app";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import NextNProgress from "nextjs-progressbar";
-import ToastComponent from "../components/ToastComponent";
-import { Container } from "react-bootstrap";
 import { useEffect } from "react";
+import { Container, SSRProvider } from "react-bootstrap";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import { getLocale, initializeDarkMode } from "../helpers/helperFunctions";
 import Amogus from "../components/Amogus";
+import ToastComponent from "../components/ToastComponent";
+import { getLocale, initializeDarkMode } from "../helpers/helperFunctions";
+import "../node_modules/video-react/dist/video-react.css";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
+
+  pageProps.getIn;
 
   useEffect(() => {
     require("bootstrap/dist/js/bootstrap");
@@ -30,28 +29,30 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <>
       <NextIntlProvider messages={pageProps.messages}>
-        <SessionProvider session={session}>
-          <DndProvider backend={HTML5Backend}>
-            <NextNProgress options={{ showSpinner: false }} />
+        <SSRProvider>
+          <SessionProvider session={session}>
+            <DndProvider backend={HTML5Backend}>
+              <NextNProgress options={{ showSpinner: false }} />
 
-            <Amogus url={"/amogus.mp3"} />
+              <Amogus url={"/amogus.mp3"} />
 
-            <Head>
-              <title>Slim op sollicitatie</title>
-              <meta name="description" content="Slim op sollicitatie" />
-              <meta name="viewport" content="width=device-width, initial-scale=1" />
-              <meta name="color-scheme" content="light dark" />
-              <link rel="icon" href="/test.ico" />
-            </Head>
+              <Head>
+                <title>Slim op sollicitatie</title>
+                <meta name="description" content="Slim op sollicitatie" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta name="color-scheme" content="light dark" />
+                <link rel="icon" href="/test.ico" />
+              </Head>
 
-            {router.query.toast && (
-              <Container className="d-flex justify-content-end">
-                <ToastComponent message={router.query.toast as string} />
-              </Container>
-            )}
-            <Component {...pageProps} />
-          </DndProvider>
-        </SessionProvider>
+              {router.query.toast && (
+                <Container className="d-flex justify-content-end">
+                  <ToastComponent message={router.query.toast as string} />
+                </Container>
+              )}
+              <Component {...pageProps} />
+            </DndProvider>
+          </SessionProvider>
+        </SSRProvider>
       </NextIntlProvider>
     </>
   );

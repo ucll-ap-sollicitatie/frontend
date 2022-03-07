@@ -1,26 +1,15 @@
-import type { GetServerSideProps, GetStaticProps, NextPage } from "next";
-import { useEffect, useState } from "react";
+import type { GetServerSideProps, NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import Task from "../../interfaces/Task";
-import Unauthorized from "../../components/Unauthorized";
-import User from "../../interfaces/User";
+import { useEffect, useState } from "react";
+import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Layout from "../../components/layout/Layout";
+import PageTitleComponent from "../../components/PageTitleComponent";
 import SpinnerComponent from "../../components/SpinnerComponent";
 import TasksReactTable from "../../components/TasksReactTable";
-import Layout from "../../components/layout/Layout";
-import BreadcrumbComponent from "../../components/BreadcrumbComponent";
-import PageTitleComponent from "../../components/PageTitleComponent";
-
-// export const getStaticProps: GetStaticProps = async ({ locale }) => {
-//   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
-//   const data = await res.json();
-//   return {
-//     props: {
-//       tasks: data,
-//       messages: (await import(`../../public/locales/${locale}.json`)).default,
-//     },
-//   };
-// };
+import Unauthorized from "../../components/Unauthorized";
+import Task from "../../interfaces/Task";
+import User from "../../interfaces/User";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
@@ -81,6 +70,7 @@ const TasksIndex: NextPage<Props> = ({ tasks }) => {
       <PageTitleComponent title={title} />
 
       <h1>{t("my_tasks")}</h1>
+      <p>{t("tasks_index")}</p>
       <TasksReactTable columns={columns} data={tasks} url={"/tasks"} id="task_id" />
     </Layout>
   );

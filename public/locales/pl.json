@@ -16,7 +16,7 @@
     "anauthorized": "Zakaz wejścia, proszę się zalogować",
     "success": "Sukces",
     "copyright": "© 2022 UCLL, Inc",
-    "dashboard": "Tablica rozdzielcza",
+    "dashboard": "Dashboard",
     "my_tasks": "Moje zadania",
     "interviews": "Kategorie",
     "recording": "Zrób rozmowę o pracę",
@@ -74,6 +74,7 @@
   },
   "videos": {
     "all": "Wszystkie rozmowy o pracę",
+    "all_public": "Wszystkie publiczne rozmowy kwalifikacyjne",
     "title": "Tytuł",
     "information": "Informacja",
     "description": "Opis",
@@ -122,6 +123,7 @@
     "formation": "Formacja",
     "users": "Użytkownicy",
     "update_profile": "Edytuj profil",
+    "update_profile_confirm": "Zapisz profil",
     "update_profile_success": "Twój profil został edytowany",
     "update_user_success": " User has been edited",
     "preferences_edit": "Edytuj preferencje",
@@ -154,7 +156,10 @@
     "refer_to_profile": "Na początek możesz zmienić swoje preferencje i zastosować drobne personalizacje, takie jak zmiana języka lub przełączenie na tryb ciemny.",
     "refer_to_dashboard": "Na początek możesz przyjrzeć się tablicy rozdzielczej, aby się z nią zapoznać.",
     "profile_picture_update": "Zaktualizuj zdjęcie profilowe",
-    "profile_picture_upload": "Prześlij zdjęcie profilowe"
+    "profile_picture_upload": "Prześlij zdjęcie profilowe",
+    "admin_role": "Administrator",
+    "teacher_role": "Nauczyciel",
+    "student_role": "Student"
   },
   "students": {
     "error": "Wystąpił błąd podczas ładowania uczniów.",
@@ -176,7 +181,8 @@
     "task_remove_confirm": "Czy na pewno chcesz usunąć to zadanie?",
     "task_remove_success": "Przypisanie zostało usunięte pomyślnie",
     "task_update_failed": "Podczas aktualizacji przypisania wystąpił błąd.",
-    "task_update_unauthorized": "Użytkownik nie jest uprawniony do aktualizacji tego zadania."
+    "task_update_unauthorized": "Użytkownik nie jest uprawniony do aktualizacji tego zadania.",
+    "tasks_index": "Wszystkie zadania przekazane przez Twoich nauczycieli"
   },
   "carousel": {
     "carousel_no_questions": "Ta kategoria nie zawiera żadnych pytań.",
@@ -206,7 +212,7 @@
     "warmup": "Na rozgrzewkę możesz zmierzyć się z wyzwaniami, odpowiadając na pytania z wybranych przez siebie kategorii!",
     "change_preferences": "Swoje preferencje można zawsze zmienić w profilu.",
     "random_questions": "Losowe pytania dotyczące moich preferencji",
-    "record_interview": "Spróbuj swoich sił w prawdziwej grze i odpowiedz na pytania, które pochodzą tylko z wybranej przez Ciebie kategorii.",
+    "record_interview": "Przeprowadź pełną rozmowę kwalifikacyjną, zadając różne pytania związane z wybranym tematem!",
     "record_interview_questions": "Zawsze dostajesz 5 losowych pytań z wybranej kategorii, na które musisz odpowiedzieć.",
     "choose_category_button": "Wybierz kategorię pytań"
   },
@@ -221,7 +227,7 @@
     "title": "Preferencje",
     "form_title": "Wybierz 3 kategorie, na temat których chcesz odpowiedzieć na pytania.",
     "preference": "Preferencja",
-    "preferences_update": "Dostosuj preferencje",
+    "preferences_update": "Zapisz preferencje",
     "error": "Podczas dostosowywania preferencji użytkownika wystąpił błąd.",
     "error_title": "Inteligentnie na rozmowie o pracę",
     "preferences_update_success": "Twoje preferencje zostały dostosowane pomyślnie"
@@ -247,10 +253,11 @@
     "question_add": "Dodaj pytanie",
     "interviews_error_loading": "Wystąpił błąd podczas ładowania kategorii.",
     "interview_error_loading": "Wystąpił błąd podczas ładowania kategorii.",
-    "no_interviews_found": "Nie znaleziono ofert pracy."
+    "no_interviews_found": "Nie znaleziono ofert pracy.",
+    "interviews_index": "Wyświetl wszystkie dostępne kategorie pytań"
   },
   "dashboard": {
-    "title": "Tablica rozdzielcza",
+    "title": "Dashboard",
     "none": "Brak",
     "server_information": "Informacje o serwerze",
     "users_overview": "Przegląd użytkowników",
@@ -268,7 +275,9 @@
     "videos": "Rozmowy o pracę",
     "amount_of_videos": "Liczba rozmów kwalifikacyjnych",
     "tasks": "Zadania",
-    "task_add": "Dodaj zadanie"
+    "task_add": "Dodaj zadanie",
+    "teacher_view_index": "Ten dashboard zawiera wszystkich uczniów pod Twoją opieką i jest miejscem do zarządzania zadaniami",
+    "admin_view_index": "Ten dashboard zawiera informacje o danych serwera, a także przegląd wszystkich użytkowników i komentarzy"
   },
   "contact": {
     "title": "Kontakt",

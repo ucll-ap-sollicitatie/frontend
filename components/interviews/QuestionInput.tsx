@@ -1,10 +1,9 @@
+import type { Identifier, XYCoord } from "dnd-core";
 import type { NextPage } from "next";
 import { useRef } from "react";
-import { useDrag, useDrop } from "react-dnd";
-import type { XYCoord, Identifier } from "dnd-core";
 import { Button, Form } from "react-bootstrap";
-import { BsArrowsExpand } from "react-icons/bs";
-import { BsFillTrashFill } from "react-icons/bs";
+import { useDrag, useDrop } from "react-dnd";
+import { BsArrowsExpand, BsFillTrashFill } from "react-icons/bs";
 
 const style = {
   cursor: "move",

@@ -32,6 +32,7 @@ const Interviews: NextPage = () => {
       <PageTitleComponent title={title} />
 
       <h1>{t("title")}</h1>
+      <p>{t("interviews_index")}</p>
 
       {user.role !== "Student" && <AddInterviewButton />}
 

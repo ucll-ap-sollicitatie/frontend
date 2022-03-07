@@ -94,8 +94,6 @@ export function isPasswordValid(password: string, password_check: string): strin
     return "password_no_number";
   } else if (password.search(/[a-zA-Z]/) == -1) {
     return "password_no_letter";
-  } else if (password.search(/[^a-zA-Z0-9\@\#\$\%\^\&\*\(\)\_\+]/) == -1) {
-    return "password_bad_char";
   } else {
     return "password_ok";
   }

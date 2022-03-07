@@ -1,14 +1,14 @@
+import update from "immutability-helper";
 import type { NextPage } from "next";
+import { useTranslations } from "next-intl";
 import { FormEvent, useCallback, useState } from "react";
 import { Alert, Button, Form, Modal, Stack } from "react-bootstrap";
 import Question from "../../interfaces/Question";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 import QuestionInputType from "../../interfaces/QuestionInputType";
-import QuestionInput from "./QuestionInput";
-import update from "immutability-helper";
 import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
-import { useTranslations } from "next-intl";
+import QuestionInput from "./QuestionInput";
 
 interface Props {
   onSubmit: (e: FormEvent<HTMLFormElement>) => void;

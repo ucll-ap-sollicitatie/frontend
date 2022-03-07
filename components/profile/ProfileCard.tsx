@@ -1,5 +1,6 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
+import { useTranslations } from "next-intl";
 import { Card, Stack } from "react-bootstrap";
 import User from "../../interfaces/User";
 import ChangeImageButton from "../buttons/ChangeImageButton";
@@ -18,6 +19,7 @@ interface Props {
 
 const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
   const { data: session } = useSession();
+  const t = useTranslations();
   const session_user = session?.user as User;
 
   const updateComponent = () => {
@@ -59,11 +61,18 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
           {user.name} {user.surname}
         </Card.Title>
         <Card.Subtitle className="mb-2 text-muted fst-italic">
-          {user.role} - {user.formation}
+          {user.role === "Admin" && t("admin_role")}
+          {user.role === "Lector" && t("teacher_role")}
+          {user.role === "Student" && t("student_role")} - {user.formation}
         </Card.Subtitle>
 
         <Card.Text></Card.Text>
-        <Card.Text>{user.email}</Card.Text>
+
+        <Card.Text>
+          <a className="link-primary" href={`mailto:${user.email}`}>
+            {user.email}
+          </a>
+        </Card.Text>
       </Card.Body>
 
       {session_user.email === user.email && (

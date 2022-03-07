@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import { useTranslations } from "next-intl";
-import { Button, DropdownButton, Dropdown, Stack } from "react-bootstrap";
+import { Button, Dropdown, DropdownButton, Stack } from "react-bootstrap";
 import QuestionCategory from "../../interfaces/QuestionCategory";
 
 interface Props {

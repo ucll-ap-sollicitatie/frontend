@@ -2,7 +2,6 @@ import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import LoginButton from "./auth/LoginButton";
 import RegisterButton from "./auth/RegisterButton";
-import LocaleDropdown from "./buttons/LocaleDropdown";
 import Layout from "./layout/Layout";
 
 export async function getStaticProps({ locale }) {

@@ -1,11 +1,11 @@
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import Unauthenticated from "../../components/Unauthenticated";
-import AddInterviewForm from "../../components/interviews/AddInterviewForm";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import AddInterviewForm from "../../components/interviews/AddInterviewForm";
 import Layout from "../../components/layout/Layout";
 import PageTitleComponent from "../../components/PageTitleComponent";
+import Unauthenticated from "../../components/Unauthenticated";
 
 export async function getStaticProps({ locale }) {
   return {

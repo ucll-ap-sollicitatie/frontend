@@ -1,12 +1,12 @@
 import type { NextPage } from "next";
-import { Modal, Spinner } from "react-bootstrap";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import { useTranslations } from "next-intl";
-import ReactTable from "../ReactTable";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { Modal, Spinner } from "react-bootstrap";
+import QuestionCategory from "../../interfaces/QuestionCategory";
 import ConfirmCloseButton from "../buttons/ConfirmCloseButton";
 import ConfirmRemoveButton from "../buttons/ConfirmRemoveButton";
-import QuestionCategory from "../../interfaces/QuestionCategory";
+import ReactTable from "../ReactTable";
 
 const InterviewsTable: NextPage = () => {
   const t = useTranslations("interviews");

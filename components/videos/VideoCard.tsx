@@ -29,7 +29,10 @@ const VideoCard: NextPage<Props> = ({ video }) => {
           </Card.Subtitle>
         </Card.Body>
 
-        <Card.Footer className="text-muted">{new Date(video.date).toDateString()}</Card.Footer>
+        <Card.Footer className="text-muted d-flex justify-content-between">
+          <span>{new Date(video.date).toDateString()}</span>
+          <span>Likes: {video.likes}</span>
+        </Card.Footer>
       </Card>
     </Link>
   );

@@ -1,10 +1,10 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
-import Video from "../../interfaces/Video";
-import VideoCard from "./VideoCard";
-import Unauthenticated from "../Unauthenticated";
-import { Row } from "react-bootstrap";
 import { useTranslations } from "next-intl";
+import { Row } from "react-bootstrap";
+import Video from "../../interfaces/Video";
+import Unauthenticated from "../Unauthenticated";
+import VideoCard from "./VideoCard";
 
 interface Props {
   videos?: Video[];

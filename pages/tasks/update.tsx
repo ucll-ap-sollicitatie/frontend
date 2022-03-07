@@ -1,13 +1,13 @@
 import { NextPage } from "next";
-import Layout from "../../components/layout/Layout";
 import { useSession } from "next-auth/react";
-import Unauthenticated from "../../components/Unauthenticated";
-import { useRouter } from "next/router";
-import Error from "../_error";
-import UpdateTaskForm from "../../components/tasks/UpdateTaskForm";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/router";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Layout from "../../components/layout/Layout";
 import PageTitleComponent from "../../components/PageTitleComponent";
+import UpdateTaskForm from "../../components/tasks/UpdateTaskForm";
+import Unauthenticated from "../../components/Unauthenticated";
+import Error from "../_error";
 
 export async function getStaticProps({ locale }) {
   return {
@@ -32,8 +32,6 @@ const UpdateInterview: NextPage = () => {
     <Layout>
       <BreadcrumbComponent items={breadcrumb_items} />
       <PageTitleComponent title={title} />
-      <h1>{t("task_update")}</h1>
-
       <h1>{t("task_update")}</h1>
       <UpdateTaskForm task_id={query.task_id} />
     </Layout>

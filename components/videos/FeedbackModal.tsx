@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import { FormEvent } from "react";
-import { Modal, Button, Form } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import User from "../../interfaces/User";
 
 interface Props {
@@ -45,7 +45,7 @@ const FeedbackModal: NextPage<Props> = ({ maxChars, user, showFeedback, handleCl
             </Form.Group>
             <div className="d-flex mt-2 gap-5">
               <Form.Group controlId="van">
-                <Form.Label>{t("from")}</Form.Label>
+                <Form.Label>{t("from")} minimum 0 min.</Form.Label>
                 <div className="d-flex gap-1">
                   <Form.Control
                     onChange={(e) => setMaxChars(e.target.value.length)}
@@ -68,7 +68,7 @@ const FeedbackModal: NextPage<Props> = ({ maxChars, user, showFeedback, handleCl
                 </div>
               </Form.Group>
               <Form.Group controlId="tot">
-                <Form.Label>{t("to")}</Form.Label>
+                <Form.Label>{t("to")} maximum 10 min.</Form.Label>
                 <div className="d-flex gap-1">
                   <Form.Control
                     onChange={(e) => setMaxChars(e.target.value.length)}

@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
 
 export default NextAuth({
   secret: process.env.AUTH_SECRET as string,
@@ -20,10 +20,33 @@ export default NextAuth({
           },
           body: JSON.stringify(credentials),
         });
-        if (!res.ok) return null;
 
         const user = await res.json();
-        return user;
+
+        if (!res.ok) {
+          if (res.status === 401) {
+            throw new Error("User not activated");
+          } else {
+            throw new Error("Invalid credentials");
+          }
+        }
+
+        if (res.ok && user) {
+          return user;
+        }
+
+        return null;
+
+        // if (res.status === 400) {
+        //   return new Error("Credentials invalid");
+        // }
+        // if (res.status === 401) {
+        //   return new Error("Not activated");
+        // }
+
+        // if (!res.ok) return null;
+        // const user = await res.json();
+        // return user;
       },
     }),
     GithubProvider({

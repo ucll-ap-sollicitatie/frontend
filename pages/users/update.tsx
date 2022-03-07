@@ -2,13 +2,12 @@ import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/router";
-import Unauthenticated from "../../components/Unauthenticated";
-import Error from "../_error";
-import UpdateUserForm from "../../components/users/UpdateUserForm";
-import Layout from "../../components/layout/Layout";
-
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
+import Layout from "../../components/layout/Layout";
 import PageTitleComponent from "../../components/PageTitleComponent";
+import Unauthenticated from "../../components/Unauthenticated";
+import UpdateUserForm from "../../components/users/UpdateUserForm";
+import Error from "../_error";
 
 export async function getStaticProps({ locale }) {
   return {

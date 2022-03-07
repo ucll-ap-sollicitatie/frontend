@@ -74,6 +74,7 @@
   },
   "videos": {
     "all": "Toutes les entretiens d'embauche",
+    "all_public": "Tous les entretiens d'embauche publics",
     "title": "Titre",
     "information": "Information",
     "description": "Description",
@@ -124,6 +125,7 @@
     "formation": "Formation",
     "users": "Utilisateurs",
     "update_profile": "Modifier le profil",
+    "update_profile_confirm": "Sauver le profil",
     "update_profile_success": "Profil modifié avec succès",
     "update_user_success": " L'utilisateur a été modifié ",
     "preferences_edit": "Modifier les préférences",
@@ -156,7 +158,10 @@
     "refer_to_profile": "Pour commencer, vous pouvez modifier vos préférences et appliquer de petites personnalisations telles que le changement de langue ou le passage en mode sombre.",
     "refer_to_dashboard": "Pour commencer, vous pouvez jeter un coup d'œil au tableau de bord pour vous faire une idée.",
     "profile_picture_update": "Mise à jour de la photo de profil",
-    "profile_picture_upload": "Télécharger une photo de profil"
+    "profile_picture_upload": "Télécharger une photo de profil",
+    "admin_role": "Admin",
+    "teacher_role": "Professeur",
+    "student_role": "Étudiant"
   },
   "students": {
     "error": "Erreur lors de la récupération des étudiants",
@@ -178,7 +183,8 @@
     "task_remove_confirm": "Êtes-vous sûr de vouloir supprimer cette tâche ?",
     "task_remove_success": "Tâche supprimée avec succès",
     "task_update_failed": "Erreur lors de la modification de la tâche.",
-    "task_update_unauthorized": "Vous n'êtes pas autorisé à modifier cette tâche."
+    "task_update_unauthorized": "Vous n'êtes pas autorisé à modifier cette tâche.",
+    "tasks_index": "Toutes les tâches données par vos professeurs"
   },
   "carousel": {
     "carousel_no_questions": "Cette catégorie n'a pas encore de questions",
@@ -208,7 +214,7 @@
     "warmup": "Vous pouvez vous échauffer en vous mettant au défi de répondre à des questions aléatoires parmi vos catégories préférées !",
     "change_preferences": "Vous pouvez toujours modifier vos préférences dans votre profil.",
     "random_questions": "Questions aléatoires de mes préférences",
-    "record_interview": "Passez à l'action et répondez aux questions uniquement sur le thème de votre choix !",
+    "record_interview": "Réalisez un entretien complet avec différentes questions basées sur le thème que vous avez choisi !",
     "record_interview_questions": "Vous devrez répondre à 5 questions choisies au hasard dans la catégorie choisie.",
     "choose_category_button": "Choisissez une catégorie de questions"
   },
@@ -223,7 +229,7 @@
     "title": "Préférences",
     "form_title": "Choisissez 3 catégories sur lesquelles vous souhaitez obtenir des entretiens.",
     "preference": "Préférence",
-    "preferences_update": "Modifier vos préférences",
+    "preferences_update": "Sauver les préférences",
     "error": "Erreur lors de la modification des préférences",
     "error_title": "Malin en entretien d'embauche",
     "preferences_update_success": "Préférences modifiées avec succès"
@@ -249,7 +255,8 @@
     "question_add": "Ajouter une question",
     "interviews_error_loading": "Erreur lors du chargement des catégories.",
     "interview_error_loading": "Erreur lors du chargement de la catégorie.",
-    "no_interviews_found": "Aucune catégorie trouvée"
+    "no_interviews_found": "Aucune catégorie trouvée",
+    "interviews_index": "Voir toutes les catégories de questions disponibles"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -270,7 +277,9 @@
     "videos": "Entretiens d'embauche",
     "amount_of_videos": "Nombre des entretiens d'embauche",
     "tasks": "Tâches",
-    "task_add": "Ajouter une tâche"
+    "task_add": "Ajouter une tâche",
+    "teacher_view_index": "Ce tableau de bord contient tous les élèves sous votre supervision et est le lieu de gestion des tâches",
+    "admin_view_index": "Ce tableau de bord contient des informations sur les données du serveur, ainsi qu'un aperçu de tous les utilisateurs et des commentaires"
   },
   "contact": {
     "title": "Contact",
