@@ -1,7 +1,4 @@
 import "bootstrap-dark-5/dist/css/bootstrap-nightshade.css";
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import { useRouter } from "next/router";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlProvider } from "next-intl";
 import type { AppProps } from "next/app";
