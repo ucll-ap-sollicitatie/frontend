@@ -12,7 +12,7 @@ const UpdateUserButton: NextPage<Props> = ({ email }) => {
 
   return (
     <Link href={`/users/update/?email=${email}`} passHref>
-      <Button variant="primary">{t("profile_edit")}</Button>
+      <Button variant="primary">{t("update_profile")}</Button>
     </Link>
   );
 };
