@@ -6,14 +6,14 @@ import User from "../../interfaces/User";
 
 interface Props {
   maxChars: number;
-  user: User;
+  video_author: string;
   showFeedback: boolean;
   handleClose: () => void;
   handleAddFeedback: (event: FormEvent) => void;
   setMaxChars: Function;
 }
 
-const FeedbackModal: NextPage<Props> = ({ maxChars, user, showFeedback, handleClose, handleAddFeedback, setMaxChars }) => {
+const FeedbackModal: NextPage<Props> = ({ maxChars, video_author, showFeedback, handleClose, handleAddFeedback, setMaxChars }) => {
   const t = useTranslations("videos");
   const m = useTranslations("modal");
 
@@ -21,7 +21,7 @@ const FeedbackModal: NextPage<Props> = ({ maxChars, user, showFeedback, handleCl
     <Modal show={showFeedback} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
-          {t("feedback_to")} {user.name} {user.surname}
+          {t("feedback_to")} {video_author}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
