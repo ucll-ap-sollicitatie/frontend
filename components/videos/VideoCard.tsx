@@ -31,7 +31,7 @@ const VideoCard: NextPage<Props> = ({ video }) => {
 
         <Card.Footer className="text-muted d-flex justify-content-between">
           <span>{new Date(video.date).toDateString()}</span>
-          <span>Likes: {video.likes}</span>
+          {video.likes < 0 && <span>Likes: {video.likes}</span>}
         </Card.Footer>
       </Card>
     </Link>
