@@ -30,7 +30,6 @@ const AddTask: NextPage = () => {
 
       <h1>{t("task_add")}</h1>
 
-      <h1>{t("task_add")}</h1>
       <AddTaskForm />
     </Layout>
   );
