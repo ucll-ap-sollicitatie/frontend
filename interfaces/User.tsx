@@ -11,4 +11,5 @@ export default interface User {
   token_expiration_date: string;
   last_login: Date;
   introduced: boolean;
+  edited: boolean;
 }

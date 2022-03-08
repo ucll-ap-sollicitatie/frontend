@@ -277,7 +277,10 @@
     "tasks": "Zadania",
     "task_add": "Dodaj zadanie",
     "teacher_view_index": "Ten dashboard zawiera wszystkich uczniów pod Twoją opieką i jest miejscem do zarządzania zadaniami",
-    "admin_view_index": "Ten dashboard zawiera informacje o danych serwera, a także przegląd wszystkich użytkowników i komentarzy"
+    "admin_view_index": "Ten dashboard zawiera informacje o danych serwera, a także przegląd wszystkich użytkowników i komentarzy",
+    "admin_role": "Admin",
+    "teacher_role": "Nauczyciel",
+    "student_role": "Uczeń"
   },
   "contact": {
     "title": "Kontakt",

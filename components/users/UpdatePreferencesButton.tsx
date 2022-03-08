@@ -8,9 +8,7 @@ const UpdatePreferencesButton: NextPage = () => {
 
   return (
     <Link href={`/preferences`} passHref>
-      <Button className="mt-2" variant="primary">
-        {t("preferences_edit")}
-      </Button>
+      <Button variant="primary">{t("preferences_edit")}</Button>
     </Link>
   );
 };

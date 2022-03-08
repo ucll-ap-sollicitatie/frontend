@@ -1,3 +1,4 @@
+import { cp } from "fs/promises";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
@@ -40,34 +41,11 @@ interface Props {
 const Home: NextPage<Props> = ({ favoriteVideos }) => {
   const t = useTranslations("home");
   const { data: session } = useSession();
-  const [introduced, setIntroduced] = useState<boolean>(true);
-  const [edited, setEdited] = useState<boolean>(true);
-
-  useEffect(() => {
-    const fetchPrefIntroduced = async () => {
-      if (!session?.user) {
-        return;
-      }
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/preferences/${session?.user?.email}`);
-      const prefs = await res.json();
-      if (!prefs.introduced) {
-        setIntroduced(false);
-      }
-      if (!prefs.edited) {
-        setEdited(false);
-      }
-    };
-
-    fetchPrefIntroduced();
-  });
-
-  if (!session || session.user === undefined) return <Unauthenticated />;
-  const user = session.user as User;
-  const breadcrumb_items = [{ text: t("title") }];
+  const user = session?.user as User;
 
   const chooseIntroduction = () => {
-    if (!introduced) {
-      if (!edited) {
+    if (!user.introduced) {
+      if (!user.edited) {
         return <IntroductionNotEditedComponent session_user={user} />;
       } else {
         return <IntroductionComponent session_user={user} />;
@@ -75,14 +53,22 @@ const Home: NextPage<Props> = ({ favoriteVideos }) => {
     }
   };
 
+  const breadcrumb_items = [{ text: t("title") }];
+
+  if (!session || session.user === undefined) return <Unauthenticated />;
+
   return (
     <Layout>
       <BreadcrumbComponent items={breadcrumb_items} />
+
       <h1>
         {t("welcome")}, {user.name || user.email}!
       </h1>
+
       {chooseIntroduction()}
-      <h2 className="mt-3">{t("favorites_title")}</h2>
+      <br />
+
+      <h2>{t("favorites_title")}</h2>
       <RandomFavoritesOverview videos={favoriteVideos} user={user} />
     </Layout>
   );
