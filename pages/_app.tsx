@@ -1,7 +1,4 @@
 import "bootstrap-dark-5/dist/css/bootstrap-nightshade.css";
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import { useRouter } from "next/router";
 import { SessionProvider } from "next-auth/react";
 import { NextIntlProvider } from "next-intl";
 import type { AppProps } from "next/app";
@@ -15,7 +12,6 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import Amogus from "../components/Amogus";
 import ToastComponent from "../components/ToastComponent";
 import { getLocale, initializeDarkMode } from "../helpers/helperFunctions";
-import "../node_modules/video-react/dist/video-react.css";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
