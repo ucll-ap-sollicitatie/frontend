@@ -279,7 +279,10 @@
     "tasks": "Assignments",
     "task_add": "Add assignment",
     "teacher_view_index": "This dashboard contains all the students under your supervision and is the place to manage tasks",
-    "admin_view_index": "This dashboard contains information about the server's data, as well as an overview of all users and comments"
+    "admin_view_index": "This dashboard contains information about the server's data, as well as an overview of all users and comments",
+    "admin_role": "Admin",
+    "teacher_role": "Lecturer",
+    "student_role": "Student"
   },
   "contact": {
     "title": "Contact",

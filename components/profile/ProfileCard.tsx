@@ -19,7 +19,7 @@ interface Props {
 
 const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
   const { data: session } = useSession();
-  const t = useTranslations();
+  const t = useTranslations("dashboard");
   const session_user = session?.user as User;
 
   const updateComponent = () => {
@@ -80,16 +80,14 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
           <Stack gap={3}>
             <DarkModeToggle />
             <IntroductionToggle session_user={session_user} />
-            <div className="d-flex gap-2 justify-content-between">
-              <LocaleDropdown />
-              {updateProfileImage()}
-            </div>
+            <LocaleDropdown />
           </Stack>
         </Card.Body>
       )}
 
       <Card.Body className="border-top">
-        <Stack>
+        <Stack gap={2}>
+          {updateProfileImage()}
           {updateComponent()}
           {updatePreferences()}
           {favoriteVideosComponent()}

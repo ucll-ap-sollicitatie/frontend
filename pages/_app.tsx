@@ -25,7 +25,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     initializeDarkMode();
 
     // To fix an infinite loop when going to /_error.tsx for some reason
-    if (router.route !== "/_error") router.push("/", "/", { locale: getLocale() });
+    if (router.route !== "/_error") router.push(`${router.asPath}`, `${router.asPath}`, { locale: getLocale() });
   }, []);
 
   return (

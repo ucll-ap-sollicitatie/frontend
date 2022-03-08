@@ -149,7 +149,7 @@
     "account_delete_cancel": "Non, faites-moi sortir d'ici",
     "user_activation_success": "Utilisateur activé",
     "password_info": "Le mot de passe doit contenir au moins 8 caractères, 1 lettre majuscule, 1 chiffre et 1 caractère spécial.",
-    "toggle_introduction": "Éteindre l'introduction",
+    "toggle_introduction": "Masquer la description",
     "student_index_possibilities": "En tant qu'étudiant, vous avez la possibilité de participer à un entretien d'embauche ou de voir d'autres tentatives d'emploi. Il existe également une liste de catégories que vous pouvez consulter avant de tenter la vôtre. Chaque catégorie comporte un minimum de 5 questions. Pour vous faciliter la tâche, nous avons également mis en place des préférences afin de vous proposer un plus large éventail de questions.",
     "student_index": "Vous pouvez donner à chaque enregistrement un nom et une description et l'option de le rendre privé, ce qui signifie dans ce cas que seuls les conférenciers peuvent le voir. Un enseignant peut donner son avis sur chaque enregistrement, tandis que tous les utilisateurs peuvent laisser des commentaires sur les enregistrements, pour autant que l'entretien soit défini comme public.",
     "teacher_index_possibilities": "En tant que tuteur, vous avez la possibilité de visionner les entretiens d'embauche de tous les étudiants, de leur donner votre avis ou de les commenter. Il existe également une liste de catégories que vous pouvez consulter pour avoir une bonne idée du type de questions posées. Chaque catégorie comporte un minimum de 5 questions. Vous pouvez également créer votre propre catégorie. Vous pouvez également enregistrer vous-même une interview. Surtout, un tableau de bord est disponible où vous pouvez voir tous les étudiants et créer, modifier ou supprimer des tâches.",
@@ -157,7 +157,7 @@
     "admin_index": "En tant qu'administrateur, vous avez la possibilité de voir toutes les données ainsi que de les modifier ou même de les supprimer. Il existe un tableau de bord avec toutes les options possibles.",
     "refer_to_profile": "Pour commencer, vous pouvez modifier vos préférences et appliquer de petites personnalisations telles que le changement de langue ou le passage en mode sombre.",
     "refer_to_dashboard": "Pour commencer, vous pouvez jeter un coup d'œil au tableau de bord pour vous faire une idée.",
-    "profile_picture_update": "Mise à jour de la photo de profil",
+    "profile_picture_update": "Mettre à jour la photo de profil",
     "profile_picture_upload": "Télécharger une photo de profil",
     "admin_role": "Admin",
     "teacher_role": "Professeur",
@@ -279,7 +279,10 @@
     "tasks": "Tâches",
     "task_add": "Ajouter une tâche",
     "teacher_view_index": "Ce tableau de bord contient tous les élèves sous votre supervision et est le lieu de gestion des tâches",
-    "admin_view_index": "Ce tableau de bord contient des informations sur les données du serveur, ainsi qu'un aperçu de tous les utilisateurs et des commentaires"
+    "admin_view_index": "Ce tableau de bord contient des informations sur les données du serveur, ainsi qu'un aperçu de tous les utilisateurs et des commentaires",
+    "admin_role": "Admin",
+    "teacher_role": "Professeur",
+    "student_role": "Étudiant"
   },
   "contact": {
     "title": "Contact",

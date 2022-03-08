@@ -4,15 +4,13 @@ import Unauthenticated from "../../components/Unauthenticated";
 import MyProfile from "../../components/users/MyProfile";
 import User from "../../interfaces/User";
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const props = {
-    messages: (await import(`../../public/locales/${locale}.json`)).default,
-  };
-
+export async function getStaticProps({ locale }) {
   return {
-    props,
+    props: {
+      messages: (await import(`../../public/locales/${locale}.json`)).default,
+    },
   };
-};
+}
 
 const Profile: NextPage = () => {
   const { data: session } = useSession();
