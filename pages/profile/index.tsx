@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Unauthenticated from "../../components/Unauthenticated";
 import MyProfile from "../../components/users/MyProfile";

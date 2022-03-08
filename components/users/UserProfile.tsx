@@ -30,8 +30,9 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
         temp.push(video);
       }
     });
+
     setPublicVideos(temp);
-  }, [videos, user.email]);
+  }, [videos, user.email, current_user.role]);
 
   const breadcrumb_items = [{ text: `${user.name} ${user.surname}` }];
 

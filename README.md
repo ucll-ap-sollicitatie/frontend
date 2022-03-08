@@ -10,7 +10,7 @@ Log in or register with a new account. Choose your preferred categories, turn on
 
 ## Pages
 
-**[Home page](#Home-page) | [Dashboard](#Dashboard) | [Take a job interview](#Take-a-job-interview) | [Job interviews](#Job-interviews) | [Categories](#Categories) | [My assignments](#My-assignments) | [My profile](#My-profile) | [Contact](#Contact)** 
+**[Home page](#Home-page) | [Dashboard](#Dashboard) | [Take a job interview](#Take-a-job-interview) | [Job interviews](#Job-interviews) | [Categories](#Categories) | [My assignments](#My-assignments) | [My profile](#My-profile) | [Contact](#Contact)**
 
 ### Home page
 
@@ -20,14 +20,16 @@ If you're logged in, you can see some of the teachers favorite interviews. There
 ### Dashboard
 
 Depending on the role you have as a user, you will see different functionalities on this page.
+
 - As a student, you don't get to see this page in your navigation and you will also not be able to navigate to this page via the url.
 - As a lecturer, you will see a list of all your students as well as a list of all the assignments.
 - As an admin, this page shows all server information, a list of all the users and a list of all the comments that have been added under videos.
 
 ### Take a job interview
 
-On this page, you can record a new video. 
+On this page, you can record a new video.
 There are two options for recording a job interview:
+
 - Random questions. Five random questions based on your preferred categories will be asked during the recording of your video.
 - Chosen category. Given the list of all possible categories, you can pick one you would like to record a video about.
 
