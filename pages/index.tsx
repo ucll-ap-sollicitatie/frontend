@@ -1,8 +1,6 @@
-import { cp } from "fs/promises";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import IntroductionComponent from "../components/home/IntroductionComponent";
 import IntroductionNotEditedComponent from "../components/home/IntroductionNotEditedComponent";
