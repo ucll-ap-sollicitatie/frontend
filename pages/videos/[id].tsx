@@ -82,6 +82,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
   const [currentComment, setCurrentComment] = useState<Comment | null>(comments == null ? null : comments[0]);
   const { data: session } = useSession();
   const user = session?.user as User;
+  const video_author = `${video.name} ${video.surname}`;
 
   useEffect(() => {
     const fetchTest = async () => {
@@ -361,7 +362,7 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
       />
 
       <FeedbackModal
-        user={user}
+        video_author={video_author}
         maxChars={maxChars}
         showFeedback={showFeedback}
         handleClose={handleClose}
