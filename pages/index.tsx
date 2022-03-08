@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import IntroductionComponent from "../components/home/IntroductionComponent";
 import IntroductionNotEditedComponent from "../components/home/IntroductionNotEditedComponent";
@@ -43,7 +43,7 @@ const Home: NextPage<Props> = ({ favoriteVideos }) => {
   const [introduced, setIntroduced] = useState<boolean>(true);
   const [edited, setEdited] = useState<boolean>(true);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const fetchPrefIntroduced = async () => {
       if (!session?.user) {
         return;
