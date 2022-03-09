@@ -159,9 +159,7 @@
     "refer_to_dashboard": "To begin with, you can take a look at the dashboard to get a feel for it.",
     "profile_picture_update": "Update profile picture",
     "profile_picture_upload": "Upload profile picture",
-    "admin_role": "Admin",
-    "teacher_role": "Teacher",
-    "student_role": "Student"
+    "profile_picture_upload_format_error": "The file format is not supported."
   },
   "students": {
     "error": "An error occurred during loading of students.",

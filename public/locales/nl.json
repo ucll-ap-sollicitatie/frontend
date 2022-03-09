@@ -158,7 +158,8 @@
     "refer_to_profile": "Om te beginnen kan u uw preferenties veranderen en kleine personalisaties toepassen zoals de taal veranderen of naar donkere modus schakelen.",
     "refer_to_dashboard": "Om te beginnen kan u een kijkje nemen naar de dashboard om er een gevoel voor te krijgen.",
     "profile_picture_update": "Update profielfoto",
-    "profile_picture_upload": "Upload profielfoto"
+    "profile_picture_upload": "Upload profielfoto",
+    "profile_picture_upload_format_error": "Formaat van de profielfoto is niet toegestaan."
   },
   "students": {
     "error": "Er is een probleem opgetreden bij het laden van uw studenten.",
