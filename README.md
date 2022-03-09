@@ -87,8 +87,8 @@ Some functionality may be missing due to not all files being in the repository o
 
 ### What port does the application run on?
 
-The app runs on 3000, this can be changed by accessing the 'app.js' file and changing the port to the desired one.  
-`const port = 3000`
+The app runs on 3000, this can be changed by accessing the 'package.json' file and changing the port to the desired one.  
+`"dev": "next dev -p 3000"`
 
 ### What type of data does this application use?
 
