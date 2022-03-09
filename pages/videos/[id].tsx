@@ -386,11 +386,6 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
           <h1>
             {t("title")}: {video.title}
           </h1>
-          {user.user_id === video.user_id && (
-            <Button variant="outline-success" onClick={handleShowUpdateVideo}>
-              {t("edit_video")}
-            </Button>
-          )}
         </div>
 
         <div className="d-flex flex-wrap gap-3 gap-lg-5 text-break">
@@ -430,6 +425,11 @@ const Video: NextPage<Props> = ({ video, comments, feedback }) => {
               <span>{new Date(video?.date).toLocaleString()}</span>
             </div>
             <hr />
+            {user.user_id === video.user_id && (
+              <Button variant="outline-secondary" className="col-xl-7 col-lg-8 col-md-5 col-sm-7" onClick={handleShowUpdateVideo}>
+                <strong>{t("edit_video")}</strong>
+              </Button>
+            )}
             <div className="d-flex gap-2">
               {videoLiked ? (
                 <Button variant="outline-secondary" onClick={handleUnlikeVideo}>
