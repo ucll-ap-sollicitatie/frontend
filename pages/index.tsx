@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
 import BreadcrumbComponent from "../components/BreadcrumbComponent";
 import IntroductionComponent from "../components/home/IntroductionComponent";
 import IntroductionNotEditedComponent from "../components/home/IntroductionNotEditedComponent";
@@ -9,35 +10,33 @@ import Unauthenticated from "../components/Unauthenticated";
 import RandomFavoritesOverview from "../components/videos/RandomFavoritesOverview";
 import User from "../interfaces/User";
 import Video from "../interfaces/Video";
+import Error from "./_error";
 
 export async function getServerSideProps({ locale }) {
   let props = {
-    favoriteVideos: null,
     messages: (await import(`../public/locales/${locale}.json`)).default,
   };
-
-  const favResult = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/random/random`);
-  const favoriteVideos = await favResult.json();
-
-  if (favResult.status === 404) {
-    return {
-      notFound: true,
-    };
-  }
-
-  props.favoriteVideos = favoriteVideos;
 
   return {
     props,
   };
 }
 
-interface Props {
-  favoriteVideos: Video[];
-}
-
-const Home: NextPage<Props> = ({ favoriteVideos }) => {
+const Home: NextPage = () => {
   const t = useTranslations("home");
+  const v = useTranslations("videos");
+  const [favoriteVideos, setFavoriteVideos] = useState<Video[]>([]);
+
+  useEffect(() => {
+    const fetchFavoriteVideos = async () => {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites/random/random`);
+      const data = await response.json();
+      setFavoriteVideos(data);
+    };
+
+    fetchFavoriteVideos();
+  }, []);
+
   const { data: session } = useSession();
   const user = session?.user as User;
 
@@ -67,7 +66,7 @@ const Home: NextPage<Props> = ({ favoriteVideos }) => {
       <br />
 
       <h2>{t("favorites_title")}</h2>
-      <RandomFavoritesOverview videos={favoriteVideos} user={user} />
+      {favoriteVideos.length > 0 ? <RandomFavoritesOverview videos={favoriteVideos} user={user} /> : <p>{v("no_videos")}</p>}
     </Layout>
   );
 };

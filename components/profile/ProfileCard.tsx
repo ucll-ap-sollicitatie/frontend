@@ -29,7 +29,7 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
   };
 
   const updatePreferences = () => {
-    if (session_user.email === user.email || session_user.role === "Admin") {
+    if (session_user.email === user.email) {
       return <UpdatePreferencesButton />;
     }
   };

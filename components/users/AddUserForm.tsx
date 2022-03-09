@@ -1,11 +1,13 @@
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { FormEvent, useEffect, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { isPasswordValid, validateEmail } from "../../helpers/helperFunctions";
 import Formation from "../../interfaces/Formation";
 import Role from "../../interfaces/Role";
+import Error from "../../pages/_error";
 import UserForm from "./UserForm";
 
 const AddUserForm: NextPage = () => {
@@ -89,7 +91,7 @@ const AddUserForm: NextPage = () => {
         <span>{error}</span>
       </Alert>
 
-      <UserForm onSubmit={onSubmit} />
+      {formations.length > 0 ? <UserForm onSubmit={onSubmit} /> : <p>Server error</p>}
     </>
   );
 };
