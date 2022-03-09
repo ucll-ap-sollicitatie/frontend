@@ -22,8 +22,8 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
   const [publicVideos, setPublicVideos] = useState<Video[]>([]);
   const { data: session } = useSession();
   const current_user = session?.user as User;
-  if (videos !== null) {
-    useEffect(() => {
+  useEffect(() => {
+    if (videos !== null) {
       let temp: Video[] = [];
       videos.forEach((video) => {
         if (video.email === user.email && (!video.private || current_user.role !== "Student")) {
@@ -32,8 +32,8 @@ const UserProfile: NextPage<Props> = ({ user, videos }) => {
       });
 
       setPublicVideos(temp);
-    }, [videos, user.email, current_user.role]);
-  }
+    }
+  }, [videos, user.email, current_user.role]);
 
   const breadcrumb_items = [{ text: `${user.name} ${user.surname}` }];
 
