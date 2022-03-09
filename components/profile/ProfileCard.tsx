@@ -29,7 +29,7 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
   };
 
   const updatePreferences = () => {
-    if (session_user.email === user.email || session_user.role === "Admin") {
+    if (session_user.email === user.email) {
       return <UpdatePreferencesButton />;
     }
   };
@@ -54,7 +54,7 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
 
   return (
     <Card style={{ maxWidth: "22rem" }}>
-      <Card.Img variant="top" src={user.image} />
+      <Card.Img variant="top" src={user.image} style={{ maxHeight: "22rem" }} />
 
       <Card.Body>
         <Card.Title>

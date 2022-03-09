@@ -156,10 +156,9 @@
     "refer_to_profile": "Na początek możesz zmienić swoje preferencje i zastosować drobne personalizacje, takie jak zmiana języka lub przełączenie na tryb ciemny.",
     "refer_to_dashboard": "Na początek możesz przyjrzeć się tablicy rozdzielczej, aby się z nią zapoznać.",
     "profile_picture_update": "Zaktualizuj zdjęcie profilowe",
-    "profile_picture_upload": "Prześlij zdjęcie profilowe",
-    "admin_role": "Administrator",
-    "teacher_role": "Nauczyciel",
-    "student_role": "Student"
+    "profile_picture_upload": "Prześlij zdjęcie profilowe (JPEG)",
+    "profile_picture_upload_format_error": "Nieprawidłowy format pliku.",
+    "profile_picture_available_next_login": "Nowe zdjęcie profilowe dostępne przy następnym logowaniu."
   },
   "students": {
     "error": "Wystąpił błąd podczas ładowania uczniów.",
@@ -280,7 +279,8 @@
     "admin_view_index": "Ten dashboard zawiera informacje o danych serwera, a także przegląd wszystkich użytkowników i komentarzy",
     "admin_role": "Admin",
     "teacher_role": "Nauczyciel",
-    "student_role": "Uczeń"
+    "student_role": "Uczeń",
+    "no_tasks_found": "Nie znaleziono żadnych zadań."
   },
   "contact": {
     "title": "Kontakt",

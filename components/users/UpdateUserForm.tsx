@@ -95,16 +95,25 @@ const UpdateUserForm: NextPage<Props> = ({ email }) => {
     }
     const new_user = await user_res.json();
 
-    if (current_user.email === email && session.data !== null) session.data.user = new_user;
-
     // Redirect to /profile
-    router.push(
-      {
-        pathname: `/users/${new_user.user_id}`,
-        query: { toast: u("update_user_success") },
-      },
-      `/users/${new_user.user_id}`
-    );
+    if (current_user.email === email && session.data !== null) {
+      session.data.user = new_user;
+      router.push(
+        {
+          pathname: `/profile`,
+          query: { toast: u("update_profile_success") },
+        },
+        `/profile`
+      );
+    } else {
+      router.push(
+        {
+          pathname: `/users/${new_user.user_id}`,
+          query: { toast: u("update_user_success") },
+        },
+        `/users/${new_user.user_id}`
+      );
+    }
   };
 
   const activateUser = async () => {

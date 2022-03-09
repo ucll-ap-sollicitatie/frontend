@@ -127,7 +127,7 @@
     "update_profile": "Profiel aanpassen",
     "update_profile_confirm": "Profiel opslaan",
     "update_profile_success": "Uw profiel is succesvol aangepast.",
-    "update_user_succes": "Gebruiker is bewerkt",
+    "update_user_success": "Gebruiker is bewerkt",
     "preferences_edit": "Preferenties aanpassen",
     "profile:": "Profiel",
     "my_profile": "Mijn profiel",
@@ -158,7 +158,9 @@
     "refer_to_profile": "Om te beginnen kan u uw preferenties veranderen en kleine personalisaties toepassen zoals de taal veranderen of naar donkere modus schakelen.",
     "refer_to_dashboard": "Om te beginnen kan u een kijkje nemen naar de dashboard om er een gevoel voor te krijgen.",
     "profile_picture_update": "Update profielfoto",
-    "profile_picture_upload": "Upload profielfoto"
+    "profile_picture_upload": "Upload profielfoto (JPEG)",
+    "profile_picture_upload_format_error": "Formaat van de profielfoto is niet toegestaan.",
+    "profile_picture_available_next_login": "Nieuwe profielfoto beschikbaar bij volgende inlog."
   },
   "students": {
     "error": "Er is een probleem opgetreden bij het laden van uw studenten.",
@@ -233,7 +235,7 @@
   },
   "interviews": {
     "title": "Categorieën",
-    "description": "Bescrijving",
+    "description": "Beschrijving",
     "questions": "Vragen",
     "interview_add": "Categorie toevoegen",
     "interview_add_success": "Categorie succesvol toegevoegd",
@@ -279,7 +281,8 @@
     "admin_view_index": "Dit dashboard bevat informatie over de gegevens van de server, evenals een overzicht van alle gebruikers en commentaar",
     "admin_role": "Admin",
     "teacher_role": "Lector",
-    "student_role": "Student"
+    "student_role": "Student",
+    "no_tasks_found": "Geen taken gevonden."
   },
   "contact": {
     "title": "Contact",

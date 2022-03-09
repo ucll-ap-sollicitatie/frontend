@@ -18,13 +18,9 @@ export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
   const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/favorites`);
   const data = await result.json();
 
-  if (result.status === 404) {
-    return {
-      notFound: true,
-    };
+  if (result.ok) {
+    props.videos = data;
   }
-
-  props.videos = data;
 
   return {
     props,
@@ -50,7 +46,7 @@ const FavoriteVideos: NextPage<Props> = ({ videos }) => {
       <PageTitleComponent title={title} />
 
       <h1>{t("favorite_title")}</h1>
-      <FavoriteVideoOverview videos={videos} user={user} />
+      {videos ? <FavoriteVideoOverview videos={videos} user={user} /> : <p>{t("no_videos")}</p>}
     </Layout>
   );
 };

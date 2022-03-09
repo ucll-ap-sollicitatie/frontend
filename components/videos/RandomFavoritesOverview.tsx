@@ -13,12 +13,8 @@ interface Props {
 }
 
 const RandomFavoritesOverview: NextPage<Props> = ({ videos, user }) => {
-  const t = useTranslations("videos");
-  const r = useTranslations("recording");
-
   const { data: session } = useSession();
   if (!session) return <Unauthenticated />;
-  if (!videos) return <p>{t("no_videos")}</p>;
 
   return (
     <>

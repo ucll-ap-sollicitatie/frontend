@@ -84,7 +84,7 @@ const AdminView: NextPage<Props> = ({ users, comments, t }) => {
           <UsersTable />
         </Tab>
         <Tab eventKey="contact" title={t("comments_overview")}>
-          {comments === null && <p>{t("none")}</p>}
+          {comments === null && <h2>{t("none")}</h2>}
           {comments !== null && <CommentsTable comments={comments} />}
         </Tab>
       </Tabs>

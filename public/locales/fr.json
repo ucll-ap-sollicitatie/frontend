@@ -158,17 +158,16 @@
     "refer_to_profile": "Pour commencer, vous pouvez modifier vos préférences et appliquer de petites personnalisations telles que le changement de langue ou le passage en mode sombre.",
     "refer_to_dashboard": "Pour commencer, vous pouvez jeter un coup d'œil au tableau de bord pour vous faire une idée.",
     "profile_picture_update": "Mettre à jour la photo de profil",
-    "profile_picture_upload": "Télécharger une photo de profil",
-    "admin_role": "Admin",
-    "teacher_role": "Professeur",
-    "student_role": "Étudiant"
+    "profile_picture_upload": "Télécharger une photo de profi (JPEG)",
+    "profile_picture_upload_format_error": "Le format de la photo de profil n'est pas valide.",
+    "profile_picture_available_next_login": "Nouvelle photo de profil disponible à la prochaine connexion."
   },
   "students": {
     "error": "Erreur lors de la récupération des étudiants",
     "no_students": "Vous n'avez pas d'étudiant sous votre responsabilité"
   },
   "tasks": {
-    "no_tasks_found": "Aucune tâche de trouvée",
+    "no_tasks_found": "Aucune tâche de trouvée.",
     "no_tasks": "Vous n'avez pas de tâche pour le moment",
     "my_tasks": "Mes tâches",
     "task": "Tâche",
@@ -282,7 +281,8 @@
     "admin_view_index": "Ce tableau de bord contient des informations sur les données du serveur, ainsi qu'un aperçu de tous les utilisateurs et des commentaires",
     "admin_role": "Admin",
     "teacher_role": "Professeur",
-    "student_role": "Étudiant"
+    "student_role": "Étudiant",
+    "no_tasks_found": "Aucune tâche de trouvée."
   },
   "contact": {
     "title": "Contact",

@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import { FormEvent } from "react";
-import { Button, Form, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, Form, Modal, OverlayTrigger, Stack, Tooltip } from "react-bootstrap";
 import User from "../../interfaces/User";
 import Video from "../../interfaces/Video";
 
@@ -58,15 +58,17 @@ const UpdateVideoModal: NextPage<Props> = ({ maxChars, user, showUpdateVideo, ha
               </Form.Group>
             </OverlayTrigger>
           </div>
-          <Button variant="success" type="submit" className="mt-3">
-            {m("update")}
-          </Button>
-          <Button variant="outline-secondary" onClick={handleClose} className="mt-3 ms-2">
-            {m("close")}
-          </Button>
-          <Button onClick={handleDeleteVideo} variant="danger" className="mt-3 ms-2">
-            {m("delete")}
-          </Button>
+          <Stack direction="horizontal" gap={2}>
+            <Button variant="success" type="submit" className="mt-3">
+              {m("update")}
+            </Button>
+            <Button onClick={handleDeleteVideo} variant="outline-danger" className="mt-3">
+              {m("delete")}
+            </Button>
+            <Button variant="outline-secondary" onClick={handleClose} className="mt-3">
+              {m("close")}
+            </Button>
+          </Stack>
         </Form>
       </Modal.Body>
     </Modal>
