@@ -12,13 +12,17 @@ import Task from "../../interfaces/Task";
 import User from "../../interfaces/User";
 
 export const getServerSideProps: GetServerSideProps = async ({ locale }) => {
+  const props = {
+    tasks: null,
+    messages: (await import(`../../public/locales/${locale}.json`)).default,
+  };
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`);
   const data = await res.json();
+  if (res.ok) {
+    props.tasks = data;
+  }
   return {
-    props: {
-      tasks: data,
-      messages: (await import(`../../public/locales/${locale}.json`)).default,
-    },
+    props,
   };
 };
 
@@ -29,7 +33,6 @@ interface Props {
 const TasksIndex: NextPage<Props> = ({ tasks }) => {
   const t = useTranslations("tasks");
   const title = t("task_add");
-
   const columns = [
     {
       Header: t("task"),
@@ -52,7 +55,10 @@ const TasksIndex: NextPage<Props> = ({ tasks }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const { data: session } = useSession();
   useEffect(() => {
-    tasks.forEach((task: Task) => (task.deadline_string = new Date(task.deadline).toLocaleString()));
+    if (tasks !== null) {
+      tasks.forEach((task: Task) => (task.deadline_string = new Date(task.deadline).toLocaleString()));
+    }
+
     setLoading(false);
   }, [tasks]);
   if (!session || session.user === undefined) return <Unauthorized />;
@@ -60,7 +66,6 @@ const TasksIndex: NextPage<Props> = ({ tasks }) => {
   if (user.role === "Lector") return <Unauthorized />;
 
   if (loading) return <SpinnerComponent />;
-  if (tasks.length < 1) return <p>{t("no_tasks_found")}</p>;
 
   const breadcrumb_items = [{ text: t("my_tasks") }];
 
@@ -71,7 +76,7 @@ const TasksIndex: NextPage<Props> = ({ tasks }) => {
 
       <h1>{t("my_tasks")}</h1>
       <p>{t("tasks_index")}</p>
-      <TasksReactTable columns={columns} data={tasks} url={"/tasks"} id="task_id" />
+      {tasks ? <TasksReactTable columns={columns} data={tasks} url={"/tasks"} id="task_id" /> : <p>{t("no_tasks")}</p>}
     </Layout>
   );
 };

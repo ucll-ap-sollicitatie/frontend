@@ -59,21 +59,17 @@ const MyProfile: NextPage<Props> = ({ user }) => {
 
       const body = new FormData();
       body.append("newImage", image);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.user_id}/image`, {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.user_id}/image`, {
         method: "PUT",
         body,
       });
 
-      const user_updated_res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/email/${user.email}`);
-      const user_updated = await user_updated_res.json();
-      console.log(user_updated);
-      if (session.data !== null) session.data.user = user_updated;
-      console.log(session);
       handleClose();
 
       // Redirect to /profile
       router.push({
         pathname: `/profile`,
+        query: { toast: t("profile_picture_available_next_login") },
       });
 
       setUploading(false);

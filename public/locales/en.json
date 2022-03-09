@@ -158,8 +158,9 @@
     "refer_to_profile": "To begin with, you can change your preferences and apply small personalizations such as changing the language or switching to dark mode.",
     "refer_to_dashboard": "To begin with, you can take a look at the dashboard to get a feel for it.",
     "profile_picture_update": "Update profile picture",
-    "profile_picture_upload": "Upload profile picture",
-    "profile_picture_upload_format_error": "The file format is not supported."
+    "profile_picture_upload": "Upload profile picture (JPEG)",
+    "profile_picture_upload_format_error": "The file format is not supported.",
+    "profile_picture_available_next_login": "New profile picture available on next log in."
   },
   "students": {
     "error": "An error occurred during loading of students.",
@@ -280,7 +281,8 @@
     "admin_view_index": "This dashboard contains information about the server's data, as well as an overview of all users and comments",
     "admin_role": "Admin",
     "teacher_role": "Lecturer",
-    "student_role": "Student"
+    "student_role": "Student",
+    "no_tasks_found": "No assignments found."
   },
   "contact": {
     "title": "Contact",

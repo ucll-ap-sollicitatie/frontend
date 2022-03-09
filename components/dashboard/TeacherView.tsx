@@ -22,7 +22,7 @@ const TeacherView: NextPage<Props> = ({ tasks, t }) => {
           <Link href={`/tasks/add`} passHref>
             <Button className="mb-3">{t("task_add")}</Button>
           </Link>
-          <TasksTable allTasks={tasks} />
+          {tasks ? <TasksTable allTasks={tasks} /> : <p>{t("no_tasks_found")}</p>}
         </Tab>
       </Tabs>
     </>
