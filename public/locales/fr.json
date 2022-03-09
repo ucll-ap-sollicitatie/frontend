@@ -159,9 +159,7 @@
     "refer_to_dashboard": "Pour commencer, vous pouvez jeter un coup d'œil au tableau de bord pour vous faire une idée.",
     "profile_picture_update": "Mettre à jour la photo de profil",
     "profile_picture_upload": "Télécharger une photo de profil",
-    "admin_role": "Admin",
-    "teacher_role": "Professeur",
-    "student_role": "Étudiant"
+    "profile_picture_upload_format_error": "Le format de la photo de profil n'est pas valide."
   },
   "students": {
     "error": "Erreur lors de la récupération des étudiants",
