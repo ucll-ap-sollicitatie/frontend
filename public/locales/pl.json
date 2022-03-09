@@ -157,9 +157,7 @@
     "refer_to_dashboard": "Na początek możesz przyjrzeć się tablicy rozdzielczej, aby się z nią zapoznać.",
     "profile_picture_update": "Zaktualizuj zdjęcie profilowe",
     "profile_picture_upload": "Prześlij zdjęcie profilowe",
-    "admin_role": "Administrator",
-    "teacher_role": "Nauczyciel",
-    "student_role": "Student"
+    "profile_picture_upload_format_error": "Nieprawidłowy format pliku."
   },
   "students": {
     "error": "Wystąpił błąd podczas ładowania uczniów.",
