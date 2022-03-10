@@ -36,7 +36,8 @@
     "page": "Page",
     "go_to_page": "Aller à la page",
     "show": "Afficher",
-    "view": "Voir"
+    "view": "Voir",
+    "search": "Rechercher"
   },
   "modal": {
     "add": "Ajouter",
