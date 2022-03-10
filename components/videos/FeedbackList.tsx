@@ -33,7 +33,7 @@ const FeedbackList: NextPage<Props> = ({ feedback, user, video, handleSelect, ha
                         <strong>{t("feedback")}</strong>
                       </Nav.Link>
                     </Nav.Item>
-                    {feedback.author_email === user.email && (
+                    {(feedback.author_email === user.email || user.role === "Admin") && (
                       <Nav.Item>
                         <Nav.Link eventKey="1">{t("options")}</Nav.Link>
                       </Nav.Item>
