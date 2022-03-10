@@ -74,7 +74,7 @@ const CommentItem: NextPage<Props> = ({ comment, user, handleSelect, handleShowU
             <Nav.Item>
               <Nav.Link eventKey="0">{t("comment")}</Nav.Link>
             </Nav.Item>
-            {comment.author_email === user.email && (
+            {(comment.author_email === user.email || user.role === "Admin") && (
               <Nav.Item>
                 <Nav.Link eventKey="1">{t("options")}</Nav.Link>
               </Nav.Item>
