@@ -4,9 +4,10 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
-import { usePagination, useSortBy, useTable } from "react-table";
+import { useGlobalFilter, usePagination, useSortBy, useTable } from "react-table";
 import RemoveButton from "./buttons/RemoveButton";
 import ShowButton from "./buttons/ShowButton";
+import GlobalFilter from "./GlobalFilter";
 
 interface Props {
   columns: any;
@@ -34,11 +35,18 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
     nextPage,
     previousPage,
     setPageSize,
-    state: { pageIndex, pageSize },
-  } = useTable({ columns, data, initialState: { pageIndex: 0 } }, useSortBy, usePagination);
+    pageIndex,
+    pageSize,
+    state,
+    setGlobalFilter,
+  } = useTable({ columns, data, initialState: { pageIndex: 0 } }, useGlobalFilter, useSortBy, usePagination);
+
+  const { globalFilter } = state;
 
   return (
     <>
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+
       <Table {...getTableProps()} bordered hover responsive>
         <thead>
           {headerGroups.map((headerGroup, index) => (
