@@ -13,10 +13,12 @@ export default NextAuth({
         password: { label: "Password", type: "password", placeholder: "Password" },
       },
       async authorize(credentials, req) {
+        const apiKey = process.env.API_KEY as string;
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "x-api-key": apiKey,
           },
           body: JSON.stringify(credentials),
         });
