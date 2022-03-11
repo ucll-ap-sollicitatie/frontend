@@ -78,7 +78,7 @@ const AddUserForm: NextPage = () => {
       setShow(true);
     } else {
       router.push({
-        pathname: "/preferences",
+        pathname: "/",
         query: { toast: h("register_success") },
       });
     }

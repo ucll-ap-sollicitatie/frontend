@@ -36,17 +36,6 @@ export default NextAuth({
         }
 
         return null;
-
-        // if (res.status === 400) {
-        //   return new Error("Credentials invalid");
-        // }
-        // if (res.status === 401) {
-        //   return new Error("Not activated");
-        // }
-
-        // if (!res.ok) return null;
-        // const user = await res.json();
-        // return user;
       },
     }),
     GithubProvider({
