@@ -1,11 +1,13 @@
 // @ts-nocheck :)
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
-import { Form, Pagination, Table } from "react-bootstrap";
+import Link from "next/link";
+import { Button, Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
-import { usePagination, useSortBy, useTable } from "react-table";
+import { useGlobalFilter, usePagination, useSortBy, useTable } from "react-table";
 import RemoveButton from "./buttons/RemoveButton";
 import UpdateButton from "./buttons/UpdateButton";
+import GlobalFilter from "./GlobalFilter";
 
 interface Props {
   columns: any;
@@ -17,6 +19,7 @@ interface Props {
 
 const TasksReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => {
   const t = useTranslations("table");
+  const tasks = useTranslations("tasks");
 
   const {
     getTableProps,
@@ -32,11 +35,22 @@ const TasksReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }
     nextPage,
     previousPage,
     setPageSize,
+    state,
     state: { pageIndex, pageSize },
-  } = useTable({ columns, data, initialState: { pageIndex: 0 } }, useSortBy, usePagination);
+    setGlobalFilter,
+  } = useTable({ columns, data, initialState: { pageIndex: 0 } }, useGlobalFilter, useSortBy, usePagination);
+
+  const { globalFilter } = state;
 
   return (
     <>
+      <div className="d-flex flex-wrap gap-2 align-items-center">
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+        <Link href={`/tasks/add`} passHref>
+          <Button>{tasks("task_add")}</Button>
+        </Link>
+      </div>
+
       <Table {...getTableProps()} bordered hover responsive>
         <thead>
           {headerGroups.map((headerGroup, index) => (
@@ -82,7 +96,6 @@ const TasksReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }
           })}
         </tbody>
       </Table>
-
       <div className="d-flex flex-wrap align-items-center gap-3">
         <Pagination className="m-0">
           <Pagination.First onClick={() => gotoPage(0)} disabled={!canPreviousPage} />
@@ -119,7 +132,7 @@ const TasksReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }
           }}
           style={{ maxWidth: "136px" }}
         >
-          {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+          {[10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               {t("show")} {pageSize}
             </option>

@@ -55,7 +55,31 @@ On your profile page, it is possible to edit your profile information, change yo
 
 A simple page with an overview of all the people who worked on this project you can contact in case you have any problems when using the website.
 
-## Installation
+## Prerequisites
+
+To start up the application you need:
+
+- **[npm](https://www.npmjs.com/)** (v8.5.0 or later)
+- **[Node.js](https://nodejs.org/en/)** (v16.13.1 or later)
+
+To install npm and node.js please refer to a tutorial. (**[Linux](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/)** | **[Windows](https://phoenixnap.com/kb/install-node-js-npm-on-windows)** | **[Mac](https://www.newline.co/@Adele/how-to-install-nodejs-and-npm-on-macos--22782681)**)
+
+### Secret
+
+While the Github and Google credentials are not used because of the scope of our project, the code is already implemented in `pages/api/[...nextauth].ts`.
+
+Create a `.env.local` file in the root of the project with following content:
+
+```
+GITHUB_CLIENT_ID="your_github_client_id"
+GITHUB_CLIENT_SECRET="your_github_client_secret"
+GOOGLE_ID="your_google_id"
+GOOGLE_SECRET="your_google_secret"
+AUTH_SECRET="your_random_auth_key"
+JWT_SECRET="your_random_jwt_secret"
+```
+
+### Installation
 
 ```bash
 # Install packages
@@ -70,14 +94,13 @@ npm run format
 
 Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Prerequisites
+## TO DO
 
-To start up the application you need:
+Some ideas for the next team:
 
-- **[npm](https://www.npmjs.com/)** (v8.5.0 or later)
-- **[Node.js](https://nodejs.org/en/)** (v16.13.1 or later)
-
-To install npm and node.js please refer to a tutorial. (**[Linux](https://linuxize.com/post/how-to-install-node-js-on-ubuntu-20-04/)** | **[Windows](https://phoenixnap.com/kb/install-node-js-npm-on-windows)** | **[Mac](https://www.newline.co/@Adele/how-to-install-nodejs-and-npm-on-macos--22782681)**)
+- Refactor TasksReactTable and StudentsReactTable to use ReactTable
+- Refactor `/pages/recording/index.tsx` into multiple, smaller components
+- Make the carousel responsive
 
 ## FAQ
 
@@ -103,16 +126,3 @@ This is made strictly for and by UC Leuven-Limburg and is not to be used outside
 The one and of course, only... _Frédéric Vogels_.
 
 ![UCLL](https://user-images.githubusercontent.com/55389806/154109962-3bc1cba1-6d18-4ee0-ba81-bbff7a01f369.png)
-
-## Secret
-
-Create a `.env.local` file in the root of the project with following content:
-
-```
-GITHUB_CLIENT_ID="your_github_client_id"
-GITHUB_CLIENT_SECRET="your_github_client_secret"
-GOOGLE_ID="your_google_id"
-GOOGLE_SECRET="your_google_secret"
-AUTH_SECRET="your_random_auth_key"
-JWT_SECRET="your_random_jwt_secret"
-```

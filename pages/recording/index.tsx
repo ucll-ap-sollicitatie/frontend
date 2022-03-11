@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useTranslations } from "next-intl";
 import router from "next/router";
 import { FormEvent, useCallback, useRef, useState } from "react";
-import { Alert, Button, Stack } from "react-bootstrap";
+import { Alert, Button, Col, Row } from "react-bootstrap";
 import Webcam from "react-webcam";
 import { Stopwatch } from "ts-stopwatch";
 import BreadcrumbComponent from "../../components/BreadcrumbComponent";
@@ -263,22 +263,13 @@ const Recording: NextPage<Props> = ({ categories }) => {
     if (!capturing) {
       return (
         <>
-          <div className="d-flex justify-content-between flex-wrap">
+          <div className="d-flex gap-2 flex-wrap">
             <Button variant="primary" onClick={handleStartCaptureClick}>
               {t("start_recording")}
             </Button>
-            <Button variant="light" onClick={handleGoToQuestionsClick}>
-              {t("back_to_categories")}
+            <Button variant="primary" onClick={handleUploadClick} disabled={!(recordedChunks.length > 0 && webCamReady)}>
+              {t("continue")}
             </Button>
-            {recordedChunks.length > 0 && webCamReady ? (
-              <Button variant="primary" onClick={handleUploadClick}>
-                {t("continue")}
-              </Button>
-            ) : (
-              <Button variant="primary" onClick={handleUploadClick} disabled>
-                {t("continue")}
-              </Button>
-            )}
           </div>
         </>
       );
@@ -318,13 +309,13 @@ const Recording: NextPage<Props> = ({ categories }) => {
             {i("description")}: {category?.description}
           </p>
 
-          <Stack direction="horizontal">
-            <div>
+          <Row md={1} xl={2}>
+            <Col>
               <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded mb-2" audio={true} ref={webcamRef} muted />
               {captureButtons()}
-            </div>
-            {viewCarousel()}
-          </Stack>
+            </Col>
+            <Col className="d-flex align-items-center">{viewCarousel()}</Col>
+          </Row>
         </>
       )}
     </Layout>

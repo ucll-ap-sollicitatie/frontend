@@ -35,7 +35,7 @@ const ProfileCard: NextPage<Props> = ({ user, showUploadModal }) => {
   };
 
   const favoriteVideosComponent = () => {
-    if (user.role === "Lector") {
+    if (user.role === "Lector" && session_user.email === user.email) {
       return <FavoriteVideoButton email={user.email} />;
     }
   };
