@@ -1,13 +1,9 @@
 import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
-import Head from "next/head";
 import { useRouter } from "next/router";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { Alert } from "react-bootstrap";
 import { isPasswordValid, validateEmail } from "../../helpers/helperFunctions";
-import Formation from "../../interfaces/Formation";
-import Role from "../../interfaces/Role";
-import Error from "../../pages/_error";
 import UserForm from "./UserForm";
 
 const AddUserForm: NextPage = () => {
@@ -16,27 +12,8 @@ const AddUserForm: NextPage = () => {
 
   const router = useRouter();
 
-  const [roles, setRoles] = useState<Role[]>([]);
-  const [formations, setFormations] = useState<Formation[]>([]);
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    const fetchRoles = async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/roles`);
-      const data = await response.json();
-      setRoles(data);
-    };
-
-    const fetchFormations = async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/formations`);
-      const data = await response.json();
-      setFormations(data);
-    };
-
-    fetchRoles();
-    fetchFormations();
-  }, []);
 
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -91,7 +68,7 @@ const AddUserForm: NextPage = () => {
         <span>{error}</span>
       </Alert>
 
-      {formations.length > 0 ? <UserForm onSubmit={onSubmit} /> : <p>Server error</p>}
+      <UserForm onSubmit={onSubmit} />
     </>
   );
 };

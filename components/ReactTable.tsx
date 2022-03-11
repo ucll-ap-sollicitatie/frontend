@@ -35,9 +35,8 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
     nextPage,
     previousPage,
     setPageSize,
-    pageIndex,
-    pageSize,
     state,
+    state: { pageIndex, pageSize },
     setGlobalFilter,
   } = useTable({ columns, data, initialState: { pageIndex: 0 } }, useGlobalFilter, useSortBy, usePagination);
 
@@ -122,7 +121,7 @@ const ReactTable: NextPage<Props> = ({ columns, data, url, id, handleShow }) => 
           }}
           style={{ maxWidth: "136px" }}
         >
-          {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+          {[10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               {t("show")} {pageSize}
             </option>

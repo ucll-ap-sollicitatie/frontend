@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import User from "../../interfaces/User";
 import LogoutButton from "../auth/LogoutButton";
-import DarkModeToggle from "../buttons/DarkModeToggle";
 import LocaleDropdown from "../buttons/LocaleDropdown";
 
 const NavBar: NextPage = () => {
@@ -68,7 +67,11 @@ const NavBar: NextPage = () => {
               <Link href={"/contact"} passHref>
                 <Nav.Link href="/">{t("contact")}</Nav.Link>
               </Link>
-              {!session && <LocaleDropdown />}
+              {!session && (
+                <div className="ms-2">
+                  <LocaleDropdown />
+                </div>
+              )}
               {session && <LogoutButton />}
             </Nav>
           </Navbar.Collapse>

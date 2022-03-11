@@ -15,7 +15,7 @@ const CarouselWithQuestions: NextPage<Props> = ({ handleSelect, questions }) => 
   return (
     <Carousel onSelect={handleSelect} interval={null} variant="dark" wrap={false}>
       {questions.map((question, index) => (
-        <Carousel.Item key={index}>
+        <Carousel.Item key={index} style={{ minHeight: "320px" }}>
           {isDarkMode() ? (
             <Image className="d-block w-100" src="https://via.placeholder.com/800x200/222222/222222" alt="Carousel slide" />
           ) : (
