@@ -114,6 +114,7 @@ const Recording: NextPage<Props> = ({ categories }) => {
     setSubtitleCount(1);
     setSubtitles("");
     setPreviousTime(0);
+    setRecordedChunks([]);
   };
 
   const handleStopCaptureClick = () => {
@@ -309,13 +310,14 @@ const Recording: NextPage<Props> = ({ categories }) => {
             {i("description")}: {category?.description}
           </p>
 
-          <Row md={1} xl={2}>
-            <Col>
+          <div className="d-flex flex-wrap">
+            <Col className="col-xl-6 col-lg-12 col-md-12 col-sm-12">
               <Webcam onUserMedia={() => setWebCamReady(true)} className="border rounded mb-2" audio={true} ref={webcamRef} muted />
               {captureButtons()}
             </Col>
-            <Col className="d-flex align-items-center">{viewCarousel()}</Col>
-          </Row>
+            <Col className="d-flex align-items-center col-xl-6 col-lg-12 col-md-12 col-sm-12">{viewCarousel()}</Col>
+          </div>
+          {/* <Row md={1} xl={2} lg={1} sm={1}></Row> */}
         </>
       )}
     </Layout>
