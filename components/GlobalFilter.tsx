@@ -11,7 +11,7 @@ const GlobalFilter: NextPage<Props> = ({ filter, setFilter }) => {
   const t = useTranslations("table");
 
   return (
-    <span className="mt-3 mb-3 d-flex gap-2 align-items-center">
+    <span className="pt-3 pb-3 d-flex gap-2 align-items-center">
       {t("search")}: <Form.Control style={{ maxWidth: "256px" }} type="text" value={filter || ""} onChange={(e) => setFilter(e.target.value)} defaultValue="" />
     </span>
   );

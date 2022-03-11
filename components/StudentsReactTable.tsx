@@ -3,8 +3,9 @@ import type { NextPage } from "next";
 import { useTranslations } from "next-intl";
 import { Form, Pagination, Table } from "react-bootstrap";
 import { BsArrowBarDown, BsArrowBarUp, BsArrowsExpand } from "react-icons/bs";
-import { usePagination, useSortBy, useTable } from "react-table";
+import { useGlobalFilter, usePagination, useSortBy, useTable } from "react-table";
 import ShowButton from "./buttons/ShowButton";
+import GlobalFilter from "./GlobalFilter";
 
 interface Props {
   columns: any;
@@ -30,11 +31,17 @@ const StudentsReactTable: NextPage<Props> = ({ columns, data, url, id }) => {
     nextPage,
     previousPage,
     setPageSize,
+    state,
     state: { pageIndex, pageSize },
-  } = useTable({ columns, data, initialState: { pageIndex: 0 } }, useSortBy, usePagination);
+    setGlobalFilter,
+  } = useTable({ columns, data, initialState: { pageIndex: 0 } }, useGlobalFilter, useSortBy, usePagination);
+
+  const { globalFilter } = state;
 
   return (
     <>
+      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+
       <Table {...getTableProps()} bordered hover responsive>
         <thead>
           {headerGroups.map((headerGroup, index) => (
@@ -105,7 +112,7 @@ const StudentsReactTable: NextPage<Props> = ({ columns, data, url, id }) => {
           }}
           style={{ maxWidth: "136px" }}
         >
-          {[5, 10, 20, 30, 40, 50].map((pageSize) => (
+          {[10, 20, 30, 40, 50].map((pageSize) => (
             <option key={pageSize} value={pageSize}>
               {t("show")} {pageSize}
             </option>

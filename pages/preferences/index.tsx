@@ -100,7 +100,7 @@ const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
           <Stack gap={3}>
             <Form.Group controlId="preference_1">
               <Form.Label>{t("preference")} 1</Form.Label>
-              <Form.Select defaultValue={category_1?.category} required>
+              <Form.Select defaultValue={category_1?.category} style={{ maxWidth: "384px" }} required>
                 {question_categories.map((category: QuestionCategory) => (
                   <option key={category.question_category_id}>{category.category}</option>
                 ))}
@@ -109,7 +109,7 @@ const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
 
             <Form.Group controlId="preference_2">
               <Form.Label>{t("preference")} 2</Form.Label>
-              <Form.Select defaultValue={category_2?.category} required>
+              <Form.Select defaultValue={category_2?.category} style={{ maxWidth: "384px" }} required>
                 {question_categories.map((category: QuestionCategory) => (
                   <option key={category.question_category_id}>{category.category}</option>
                 ))}
@@ -118,7 +118,7 @@ const Preferences: NextPage<Props> = ({ question_categories, preferences }) => {
 
             <Form.Group controlId="preference_3">
               <Form.Label>{t("preference")} 3</Form.Label>
-              <Form.Select defaultValue={category_3?.category} required>
+              <Form.Select defaultValue={category_3?.category} style={{ maxWidth: "384px" }} required>
                 {question_categories.map((category: QuestionCategory) => (
                   <option key={category.question_category_id}>{category.category}</option>
                 ))}

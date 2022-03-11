@@ -15,7 +15,7 @@ const LocaleDropdown: NextPage = () => {
   };
 
   return (
-    <DropdownButton variant="outline-secondary" title={t("language")}>
+    <DropdownButton variant="outline-secondary" title={t("language")} className="m-0">
       <Dropdown.Item onClick={() => changeLanguage("nl")}>Nederlands</Dropdown.Item>
       <Dropdown.Item onClick={() => changeLanguage("en")}>English</Dropdown.Item>
       <Dropdown.Item onClick={() => changeLanguage("fr")}>Français</Dropdown.Item>
