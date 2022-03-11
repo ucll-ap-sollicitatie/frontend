@@ -10,7 +10,6 @@ import Unauthenticated from "../components/Unauthenticated";
 import RandomFavoritesOverview from "../components/videos/RandomFavoritesOverview";
 import User from "../interfaces/User";
 import Video from "../interfaces/Video";
-import Error from "./_error";
 
 export async function getServerSideProps({ locale }) {
   let props = {
@@ -26,6 +25,7 @@ const Home: NextPage = () => {
   const t = useTranslations("home");
   const v = useTranslations("videos");
   const [favoriteVideos, setFavoriteVideos] = useState<Video[]>([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchFavoriteVideos = async () => {
@@ -34,10 +34,11 @@ const Home: NextPage = () => {
       setFavoriteVideos(data);
     };
 
-    fetchFavoriteVideos();
+    if (session?.user) {
+      fetchFavoriteVideos();
+    }
   }, []);
 
-  const { data: session } = useSession();
   const user = session?.user as User;
 
   const chooseIntroduction = () => {
