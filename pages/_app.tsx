@@ -13,7 +13,6 @@ import Amogus from "../components/Amogus";
 import ToastComponent from "../components/ToastComponent";
 import { getLocale, initializeDarkMode } from "../helpers/helperFunctions";
 import "../styles/globals.css";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const router = useRouter();
